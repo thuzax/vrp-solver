@@ -1,4 +1,4 @@
-from src.solver.SovlerClass import SolverClass
+from src.solvers.SovlerClass import SolverClass
 
 class SartoriBuriolPDPTW(SolverClass):
 

@@ -1,9 +1,31 @@
 import argparse
 import json
 
+from src import solvers
+
+def create_solver_objects(dict_solver):
+    solver_class_name = list(dict_solver.keys())[0]
+    
+    solver_class_type = getattr(
+        solvers, 
+        solver_class_name
+    )
+
+    solver_class = solver_class_type()
+    for attribute, value in dict_solver[solver_class_name].items():
+        solver_class.set_attribute(attribute, value)
+
+
 
 def read_configuration(arguments):
-    pass
+    constraints_file_name = arguments["configuration_file"]
+
+    with open(constraints_file_name, "r") as config_file:
+        text = config_file.read()
+        dict_data = json.loads(text)
+
+        dict_solver = dict_data["solver"]
+        create_solver_objects(dict_solver)
 
 
 def parse_command_line_arguments():

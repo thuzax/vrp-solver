@@ -2,8 +2,9 @@ import time
 
 from src import arguments_handler
 from src import execution_log
+from src import exceptions
 
-from src.solver import *
+from src.solvers import *
 
 
 if __name__=="__main__":
@@ -16,8 +17,8 @@ if __name__=="__main__":
 
     solver = SartoriBuriolPDPTW()
 
-    solver.output_path = "./"
-    solver.output_name = "teste"
+
+    print(solver.__dict__)
 
     exception = None
     try:

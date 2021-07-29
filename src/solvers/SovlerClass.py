@@ -2,6 +2,8 @@ import json
 
 from abc import ABC, abstractmethod
 
+from src import exceptions
+
 
 class SolverClass(ABC):
     
@@ -43,6 +45,7 @@ class SolverClass(ABC):
                 self.__class__.__name__, 
                 name
             )
+            
         
         self.__setattr__(name, value)
 
