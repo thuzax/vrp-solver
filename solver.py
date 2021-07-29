@@ -1,12 +1,18 @@
 import time
 
 from src import arguments_handler
+from src import execution_log
+
 from src.solver import *
 
 
 if __name__=="__main__":
-    arguments = arguments_handler.parse_command_line_arguments()
+    execution_log.info_log("*Starting Program*")
     start_time = time.time()
+
+    execution_log.info_log("Reading Input Parameters...")
+    arguments = arguments_handler.parse_command_line_arguments()
+    arguments_handler.read_configuration(arguments)
 
     solver = SartoriBuriolPDPTW()
 
@@ -25,6 +31,7 @@ if __name__=="__main__":
             print(exception)
             raise exception
         
+        execution_log.info_log("Writting Running Data...")
         end_time = time.time()
         total_time = end_time - start_time
         
@@ -34,3 +41,4 @@ if __name__=="__main__":
         }
 
         solver.write_final_data(running_data)
+        execution_log.info_log("*Ending Program.*")

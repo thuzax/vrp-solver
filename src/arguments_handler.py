@@ -2,6 +2,9 @@ import argparse
 import json
 
 
+def read_configuration(arguments):
+    pass
+
 
 def parse_command_line_arguments():
     """Manage the command line arguments
