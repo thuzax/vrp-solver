@@ -1,9 +1,10 @@
 import argparse
 import json
 
+from src import instance_readers
 from src import solvers
 
-def create_solver_objects(dict_solver):
+def create_solver_object(dict_solver):
     solver_class_name = list(dict_solver.keys())[0]
     
     solver_class_type = getattr(
@@ -16,6 +17,19 @@ def create_solver_objects(dict_solver):
         solver_class.set_attribute(attribute, value)
 
 
+def create_reader_object(dict_reader):
+    reader_class_name = list(dict_reader.keys())[0]
+    
+    reader_class_type = getattr(
+        instance_readers, 
+        reader_class_name
+    )
+
+    solver_class = reader_class_type()
+    for attribute, value in dict_reader[reader_class_name].items():
+        solver_class.set_attribute(attribute, value)
+
+
 
 def read_configuration(arguments):
     constraints_file_name = arguments["configuration_file"]
@@ -25,8 +39,10 @@ def read_configuration(arguments):
         dict_data = json.loads(text)
 
         dict_solver = dict_data["solver"]
-        create_solver_objects(dict_solver)
+        create_solver_object(dict_solver)
 
+        dict_reader = dict_data["reader"]
+        create_reader_object(dict_reader)
 
 def parse_command_line_arguments():
     """Manage the command line arguments

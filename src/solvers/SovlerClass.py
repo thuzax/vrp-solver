@@ -12,10 +12,6 @@ class SolverClass(ABC):
     ### Obrigatory for all Porblems ###
     
     # Acquired from configuration file
-    input_path = None
-    input_name = None
-    input_type = "json"
-
     output_path = None
     output_name = None
     output_type = "json"
@@ -46,7 +42,6 @@ class SolverClass(ABC):
                 name
             )
             
-        
         self.__setattr__(name, value)
 
 

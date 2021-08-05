@@ -1,12 +1,17 @@
 {
     "solver" : {
         "SartoriBuriolPDPTW" : {
-            "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg_input",
-            "input_type" : "json",
             "output_path" : "./test_instances/result_files/",
             "output_name" : "br-ms-cg"
         }
+    },
+    "reader": {
+        "ReaderJsonPDPTW" : {
+            "input_path" : "./test_instances/input_files/",
+            "input_name" : "br-ms-cg_input",
+            "input_type" : "json"
+        }
     }
 
+    
 }
