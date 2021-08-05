@@ -1,10 +1,10 @@
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 
 from src.instance_readers.Reader import *
 from src import exceptions
 
 
-class Reader(ABC):
+class Reader(metaclass=ABCMeta):
 
 
     instance = None

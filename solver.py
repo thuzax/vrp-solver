@@ -8,6 +8,7 @@ from src import exceptions
 
 from src.solvers import *
 from src.instance_readers import *
+from src.route_classes import *
 
 def read_input_file():
     execution_log.info_log("Reading input file...")
@@ -21,6 +22,20 @@ def read_input_file():
         solver.set_attribute(solver_attr_name, reader_attr)
 
 
+def solve_problem():
+    solver_obj = SolverClass()
+    
+    solver_route_attr_relation = Route.get_solver_route_attribute_relation()
+
+
+    dict_attr_values = {}
+    for solver_attr, route_attr in solver_route_attr_relation.items():
+        solver_attr_value = getattr(solver, solver_attr)
+        dict_attr_values[route_attr] = solver_attr_value
+    
+    Route.update_route_class_params(dict_attr_values)
+
+    solver_obj.solve()
 
 if __name__=="__main__":
     execution_log.info_log("*Starting Program*")
@@ -39,8 +54,9 @@ if __name__=="__main__":
 
         solver = SolverClass()
         read_input_file()
+        solve_problem()
 
-        print(solver.__dict__)
+        # print(solver.__dict__)
 
     except Exception as ex:
         exception = ex

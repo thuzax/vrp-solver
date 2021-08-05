@@ -1,11 +1,11 @@
 import json
 
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 
 from src import exceptions
 
 
-class SolverClass(ABC):
+class SolverClass(metaclass=ABCMeta):
     
     instance = None
     
@@ -43,6 +43,11 @@ class SolverClass(ABC):
             )
             
         self.__setattr__(name, value)
+
+
+    @abstractmethod
+    def solve():
+        pass
 
 
     def write_file(self):

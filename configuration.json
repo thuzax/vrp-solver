@@ -11,6 +11,11 @@
             "input_name" : "br-ms-cg_input",
             "input_type" : "json"
         }
+    },
+    "route_class" : {
+        "RoutePDPTW" : {
+            
+        }
     }
 
     

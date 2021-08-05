@@ -23,6 +23,7 @@ class ReaderJsonPDPTW(Reader):
     origin = None
     pickups = None
     deliveries = None
+    number_of_requests = None
 
     has_origin = None
 
@@ -76,6 +77,7 @@ class ReaderJsonPDPTW(Reader):
 
 
     def read_pickups_and_deliveries(self, pds):
+        self.number_of_requests = len(pds)
         # pickups = origin + first half of points
         self.pickups = numpy.array(
             [i for i in range(1, len(pds)+1)], 
@@ -171,7 +173,8 @@ class ReaderJsonPDPTW(Reader):
             "time_windows_size" : "time_windows_size",
             "origin" : "origin_id",
             "pickups" : "pickups_ids",
-            "deliveries" : "deliveries_ids"
+            "deliveries" : "deliveries_ids",
+            "number_of_requests" : "number_of_requests"
         }
 
         return reader_solver_attributes_relation

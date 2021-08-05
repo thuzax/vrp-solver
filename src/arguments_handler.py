@@ -1,6 +1,8 @@
 import argparse
 import json
+from src.route_classes.Route import RouteSubClass
 
+from src import route_classes
 from src import instance_readers
 from src import solvers
 
@@ -30,6 +32,15 @@ def create_reader_object(dict_reader):
         solver_class.set_attribute(attribute, value)
 
 
+def configure_route_class(dict_route):
+    route_class_name = list(dict_route.keys())[0]
+    route_class_type = getattr(
+        route_classes, 
+        route_class_name
+    )
+
+    RouteSubClass(route_class_type)
+
 
 def read_configuration(arguments):
     constraints_file_name = arguments["configuration_file"]
@@ -43,6 +54,10 @@ def read_configuration(arguments):
 
         dict_reader = dict_data["reader"]
         create_reader_object(dict_reader)
+
+        dict_route = dict_data["route_class"]
+        configure_route_class(dict_route)
+
 
 def parse_command_line_arguments():
     """Manage the command line arguments
