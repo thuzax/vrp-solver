@@ -141,7 +141,7 @@ class ObjDistancePDPTW(ObjFunction):
     def get_attr_relation_reader_func():
         solver_func_attr_rela = {
             "distance_matrix" : "distance_matrix",
-            "start_id" : "depot"
+            "depot" : "depot"
         }
         return solver_func_attr_rela
 

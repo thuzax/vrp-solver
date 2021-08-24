@@ -48,10 +48,13 @@ class Vertex(GenericClass, metaclass=ABCMeta):
     def __init__(self, vertex_class_name=None):
         if (not hasattr(self, "name")):
             self.name = vertex_class_name
-            self.coords = None
             self.vertex_id = None
 
             self.initialize_class_attributes()
+
+
+    def __str__(self):
+        return str(self.vertex_id)
 
 
     def set_input_params(self):

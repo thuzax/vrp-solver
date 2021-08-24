@@ -24,8 +24,7 @@ class SartoriBuriolPDPTW(SolverClass):
         self.time_windows = None
         self.planning_horizon = None
         self.time_windows_size = None
-        self.start_id = None
-        self.end_id = None
+        self.depot = None
         self.pickups_ids = None
         self.deliveries_ids = None
         self.number_of_requests = None
@@ -113,8 +112,7 @@ class SartoriBuriolPDPTW(SolverClass):
             "time_windows" : "time_windows",
             "planning_horizon" : "planning_horizon",
             "time_windows_size" : "time_windows_size",
-            "start_id" : "start_id",
-            "end_id" : "end_id",
+            "depot" : "depot",
             "pickups" : "pickups_ids",
             "deliveries" : "deliveries_ids",
             "requests" : "requests",

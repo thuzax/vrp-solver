@@ -52,6 +52,6 @@ class TimeWindowsConstraint(Constraint):
             "planning_horizon" : "planning_limit",
             "time_matrix" : "time_matrix",
             "time_windows" : "time_windows",
-            "start_id" : "depot"
+            "depot" : "depot"
         }
         return attr_relation

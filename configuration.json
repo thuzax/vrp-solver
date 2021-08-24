@@ -77,8 +77,8 @@
             
         }
     },
-    "node_class" : {
-        "NodePDPTW" : {
+    "vertex_class" : {
+        "VertexPDPTW" : {
 
         }
     }

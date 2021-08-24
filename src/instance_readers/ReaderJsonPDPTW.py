@@ -1,5 +1,6 @@
 
 import json
+from src.vertex_classes.Vertex import Vertex
 import numpy
 import math
 
@@ -27,51 +28,44 @@ class ReaderJsonPDPTW(Reader):
         self.time_windows_size = None
 
         # Generated based on input File
-        self.start_id = None
-        self.end_id = None
+        self.depot = None
         self.pickups = None
         self.deliveries = None
-        self.number_of_requests = None
         self.requests = None
 
-        self.has_origin = None
+        self.has_depot = None
 
     
-    def read_points(self, points_dict, n_points, start_id=None):
-        self.has_origin = (start_id is not None)
+    def read_points(self, points_dict, n_points):
+        self.has_depot = (n_points % 2 == 1)
         points = []
-        index_increment = 0
 
-        if (not self.has_origin):
-            index_increment = 1
+        start_index = 0
+        if (not self.has_depot):
+            start_index = 1
+
+        for i in range(start_index, n_points+start_index):
+            points.append(points_dict[str(i)])
+
+        self.number_of_points = n_points
         
-        for i in range(n_points):
-            points.append(points_dict[str(i + index_increment)])
-
+        # depot is considered 0
+        self.depot = 0
         # if doesn't have a origini
-        if (not self.has_origin):
+        if (not self.has_depot):
             #  add fake depot
             self.points = numpy.array(
                 [[None, None]] + points, 
                 dtype=float
             )
-            self.number_of_points = n_points + 1
-            self.start_id = 0
-            self.end_id = 0
+            self.number_of_points += 1
+
         else:
-            # otherwise consider start_id and end_id the point in position 0
             self.points = numpy.array(points, dtype=float)
-            self.number_of_points = n_points
-            self.start_id = start_id
         
 
 
     def read_matrix(self, matrix_dict):
-        # matrix = numpy.zeros(
-        #     shape=(self.number_of_points, self.number_of_points), 
-        #     dtype=int
-        # )
-
 
         matrix = [
             [
@@ -81,13 +75,12 @@ class ReaderJsonPDPTW(Reader):
             for i in range(self.number_of_points)
         ]
 
-        index_incr = 0
-        if (not self.has_origin):
-            index_incr = 1
+        start_index = 0
+        if (not self.has_depot):
+            start_index = 1
 
-        for i in range(index_incr, self.number_of_points):
-            for j in range(index_incr, self.number_of_points):
-
+        for i in range(start_index, self.number_of_points):
+            for j in range(start_index, self.number_of_points):
                 matrix[i][j] = int(matrix_dict[str(i)][str(j)])
 
         matrix = tuple(map(tuple, matrix))
@@ -121,16 +114,11 @@ class ReaderJsonPDPTW(Reader):
     def read_demands(self, dem):
         self.demands = numpy.zeros((len(self.points)), dtype=int)
 
-        self.demands[self.start_id] = 0
-        self.demands[self.end_id] = 0
+        self.demands[self.depot] = 0
 
-        index_increment = 0
-        if (not self.has_origin):
-            index_increment = 1
-
-        for i in range(index_increment, len(self.pickups)+index_increment):
-            self.demands[i] = dem[str(i)]
-            self.demands[i+self.number_of_requests] = -dem[str(i)]
+        for pickup, delivery in self.requests:
+            self.demands[pickup] = dem[str(pickup)]
+            self.demands[delivery] = -dem[str(delivery)]
         
         self.demands = tuple(self.demands)
 
@@ -138,16 +126,12 @@ class ReaderJsonPDPTW(Reader):
     def read_services_times(self, serv_times):
         self.services_times = numpy.zeros(len(self.points), dtype=int)
 
-        self.services_times[self.start_id] = 0
-        self.services_times[self.end_id] = 0
-
-        index_increment = 0
-        if (not self.has_origin):
-            index_increment = 1
+        self.services_times[self.depot] = 0
         
-        for i in range(index_increment, len(self.points)):
-            self.services_times[i] = serv_times[str(i)]
-
+        for pickup, delivery in self.requests:
+            self.services_times[pickup] = serv_times[str(pickup)]
+            self.services_times[delivery] = -serv_times[str(delivery)]
+        
         self.services_times = tuple(self.services_times)
 
 
@@ -158,18 +142,13 @@ class ReaderJsonPDPTW(Reader):
             dtype=int
         )
 
-        self.time_windows[self.start_id][0] = 0
-        self.time_windows[self.end_id][0] = 0
+        self.time_windows[self.depot][0] = 0
+        self.time_windows[self.depot][1] = self.planning_horizon
 
-        self.time_windows[self.start_id][1] = self.planning_horizon
-        self.time_windows[self.end_id][1] = self.planning_horizon
-
-        if (not self.has_origin):
-            index_increment = 1
         
-        for i in range(index_increment, len(self.points)):
-            self.time_windows[i][0] = tws[str(i)][0]
-            self.time_windows[i][1] = tws[str(i)][1]
+        for pickup, delivery in self.requests:
+            self.time_windows[pickup][0] = tws[str(pickup)][0]
+            self.time_windows[delivery][1] = tws[str(delivery)][1]
 
         self.time_windows = tuple(map(tuple, self.time_windows))
 
@@ -191,6 +170,7 @@ class ReaderJsonPDPTW(Reader):
             planning_horizon = input_dict["planning_horizon"]
             time_windows_size = input_dict["time_windows_size"]
 
+
         self.capacity = int(cap)
         self.planning_horizon = int(planning_horizon)
         self.time_windows_size = int(time_windows_size)
@@ -203,3 +183,14 @@ class ReaderJsonPDPTW(Reader):
         self.read_services_times(serv_times)
         self.read_time_windows(tws)
 
+
+    def create_request_vertex(self, request_position):
+        request = self.requests[request_position]
+        pickup, delivery = request
+
+        self.create_vertex(pickup)
+        self.create_vertex(delivery)
+
+
+    def create_depots(self):
+        self.create_vertex(self.depot)

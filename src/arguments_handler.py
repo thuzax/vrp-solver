@@ -1,16 +1,17 @@
 import argparse
 import json
 
-from src import heuristics, route_classes
-from src import instance_readers
-from src import solvers
-
+from src import route_classes
+from src import vertex_classes
 
 
 from src.objects_managers import ObjFunctionsObjects
 from src.objects_managers import HeuristicsObjects
 from src.objects_managers import ConstraintsObjects
+
 from src.route_classes.Route import RouteSubClass
+from src.vertex_classes.Vertex import VertexSubClass
+
 from src.objects_creation_manager import create_class_by_name
 
 def create_obj_function_objects(dict_obj_func):
@@ -93,6 +94,16 @@ def configure_route_class(dict_route):
 
     RouteSubClass(route_class_type)
 
+def configure_vertex_class(dict_vertex):
+    vertex_class_name = list(dict_vertex.keys())[0]
+    vertex_class_type = getattr(
+        vertex_classes, 
+        vertex_class_name
+    )
+
+    VertexSubClass(vertex_class_type)
+
+
 
 def read_configuration(arguments):
     constraints_file_name = arguments["configuration_file"]
@@ -118,6 +129,9 @@ def read_configuration(arguments):
 
         dict_route = dict_data["route_class"]
         configure_route_class(dict_route)
+
+        dict_vertex = dict_data["vertex_class"]
+        configure_vertex_class(dict_vertex)
 
 
 def parse_command_line_arguments():
