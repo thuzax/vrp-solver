@@ -7,7 +7,7 @@ class GenericClass(metaclass=ABCMeta):
 
     @abstractmethod
     def __init__(self):
-        pass
+        self.initialize_class_attributes()
 
 
     def set_attribute(self, name, value):
@@ -22,3 +22,7 @@ class GenericClass(metaclass=ABCMeta):
     def update_values(self, dict_update):
         for name, value in dict_update.items():
             self.set_attribute(name, value)
+
+    @abstractmethod
+    def initialize_class_attributes(self):
+        pass

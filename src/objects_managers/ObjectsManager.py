@@ -2,7 +2,7 @@ from abc import abstractmethod
 from src import exceptions
 from src.GenericClass import GenericClass
 
-class ObjectsManager(GenericClass):
+class ObjectsManager:
     
     children_instances = {}
 

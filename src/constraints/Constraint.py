@@ -18,6 +18,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
     def __init__(self, name):
         if (not hasattr(self, "name")):
             self.name = name
+            self.initialize_class_attributes()
 
 
     @abstractmethod

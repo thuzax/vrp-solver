@@ -9,7 +9,11 @@ class ObjVehicles(ObjFunction):
 
     def __init__(self):
         super().__init__("Distance Objective")
-    
+
+
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+
 
     def get_route_cost(self, route):
         route_order = route.get_order()
@@ -29,7 +33,7 @@ class ObjVehicles(ObjFunction):
         return total_cost
 
     # Use the route distance as second criteria
-    def request_inserted_additional_cost(self, route, positions, request):
+    def request_inserted_additional_route_cost(self, route, positions, request):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n

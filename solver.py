@@ -42,6 +42,12 @@ def set_read_objects_attributes(reader):
         read_cons_attr_rela = constraint.get_attr_relation_solver_constr()
         set_object_attributes(reader, constraint, read_cons_attr_rela)
 
+    reader_route_attr_relation = Route.get_reader_route_attr_relation()
+    dict_attr_values = {}
+    for reader_attr, route_attr in reader_route_attr_relation.items():
+        reader_attr_value = getattr(reader, reader_attr)
+        dict_attr_values[route_attr] = reader_attr_value
+    Route.update_route_class_params(dict_attr_values)
 
 
 
@@ -54,7 +60,7 @@ def read_input_file():
 
 def solve_problem():
     solver_obj = SolverClass()
-    solver_route_attr_relation = Route.get_solver_route_attr_relation()
+    solver_route_attr_relation = Route.get_reader_route_attr_relation()
 
     dict_attr_values = {}
     for solver_attr, route_attr in solver_route_attr_relation.items():

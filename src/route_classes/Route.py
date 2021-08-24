@@ -52,11 +52,16 @@ class Route(GenericClass, metaclass=ABCMeta):
             self.name = route_class_name
             self.vertices_order = []
             self.vertices_set = set()
+            self.route_cost = 0
+            self.initialize_class_attributes()
+            self.set_input_params()
 
-            route_input_params = RouteSubClass.route_subclass_params
-            for param_name, param_value in route_input_params.items():
-                self.set_attribute(param_name, param_value)
 
+    def set_input_params(self):
+        route_input_params = RouteSubClass.route_subclass_params
+        for param_name, param_value in route_input_params.items():
+            self.set_attribute(param_name, param_value)
+            
 
     def get_previous_vertex_of_position(self, position):
         if (position <= 0):
@@ -84,8 +89,6 @@ class Route(GenericClass, metaclass=ABCMeta):
         
     def get_points_set(self):
         return self.vertices_set
-
-
 
 
     def empty(self):
@@ -122,20 +125,20 @@ class Route(GenericClass, metaclass=ABCMeta):
     
     @abstractmethod
     def cost(self):
-        pass
+        return self.route_cost
 
 
     @staticmethod
     @abstractmethod
-    def get_attr_relation_solver_route():
+    def get_attr_relation_reader_route():
         pass
 
 
     @staticmethod
-    def get_solver_route_attr_relation():
+    def get_reader_route_attr_relation():
         route_subclass = RouteSubClass().route_subclass
-        sol_rout_attr = route_subclass.get_attr_relation_solver_route()
-        return sol_rout_attr
+        reader_rout_attr = route_subclass.get_attr_relation_reader_route()
+        return reader_rout_attr
 
 
     @staticmethod

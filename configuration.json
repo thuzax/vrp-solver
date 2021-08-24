@@ -76,7 +76,11 @@
         "RoutePDPTW" : {
             
         }
-    }
+    },
+    "node_class" : {
+        "NodePDPTW" : {
 
+        }
+    }
     
 }

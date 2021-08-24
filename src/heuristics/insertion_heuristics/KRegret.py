@@ -10,10 +10,12 @@ from src.route_classes.Route import *
 class KRegret(InsertionHeuristic):
     
     def __init__(self):
-        if (not hasattr(self, "name")):
-            super().__init__("KRegret")
-            self.non_insertion_cost = None
+        super().__init__("KRegret")
 
+
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        self.non_insertion_cost = None
 
 
     def try_to_insert(self, route, positions, request, obj_func):
@@ -111,7 +113,7 @@ class KRegret(InsertionHeuristic):
                 if (self.obj_func.route_is_better(new_route, best_route)):
                     best_route = new_route
                     best_insertion_position = (i, j)
-        
+
         return (
             best_insertion_position,
             best_route
@@ -129,7 +131,6 @@ class KRegret(InsertionHeuristic):
             position, new_route = (
                 self.get_best_insertion_in_route(route, request)
             )
-
             if (new_route is None):
                 cost = self.non_insertion_cost
                 new_route = None

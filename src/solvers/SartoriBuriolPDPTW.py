@@ -10,32 +10,35 @@ from src.solvers.SovlerClass import SolverClass
 class SartoriBuriolPDPTW(SolverClass):
 
     def __init__(self):
-        if (not hasattr(self, "name")):
-            super().__init__("Sartori and Buriol 2020 algorithm")
-            self.points = None
-            self.distance_matrix = None
-            self.time_matrix = None
-            self.capacity = None
-            self.demands = None
-            self.services_times = None
-            self.time_windows = None
-            self.planning_horizon = None
-            self.time_windows_size = None
-            self.start_id = None
-            self.end_id = None
-            self.pickups_ids = None
-            self.deliveries_ids = None
-            self.number_of_requests = None
-            self.requests = None
+        super().__init__("Sartori and Buriol 2020 algorithm")
 
-            self.remaining_requests_set = None
 
-            self.construction_name = None
-            self.construction = None
-            self.local_searches = None
-            self.local_searches_order = None
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        self.points = None
+        self.distance_matrix = None
+        self.time_matrix = None
+        self.capacity = None
+        self.demands = None
+        self.services_times = None
+        self.time_windows = None
+        self.planning_horizon = None
+        self.time_windows_size = None
+        self.start_id = None
+        self.end_id = None
+        self.pickups_ids = None
+        self.deliveries_ids = None
+        self.number_of_requests = None
+        self.requests = None
 
-    
+        self.remaining_requests_set = None
+
+        self.construction_name = None
+        self.construction = None
+        self.local_searches = None
+        self.local_searches_order = None
+
+
     def construct_initial_solution(self):
         insertion_requests = set(self.requests)
         routes = []

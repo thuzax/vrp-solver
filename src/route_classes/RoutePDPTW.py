@@ -8,23 +8,20 @@ from src.route_classes import Route
 
 class RoutePDPTW(Route):
 
-    planning_horizon = None
-    time_windows_size = None
-
-    time_matrix = None
-    services_times = None
-    time_windows = None
-    demands = None
-    capacity = None
-
     def __init__(self):
-        if (not hasattr(self, "name")):
-            super().__init__("Route PDPTW")
-            self.arrival_times = []
-            self.total_demand_on_vertices = []
-            self.total_cost = 0
+        super().__init__("Route PDPTW")
 
 
+    def initialize_class_attributes(self):
+        self.arrival_times = []
+        self.total_demand_on_vertices = []
+        self.planning_horizon = None
+        self.time_windows_size = None
+        self.time_matrix = None
+        self.services_times = None
+        self.time_windows = None
+        self.demands = None
+        self.capacity = None
 
 
     def update_route_values(self, initial_position, final_position):
@@ -89,7 +86,7 @@ class RoutePDPTW(Route):
         self.insert_vertex(pickup_pos, pickup)
         self.insert_vertex(delivery_pos, delivery)
         
-        self.total_cost += obj_func.request_inserted_additional_cost(
+        self.route_cost += obj_func.request_inserted_additional_route_cost(
             self,
             insert_position, 
             request
@@ -149,7 +146,7 @@ class RoutePDPTW(Route):
 
 
     def cost(self):
-        return self.total_cost
+        return super().cost()
 
 
     def number_of_requests(self):
@@ -159,7 +156,7 @@ class RoutePDPTW(Route):
     def copy(self):
         copy_route = Route()
         copy_route.arrival_times = copy.copy(self.arrival_times)
-        copy_route.total_cost = copy.copy(self.total_cost)
+        copy_route.route_cost = copy.copy(self.route_cost)
         copy_route.vertices_order = copy.copy(self.vertices_order)
         copy_route.vertices_set = copy.copy(self.vertices_set)
         copy_route.total_demand_on_vertices = (
@@ -173,15 +170,13 @@ class RoutePDPTW(Route):
         text = "Route: " + str(self.vertices_order) + "\n"
         text += "Arrival Time: " + str(self.arrival_times) + "\n"
         text += "Demands: " + str(self.total_demand_on_vertices) + "\n"
-        text += "Cost: " + str(self.total_cost) + "\n"
+        text += "Cost: " + str(self.route_cost) + "\n"
         return text
 
 
     @staticmethod
-    def get_attr_relation_solver_route():
-        solver_route_attr_rela = {
-            "planning_horizon" : "planning_horizon",
-            "time_windows_size" : "time_windows_size",
+    def get_attr_relation_reader_route():
+        reader_route_attr_rela = {
             "time_matrix" : "time_matrix",
             "services_times" : "services_times",
             "time_windows" : "time_windows",
@@ -189,4 +184,4 @@ class RoutePDPTW(Route):
             "capacity" : "capacity"
         }
         
-        return solver_route_attr_rela
+        return reader_route_attr_rela

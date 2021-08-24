@@ -21,6 +21,7 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
     def __init__(self, name):
         if (not hasattr(self, "name")):
             self.name = name
+            self.initialize_class_attributes()
 
 
     @abstractmethod
@@ -34,7 +35,7 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def request_inserted_additional_cost(self, route, positions, request):
+    def request_inserted_additional_route_cost(self, route, positions, request):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n

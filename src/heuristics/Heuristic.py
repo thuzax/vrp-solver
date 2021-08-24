@@ -28,6 +28,8 @@ class Heuristic(GenericClass, metaclass=ABCMeta):
             self.constraints = None
             self.constraints_names = None
 
+            self.initialize_class_attributes()
+
     
     def route_is_feasible(self, route):
         for constraint in self.constraints:

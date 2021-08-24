@@ -3,10 +3,13 @@ from src.constraints import Constraint
 class HomogeneousCapacityConstraint(Constraint):
 
     def __init__(self):
-        if (not hasattr(self, "name")):
-            super().__init__("Homogenous Capacity Constraint")
-            self.max_capacity = None
-            self.demands = None
+        super().__init__("Homogenous Capacity Constraint")
+            
+
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        self.max_capacity = None
+        self.demands = None
 
 
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):

@@ -9,6 +9,11 @@ class SetPartitionModel(Heuristic):
         if (not hasattr(self, "name")):
             super().__init__("SetPartitionModel")
 
+
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+
+
     def solve(self, parameters):
         super().solve()
 

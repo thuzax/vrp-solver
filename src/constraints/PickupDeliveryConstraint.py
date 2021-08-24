@@ -3,11 +3,14 @@ from src.constraints import Constraint
 class PickupDeliveryConstraint(Constraint):
 
     def __init__(self):
-        if (not hasattr(self, "name")):
-            super().__init__("Pickup and Delivery Constraint")
-            self.pickups = None
-            self.deliveries = None
-            self.number_of_requests = None
+        super().__init__("Pickup and Delivery Constraint")
+
+
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        self.pickups = None
+        self.deliveries = None
+        self.number_of_requests = None
 
 
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):

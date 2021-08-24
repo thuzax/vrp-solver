@@ -25,8 +25,6 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         return cls.instance
 
     def __init__(self, solver_class_name):
-        super().__init__()
-        
         if (not hasattr(self, "name")):
             self.name = solver_class_name
             
@@ -38,6 +36,8 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             self.obj_func_name = None
             self.constraints_names = None
             self.constraints = None
+
+            self.initialize_class_attributes()
 
 
     def route_is_feasible(self, route):

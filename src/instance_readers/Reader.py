@@ -31,7 +31,9 @@ class Reader(GenericClass, metaclass=ABCMeta):
         return cls.instance
 
     def __init__(self, reader_class_name):
-        self.name = reader_class_name
+        if (not hasattr(self, "name")):
+            self.name = reader_class_name
+            self.initialize_class_attributes()
 
 
     # def set_attribute(self, name, value):

@@ -7,31 +7,35 @@ from src.instance_readers.Reader import Reader
 
 class ReaderJsonPDPTW(Reader):
     
-    # From input File
-    points = None
-    number_of_points = None
-    distance_matrix = None
-    time_matrix = None
-    capacity = None
-    demands = None
-    services_times = None
-    time_windows = None
-    planning_horizon = None
-    time_windows_size = None
 
-    # Generated based on input File
-    start_id = None
-    end_id = None
-    pickups = None
-    deliveries = None
-    number_of_requests = None
-    requests = None
-
-    has_origin = None
 
     def __init__(self):
         super().__init__("PDPTW json input file Reader")
     
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        # From input File
+        self.points = None
+        self.number_of_points = None
+        self.distance_matrix = None
+        self.time_matrix = None
+        self.capacity = None
+        self.demands = None
+        self.services_times = None
+        self.time_windows = None
+        self.planning_horizon = None
+        self.time_windows_size = None
+
+        # Generated based on input File
+        self.start_id = None
+        self.end_id = None
+        self.pickups = None
+        self.deliveries = None
+        self.number_of_requests = None
+        self.requests = None
+
+        self.has_origin = None
+
     
     def read_points(self, points_dict, n_points, start_id=None):
         self.has_origin = (start_id is not None)
