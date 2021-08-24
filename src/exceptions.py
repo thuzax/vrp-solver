@@ -11,3 +11,10 @@ class ClassCannotBeInherited(Exception):
         message = ""
         message += "Class " + class_name + " cannot be inherited."
         super().__init__(message)
+
+class ObjectClassIsNotClassType(Exception):
+    def __init__(self, obj_class_name, class_type_name):
+        message = ""
+        message += "Class " + obj_class_name + " is not a " 
+        message += class_type_name + "."
+        super().__init__(message)

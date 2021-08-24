@@ -20,10 +20,12 @@ class ReaderJsonPDPTW(Reader):
     time_windows_size = None
 
     # Generated based on input File
-    origin = None
+    start_id = None
+    end_id = None
     pickups = None
     deliveries = None
     number_of_requests = None
+    requests = None
 
     has_origin = None
 
@@ -31,8 +33,8 @@ class ReaderJsonPDPTW(Reader):
         super().__init__("PDPTW json input file Reader")
     
     
-    def read_points(self, points_dict, n_points, origin=None):
-        self.has_origin = (origin is not None)
+    def read_points(self, points_dict, n_points, start_id=None):
+        self.has_origin = (start_id is not None)
         points = []
         index_increment = 0
 
@@ -44,64 +46,96 @@ class ReaderJsonPDPTW(Reader):
 
         # if doesn't have a origini
         if (not self.has_origin):
-            #  add origin
+            #  add fake depot
             self.points = numpy.array(
                 [[None, None]] + points, 
                 dtype=float
             )
             self.number_of_points = n_points + 1
-            self.origin = 0
+            self.start_id = 0
+            self.end_id = 0
         else:
-            # otherwise consider origin the point in position 0
+            # otherwise consider start_id and end_id the point in position 0
             self.points = numpy.array(points, dtype=float)
             self.number_of_points = n_points
-            self.origin = origin
+            self.start_id = start_id
         
 
-    
+
     def read_matrix(self, matrix_dict):
-        matrix = numpy.zeros(
-            shape=(self.number_of_points, self.number_of_points), 
-            dtype=int
-        )
-        index_increment = 0
+        # matrix = numpy.zeros(
+        #     shape=(self.number_of_points, self.number_of_points), 
+        #     dtype=int
+        # )
 
+
+        matrix = [
+            [
+                0
+                for i in range(self.number_of_points)
+            ]
+            for i in range(self.number_of_points)
+        ]
+
+        index_incr = 0
         if (not self.has_origin):
-            index_increment = 1
+            index_incr = 1
 
-        for i in range(index_increment, self.number_of_points):
-            for j in range(index_increment, self.number_of_points):
+        for i in range(index_incr, self.number_of_points):
+            for j in range(index_incr, self.number_of_points):
+
                 matrix[i][j] = int(matrix_dict[str(i)][str(j)])
+
+        matrix = tuple(map(tuple, matrix))
 
         return matrix
 
 
     def read_pickups_and_deliveries(self, pds):
         self.number_of_requests = len(pds)
-        # pickups = origin + first half of points
+        # pickups = first half of points
         self.pickups = numpy.array(
             [i for i in range(1, len(pds)+1)], 
             dtype=int
         )
 
-        # deliveries = origin + second half of points
+        # deliveries = second half of points
         self.deliveries = numpy.array(
             [i + 1 + len(pds) for i in range(len(pds))], 
             dtype=int
         )
 
+        self.requests = tuple([
+            (self.pickups[i], self.deliveries[i])
+            for i in range(len(pds))
+        ])
+
+        self.pickups = tuple(self.pickups)
+        self.deliveries = tuple(self.deliveries)
+
 
     def read_demands(self, dem):
-        self.demands = numpy.zeros(len(self.pickups), dtype=int)
+        self.demands = numpy.zeros((len(self.points)), dtype=int)
 
-        for i in range(len(self.pickups)):
-            self.demands[i] = dem[str(i+1)]
+        self.demands[self.start_id] = 0
+        self.demands[self.end_id] = 0
+
+        index_increment = 0
+        if (not self.has_origin):
+            index_increment = 1
+
+        for i in range(index_increment, len(self.pickups)+index_increment):
+            self.demands[i] = dem[str(i)]
+            self.demands[i+self.number_of_requests] = -dem[str(i)]
+        
+        self.demands = tuple(self.demands)
 
 
     def read_services_times(self, serv_times):
         self.services_times = numpy.zeros(len(self.points), dtype=int)
 
-        self.services_times[self.origin] = 0
+        self.services_times[self.start_id] = 0
+        self.services_times[self.end_id] = 0
 
         index_increment = 0
         if (not self.has_origin):
@@ -110,14 +144,21 @@ class ReaderJsonPDPTW(Reader):
         for i in range(index_increment, len(self.points)):
             self.services_times[i] = serv_times[str(i)]
 
+        self.services_times = tuple(self.services_times)
+
 
     def read_time_windows(self, tws):
+        
         self.time_windows = numpy.zeros(
             shape=(self.number_of_points, 2),
             dtype=int
         )
 
-        self.time_windows[self.origin][1] = self.planning_horizon
+        self.time_windows[self.start_id][0] = 0
+        self.time_windows[self.end_id][0] = 0
+
+        self.time_windows[self.start_id][1] = self.planning_horizon
+        self.time_windows[self.end_id][1] = self.planning_horizon
 
         if (not self.has_origin):
             index_increment = 1
@@ -126,10 +167,9 @@ class ReaderJsonPDPTW(Reader):
             self.time_windows[i][0] = tws[str(i)][0]
             self.time_windows[i][1] = tws[str(i)][1]
 
+        self.time_windows = tuple(map(tuple, self.time_windows))
 
     def read_specific_input(self, file_name):
-        print(file_name)
-
 
         with open(file_name, "r") as input_file:
             input_text = input_file.read()
@@ -158,24 +198,4 @@ class ReaderJsonPDPTW(Reader):
         self.read_demands(dem)
         self.read_services_times(serv_times)
         self.read_time_windows(tws)
-
-
-    def get_reader_solver_attributes_relation(self):
-        reader_solver_attributes_relation = {
-            "points" : "points",
-            "distance_matrix" : "distance_matrix",
-            "time_matrix" : "time_matrix",
-            "capacity" : "capacity",
-            "demands" : "demands",
-            "services_times" : "services_times",
-            "time_windows" : "time_windows",
-            "planning_horizon" : "planning_horizon",
-            "time_windows_size" : "time_windows_size",
-            "origin" : "origin_id",
-            "pickups" : "pickups_ids",
-            "deliveries" : "deliveries_ids",
-            "number_of_requests" : "number_of_requests"
-        }
-
-        return reader_solver_attributes_relation
 

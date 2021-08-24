@@ -2,9 +2,10 @@ from abc import ABC, ABCMeta, abstractmethod
 
 from src.instance_readers.Reader import *
 from src import exceptions
+from src.GenericClass import GenericClass
 
 
-class Reader(metaclass=ABCMeta):
+class Reader(GenericClass, metaclass=ABCMeta):
 
 
     instance = None
@@ -33,14 +34,14 @@ class Reader(metaclass=ABCMeta):
         self.name = reader_class_name
 
 
-    def set_attribute(self, name, value):
-        if (not hasattr(self, name)):
-            raise exceptions.ObjectDoesNotHaveAttribute(
-                self.__class__.__name__, 
-                name
-            )
+    # def set_attribute(self, name, value):
+    #     if (not hasattr(self, name)):
+    #         raise exceptions.ObjectDoesNotHaveAttribute(
+    #             self.__class__.__name__, 
+    #             name
+    #         )
             
-        self.__setattr__(name, value)
+    #     self.__setattr__(name, value)
 
 
     def read_input_file(self):
@@ -58,7 +59,3 @@ class Reader(metaclass=ABCMeta):
     def read_specific_input(self, file_name):
         pass
 
-
-    @abstractmethod
-    def get_reader_solver_attributes_relation():
-        pass

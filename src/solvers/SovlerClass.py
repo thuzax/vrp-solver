@@ -3,20 +3,12 @@ import json
 from abc import ABC, ABCMeta, abstractmethod
 
 from src import exceptions
+from src.GenericClass import GenericClass
+from src.objects_creation_manager import create_class_by_name
 
-
-class SolverClass(metaclass=ABCMeta):
+class SolverClass(GenericClass, metaclass=ABCMeta):
     
     instance = None
-    
-    ### Obrigatory for all Porblems ###
-    
-    # Acquired from configuration file
-    output_path = None
-    output_name = None
-    output_type = "json"
-    
-    # Acquired while running
 
 
     def __new__(cls, *args, **kwargs):
@@ -32,26 +24,46 @@ class SolverClass(metaclass=ABCMeta):
         return cls.instance
 
     def __init__(self, solver_class_name):
-        self.name = solver_class_name
-
-
-    def set_attribute(self, name, value):
-        if (not hasattr(self, name)):
-            raise exceptions.ObjectDoesNotHaveAttribute(
-                self.__class__.__name__, 
-                name
-            )
+        super().__init__()
+        
+        if (not hasattr(self, "name")):
+            self.name = solver_class_name
             
-        self.__setattr__(name, value)
+            # Acquired from input
+            self.output_path = None
+            self.output_name = None
+            self.output_type = None
+            self.obj_func = None
+            self.obj_func_name = None
+            self.constraints_names = None
+            self.constraints = None
 
 
-    @abstractmethod
-    def solve():
-        pass
+
+    def initialize_objective(self):
+        objective_class_name = list(self.obj_func.keys())[0]
+        self.obj_func = create_class_by_name(
+            objective_class_name, 
+            self.obj_func[objective_class_name]
+        )
 
 
-    def write_file(self):
-        pass
+    def create_heuristic_obj(self, class_name, class_data):
+        heuristic_obj = create_class_by_name(
+            class_name,
+            class_data
+        )
+        
+        obj_func_class_name = list(class_data["obj_func"].keys())[0]
+        obj_func_class_data = class_data["obj_func"][obj_func_class_name]
+        obj_func_object = create_class_by_name(
+            obj_func_class_name, 
+            obj_func_class_data
+        )
+
+        heuristic_obj.obj_func = obj_func_object
+
+        return heuristic_obj
 
 
     def write_final_data(self, running_data):
@@ -65,3 +77,21 @@ class SolverClass(metaclass=ABCMeta):
         json_output_file_name += ".json"
         with open(json_output_file_name, "w") as output_file:
             output_file.write(json.dumps(running_data, indent=2))
+
+
+    @abstractmethod
+    def solve(self):
+        pass
+
+
+    def update_heuristics_data(self):
+        pass
+
+
+    @abstractmethod
+    def write_file(self):
+        pass
+
+    @abstractmethod
+    def get_attr_relation_reader_solver(self):
+        pass
