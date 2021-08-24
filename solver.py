@@ -1,6 +1,4 @@
-from src.constraints.ConstraintObjects import ConstraintsObjects
-from src.objective_functions.ObjFunction import ObjFunctionObjects
-from src.heuristics.Heuristic import HeuristicsObjects
+from src.objects_managers import *
 from src.GenericClass import GenericClass
 import time
 import random
@@ -27,7 +25,7 @@ def set_read_objects_attributes(reader):
     read_sol_attr_relation = solver_obj.get_attr_relation_reader_solver()
     set_object_attributes(reader, solver_obj, read_sol_attr_relation)
 
-    obj_funcs_objects = ObjFunctionObjects().get_list()
+    obj_funcs_objects = ObjFunctionsObjects().get_list()
 
     for obj_func in obj_funcs_objects:
         read_obj_f_attr_rela = obj_func.get_attr_relation_reader_func()

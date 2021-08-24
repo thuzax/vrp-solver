@@ -10,7 +10,8 @@ class LNS(Heuristic):
         super().__init__("LNS")
 
     def solve(self, parameters):
-        super().solve()
+        if (not hasattr(self, "name")):
+            super().solve()
 
     @staticmethod
     def get_attr_relation_reader_heuristic():

@@ -1,5 +1,5 @@
 from abc import ABC, ABCMeta, abstractmethod
-from src.objective_functions.ObjFunctionObjects import ObjFunctionObjects
+from src.objects_managers.ObjFunctionsObjects import ObjFunctionsObjects
 
 from src import exceptions
 from src.GenericClass import GenericClass
@@ -13,7 +13,7 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
         if (cls.__name__ not in cls.children_instances):
             cls_obj = super(ObjFunction, cls).__new__(cls)
             cls.children_instances[cls.__name__] = cls_obj
-            ObjFunctionObjects().add_object(cls_obj)
+            ObjFunctionsObjects().add_object(cls_obj, ObjFunction)
         
         return cls.children_instances[cls.__name__]
 

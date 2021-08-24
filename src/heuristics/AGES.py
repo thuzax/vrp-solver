@@ -6,7 +6,8 @@ from src.heuristics.Heuristic import Heuristic
 class AGES(Heuristic):
 
     def __init__(self):
-        super().__init__("AGES")
+        if (not hasattr(self, "name")):
+            super().__init__("AGES")
 
     def solve(self, parameters):
         super().solve()

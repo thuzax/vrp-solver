@@ -9,7 +9,13 @@ class TimeWindowsConstraint(Constraint):
 
 
     def __init__(self):
-        super().__init__("Time Windwos Constraint")
+        if (not hasattr(self, "name")):
+            super().__init__("Time Windwos Constraint")
+            self.planning_limit = None
+            self.time_matrix = None
+            self.time_windows = None
+            self.depot = None
+
 
 
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):

@@ -5,13 +5,13 @@ from src import heuristics, route_classes
 from src import instance_readers
 from src import solvers
 
-from src.objects_creation_manager import create_class_by_name
 
+
+from src.objects_managers import ObjFunctionsObjects
+from src.objects_managers import HeuristicsObjects
+from src.objects_managers import ConstraintsObjects
 from src.route_classes.Route import RouteSubClass
-from src.constraints.ConstraintObjects import ConstraintsObjects
-from src.heuristics.Heuristic import HeuristicsObjects
-from src.objective_functions.ObjFunction import ObjFunctionObjects
-
+from src.objects_creation_manager import create_class_by_name
 
 def create_obj_function_objects(dict_obj_func):
     obj_func_classes_names = list(dict_obj_func.keys())
@@ -43,7 +43,7 @@ def create_heuristics_objects(dict_heuristics):
         )
     
     for heuristic in HeuristicsObjects().get_list():
-        obj_func = ObjFunctionObjects().get_by_name(heuristic.obj_func_name)
+        obj_func = ObjFunctionsObjects().get_by_name(heuristic.obj_func_name)
         heuristic.set_attribute("obj_func", obj_func)
 
         constraints = []
@@ -62,7 +62,7 @@ def create_solver_object(dict_solver):
         dict_solver[solver_class_name]
     )
 
-    obj_func = ObjFunctionObjects().get_by_name(solver_obj.obj_func_name)
+    obj_func = ObjFunctionsObjects().get_by_name(solver_obj.obj_func_name)
     solver_obj.set_attribute("obj_func", obj_func)
 
     solver_obj.update_heuristics_data()
@@ -73,7 +73,6 @@ def create_solver_object(dict_solver):
         constraints.append(constraint)
     
     solver_obj.set_attribute("constraints", constraints)
-    print(solver_obj.constraints)
 
 
 def create_reader_object(dict_reader):

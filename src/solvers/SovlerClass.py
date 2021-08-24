@@ -4,6 +4,7 @@ from abc import ABC, ABCMeta, abstractmethod
 
 from src import exceptions
 from src.GenericClass import GenericClass
+from src.objects_managers import *
 from src.objects_creation_manager import create_class_by_name
 
 class SolverClass(GenericClass, metaclass=ABCMeta):
@@ -38,6 +39,20 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             self.constraints_names = None
             self.constraints = None
 
+
+    def route_is_feasible(self, route):
+        for constraint in self.constraints:
+            if (not constraint.route_is_feasible(route)):
+                return False
+        
+        return True
+
+    def solution_is_feasible(self, solution):
+        for constraint in self.constraints:
+            if (not constraint.solution_is_feasible(solution)):
+                return False
+
+        return True
 
 
     def initialize_objective(self):

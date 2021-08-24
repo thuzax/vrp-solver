@@ -21,9 +21,8 @@ class ObjectsManager(GenericClass):
             self.heuristics_list = []
             self.heuristics_dict = {}
     
-    def add_object_of_class(self, obj, class_type):
+    def add_object(self, obj, class_type):
         obj_class_name = obj.__class__.__name__
-
         if (isinstance(obj, class_type.__class__)):
             raise exceptions.ObjectClassIsNotClassType(
                 obj_class_name,
@@ -40,8 +39,3 @@ class ObjectsManager(GenericClass):
 
     def get_list(self):
         return self.heuristics_list
-
-
-    @abstractmethod
-    def add_object(self, obj):
-        pass

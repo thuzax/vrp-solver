@@ -6,7 +6,8 @@ from src.heuristics.Heuristic import Heuristic
 class SetPartitionModel(Heuristic):
     
     def __init__(self):
-        super().__init__("SetPartitionModel")
+        if (not hasattr(self, "name")):
+            super().__init__("SetPartitionModel")
 
     def solve(self, parameters):
         super().solve()

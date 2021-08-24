@@ -1,20 +1,19 @@
-from src.heuristics.insertion_heuristics.InsertionHeuristic import InsertionHeuristic
+from src.heuristics.insertion_heuristics import InsertionHeuristic
 import numpy
 import bisect
 import math
 
 from src.objective_functions import *
 from src.route_classes.Route import *
-from src import exceptions
-from src.heuristics.Heuristic import Heuristic
 
 
 class KRegret(InsertionHeuristic):
     
-    non_insertion_cost = None
-
     def __init__(self):
-        super().__init__("KRegret")
+        if (not hasattr(self, "name")):
+            super().__init__("KRegret")
+            self.non_insertion_cost = None
+
 
 
     def try_to_insert(self, route, positions, request, obj_func):

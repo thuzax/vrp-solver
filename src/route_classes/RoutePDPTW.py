@@ -17,16 +17,14 @@ class RoutePDPTW(Route):
     demands = None
     capacity = None
 
-    # obtained while running
-    arrival_times = None
-    total_demand_on_vertices = None
-    total_cost = None
-
     def __init__(self):
-        super().__init__("Route PDPTW")
-        self.arrival_times = []
-        self.total_demand_on_vertices = []
-        self.total_cost = 0
+        if (not hasattr(self, "name")):
+            super().__init__("Route PDPTW")
+            self.arrival_times = []
+            self.total_demand_on_vertices = []
+            self.total_cost = 0
+
+
 
 
     def update_route_values(self, initial_position, final_position):

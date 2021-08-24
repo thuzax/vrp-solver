@@ -3,39 +3,37 @@ from pprint import pprint
 
 from src.heuristics import *
 from src.route_classes import *
+from src.objects_managers import *
 from src.solvers.SovlerClass import SolverClass
-
-
 
 
 class SartoriBuriolPDPTW(SolverClass):
 
-    points = None
-    distance_matrix = None
-    time_matrix = None
-    capacity = None
-    demands = None
-    services_times = None
-    time_windows = None
-    planning_horizon = None
-    time_windows_size = None
-    start_id = None
-    end_id = None
-    pickups_ids = None
-    deliveries_ids = None
-    number_of_requests = None
-    requests = None
-
-    remaining_requests_set = None
-
-    construction_name = None
-    construction = None
-    local_searches = None
-    local_searches_order = None
-
-
     def __init__(self):
-        super().__init__("Sartori and Buriol 2020 algorithm")
+        if (not hasattr(self, "name")):
+            super().__init__("Sartori and Buriol 2020 algorithm")
+            self.points = None
+            self.distance_matrix = None
+            self.time_matrix = None
+            self.capacity = None
+            self.demands = None
+            self.services_times = None
+            self.time_windows = None
+            self.planning_horizon = None
+            self.time_windows_size = None
+            self.start_id = None
+            self.end_id = None
+            self.pickups_ids = None
+            self.deliveries_ids = None
+            self.number_of_requests = None
+            self.requests = None
+
+            self.remaining_requests_set = None
+
+            self.construction_name = None
+            self.construction = None
+            self.local_searches = None
+            self.local_searches_order = None
 
     
     def construct_initial_solution(self):
@@ -65,9 +63,15 @@ class SartoriBuriolPDPTW(SolverClass):
 
     def solve(self):
         solution_routes = self.construct_initial_solution()
-        pprint(self.time_windows)
-        pprint(self.distance_matrix)
-        pprint(self.time_matrix)
+
+        if (not self.solution_is_feasible(solution_routes)):
+            print("Solution not feasible")
+            for route in solution_routes:
+                if (not self.route_is_feasible(route)):
+                    print("Route not feasible: ")
+                    print(route)
+            return
+        
         print("=========================================================")
         print("Requests inserted: " + str(self.inserted_request))
         print("Requests remaining: " + str(self.remaining_requests_set))
@@ -77,6 +81,7 @@ class SartoriBuriolPDPTW(SolverClass):
         
         print("Solution Cost:")
         print(self.obj_func.get_solution_cost(solution_routes))
+        print("Solution is Feasible")
 
 
     def update_heuristics_data(self):

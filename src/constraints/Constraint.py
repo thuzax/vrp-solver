@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 from src.GenericClass import GenericClass
-from src.constraints.ConstraintObjects import ConstraintsObjects
+from src.objects_managers import ConstraintsObjects
 
 class Constraint(GenericClass, metaclass=ABCMeta):
     
@@ -11,7 +11,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
         if (cls.__name__ not in cls.children_instances):
             cls_obj = super(Constraint, cls).__new__(cls)
             cls.children_instances[cls.__name__] = cls_obj
-            ConstraintsObjects().add_object(cls_obj)
+            ConstraintsObjects().add_object(cls_obj, Constraint)
 
         return cls.children_instances[cls.__name__]
 

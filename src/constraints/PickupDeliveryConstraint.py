@@ -1,21 +1,20 @@
 from src.constraints import Constraint
 
 class PickupDeliveryConstraint(Constraint):
-    
-    pickups = None
-    deliveries = None
-    number_of_requests = None
 
     def __init__(self):
-        super().__init__("Pickup and Delivery Constraint")
+        if (not hasattr(self, "name")):
+            super().__init__("Pickup and Delivery Constraint")
+            self.pickups = None
+            self.deliveries = None
+            self.number_of_requests = None
 
 
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):
-        print("AA")
         route_order = route.get_order()
 
         if (end_pos < 0):
-            end_pos = route.get_size() + end_pos
+            end_pos = route.size() + end_pos
 
         route_order = route_order[start_pos:end_pos+1]
 
