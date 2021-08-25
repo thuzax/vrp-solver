@@ -1,0 +1,5 @@
+Qual a heurística de construção utilizada?
+
+Na heurística K-Regret, é calculada a inserção considerando todas as rotas? Ou só em k melhores rotas?
+
+A "pool" de rotas (utilziadas pelo modelo matemático) é um conjunto que armazena todas as rotas geradas ou apenas parte delas? Se não são todas, existe algum critério para decidir qual deve entrar ou sair?

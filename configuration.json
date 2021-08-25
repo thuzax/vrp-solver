@@ -1,0 +1,86 @@
+{
+    "objective" : {
+        "ObjDistancePDPTW" : {
+
+        },
+        "ObjVehicles" : {
+            
+        }
+    },
+    "heuristics" : {
+        "KRegretPDPTW" : {
+            "non_insertion_cost" : 9999999999999,
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+            },
+        "AGES" : {
+            "obj_func_name" : "ObjVehicles",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "LNS" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "SetPartitionModel" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        }
+    },
+    "constraints" : {
+        "TimeWindowsConstraint" : {
+        },
+        "HomogeneousCapacityConstraint": {
+        },
+        "PickupDeliveryConstraint": {
+        }
+    },
+    "solver" : {
+        "SartoriBuriolPDPTW" : {
+            "output_path" : "./test_instances/result_files/",
+            "output_name" : "br-ms-cg",
+            "output_type" : "json",
+            "obj_func_name" : "ObjVehicles",
+            "construction_name" : "KRegretPDPTW",
+            "local_searches_order" : [
+                "AGES",
+                "LNS",
+                "SetPartitionModel"
+            ],
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint",
+                "PickupDeliveryConstraint"
+            ]
+        }
+    },
+    "reader": {
+        "ReaderJsonPDPTW" : {
+            "input_path" : "./test_instances/input_files/",
+            "input_name" : "br-ms-cg-10_input",
+            "input_type" : "json"
+        }
+    },
+    "route_class" : {
+        "RoutePDPTW" : {
+            
+        }
+    },
+    "vertex_class" : {
+        "VertexPDPTW" : {
+
+        }
+    }
+    
+}
