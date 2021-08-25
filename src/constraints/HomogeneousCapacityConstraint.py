@@ -8,6 +8,7 @@ class HomogeneousCapacityConstraint(Constraint):
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
+        self.vertices = None
         self.max_capacity = None
         self.demands = None
 
@@ -18,7 +19,7 @@ class HomogeneousCapacityConstraint(Constraint):
             end_pos = len(route_order) + end_pos
 
         for i in range(start_pos, end_pos+1):
-            if (route.demands[i] > self.max_capacity):
+            if (route.capacity_occupations[i] > self.max_capacity):
                 return False
         
         return True
@@ -27,7 +28,7 @@ class HomogeneousCapacityConstraint(Constraint):
     @staticmethod
     def get_attr_relation_solver_constr():
         attr_relation = {
-            "capacity" : "max_capacity",
-            "demands" : "demands"
+            "vertices" : "vertices",
+            "capacity" : "max_capacity"
         }
         return attr_relation

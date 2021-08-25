@@ -10,9 +10,14 @@ class InsertionHeuristic(Heuristic, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def try_to_insert(self, route, positions, request, obj_func):
+    def try_to_insert(self, route, position, request, obj_func):
         copy_route = route.copy()
-        copy_route.insert(positions, request, obj_func)
+        copy_route.insert(position, request)
+
+        self.update_route_values(copy_route, position, request, obj_func)
 
         if (self.route_is_feasible(copy_route)):
             return copy_route
+
+
+    

@@ -18,6 +18,7 @@ class TimeWindowsConstraint(Constraint):
         self.time_matrix = None
         self.time_windows = None
         self.depot = None
+        self.vertices = None
 
 
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):
@@ -26,9 +27,11 @@ class TimeWindowsConstraint(Constraint):
             end_pos = len(route_order) + end_pos
 
         for i in range(start_pos, end_pos+1):
-            vertex = route_order[i]
-            end_tw = self.time_windows[vertex][1]
-            if (route.arrival_times[i] > end_tw):
+            vertex_arrival_time = route.arrival_times[i]
+            
+            vertex_id = route_order[i]
+            end_tw = self.time_windows[vertex_id][1]
+            if (vertex_arrival_time > end_tw):
                 return False
         
         if (end_pos < route.size()-1):
@@ -36,12 +39,17 @@ class TimeWindowsConstraint(Constraint):
         
         # Planning Horizon
         last_delivery = route_order[end_pos]
-        time_to_depot = self.time_matrix[last_delivery][self.depot]
-        arrival_on_depot = route.arrival_times[end_pos] + time_to_depot
+        
+        arrival_on_depot = (
+            route.arrival_times[end_pos] 
+            + self.vertices[last_delivery].service_time
+            + self.time_matrix[last_delivery][self.depot]
+        )
 
         end_tw_depot = self.time_windows[self.depot][1]
         if (arrival_on_depot > end_tw_depot):
             return False
+
 
         return True
 
@@ -52,6 +60,7 @@ class TimeWindowsConstraint(Constraint):
             "planning_horizon" : "planning_limit",
             "time_matrix" : "time_matrix",
             "time_windows" : "time_windows",
-            "depot" : "depot"
+            "depot" : "depot",
+            "vertices" : "vertices"
         }
         return attr_relation

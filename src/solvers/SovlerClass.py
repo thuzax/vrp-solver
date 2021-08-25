@@ -43,6 +43,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
     def route_is_feasible(self, route):
         for constraint in self.constraints:
             if (not constraint.route_is_feasible(route)):
+                print(constraint.name)
                 return False
         
         return True

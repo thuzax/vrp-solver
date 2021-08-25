@@ -38,6 +38,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
             self.name = reader_class_name
             self.number_of_requests = None
             self.vertices = []
+            self.vertices_dict = {}
 
             self.initialize_class_attributes()
 
@@ -51,7 +52,8 @@ class Reader(GenericClass, metaclass=ABCMeta):
             reader_attr = getattr(self, reader_attr_name)
             vertex.set_attribute(vertex_attr_name, reader_attr[vertex_id])
 
-        self.vertices.append(vertex)
+        self.vertices_dict[vertex_id] = vertex
+
 
 
 
@@ -64,6 +66,11 @@ class Reader(GenericClass, metaclass=ABCMeta):
         self.create_depots()
         for request_position in range(self.number_of_requests):
             self.create_request_vertex(request_position)
+
+        self.vertices = [None for i in range(len(self.vertices_dict))]
+
+        for key, value in self.vertices_dict.items():
+            self.vertices[key] = value
 
 
     def read_input_file(self):

@@ -49,6 +49,12 @@ class Heuristic(GenericClass, metaclass=ABCMeta):
     def solve(self, parameters):
         pass
 
+
+    @abstractmethod
+    def update_route_values(self, route, position, request, obj_func):
+        pass
+
+
     @staticmethod
     @abstractmethod
     def get_attr_relation_reader_heuristic():

@@ -15,9 +15,7 @@ class VertexPDPTW(Vertex):
         self.service_time = None
         self.time_window = None
         self.demand = None
-        
-        self.arrival_time = 0
-        self.occupied_capacity = 0
+
 
 
     @staticmethod

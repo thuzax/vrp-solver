@@ -15,7 +15,7 @@ class SartoriBuriolPDPTW(SolverClass):
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
-        self.points = None
+        self.vertices = None
         self.distance_matrix = None
         self.time_matrix = None
         self.capacity = None
@@ -103,7 +103,7 @@ class SartoriBuriolPDPTW(SolverClass):
 
     def get_attr_relation_reader_solver(self):
         read_solv_attr_rela = {
-            "points" : "points",
+            "vertices" : "vertices",
             "distance_matrix" : "distance_matrix",
             "time_matrix" : "time_matrix",
             "capacity" : "capacity",

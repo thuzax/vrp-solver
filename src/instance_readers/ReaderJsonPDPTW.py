@@ -130,7 +130,7 @@ class ReaderJsonPDPTW(Reader):
         
         for pickup, delivery in self.requests:
             self.services_times[pickup] = serv_times[str(pickup)]
-            self.services_times[delivery] = -serv_times[str(delivery)]
+            self.services_times[delivery] = serv_times[str(delivery)]
         
         self.services_times = tuple(self.services_times)
 
@@ -148,6 +148,8 @@ class ReaderJsonPDPTW(Reader):
         
         for pickup, delivery in self.requests:
             self.time_windows[pickup][0] = tws[str(pickup)][0]
+            self.time_windows[pickup][1] = tws[str(pickup)][1]
+            self.time_windows[delivery][0] = tws[str(delivery)][0]
             self.time_windows[delivery][1] = tws[str(delivery)][1]
 
         self.time_windows = tuple(map(tuple, self.time_windows))

@@ -11,6 +11,7 @@ class PickupDeliveryConstraint(Constraint):
         self.pickups = None
         self.deliveries = None
         self.number_of_requests = None
+        self.vertices = None
 
 
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):

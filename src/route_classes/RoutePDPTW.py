@@ -14,135 +14,29 @@ class RoutePDPTW(Route):
 
     def initialize_class_attributes(self):
         self.arrival_times = []
-        self.total_demand_on_vertices = []
-        self.planning_horizon = None
-        self.time_windows_size = None
-        self.time_matrix = None
-        self.services_times = None
-        self.time_windows = None
-        self.demands = None
-        self.capacity = None
-
-
-    def update_route_values(self, initial_position, final_position):
-        for i in range(initial_position, final_position):
-            self.arrival_times[i] = (
-                self.calculate_arrival_time(i, self.vertices_order[i])
-            )
-            self.total_demand_on_vertices[i] = (
-                self.calculate_demand_on_vertex(i, self.vertices_order[i])
-            )
-
-
-    def calculate_demand_on_vertex(self, position, vertex):
-        if (position == 0):
-            return self.demands[vertex]
+        self.capacity_occupations = []
         
-        demand = (
-            self.total_demand_on_vertices[position-1] 
-            + self.demands[vertex]
-        )
 
-        return demand
-
-
-    def calculate_arrival_time(self, position, vertex):
-        if (position == 0):
-            return 0
-        
-        previous_position = position - 1
-        previous = self.vertices_order[previous_position]
-
-        previous_start_service = self.arrival_times[position-1]
-        if (previous_start_service < self.time_windows[previous][0]):
-            previous_start_service = self.time_windows[previous][0]
-
-
-        previous_service_time = self.services_times[previous]
-        
-        travel_time = self.time_matrix[previous][vertex]
-
-
-        arrival_time = (
-            previous_start_service 
-            + previous_service_time 
-            + travel_time
-        )
-
-        return arrival_time
 
     def insert_vertex(self, position, vertex):
         self.vertices_order.insert(position, vertex)
         self.vertices_set.add(vertex)
+
         self.arrival_times.insert(position, -1)
-        self.total_demand_on_vertices.insert(position, -1)
-        self.update_route_values(position, self.size())
+        self.capacity_occupations.insert(position, 0)
 
 
-    def insert(self, insert_position, request, obj_func):
+    def insert(self, insert_position, request):
         pickup_pos, delivery_pos = insert_position
         pickup, delivery = request
 
         self.insert_vertex(pickup_pos, pickup)
         self.insert_vertex(delivery_pos, delivery)
-        
-        self.route_cost += obj_func.request_inserted_additional_route_cost(
-            self,
-            insert_position, 
-            request
-        )
 
 
     def remove(self, vertex):
         self.vertices_set.remove(vertex)
         self.vertices_order.remove(vertex)
-
-
-    def respect_planning_horizon(self):
-        last_vertex = self.vertices_order[-1]
-        journey_end = self.arrival_times[-1] + self.services_times[last_vertex]
-        if (journey_end > self.planning_horizon):
-            return False
-        return True
-
-
-    def respect_time_windows(self, start_point=0):
-        for i in range(start_point, self.size()):
-            vertex = self.vertices_order[i]
-            end_tw = self.time_windows[vertex][1]
-            if (self.arrival_times[i] > end_tw):
-                return False
-
-        # if arrival_time < start_tw, vehicle waits
-        return True
-
-
-    def respect_capacity(self, start_point=0):
-        
-        for i in range(start_point, len(self.total_demand_on_vertices)):
-            if (
-                self.total_demand_on_vertices[i] > self.capacity
-                or self.total_demand_on_vertices[i] < 0
-            ):
-                return False
-        
-        if (self.total_demand_on_vertices[-1] > self.capacity):
-            return False
-        
-        return True
-
-
-    def is_feasible(self, start_point=0):
-        if (not self.respect_planning_horizon()):
-            return False
-
-        if (not self.respect_time_windows(start_point)):
-            return False
-
-        if (not self.respect_capacity(start_point)):
-            return False
-
-        return True
 
 
     def cost(self):
@@ -155,21 +49,22 @@ class RoutePDPTW(Route):
 
     def copy(self):
         copy_route = Route()
-        copy_route.arrival_times = copy.copy(self.arrival_times)
-        copy_route.route_cost = copy.copy(self.route_cost)
+
         copy_route.vertices_order = copy.copy(self.vertices_order)
         copy_route.vertices_set = copy.copy(self.vertices_set)
-        copy_route.total_demand_on_vertices = (
-            copy.copy(self.total_demand_on_vertices)
-        )
+        
+        copy_route.route_cost = copy.copy(self.route_cost)
+
+        copy_route.arrival_times = copy.copy(self.arrival_times)
+        copy_route.capacity_occupations = copy.copy(self.capacity_occupations)
 
         return copy_route
 
 
     def __str__(self):
         text = "Route: " + str(self.vertices_order) + "\n"
-        text += "Arrival Time: " + str(self.arrival_times) + "\n"
-        text += "Demands: " + str(self.total_demand_on_vertices) + "\n"
+        text += "Arrivals: " + str(self.arrival_times) + "\n"
+        text += "Capacities: " + str(self.capacity_occupations) + "\n"
         text += "Cost: " + str(self.route_cost) + "\n"
         return text
 
@@ -177,11 +72,6 @@ class RoutePDPTW(Route):
     @staticmethod
     def get_attr_relation_reader_route():
         reader_route_attr_rela = {
-            "time_matrix" : "time_matrix",
-            "services_times" : "services_times",
-            "time_windows" : "time_windows",
-            "demands" : "demands",
-            "capacity" : "capacity"
         }
         
         return reader_route_attr_rela

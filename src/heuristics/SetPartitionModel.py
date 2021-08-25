@@ -17,6 +17,11 @@ class SetPartitionModel(Heuristic):
     def solve(self, parameters):
         super().solve()
 
+
+    def update_route_values(self, route, position, request, obj_func):
+        super().update_route_values(route, position, request, obj_func)
+
+
     @staticmethod
     def get_attr_relation_reader_heuristic():
         rela_reader_heur = Heuristic.get_attr_relation_reader_heuristic()

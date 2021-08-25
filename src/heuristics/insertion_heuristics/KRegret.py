@@ -7,7 +7,7 @@ from src.objective_functions import *
 from src.route_classes.Route import *
 
 
-class KRegret(InsertionHeuristic):
+class KRegret(InsertionHeuristic, metaclass=ABCMeta):
     
     def __init__(self):
         super().__init__("KRegret")
@@ -16,6 +16,10 @@ class KRegret(InsertionHeuristic):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.non_insertion_cost = None
+        
+        self.vertices = None
+        self.time_matrix = None
+        self.depot = None
 
 
     def try_to_insert(self, route, positions, request, obj_func):
@@ -210,8 +214,13 @@ class KRegret(InsertionHeuristic):
             "regret_routes_ids" : regret_routes_ids
         }
 
+
     @staticmethod
     def get_attr_relation_reader_heuristic():
-        rela_reader_heur = {}
+        rela_reader_heur = {
+            "vertices" : "vertices",
+            "time_matrix" : "time_matrix",
+            "depot" : "depot"
+        }
         return rela_reader_heur
 
