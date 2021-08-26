@@ -35,13 +35,21 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def request_inserted_additional_route_cost(self, route, positions, request):
+    def route_additional_cost_after_insertion(self, route, positions, request):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n
         positions -> position(s) of insertion;\n
         request -> request inserted"""
         pass
+
+
+    def route_reduced_cost_after_insertion(self, route, positions, request):
+        """Calculate the deacresing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
+        -Parameters:\n
+        route -> Route() object;\n
+        positions -> position(s) of insertion;\n
+        request -> request inserted"""
 
 
     @staticmethod

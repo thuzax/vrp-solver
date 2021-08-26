@@ -9,21 +9,14 @@ from src.solution_methods.heuristics import InsertionHeuristic
 
 class KRegret(InsertionHeuristic, metaclass=ABCMeta):
     
-    def __init__(self):
-        super().__init__("KRegret")
-
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.non_insertion_cost = None
-        
-        self.vertices = None
-        self.time_matrix = None
-        self.depot = None
 
 
-    def try_to_insert(self, route, positions, request, obj_func):
-        return super().try_to_insert(route, positions, request, obj_func)
+    def try_to_insert(self, route, positions, request):
+        return super().try_to_insert(route, positions, request)
 
 
     def get_indices_best_routes(self, routes, k):
@@ -38,8 +31,8 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
 
 
     def solve(self, parameters):
-        routes = parameters["routes"]
         requests = parameters["requests"]
+        routes = parameters["routes"]
         k = parameters["k"]
 
         inserted = True
@@ -85,7 +78,6 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
                 route,
                 (0, 1), 
                 request, 
-                self.obj_func
             )
 
             if (new_route is None):
@@ -108,7 +100,6 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
                     route, 
                     (i, j), 
                     request, 
-                    self.obj_func
                 )
                 
                 if (new_route is None):
@@ -213,14 +204,3 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             "regret_routes" : regret_routes,
             "regret_routes_ids" : regret_routes_ids
         }
-
-
-    @staticmethod
-    def get_attr_relation_reader_heuristic():
-        rela_reader_heur = {
-            "vertices" : "vertices",
-            "time_matrix" : "time_matrix",
-            "depot" : "depot"
-        }
-        return rela_reader_heur
-

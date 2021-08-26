@@ -14,6 +14,9 @@ class HomogeneousCapacityConstraint(Constraint):
 
 
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):
+        if (route.empty()):
+            return True
+        
         route_order = route.get_order()
         if (end_pos < 0):
             end_pos = len(route_order) + end_pos

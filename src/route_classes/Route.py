@@ -51,7 +51,9 @@ class Route(GenericClass, metaclass=ABCMeta):
         if (not hasattr(self, "name")):
             self.name = route_class_name
             self.vertices_order = []
-            self.vertices_set = set()
+            self.requests_set = set()
+            self.requests = []
+
             self.route_cost = 0
             self.initialize_class_attributes()
             self.set_input_params()
@@ -87,8 +89,8 @@ class Route(GenericClass, metaclass=ABCMeta):
         return self.vertices_order
 
         
-    def get_points_set(self):
-        return self.vertices_set
+    def get_requests_set(self):
+        return self.requests_set
 
 
     def empty(self):
@@ -103,7 +105,7 @@ class Route(GenericClass, metaclass=ABCMeta):
 
 
     def __contains__(self, key):
-        if (key in self.vertices_set):
+        if (key in self.requests):
             return True
         return False
 
@@ -119,10 +121,20 @@ class Route(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def remove(self, vertex):
+    def index(self, request):
         pass
 
-    
+
+    @abstractmethod
+    def pop(self, request):
+        pass
+
+
+    @abstractmethod
+    def pop(self, request):
+        pass
+
+
     @abstractmethod
     def cost(self):
         return self.route_cost

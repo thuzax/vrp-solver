@@ -15,12 +15,11 @@ class LNS(SolutionMethod):
 
 
     def solve(self, parameters):
-        if (not hasattr(self, "name")):
-            super().solve()
+        super().solve()
 
 
-    def update_route_values(self, route, position, request, obj_func):
-        super().update_route_values(route, position, request, obj_func)
+    def update_route_values(self, route, position, request):
+        super().update_route_values(route, position, request)
 
 
     @staticmethod

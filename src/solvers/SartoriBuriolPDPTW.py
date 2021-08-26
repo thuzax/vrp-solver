@@ -1,4 +1,5 @@
 import copy
+import random
 from pprint import pprint
 
 from src.solution_methods import *
@@ -46,8 +47,9 @@ class SartoriBuriolPDPTW(SolverClass):
         while (inserted and len(insertion_requests) > 0):
             routes.append(Route())
             parameters = {}
-            parameters["routes"] = routes
+
             parameters["requests"] = insertion_requests
+            parameters["routes"] = routes
             parameters["k"] = 1
 
             self.construction.solve(parameters)
@@ -59,6 +61,17 @@ class SartoriBuriolPDPTW(SolverClass):
         self.inserted_request = (
             set(self.requests)
             - self.remaining_requests_set
+        )
+
+        parameters["requests"] = self.inserted_request
+        parameters["routes"] = routes
+        parameters["b"] = int(0.3 * self.number_of_requests)
+
+        self.local_searches[0].solve(parameters)
+        
+        self.remaining_requests_set = (
+            set(self.requests)
+            - self.inserted_request
         )
 
         return routes

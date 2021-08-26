@@ -1,10 +1,13 @@
-from src.solution_methods.heuristics.KRegret import KRegret
 
+import random
 
-class KRegretPDPTW(KRegret):
+from src.solution_methods.SolutionMethod import SolutionMethod
+from src.solution_methods.heuristics.RandomRemoval import RandomRemoval
+
+class RandomRemovalPDPTW(RandomRemoval):
 
     def __init__(self):
-        super().__init__("KRegret PDPTW")
+        super().__init__("Random Removal PDPTW")
 
         self.vertices = None
         self.time_matrix = None

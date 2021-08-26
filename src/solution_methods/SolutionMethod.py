@@ -51,7 +51,7 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def update_route_values(self, route, position, request, obj_func):
+    def update_route_values(self, route, position, request):
         pass
 
 
