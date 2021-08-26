@@ -1,9 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
 from numpy import copy
-from src.heuristics.Heuristic import Heuristic
+from src.solution_methods.SolutionMethod import SolutionMethod
 
-class InsertionHeuristic(Heuristic, metaclass=ABCMeta):
+class InsertionHeuristic(SolutionMethod, metaclass=ABCMeta):
 
     def __init__(self, name):
         super().__init__(name)

@@ -15,7 +15,7 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
-            },
+        },
         "AGES" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [

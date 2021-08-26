@@ -1,7 +1,7 @@
 import copy
 from pprint import pprint
 
-from src.heuristics import *
+from src.solution_methods import *
 from src.route_classes import *
 from src.objects_managers import *
 from src.solvers.SovlerClass import SolverClass

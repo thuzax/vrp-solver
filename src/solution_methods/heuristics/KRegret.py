@@ -1,10 +1,10 @@
-from src.heuristics.insertion_heuristics import InsertionHeuristic
 import numpy
 import bisect
 import math
 
 from src.objective_functions import *
 from src.route_classes.Route import *
+from src.solution_methods.heuristics import InsertionHeuristic
 
 
 class KRegret(InsertionHeuristic, metaclass=ABCMeta):

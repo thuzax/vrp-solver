@@ -6,14 +6,14 @@ from src.objects_managers import HeuristicsObjects
 from src.GenericClass import GenericClass
 
 
-class Heuristic(GenericClass, metaclass=ABCMeta):
+class SolutionMethod(GenericClass, metaclass=ABCMeta):
     children_instances = {}
 
     def __new__(cls, *args, **kwargs):
         if (cls.__name__ not in cls.children_instances):
-            cls_obj = super(Heuristic, cls).__new__(cls)
+            cls_obj = super(SolutionMethod, cls).__new__(cls)
             cls.children_instances[cls.__name__] = cls_obj
-            HeuristicsObjects().add_object(cls_obj, Heuristic)
+            HeuristicsObjects().add_object(cls_obj, SolutionMethod)
 
         return cls.children_instances[cls.__name__]
 

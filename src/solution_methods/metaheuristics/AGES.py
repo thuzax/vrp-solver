@@ -1,13 +1,12 @@
 
-from src.heuristics.Heuristic import Heuristic
+from src.solution_methods.SolutionMethod import SolutionMethod
 
-from src.heuristics.Heuristic import Heuristic
+from src.solution_methods.SolutionMethod import SolutionMethod
 
-class SetPartitionModel(Heuristic):
-    
+class AGES(SolutionMethod):
+
     def __init__(self):
-        if (not hasattr(self, "name")):
-            super().__init__("SetPartitionModel")
+        super().__init__("AGES")
 
 
     def initialize_class_attributes(self):
@@ -24,5 +23,5 @@ class SetPartitionModel(Heuristic):
 
     @staticmethod
     def get_attr_relation_reader_heuristic():
-        rela_reader_heur = Heuristic.get_attr_relation_reader_heuristic()
+        rela_reader_heur = SolutionMethod.get_attr_relation_reader_heuristic()
         return rela_reader_heur

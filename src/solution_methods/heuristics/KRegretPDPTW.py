@@ -1,4 +1,4 @@
-from src.heuristics.insertion_heuristics.KRegret import KRegret
+from src.solution_methods.heuristics.KRegret import KRegret
 
 
 class KRegretPDPTW(KRegret):
