@@ -27,7 +27,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
     
 
     def solution_is_feasible(self, solution):
-        for route in solution:
+        for route in solution.routes:
             if (not self.route_is_feasible(route)):
                 return False
 

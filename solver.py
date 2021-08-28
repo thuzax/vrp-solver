@@ -1,3 +1,4 @@
+from src.solution_classes.Solution import Solution
 from src.objects_managers import *
 from src.GenericClass import GenericClass
 import time
@@ -48,6 +49,10 @@ def set_read_objects_attributes(reader):
         reader_attr_value = getattr(reader, reader_attr)
         dict_attr_values[route_attr] = reader_attr_value
     Route.update_route_class_params(dict_attr_values)
+
+    # solution_obj = Solution()
+    # reader_solut_attr_relation = solution_obj.get_reader_solut_attr_relation()
+    # set_object_attributes(reader, solution_obj, read_sol_attr_relation)
 
 
 

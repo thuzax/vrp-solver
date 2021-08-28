@@ -14,12 +14,27 @@ class SetPartitionModel(SolutionMethod):
         super().initialize_class_attributes()
 
 
-    def solve(self, parameters):
+    def solve(self, solution, parameters):
         super().solve()
 
 
     def update_route_values(self, route, position, request):
         super().update_route_values(route, position, request)
+
+
+    def update_solution_requests_costs(
+        self, 
+        solution, 
+        route, 
+        position, 
+        request
+    ):
+        return super().update_solution_requests_costs(
+            solution, 
+            route, 
+            position,
+            request
+        )
 
 
     @staticmethod

@@ -30,9 +30,9 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
         return best_routes
 
 
-    def solve(self, parameters):
+    def solve(self, solution, parameters):
+        routes = solution.routes
         requests = parameters["requests"]
-        routes = parameters["routes"]
         k = parameters["k"]
 
         inserted = True
@@ -48,6 +48,7 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             regret_values = regret_sets["regret_values"]
             regret_routes = regret_sets["regret_routes"]
             regret_routes_ids = regret_sets["regret_routes_ids"]
+            regret_insert_pos = regret_sets["regret_insert_pos"]
 
             impossibles_requests = set([
                 request
@@ -67,8 +68,23 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             request = max(regret_values, key=regret_values.get)
 
 
+
             route_id = regret_routes_ids[request][0]
-            routes[route_id] = regret_routes[request][0]
+            inserted_position = regret_insert_pos[request][0]
+
+            new_route = regret_routes[request][0]
+            solution.add_request(
+                request
+            )
+            solution.set_route(route_id, new_route)
+            self.update_solution_requests_costs(
+                solution, 
+                new_route, 
+                inserted_position,
+                request
+            )
+
+
             requests.remove(request)
 
 
@@ -145,6 +161,7 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
         return (
             route_ids,
             request_k_routes,
+            request_k_insertions,
             request_k_costs
         )
 
@@ -176,9 +193,10 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
         regret_values = {}
         regret_routes = {}
         regret_routes_ids = {}
+        regret_insert_pos = {}
 
         for request in requests:
-            route_ids, request_routes, routes_costs = (
+            route_ids, request_routes, request_insert_pos, routes_costs = (
                 self.get_best_insertions_routes(
                     request, 
                     routes, 
@@ -191,6 +209,7 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             regret_values[request] = regret_value
             regret_routes[request] = request_routes
             regret_routes_ids[request] = route_ids
+            regret_insert_pos[request] = request_insert_pos
 
         requests_can_be_inserted = {}
         for request in requests:
@@ -202,5 +221,6 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             "can_be_inserted" : requests_can_be_inserted,
             "regret_values" : regret_values,
             "regret_routes" : regret_routes,
-            "regret_routes_ids" : regret_routes_ids
+            "regret_routes_ids" : regret_routes_ids,
+            "regret_insert_pos" : regret_insert_pos
         }

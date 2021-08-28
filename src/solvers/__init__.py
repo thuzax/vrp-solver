@@ -1,4 +1,4 @@
-from .SovlerClass import *
+from .SolverClass import *
 from .SartoriBuriolPDPTW import *
 
 __all__ = [

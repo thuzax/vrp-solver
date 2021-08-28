@@ -15,16 +15,16 @@ class RemovalHeuristic(SolutionMethod, metaclass=ABCMeta):
         position = copy_route.index(request)
         copy_route.pop(position)
 
-
         self.update_route_values(copy_route, position, request)
 
-        copy_route.route_cost = (
-            self.obj_func.route_reduced_cost_after_insertion(
+        copy_route.route_cost += (
+            self.obj_func.route_reduced_cost_after_removal(
                 route,
                 position, 
                 request
             )
         )
+
 
         if (self.route_is_feasible(copy_route)):
             return copy_route

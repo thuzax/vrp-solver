@@ -26,6 +26,3 @@ class InsertionHeuristic(SolutionMethod, metaclass=ABCMeta):
 
         if (self.route_is_feasible(copy_route)):
             return copy_route
-
-
-    

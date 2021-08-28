@@ -3,6 +3,7 @@ import json
 
 from src import route_classes
 from src import vertex_classes
+from src import solution_classes
 
 
 from src.objects_managers import ObjFunctionsObjects
@@ -104,7 +105,6 @@ def configure_vertex_class(dict_vertex):
     VertexSubClass(vertex_class_type)
 
 
-
 def read_configuration(arguments):
     constraints_file_name = arguments["configuration_file"]
 
@@ -132,6 +132,7 @@ def read_configuration(arguments):
 
         dict_vertex = dict_data["vertex_class"]
         configure_vertex_class(dict_vertex)
+
 
 
 def parse_command_line_arguments():

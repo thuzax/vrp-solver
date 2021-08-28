@@ -61,6 +61,8 @@ class Route(GenericClass, metaclass=ABCMeta):
 
     def set_input_params(self):
         route_input_params = RouteSubClass.route_subclass_params
+        if (route_input_params is None):
+            return
         for param_name, param_value in route_input_params.items():
             self.set_attribute(param_name, param_value)
             
@@ -92,6 +94,10 @@ class Route(GenericClass, metaclass=ABCMeta):
     def get_requests_set(self):
         return self.requests_set
 
+    @abstractmethod
+    def get_request_by_position(self, position):
+        pass
+
 
     def empty(self):
         if (self.size() == 0):
@@ -105,7 +111,7 @@ class Route(GenericClass, metaclass=ABCMeta):
 
 
     def __contains__(self, key):
-        if (key in self.requests):
+        if (key in self.requests_set):
             return True
         return False
 

@@ -65,12 +65,18 @@ class RoutePDPTW(Route):
         return (pickup, delivery)
 
 
+
     def remove(self, request):
         pickup_pos, delivery_pos = self.index(request)
 
         self.pop_vertex(pickup_pos)
         self.pop_vertex(delivery_pos)
 
+
+    def get_request_by_position(self, position):
+        pick_pos, deli_pos = position
+
+        return (self.route_order[pick_pos], self.route_order[deli_pos])
 
 
 
