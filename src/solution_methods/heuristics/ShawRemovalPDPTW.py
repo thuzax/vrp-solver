@@ -1,22 +1,70 @@
+from abc import ABCMeta, abstractmethod
 
 import random
+from src.solution_methods.heuristics.ShawRemoval import ShawRemoval
 
 from src.solution_methods.SolutionMethod import SolutionMethod
-from src.solution_methods.heuristics.WorstRemoval import WorstRemoval
 
-class WorstRemovalPDPTW(WorstRemoval):
-
-    def __init__(self):
-        super().__init__("Worst Removal PDPTW")
-
+class ShawRemovalPDPTW(ShawRemoval, metaclass=ABCMeta):
 
     def __init__(self):
-        super().__init__("Worst Removal PDPTW")
+        super().__init__("Shaw Removal PDPTW")
+
+
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        self.distance_matrix = None
+        self.time_windows = None
+        self.demands = None
+
+        self.relatedness_measure = None
+
+        self.phi = None
+        self.qui = None
+        self.psi = None
+
 
         self.vertices = None
         self.time_matrix = None
         self.depot = None
         self.number_of_requests = None
+
+
+    def calculate_request_relatedness_measure(self, solution, r_1, r_2):
+        p_1, d_1 = r_1
+        p_2, d_2 = r_2
+        dist_relation = (
+            (
+                self.distance_matrix[p_1][p_2] 
+                + self.distance_matrix[p_2][p_1]
+                + self.distance_matrix[d_1][d_2]
+                + self.distance_matrix[d_2][d_1]
+            ) / 2
+        )
+
+        route_r_1 = solution.get_request_route(r_1)
+        route_r_2 = solution.get_request_route(r_2)
+
+        arrival_times_r_1 = route_r_1.get_arrival_time(r_1)
+        arrival_times_r_2 = route_r_2.get_arrival_time(r_2)
+
+        pick_1_arrival, deli_1_arrival = arrival_times_r_1
+        pick_2_arrival, deli_2_arrival = arrival_times_r_2
+
+        time_relation = (
+            abs(pick_1_arrival - pick_2_arrival)
+            + abs(deli_1_arrival - deli_2_arrival)
+        )
+
+        capacity_relation = abs(self.demands[p_1] - self.demands[p_2])
+
+        relatedness_measure = (
+            self.phi * dist_relation
+            + self.qui * time_relation
+            + self.psi * capacity_relation
+        )
+
+        return relatedness_measure
 
 
     def update_solution_requests_costs(
@@ -174,10 +222,17 @@ class WorstRemovalPDPTW(WorstRemoval):
     @staticmethod
     def get_attr_relation_reader_heuristic():
         rela_reader_heur = {
+            "distance_matrix" : "distance_matrix",
+            "demands" : "demands",
+            "time_windows" : "time_windows",
+            "phi" : "phi",
+            "qui" : "qui",
+            "psi" : "psi",
             "vertices" : "vertices",
             "time_matrix" : "time_matrix",
             "number_of_requests" : "number_of_requests",
             "depot" : "depot"
         }
         return rela_reader_heur
+
 

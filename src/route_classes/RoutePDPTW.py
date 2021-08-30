@@ -79,6 +79,14 @@ class RoutePDPTW(Route):
         return (self.route_order[pick_pos], self.route_order[deli_pos])
 
 
+    def get_arrival_time(self, request):
+        pick_pos, deli_pos = self.index(request)
+        arrival_times = (
+            self.arrival_times[pick_pos],
+            self.arrival_times[deli_pos]
+        )
+        return arrival_times
+
 
     def cost(self):
         return super().cost()

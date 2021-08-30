@@ -42,12 +42,12 @@ class Solution(GenericClass):
         self.total_routes_cost += route.cost()
     
     
-    def add_request(self, request, route):
+    def add_request(self, request):
         self.requests_set.add(request)
         self.requests_cost_dict[request] = None
 
     
-    def remove_request(self, request):        
+    def remove_request(self, request):
         self.requests_set.remove(request)
         self.requests_cost_dict.pop(request)
 
@@ -74,7 +74,6 @@ class Solution(GenericClass):
 
     def set_objective_value(self, new_value):
         self.solution_cost = new_value
-
 
 
     def __str__(self):
@@ -125,11 +124,15 @@ class Solution(GenericClass):
     def requests_costs(self):
         return self.requests_cost_dict
 
+
     def get_request_route(self, request):
         for route in self.routes:
             if request in route:
                 return route
         return None
+
+    def number_of_routes(self):
+        return len(self.routes)
 
 
     def get_reader_solut_attr_relation(self):

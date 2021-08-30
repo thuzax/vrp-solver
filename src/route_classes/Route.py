@@ -32,7 +32,6 @@ class Route(GenericClass, metaclass=ABCMeta):
 
     child_created = False
 
-
     def __new__(cls, *args, **kwargs):
         global create_super
         

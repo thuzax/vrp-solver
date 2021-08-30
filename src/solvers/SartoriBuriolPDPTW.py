@@ -71,8 +71,19 @@ class SartoriBuriolPDPTW(SolverClass):
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
         parameters["b"] = int(0.3 * self.number_of_requests)
-        parameters["p"] = 3
-        self.local_searches[0].solve(solution, parameters)
+        parameters["p"] = 1
+        a = 1
+        parameters["b"] = 3
+        for i in range(a):
+            self.local_searches[0].solve(solution, parameters)
+            print(self.get_solution_check_complete_data(
+                solution,
+                self.constraints,
+                self.obj_func
+            ))
+
+
+        # self.local_searches[0].solve(solution, parameters)
 
         self.remaining_requests_set = (
             set(self.requests)

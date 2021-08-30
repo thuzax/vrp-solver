@@ -26,6 +26,11 @@
             "constraints_names" : [
             ]
         },
+        "ShawRemovalPDPTW" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+            ]
+        },
         "AGES" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
@@ -64,7 +69,7 @@
             "obj_func_name" : "ObjVehicles",
             "construction_name" : "KRegretPDPTW",
             "local_searches_order" : [
-                "WorstRemovalPDPTW",
+                "ShawRemovalPDPTW",
                 "AGES",
                 "LNS",
                 "SetPartitionModel"
@@ -80,7 +85,11 @@
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
             "input_name" : "br-ms-cg-100_input",
-            "input_type" : "json"
+            "input_type" : "json",
+
+            "phi" : 9,
+            "qui" : 3,
+            "psi" : 2
         }
     },
     "route_class" : {

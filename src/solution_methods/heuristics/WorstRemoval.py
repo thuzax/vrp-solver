@@ -26,13 +26,12 @@ class WorstRemoval(RemovalHeuristic, metaclass=ABCMeta):
             )
 
             sorted_requests = [x for x, y in sorted_requests_tuple]
-            random_multiplier = random.uniform(0, 1)
+            random_multiplier = random.uniform(0, 0.9999999999)
             # random_multiplier = random.randint(0, 999)/1000.0
             request_sort_position = int(
                 (random_multiplier**randomization_parameter) 
                 * len(sorted_requests)
             )
-            print("HOW MUCH WORST: " + str(request_sort_position))
             request = sorted_requests[request_sort_position]
             route = solution.get_request_route(request)
             request_pos = route.index(request)
@@ -42,7 +41,7 @@ class WorstRemoval(RemovalHeuristic, metaclass=ABCMeta):
             new_route = self.try_to_remove(routes[route_pos], request)
             if (new_route is not None):
                 solution.remove_request(request)
-                solution.set_route(route_pos, new_route)
+                solution.set_route(route_pos)
                 self.update_solution_requests_costs(
                     solution, 
                     new_route,

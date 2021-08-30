@@ -73,11 +73,10 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             inserted_position = regret_insert_pos[request][0]
 
             new_route = regret_routes[request][0]
+            
             solution.set_route(route_id, new_route)
-            solution.add_request(
-                request,
-                new_route
-            )
+            solution.add_request(request)
+
             self.update_solution_requests_costs(
                 solution, 
                 new_route, 
