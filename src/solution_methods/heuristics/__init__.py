@@ -5,6 +5,8 @@ from .KRegretPDPTW import *
 from .RemovalHeuristic import *
 from .RandomRemoval import *
 from .RandomRemovalPDPTW import *
+from .WorstRemoval import *
+from .WorstRemovalPDPTW import *
 
 __all__ = [
     "InsertionHeuristic",
@@ -12,5 +14,7 @@ __all__ = [
     "KRegretPDPTW",
     "RemovalHeuristic",
     "RandomRemoval",
-    "RandomRemovalPDPTW"
+    "RandomRemovalPDPTW",
+    "WorstRemoval",
+    "WorstRemovalPDPTW"
 ]

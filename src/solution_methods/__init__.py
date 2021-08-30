@@ -4,7 +4,9 @@ from .heuristics.KRegretPDPTW import *
 
 from .heuristics.RemovalHeuristic import *
 from .heuristics.RandomRemoval import *
+from .heuristics.WorstRemoval import *
 from .heuristics.RandomRemovalPDPTW import *
+from .heuristics.WorstRemovalPDPTW import *
 
 from .exact_methods.SetPartitionModel import *
 from .metaheuristics.AGES import *
@@ -16,7 +18,9 @@ __all__ = [
     "KRegretPDPTW",
     "RemovalHeuristic",
     "RandomRemoval",
+    "WorstRemoval",
     "RandomRemovalPDPTW",
+    "WorstRemovalPDPTW",
     "AGES",
     "LNS",
     "SetPartitionModel"

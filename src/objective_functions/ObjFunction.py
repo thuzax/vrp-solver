@@ -35,26 +35,28 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def route_additional_cost_after_insertion(self, route, positions, request):
+    def route_additional_cost_after_insertion(self, route, position, request):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n
-        positions -> position(s) of insertion;\n
-        request -> request inserted"""
+        positions -> tuple of positions where request was inserted (pickup_pos, delivery_pos);\n
+        request -> inserted request;"""
         pass
 
     @abstractmethod
-    def route_reduced_cost_after_removal(self, route, positions, request):
-        """Calculate the deacresing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
+    def route_reduced_cost_before_removal(self, route, position, request):
+        """Calculate the deacresing cost of route. It is considered that the 'request' was not removed yet and its position in route is 'position'.\n
         -Parameters:\n
         route -> Route() object;\n
-        positions -> position(s) of insertion;\n
+        position -> position(s) of the removed;\n
         request -> request inserted"""
         pass
 
     
     @abstractmethod
     def get_request_cost_in_route(self, route, position, request):
+        """The request cost is how much the route cost increase when the request is in route. Inputs: a route, the position where request is inserted, the request.
+        """
         pass
 
 

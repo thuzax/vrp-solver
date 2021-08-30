@@ -42,7 +42,7 @@ class Solution(GenericClass):
         self.total_routes_cost += route.cost()
     
     
-    def add_request(self, request):
+    def add_request(self, request, route):
         self.requests_set.add(request)
         self.requests_cost_dict[request] = None
 
@@ -62,10 +62,10 @@ class Solution(GenericClass):
         return route
 
 
-    def set_route(self, route_id, new_route):
-        self.total_routes_cost -= self.routes[route_id].cost()
+    def set_route(self, route_pos, new_route):
+        self.total_routes_cost -= self.routes[route_pos].cost()
         self.total_routes_cost += new_route.cost()
-        self.routes[route_id] = new_route
+        self.routes[route_pos] = new_route
 
 
     def set_request_cost(self, request, cost):
@@ -98,8 +98,13 @@ class Solution(GenericClass):
     def copy(self):
         copy_solution = Solution()
         copy_solution.requests_set = copy.deepcopy(self.requests_set)
-        copy_solution.requests_cost_dict = copy.deepcopy(self.requests_cost_dict)
+        copy_solution.requests_cost_dict = copy.deepcopy(
+            self.requests_cost_dict
+        )
+
         copy_solution.routes = [route.copy() for route in self.routes]
+
+        
         copy_solution.total_routes_cost = self.total_routes_cost
 
         return copy_solution
@@ -119,6 +124,12 @@ class Solution(GenericClass):
 
     def requests_costs(self):
         return self.requests_cost_dict
+
+    def get_request_route(self, request):
+        for route in self.routes:
+            if request in route:
+                return route
+        return None
 
 
     def get_reader_solut_attr_relation(self):

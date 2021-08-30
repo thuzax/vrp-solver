@@ -54,6 +54,7 @@ class SartoriBuriolPDPTW(SolverClass):
             - self.remaining_requests_set
         )
 
+
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         if (self.solution_check(solution, self.constraints, self.obj_func)):
@@ -66,10 +67,11 @@ class SartoriBuriolPDPTW(SolverClass):
                     self.obj_func
                 )
             )
-        print(solution)
+        # print(solution)
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-        parameters["b"] =int(0.3 * self.number_of_requests)
+        parameters["b"] = int(0.3 * self.number_of_requests)
+        parameters["p"] = 3
         self.local_searches[0].solve(solution, parameters)
 
         self.remaining_requests_set = (
@@ -82,8 +84,8 @@ class SartoriBuriolPDPTW(SolverClass):
 
     def solve(self):
         solution = self.construct_initial_solution()
-        
-        print(solution)
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        # print(solution)
         print(
             self.get_solution_check_complete_data(
                 solution, 
@@ -143,7 +145,8 @@ class SartoriBuriolPDPTW(SolverClass):
         obj_requests_cost = (
             self.calculate_requests_total_cost(solution, obj_func)
         )
-                
+
+        route_total_cost = self.calculate_routes_total_cost(solution, obj_func)
         if (obj_requests_cost != requests_cost):
             return False
 
@@ -214,7 +217,7 @@ class SartoriBuriolPDPTW(SolverClass):
             text += str(obj_requests_cost) + "\n"
             text += str(requests_cost) + "\n"
         text += "------------------------------------" + "\n"
-        
+
         return text
 
 

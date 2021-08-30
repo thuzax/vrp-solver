@@ -1,10 +1,13 @@
-from src.solution_methods.heuristics.KRegret import KRegret
 
+import random
 
-class KRegretPDPTW(KRegret):
+from src.solution_methods.SolutionMethod import SolutionMethod
+from src.solution_methods.heuristics.WorstRemoval import WorstRemoval
+
+class WorstRemovalPDPTW(WorstRemoval):
 
     def __init__(self):
-        super().__init__("KRegret PDPTW")
+        super().__init__("Worst Removal PDPTW")
 
         self.vertices = None
         self.time_matrix = None
@@ -20,10 +23,14 @@ class KRegretPDPTW(KRegret):
         request
     ):
         route_order = route.get_order()
+        # Positions from where the request were removed
         pick_pos, deli_pos = position
+        pick_next_pos = pick_pos
+        deli_next_pos = deli_pos - 1
+
         pick_prev_pair = (-1, -1)
-        if (pick_pos > 0):
-            pick_prev_id = route_order[pick_pos-1]
+        if (pick_next_pos > 0):
+            pick_prev_id = route_order[pick_next_pos-1]
             pick_prev_pair = (
                 pick_prev_id,
                 pick_prev_id + self.number_of_requests
@@ -35,8 +42,8 @@ class KRegretPDPTW(KRegret):
                 )
         
         deli_next_pair = (-1, -1)
-        if (deli_pos < route.size()-1):
-            deli_next_id = route_order[deli_pos+1]
+        if (deli_next_pos < route.size()):
+            deli_next_id = route_order[deli_next_pos]
             deli_next_pair = (
                 deli_next_id,
                 deli_next_id + self.number_of_requests
@@ -49,31 +56,31 @@ class KRegretPDPTW(KRegret):
         pick_next_pair = (-1, -1)
         deli_prev_pair = (-1, -1)
         if (pick_pos < deli_pos-1):
-            pick_next_id = route_order[pick_pos+1]
-            pick_next_pair = (
-                pick_next_id,
-                pick_next_id + self.number_of_requests
-            )
-            if (pick_next_id > self.number_of_requests):
+            if (pick_next_pos < route.size()):
+                pick_next_id = route_order[pick_next_pos]
                 pick_next_pair = (
-                    pick_next_id - self.number_of_requests,
-                    pick_next_id
+                    pick_next_id,
+                    pick_next_id + self.number_of_requests
                 )
-            
-            deli_prev_id = route_order[deli_pos-1]
-            deli_prev_pair = (
-                deli_prev_id,
-                deli_prev_id + self.number_of_requests
-            )
-            if (deli_prev_id > self.number_of_requests):
+                if (pick_next_id > self.number_of_requests):
+                    pick_next_pair = (
+                        pick_next_id - self.number_of_requests,
+                        pick_next_id
+                    )
+            if (deli_next_pos > 0):
+                deli_prev_id = route_order[deli_next_pos-1]
                 deli_prev_pair = (
-                    deli_prev_id - self.number_of_requests,
-                    deli_prev_id
+                    deli_prev_id,
+                    deli_prev_id + self.number_of_requests
                 )
-        
+                if (deli_prev_id > self.number_of_requests):
+                    deli_prev_pair = (
+                        deli_prev_id - self.number_of_requests,
+                        deli_prev_id
+                    )
+
         pairs = (
             set([
-                request,
                 pick_prev_pair,
                 deli_next_pair,
                 pick_next_pair,
@@ -93,6 +100,9 @@ class KRegretPDPTW(KRegret):
         
         for pair, cost in dict_costs.items():
             solution.set_request_cost(pair, cost)
+        for key, value in dict_costs.items():
+            solution.set_request_cost(key, value)
+
 
 
 
@@ -161,8 +171,8 @@ class KRegretPDPTW(KRegret):
     def get_attr_relation_reader_heuristic():
         rela_reader_heur = {
             "vertices" : "vertices",
-            "number_of_requests" : "number_of_requests",
             "time_matrix" : "time_matrix",
+            "number_of_requests" : "number_of_requests",
             "depot" : "depot"
         }
         return rela_reader_heur
