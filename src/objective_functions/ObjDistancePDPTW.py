@@ -27,14 +27,15 @@ class ObjDistancePDPTW(ObjFunction):
 
 
     def get_solution_cost(self, solution):
-        total_cost = 0
-        for route in solution.routes:
-            total_cost += self.get_route_cost(route)
-
-        return total_cost
+        return self.get_routes_sum_cost(solution.routes)
 
 
-    def route_additional_cost_after_insertion(self, route, position, request):
+    def route_additional_route_cost_after_insertion(
+        self, 
+        route, 
+        position, 
+        request
+    ):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n
@@ -44,7 +45,7 @@ class ObjDistancePDPTW(ObjFunction):
         return self.get_request_cost_in_route(route, position, request)
 
 
-    def route_reduced_cost_before_removal(self, route, position, request):
+    def route_reduced_route_cost_before_removal(self, route, position, request):
         """Calculate the deacresing cost of route. It is considered that the 'request' was not removed yet and its position in route is 'position'.\n
         -Parameters:\n
         route -> Route() object;\n
@@ -142,22 +143,6 @@ class ObjDistancePDPTW(ObjFunction):
         )
 
         return cost
-
-
-
-
-    @staticmethod
-    def route_is_better(route_1, route_2):
-        if (route_1 is None):
-            return False
-        
-        if (route_2 is None):
-            return True
-
-        if (route_1.cost() > route_2.cost()):
-            return False
-        
-        return True
 
 
     @staticmethod

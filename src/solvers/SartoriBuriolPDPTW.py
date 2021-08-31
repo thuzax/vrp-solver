@@ -1,6 +1,7 @@
 import copy
 import random
 from pprint import pprint
+from time import sleep, time
 
 from src.solution_methods import *
 from src.route_classes import *
@@ -42,7 +43,7 @@ class SartoriBuriolPDPTW(SolverClass):
             parameters["requests"] = insertion_requests
             parameters["k"] = 1
 
-            self.construction.solve(solution, parameters)
+            solution = self.construction.solve(solution, parameters)
             if (last_size == len(insertion_requests)):
                 routes.pop()
                 inserted = False
@@ -56,6 +57,9 @@ class SartoriBuriolPDPTW(SolverClass):
 
 
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         if (self.solution_check(solution, self.constraints, self.obj_func)):
             print("SOLUTION IS OK AFTER INSERTION")
@@ -67,20 +71,18 @@ class SartoriBuriolPDPTW(SolverClass):
                     self.obj_func
                 )
             )
-        # print(solution)
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-        parameters["b"] = int(0.3 * self.number_of_requests)
-        parameters["p"] = 1
-        a = 1
-        parameters["b"] = 3
-        for i in range(a):
-            self.local_searches[0].solve(solution, parameters)
-            print(self.get_solution_check_complete_data(
-                solution,
-                self.constraints,
-                self.obj_func
-            ))
+        print(solution)
+        print("VAI COMECAR")
+        sleep(3)
+        parameters["remaining_requests"] = self.remaining_requests_set
+        solution = self.local_searches[0].solve(
+            solution, 
+            parameters
+        )
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
 
 
         # self.local_searches[0].solve(solution, parameters)
@@ -96,7 +98,10 @@ class SartoriBuriolPDPTW(SolverClass):
     def solve(self):
         solution = self.construct_initial_solution()
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        # print(solution)
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print(solution)
         print(
             self.get_solution_check_complete_data(
                 solution, 

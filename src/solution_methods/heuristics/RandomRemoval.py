@@ -9,8 +9,7 @@ class RandomRemoval(RemovalHeuristic, metaclass=ABCMeta):
 
 
     def initialize_class_attributes(self):
-        self.execution_probability = None
-
+        super().initialize_class_attributes()
 
     def solve(self, solution, parameters):
         routes = solution.routes
@@ -33,7 +32,7 @@ class RandomRemoval(RemovalHeuristic, metaclass=ABCMeta):
             if (new_route is not None):
                 solution.remove_request(request)
                 solution.set_route(route_pos, new_route)
-                self.update_solution_requests_costs(
+                self.update_solution_requests_costs_after_removal(
                     solution, 
                     new_route,
                     request_pos,
@@ -41,6 +40,7 @@ class RandomRemoval(RemovalHeuristic, metaclass=ABCMeta):
                 )
         
         routes += empty_routes
+        return solution
 
 
     def try_to_remove(self, route, request):

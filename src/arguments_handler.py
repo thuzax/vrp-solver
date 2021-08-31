@@ -55,6 +55,28 @@ def create_heuristics_objects(dict_heuristics):
         
         heuristic.set_attribute("constraints", constraints)
 
+        if (hasattr(heuristic, "acceptance_algorithm")):
+            alg_data = heuristic.acceptance_algorithm_data
+            obj = create_accept_criteria_object(alg_data)
+            heuristic.acceptance_algorithm = obj
+
+        if (hasattr(heuristic, "local_operators_names")):
+            dict_operators = {}
+            for op, op_name in heuristic.local_operators_names.items():
+                dict_operators[op] = HeuristicsObjects().get_by_name(op_name)
+
+            heuristic.define_local_searches_operators(dict_operators)
+
+
+def create_accept_criteria_object(dict_accept_crit):
+    accept_crit_name = list(dict_accept_crit.keys())[0]
+    accept_crit_object = create_class_by_name(
+        accept_crit_name,
+        dict_accept_crit[accept_crit_name]
+    )
+    return accept_crit_object
+    
+
 
 def create_solver_object(dict_solver):
     solver_class_name = list(dict_solver.keys())[0]
@@ -95,6 +117,7 @@ def configure_route_class(dict_route):
 
     RouteSubClass(route_class_type)
 
+
 def configure_vertex_class(dict_vertex):
     vertex_class_name = list(dict_vertex.keys())[0]
     vertex_class_type = getattr(
@@ -118,7 +141,7 @@ def read_configuration(arguments):
         dict_obj_func = dict_data["constraints"]
         create_constraints_objects(dict_obj_func)
 
-        dict_obj_func = dict_data["heuristics"]
+        dict_obj_func = dict_data["solution_methods"]
         create_heuristics_objects(dict_obj_func)
 
         dict_solver = dict_data["solver"]
@@ -132,6 +155,7 @@ def read_configuration(arguments):
 
         dict_vertex = dict_data["vertex_class"]
         configure_vertex_class(dict_vertex)
+
 
 
 

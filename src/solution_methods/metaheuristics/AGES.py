@@ -21,21 +21,6 @@ class AGES(SolutionMethod):
         super().update_route_values(route, position, request)
 
 
-    def update_solution_requests_costs(
-        self, 
-        solution, 
-        route, 
-        position, 
-        request
-    ):
-        return super().update_solution_requests_costs(
-            solution, 
-            route, 
-            position,
-            request
-        )
-
-
     @staticmethod
     def get_attr_relation_reader_heuristic():
         rela_reader_heur = SolutionMethod.get_attr_relation_reader_heuristic()

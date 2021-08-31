@@ -34,7 +34,12 @@ class ObjVehicles(ObjFunction):
 
 
     # Use the route distance as second criteria
-    def route_additional_cost_after_insertion(self, route, position, request):
+    def route_additional_route_cost_after_insertion(
+        self, 
+        route, 
+        position, 
+        request
+    ):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n
@@ -44,7 +49,7 @@ class ObjVehicles(ObjFunction):
 
 
 
-    def route_reduced_cost_before_removal(self, route, position, request):
+    def route_reduced_route_cost_before_removal(self, route, position, request):
         """Calculate the deacresing cost of route. It is considered that the 'request' was not removed yet and its position in route is 'position'.\n
         -Parameters:\n
         route -> Route() object;\n
@@ -142,20 +147,6 @@ class ObjVehicles(ObjFunction):
         )
 
         return cost
-
-
-    @staticmethod
-    def route_is_better(route_1, route_2):
-        if (route_1 is None):
-            return False
-        
-        if (route_2 is None):
-            return True
-
-        if (route_1.cost() > route_2.cost()):
-            return False
-        
-        return True
 
 
     @staticmethod

@@ -55,15 +55,6 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
     def update_route_values(self, route, position, request):
         pass
     
-    @abstractmethod
-    def update_solution_requests_costs(
-        self, 
-        solution, 
-        route, 
-        position, 
-        request
-    ):
-        pass
 
     @staticmethod
     @abstractmethod

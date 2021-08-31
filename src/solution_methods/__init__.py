@@ -14,6 +14,9 @@ from .exact_methods.SetPartitionModel import *
 from .metaheuristics.AGES import *
 from .metaheuristics.LNS import *
 
+from .acceptance_heuristics.AcceptanceHeuristic import *
+from .acceptance_heuristics.LAHC import *
+
 __all__ = [
     "InsertionHeuristic",
     "KRegret",
@@ -27,5 +30,7 @@ __all__ = [
     "ShawRemovalPDPTW",
     "AGES",
     "LNS",
-    "SetPartitionModel"
+    "SetPartitionModel",
+    "AcceptanceHeuristic",
+    "LAHC"
 ]

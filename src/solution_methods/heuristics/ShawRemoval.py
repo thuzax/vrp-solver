@@ -12,12 +12,13 @@ class ShawRemoval(RemovalHeuristic, metaclass=ABCMeta):
 
 
     def initialize_class_attributes(self):
-        self.execution_probability = None
+        super().initialize_class_attributes()
+        self.p = None
 
 
     def solve(self, solution, parameters):
         number_of_removals = parameters["b"]
-        randomization_parameter = parameters["p"]
+        randomization_parameter = self.p
 
         request = random.choice(list(solution.requests()))
         requests_to_remove = {request}
@@ -49,6 +50,8 @@ class ShawRemoval(RemovalHeuristic, metaclass=ABCMeta):
             for request in requests_to_remove:
                 self.remove_from_route(route_pos, request, solution)
 
+        return solution
+
 
     def remove_from_route(self, route_pos, request, solution):
         route = solution.routes[route_pos]
@@ -63,7 +66,7 @@ class ShawRemoval(RemovalHeuristic, metaclass=ABCMeta):
                 request_pos = route.index(request)
                 solution.remove_request(request)
                 solution.set_route(route_pos, new_route)
-                self.update_solution_requests_costs(
+                self.update_solution_requests_costs_after_removal(
                     solution, 
                     new_route,
                     request_pos,

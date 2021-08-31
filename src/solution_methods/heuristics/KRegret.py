@@ -77,7 +77,7 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             solution.set_route(route_id, new_route)
             solution.add_request(request)
 
-            self.update_solution_requests_costs(
+            self.update_solution_requests_costs_after_insertion(
                 solution, 
                 new_route, 
                 inserted_position,
@@ -86,6 +86,8 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
 
 
             requests.remove(request)
+
+        return solution
 
 
     def get_best_insertion_in_route(self, route, request):

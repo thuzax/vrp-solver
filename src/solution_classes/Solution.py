@@ -10,16 +10,6 @@ from src.GenericClass import GenericClass
 
 class Solution(GenericClass):
 
-    instance = None
-
-
-    def __new__(cls, *args, **kwargs):
-        if (cls.instance is None):
-            cls.instance = super(Solution, cls).__new__(cls)
-
-        return cls.instance
-
-
     def __init__(self, solution_class_name=None):
         self.name = solution_class_name
         self.initialize_class_attributes()
@@ -74,6 +64,9 @@ class Solution(GenericClass):
 
     def set_objective_value(self, new_value):
         self.solution_cost = new_value
+
+    def set_routes_total_cost(self, new_value):
+        self.total_routes_cost = new_value
 
 
     def __str__(self):
