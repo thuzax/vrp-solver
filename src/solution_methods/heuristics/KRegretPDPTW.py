@@ -12,6 +12,43 @@ class KRegretPDPTW(KRegret):
         self.number_of_requests = None
 
 
+    def get_route_feasible_insertions(self, route, request):
+        if (route.empty()):
+            new_route = self.try_to_insert(
+                route,
+                (0, 1), 
+                request, 
+            )
+
+            if (new_route is None):
+                return []
+            
+            return [
+                (
+                    (0, 1),
+                    new_route
+                )
+            ]
+        
+        feasible_positions = []
+        for i in range(route.size()+1):
+            for j in range(i+1, route.size()+2):
+                new_route = self.try_to_insert(
+                    route, 
+                    (i, j), 
+                    request, 
+                )
+                
+                if (new_route is None):
+                    continue
+
+                feasible_positions.append((
+                    (i, j),
+                    new_route
+                ))
+        return feasible_positions
+
+
     def update_route_values(self, route, position, request):
         pickup_position, delivery_position = position
         

@@ -113,7 +113,8 @@ class LNS(LocalSearch):
             
             if (self.accept(new_solution)):
                 solution = new_solution
-
+        
+        print("LNS iteartion: ", stop_parameters["it"])
         return best_solution
 
 

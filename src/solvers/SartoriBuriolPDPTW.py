@@ -72,8 +72,6 @@ class SartoriBuriolPDPTW(SolverClass):
                 )
             )
         print(solution)
-        print("VAI COMECAR")
-        sleep(3)
         parameters["remaining_requests"] = self.remaining_requests_set
         solution = self.local_searches[0].solve(
             solution, 

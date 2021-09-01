@@ -1,6 +1,7 @@
+import bisect
+
 from abc import ABCMeta, abstractmethod
 
-from numpy import copy
 from src.solution_methods.SolutionMethod import SolutionMethod
 
 class InsertionHeuristic(SolutionMethod, metaclass=ABCMeta):
@@ -26,6 +27,77 @@ class InsertionHeuristic(SolutionMethod, metaclass=ABCMeta):
 
         if (self.route_is_feasible(copy_route)):
             return copy_route
+
+    @abstractmethod
+    def get_route_feasible_insertions(self, route, request):
+        pass
+
+
+    def get_best_insertion_in_route(self, route, request):
+        feasible_positions = self.get_route_feasible_insertions(route, request)
+
+        best_route = None
+        best_insertion_position = None
+
+        for position, route in feasible_positions:
+            if (self.obj_func.route_is_better(route, best_route)):
+                best_route = route
+                best_insertion_position = position
+
+        return (
+            best_insertion_position,
+            best_route
+        )
+
+
+    def get_best_insertions_in_routes(self, request, routes, best_routes_ids):
+        request_k_routes = []
+        request_k_insertions = []
+        request_k_costs = []
+        route_ids = []
+
+        for i in best_routes_ids:
+            route = routes[i]
+            position, new_route = (
+                self.get_best_insertion_in_route(route, request)
+            )
+            if (new_route is None):
+                cost = self.non_insertion_cost
+                new_route = None
+            else:
+                cost = new_route.cost()
+            
+            order_position = bisect.bisect(
+                request_k_costs, 
+                cost
+            )
+        
+            request_k_costs.insert(order_position, cost)
+            request_k_insertions.insert(order_position, position)
+            request_k_routes.insert(order_position, new_route)
+            route_ids.insert(order_position, i)
+
+        return (
+            route_ids,
+            request_k_routes,
+            request_k_insertions,
+            request_k_costs
+        )
+
+
+    def verify_if_insertion_is_possible(self, routes):
+        can_be_inserted = False
+        i = 0
+        while ((i < len(routes)) and (not can_be_inserted)):
+            route = routes[i]
+            if (route is not None):
+                can_be_inserted = True
+            i += 1
+            continue
+            
+        return can_be_inserted
+
+
 
 
     def update_solution_requests_costs_after_insertion(
