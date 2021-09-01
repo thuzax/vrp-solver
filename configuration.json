@@ -58,15 +58,15 @@
             ],
             "acceptance_algorithm_data" : {
                 "LAHC" : {
-                        "list_size" : 3
+                    "list_size" : 3
                 }
             },
             "k_min" : 1,
             "k_max" : 4,
             "b_min" : 2,
             "b_max" : 0.20,
-            "max_time" : 30,
-            "max_time_without_improv" : 20,
+            "max_time" : 5,
+            "max_time_without_improv" : 3,
             "max_it" : 10,
             "max_it_without_improv" : 5,
             "stop_criteria" : "time",
@@ -84,6 +84,13 @@
         },
         "SetPartitionModel" : {
             "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "RandomShift" : {
+            "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
@@ -107,6 +114,7 @@
             "construction_name" : "KRegret",
             "local_searches_order" : [
                 "LNS",
+                "RandomShift",
                 "AGES",
                 "SetPartitionModel"
             ],
@@ -120,7 +128,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-100_input",
+            "input_name" : "br-ms-cg-10_input",
             "input_type" : "json"
         }
     },

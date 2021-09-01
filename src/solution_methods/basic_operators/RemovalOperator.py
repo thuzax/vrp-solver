@@ -42,7 +42,7 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
         )
 
         for constraint in constraints:
-            if (self.route_is_feasible(copy_route)):
+            if (not constraint.route_is_feasible(copy_route)):
                 return None
         return copy_route
 

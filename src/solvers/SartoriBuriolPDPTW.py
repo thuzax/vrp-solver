@@ -83,6 +83,43 @@ class SartoriBuriolPDPTW(SolverClass):
         solution.set_routes_total_cost(
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        if (self.solution_check(solution, self.constraints, self.obj_func)):
+            print("SOLUTION IS OK AFTER LNS")
+        else:
+            print(
+                self.get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        for i in range(10):
+            solution = self.local_searches[1].solve(
+                solution, 
+                parameters
+            )
+
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
+
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        if (self.solution_check(solution, self.constraints, self.obj_func)):
+            print("SOLUTION IS OK AFTER SHIFT")
+        else:
+            print(
+                self.get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 
         self.remaining_requests_set = (
@@ -95,10 +132,11 @@ class SartoriBuriolPDPTW(SolverClass):
 
     def solve(self):
         solution = self.construct_initial_solution()
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        print("..........................................")
+        print("..........................................")
+        print("FINAL VERIFICATION")
+        print("..........................................")
+        print("..........................................")
         print(solution)
         print(
             self.get_solution_check_complete_data(

@@ -17,16 +17,17 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
 
     def solve(self, solution, parameters):
+        new_solution = solution.copy()
         number_of_removals = parameters["b"]
         randomization_parameter = self.p
 
-        request = random.choice(list(solution.requests()))
+        request = random.choice(list(new_solution.requests()))
         requests_to_remove = {request}
         while (len(requests_to_remove) < number_of_removals):
-            request = random.choice(list(solution.requests()))
-            candidates = solution.requests() - requests_to_remove
+            request = random.choice(list(new_solution.requests()))
+            candidates = new_solution.requests() - requests_to_remove
             related_measure = self.calculate_requests_relatedness_measure(
-                solution, 
+                new_solution, 
                 candidates, 
                 request
             )
@@ -46,11 +47,11 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
             requests_to_remove.add(request_to_remove)
         
-        for route_pos in range(solution.number_of_routes()):
+        for route_pos in range(new_solution.number_of_routes()):
             for request in requests_to_remove:
-                self.remove_from_route(route_pos, request, solution)
+                self.remove_from_route(route_pos, request, new_solution)
 
-        return solution
+        return new_solution
 
 
     def remove_from_route(self, route_pos, request, solution):

@@ -40,15 +40,18 @@ class LNS(LocalSearch):
 
 
     def solve(self, solution, parameters):
-        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        solution.set_routes_total_cost(
-            self.obj_func.get_routes_sum_cost(solution.routes)
+        copy_solution = solution.copy()
+        copy_solution.set_objective_value(
+            self.obj_func.get_solution_cost(copy_solution)
+        )
+        copy_solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(copy_solution.routes)
         )
         
-        best_solution = solution
+        best_solution = copy_solution
 
         extra_requests = copy.deepcopy(parameters["remaining_requests"])
-        all_requests = extra_requests.union(solution.requests())
+        all_requests = extra_requests.union(copy_solution.requests())
 
         self.begin_time = time.time()
 
@@ -59,7 +62,7 @@ class LNS(LocalSearch):
         stop_parameters["time_last_improv"] = 0
         
         while (not self.stop_criteria_fulfilled(stop_parameters)):
-            new_solution = solution.copy()
+            new_solution = copy_solution.copy()
 
             # Removal 
             n_b_max = int(
@@ -69,7 +72,7 @@ class LNS(LocalSearch):
                 n_b_max = self.b_min
             
             b = random.randint(self.b_min, n_b_max)
-            solution = self.remove_from_solution(
+            copy_solution = self.remove_from_solution(
                 b, 
                 new_solution
             )
@@ -84,7 +87,7 @@ class LNS(LocalSearch):
             extra_requests = extra_requests.union(removed_requests)
             
             k = random.randint(self.k_min, self.k_max)
-            solution = self.reinsert_requests(
+            copy_solution = self.reinsert_requests(
                 extra_requests, 
                 k, 
                 new_solution
@@ -112,7 +115,7 @@ class LNS(LocalSearch):
 
             
             if (self.accept(new_solution)):
-                solution = new_solution
+                copy_solution = new_solution
         
         print("LNS iteartion: ", stop_parameters["it"])
         print(all_requests)

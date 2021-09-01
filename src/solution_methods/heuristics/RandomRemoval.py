@@ -15,7 +15,9 @@ class RandomRemoval(SolutionMethod):
         super().initialize_class_attributes()
 
     def solve(self, solution, parameters):
-        routes = solution.routes
+        new_solution = solution.copy()
+        
+        routes = new_solution.routes
         number_of_removals = parameters["b"]
 
         empty_routes = []
@@ -38,8 +40,8 @@ class RandomRemoval(SolutionMethod):
                 self.constraints
             )
             if (new_route is not None):
-                solution = RemovalOperator().remove_request_from_solution(
-                    solution,
+                new_solution = RemovalOperator().remove_request_from_solution(
+                    new_solution,
                     request,
                     request_pos,
                     new_route,
@@ -48,7 +50,7 @@ class RandomRemoval(SolutionMethod):
                 )
         
         routes += empty_routes
-        return solution
+        return new_solution
 
     def get_attr_relation_reader_heuristic(self):
         return {}

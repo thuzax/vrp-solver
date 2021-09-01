@@ -15,12 +15,15 @@ from .heuristics.WorstRemoval import *
 from .heuristics.ShawRemoval import *
 from .heuristics.ShawRemovalPDPTW import *
 
+from .heuristics.RandomShift import *
+
 from .exact_methods.SetPartitionModel import *
 from .local_searches.AGES import *
 from .local_searches.LNS import *
 
 from .acceptance_heuristics.AcceptanceHeuristic import *
 from .acceptance_heuristics.LAHC import *
+
 
 __all__ = [
     "InsertionOperator",
@@ -33,6 +36,7 @@ __all__ = [
     "WorstRemoval",
     "ShawRemoval",
     "ShawRemovalPDPTW",
+    "RandomShift",
     "AGES",
     "LNS",
     "SetPartitionModel",

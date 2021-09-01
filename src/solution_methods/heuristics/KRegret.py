@@ -30,7 +30,8 @@ class KRegret(SolutionMethod):
 
 
     def solve(self, solution, parameters):
-        routes = solution.routes
+        new_solution = solution.copy()
+        routes = new_solution.routes
         requests = parameters["requests"]
         k = parameters["k"]
 
@@ -73,8 +74,8 @@ class KRegret(SolutionMethod):
 
             new_route = regret_routes[request][0]
             
-            solution = InsertionOperator().insert_request_in_solution(
-                solution,
+            nwe_solution = InsertionOperator().insert_request_in_solution(
+                new_solution,
                 request,
                 inserted_position,
                 new_route,
@@ -84,7 +85,7 @@ class KRegret(SolutionMethod):
 
             requests.remove(request)
 
-        return solution
+        return new_solution
 
 
     def get_best_insertions_in_routes(self, request, routes, best_routes_pos):
