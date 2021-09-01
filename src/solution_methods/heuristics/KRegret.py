@@ -73,17 +73,14 @@ class KRegret(SolutionMethod):
 
             new_route = regret_routes[request][0]
             
-            solution.set_route(route_id, new_route)
-            solution.add_request(request)
-
-            InsertionOperator().update_solution_requests_costs_after_insertion(
-                solution, 
-                new_route, 
-                inserted_position,
+            solution = InsertionOperator().insert_request_in_solution(
+                solution,
                 request,
+                inserted_position,
+                new_route,
+                route_id,
                 self.obj_func
             )
-
 
             requests.remove(request)
 

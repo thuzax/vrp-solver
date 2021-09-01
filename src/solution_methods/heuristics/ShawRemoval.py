@@ -66,13 +66,13 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
                 raise CouldNotRemoveWithShawRemoval(request)
             else:
                 request_pos = route.index(request)
-                solution.remove_request(request)
-                solution.set_route(route_pos, new_route)
-                RemovalOperator().update_solution_requests_costs_after_removal(
-                    solution, 
-                    new_route,
-                    request_pos,
+
+                solution = RemovalOperator().remove_request_from_solution(
+                    solution,
                     request,
+                    request_pos,
+                    new_route,
+                    route_pos,
                     self.obj_func
                 )
 

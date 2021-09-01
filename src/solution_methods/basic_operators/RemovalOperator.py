@@ -60,3 +60,25 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def get_attr_relation_reader_remov_op(self):
         return {}
+
+
+    def remove_request_from_solution(
+        self, 
+        solution, 
+        request, 
+        request_pos,
+        new_route,
+        old_route_pos,
+        obj_func
+    ):
+        solution.remove_request(request)
+        solution.set_route(old_route_pos, new_route)
+        self.update_solution_requests_costs_after_removal(
+            solution, 
+            new_route,
+            request_pos,
+            request,
+            obj_func
+        )
+        return solution
+        

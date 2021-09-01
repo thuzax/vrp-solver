@@ -1,5 +1,6 @@
 import random
 from src.solution_methods.SolutionMethod import SolutionMethod
+from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 
 class RandomShift(SolutionMethod):
 
@@ -15,6 +16,14 @@ class RandomShift(SolutionMethod):
 
         request_to_move = random.choice(new_solution.requests())
 
+        route_pos = new_solution.get_request_route(request_to_move)
+
+        RemovalOperator().try_to_remove(
+            new_solution.routes[route_pos],
+            request_to_move,
+            self.obj_func,
+            self.constraints
+        )
 
 
     def update_route_values(self, route, position, request):

@@ -129,3 +129,26 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def get_attr_relation_reader_insert_op(self):
         pass
+
+
+    
+    def insert_request_in_solution(
+        self, 
+        solution, 
+        request, 
+        request_pos,
+        new_route,
+        old_route_pos,
+        obj_func
+    ):
+        solution.set_route(old_route_pos, new_route)
+        solution.add_request(request)
+        self.update_solution_requests_costs_after_insertion(
+            solution, 
+            new_route, 
+            request_pos,
+            request,
+            obj_func
+        )
+
+        return solution

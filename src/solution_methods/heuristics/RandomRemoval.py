@@ -38,13 +38,12 @@ class RandomRemoval(SolutionMethod):
                 self.constraints
             )
             if (new_route is not None):
-                solution.remove_request(request)
-                solution.set_route(route_pos, new_route)
-                RemovalOperator().update_solution_requests_costs_after_removal(
-                    solution, 
-                    new_route,
-                    request_pos,
+                solution = RemovalOperator().remove_request_from_solution(
+                    solution,
                     request,
+                    request_pos,
+                    new_route,
+                    route_pos,
                     self.obj_func
                 )
         

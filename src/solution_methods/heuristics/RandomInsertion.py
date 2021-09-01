@@ -1,6 +1,8 @@
 from abc import ABCMeta
 
 import random
+
+from numpy import insert
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.solution_methods.SolutionMethod import SolutionMethod
 
@@ -45,6 +47,15 @@ class RandomInsertion(SolutionMethod):
             
             old_route_pos = new_solution.find_route_position_by_id(
                 new_route.get_id()
+            )
+
+            new_solution = i_op.insert_request_in_solution(
+                new_solution,
+                request,
+                inserted_pos,
+                new_route,
+                old_route_pos,
+                self.obj_func
             )
             
             new_solution.set_route(old_route_pos, new_route)
