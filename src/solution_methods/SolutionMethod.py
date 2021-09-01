@@ -56,7 +56,6 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
         pass
     
 
-    @staticmethod
     @abstractmethod
-    def get_attr_relation_reader_heuristic():
+    def get_attr_relation_reader_heuristic(self):
         return {}

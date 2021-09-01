@@ -1,41 +1,32 @@
 from abc import ABCMeta, abstractmethod
+from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 
-from src.solution_methods.SolutionMethod import SolutionMethod
+class RemovalOperatorPDPTW(RemovalOperator):
 
-class RemovalHeuristic(SolutionMethod, metaclass=ABCMeta):
-
-    def __init__(self, name):
-        super().__init__(name)
-
-
-    @abstractmethod
-    def try_to_remove(self, route, request):
-        copy_route = route.copy()
-
-        position = copy_route.index(request)
-        copy_route.pop(position)
-
-        self.update_route_values(copy_route, position, request)
-
-        copy_route.route_cost += (
-            self.obj_func.route_reduced_route_cost_before_removal(
-                route,
-                position, 
-                request
-            )
-        )
+    
+    def __init__(self):
+        super().__init__("Removal Operator for PDPTW")
 
 
-        if (self.route_is_feasible(copy_route)):
-            return copy_route
+    def try_to_remove(self, route, request, obj_func, constraints):
+        return super().try_to_remove(route, request, obj_func, constraints)
+    
 
-
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        self.vertices = None
+        self.time_matrix = None
+        self.depot = None
+        self.number_of_requests = None
+    
+    
     def update_solution_requests_costs_after_removal(
         self, 
         solution, 
         route, 
         position, 
-        request
+        request,
+        obj_func
     ):
         route_order = route.get_order()
         # Positions from where the request were removed
@@ -107,7 +98,7 @@ class RemovalHeuristic(SolutionMethod, metaclass=ABCMeta):
         dict_costs = {}
         for pair in pairs:
             pos_pair = route.index(pair)
-            dict_costs[pair] = self.obj_func.get_request_cost_in_route(
+            dict_costs[pair] = obj_func.get_request_cost_in_route(
                 route,
                 pos_pair,
                 pair
@@ -115,3 +106,76 @@ class RemovalHeuristic(SolutionMethod, metaclass=ABCMeta):
         
         for pair, cost in dict_costs.items():
             solution.set_request_cost(pair, cost)
+
+
+
+    def update_route_values(self, route, position, request):
+        pickup_position, delivery_position = position
+        
+        for i in range(pickup_position, route.size()):
+            arrival_time = (
+                self.calculate_arrival_time(route, i)
+            )
+            occupied_capacity = (
+                self.calculate_demand_on_vertex(route, i)
+            )
+
+            route.arrival_times[i] = arrival_time
+            route.capacity_occupations[i] = occupied_capacity
+
+
+    def calculate_demand_on_vertex(self, route, position):
+        route_order = route.get_order()
+        vertex_id = route_order[position]
+
+        if (position == 0):
+            return self.vertices[vertex_id].demand
+        
+        previous_occ = route.capacity_occupations[position-1] 
+
+        demand = (
+            previous_occ
+            + self.vertices[vertex_id].demand
+        )
+
+        return demand
+
+
+    def calculate_arrival_time(self, route, position):
+        route_order = route.get_order()
+        vertex_id = route_order[position]
+        
+        if (position == 0):
+            return self.time_matrix[self.depot][vertex_id]
+
+        
+        previous_id = route_order[position-1]
+        
+        previous_start_service = route.arrival_times[position-1]
+        previous_tw = self.vertices[previous_id].time_window
+
+        if (previous_start_service < previous_tw[0]):
+            previous_start_service = previous_tw[0]
+
+        previous_service_time = self.vertices[previous_id].service_time
+        
+        travel_time = self.time_matrix[previous_id][vertex_id]
+
+        arrival_time = (
+            previous_start_service 
+            + previous_service_time 
+            + travel_time
+        )
+
+        return arrival_time
+
+
+    def get_attr_relation_reader_remov_op(self):
+        rela_reader_heur = {
+            "vertices" : "vertices",
+            "time_matrix" : "time_matrix",
+            "number_of_requests" : "number_of_requests",
+            "depot" : "depot"
+        }
+        return rela_reader_heur
+

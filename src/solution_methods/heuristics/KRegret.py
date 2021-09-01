@@ -1,21 +1,21 @@
+from src.solution_methods.SolutionMethod import SolutionMethod
+from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 import numpy
 import bisect
 import math
 
 from src.objective_functions import *
 from src.route_classes.Route import *
-from src.solution_methods.heuristics import InsertionHeuristic
 
 
-class KRegret(InsertionHeuristic, metaclass=ABCMeta):
+class KRegret(SolutionMethod):
+
+    def __init__(self):
+        super().__init__("KRegret")
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.non_insertion_cost = None
-
-
-    def try_to_insert(self, route, positions, request):
-        return super().try_to_insert(route, positions, request)
 
 
     def get_indices_best_routes(self, routes, k):
@@ -76,11 +76,12 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             solution.set_route(route_id, new_route)
             solution.add_request(request)
 
-            self.update_solution_requests_costs_after_insertion(
+            InsertionOperator().update_solution_requests_costs_after_insertion(
                 solution, 
                 new_route, 
                 inserted_position,
-                request
+                request,
+                self.obj_func
             )
 
 
@@ -88,6 +89,45 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
 
         return solution
 
+
+    def get_best_insertions_in_routes(self, request, routes, best_routes_pos):
+        request_k_routes = []
+        request_k_insertions = []
+        request_k_costs = []
+        routes_pos = []
+
+        for i in best_routes_pos:
+            route = routes[i]
+            position, new_route = (
+                InsertionOperator().get_best_insertion_in_route(
+                    route, 
+                    request,
+                    self.obj_func,
+                    self.constraints
+                )
+            )
+            if (new_route is None):
+                cost = self.non_insertion_cost
+                new_route = None
+            else:
+                cost = new_route.cost()
+            
+            order_position = bisect.bisect(
+                request_k_costs, 
+                cost
+            )
+        
+            request_k_costs.insert(order_position, cost)
+            request_k_insertions.insert(order_position, position)
+            request_k_routes.insert(order_position, new_route)
+            routes_pos.insert(order_position, i)
+
+        return (
+            routes_pos,
+            request_k_routes,
+            request_k_insertions,
+            request_k_costs
+        )
 
 
     def get_regret_value(self, routes_costs):
@@ -148,3 +188,12 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             continue
             
         return can_be_inserted
+
+
+    def update_route_values(self, route, position, request):
+        pass
+    
+
+    def get_attr_relation_reader_heuristic(self):
+        return {}
+

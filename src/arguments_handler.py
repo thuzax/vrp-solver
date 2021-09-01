@@ -4,6 +4,7 @@ import json
 from src import route_classes
 from src import vertex_classes
 from src import solution_classes
+from src.solution_methods import basic_operators
 
 
 from src.objects_managers import ObjFunctionsObjects
@@ -12,6 +13,7 @@ from src.objects_managers import ConstraintsObjects
 
 from src.route_classes.Route import RouteSubClass
 from src.vertex_classes.Vertex import VertexSubClass
+
 
 from src.objects_creation_manager import create_class_by_name
 
@@ -128,6 +130,14 @@ def configure_vertex_class(dict_vertex):
     VertexSubClass(vertex_class_type)
 
 
+def create_operator_class(dict_insertion_op):
+    insertion_op_class_name = list(dict_insertion_op.keys())[0]
+    create_class_by_name(
+        insertion_op_class_name,
+        dict_insertion_op[insertion_op_class_name]
+    )
+
+
 def read_configuration(arguments):
     constraints_file_name = arguments["configuration_file"]
 
@@ -156,7 +166,11 @@ def read_configuration(arguments):
         dict_vertex = dict_data["vertex_class"]
         configure_vertex_class(dict_vertex)
 
+        dict_insertion_op = dict_data["insertion_operator"]
+        create_operator_class(dict_insertion_op)
 
+        dict_removal_op = dict_data["removal_operator"]
+        create_operator_class(dict_removal_op)
 
 
 def parse_command_line_arguments():

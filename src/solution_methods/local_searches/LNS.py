@@ -1,12 +1,12 @@
 
+from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 import time
 import copy
 import random
 from src import exceptions
-from src.solution_methods.metaheuristics.LocalSearch import LocalSearch
+from src.solution_methods.local_searches.LocalSearch import LocalSearch
 
 class LNS(LocalSearch):
-    
 
     def __init__(self):
         super().__init__("LNS")
@@ -115,6 +115,7 @@ class LNS(LocalSearch):
                 solution = new_solution
         
         print("LNS iteartion: ", stop_parameters["it"])
+        print(all_requests)
         return best_solution
 
 
@@ -187,9 +188,8 @@ class LNS(LocalSearch):
         return False
 
 
-    @staticmethod
-    def get_attr_relation_reader_heuristic():
-        rela_reader_heur = LocalSearch.get_attr_relation_reader_heuristic()
+    def get_attr_relation_reader_heuristic(self):
+        rela_reader_heur = super().get_attr_relation_reader_heuristic()
         return rela_reader_heur
 
 

@@ -8,7 +8,7 @@
         }
     },
     "solution_methods" : {
-        "KRegretPDPTW" : {
+        "KRegret" : {
             "non_insertion_cost" : 9999999999999,
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
@@ -16,19 +16,19 @@
                 "TimeWindowsConstraint"
             ]
         },
-        "RandomInsertionPDPTW" : {
+        "RandomInsertion" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
-        "RandomRemovalPDPTW" : {
+        "RandomRemoval" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
             ]
         },
-        "WorstRemovalPDPTW" : {
+        "WorstRemoval" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
             ],
@@ -71,9 +71,9 @@
             "max_it_without_improv" : 5,
             "stop_criteria" : "time",
             "local_operators_names" : {
-                "KRegret" : "KRegretPDPTW",
-                "RandomRemoval" : "RandomRemovalPDPTW",
-                "WorstRemoval" : "WorstRemovalPDPTW",
+                "KRegret" : "KRegret",
+                "RandomRemoval" : "RandomRemoval",
+                "WorstRemoval" : "WorstRemoval",
                 "ShawRemoval" : "ShawRemovalPDPTW"
             },
             "removals_probabilities" : {
@@ -104,7 +104,7 @@
             "output_name" : "br-ms-cg",
             "output_type" : "json",
             "obj_func_name" : "ObjVehicles",
-            "construction_name" : "KRegretPDPTW",
+            "construction_name" : "KRegret",
             "local_searches_order" : [
                 "LNS",
                 "AGES",
@@ -120,7 +120,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-10_input",
+            "input_name" : "br-ms-cg-20_input",
             "input_type" : "json"
         }
     },
@@ -136,6 +136,16 @@
     },
     "solution_class" : {
         "obj_func_name" : "ObjVehicles"
+    },
+    "insertion_operator" : {
+        "InsertionOperatorPDPTW" : {
+
+        }
+    },
+    "removal_operator" : {
+        "RemovalOperatorPDPTW" : {
+
+        }
     }
 
 }

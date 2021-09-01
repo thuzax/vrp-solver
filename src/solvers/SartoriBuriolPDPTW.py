@@ -85,13 +85,11 @@ class SartoriBuriolPDPTW(SolverClass):
         )
 
 
-        # self.local_searches[0].solve(solution, parameters)
-
         self.remaining_requests_set = (
             set(self.requests)
             - solution.requests()
         )
-        print("REMOVED: " + str(self.remaining_requests_set))
+        print("REMAINING: " + str(self.remaining_requests_set))
 
         return solution
 

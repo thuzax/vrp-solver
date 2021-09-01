@@ -1,12 +1,16 @@
 from abc import ABCMeta, abstractmethod
 
 import random
+from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 
 from src.solution_methods.SolutionMethod import SolutionMethod
-from src.solution_methods.heuristics.RemovalHeuristic import RemovalHeuristic
 
-class WorstRemoval(RemovalHeuristic, metaclass=ABCMeta):
 
+class WorstRemoval(SolutionMethod):
+
+
+    def __init__(self):
+        super().__init__("Worst Removal Ropke and Psinger 2006")
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
@@ -39,18 +43,28 @@ class WorstRemoval(RemovalHeuristic, metaclass=ABCMeta):
 
             route_pos = routes.index(route)
             
-            new_route = self.try_to_remove(routes[route_pos], request)
+            new_route = RemovalOperator().try_to_remove(
+                routes[route_pos],
+                request,
+                self.obj_func,
+                self.constraints
+            )
             if (new_route is not None):
                 solution.remove_request(request)
                 solution.set_route(route_pos, new_route)
-                self.update_solution_requests_costs_after_removal(
+                RemovalOperator().update_solution_requests_costs_after_removal(
                     solution, 
                     new_route,
                     request_pos,
-                    request
+                    request,
+                    self.obj_func
                 )
 
         return solution
 
-    def try_to_remove(self, route, request):
-        return super().try_to_remove(route, request)
+
+    def get_attr_relation_reader_heuristic(self):
+        return {}
+
+    def update_route_values(self, route, position, request):
+        return super().update_route_values(route, position, request)

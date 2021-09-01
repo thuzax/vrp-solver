@@ -22,7 +22,6 @@ class SetPartitionModel(SolutionMethod):
         super().update_route_values(route, position, request)
 
 
-    @staticmethod
-    def get_attr_relation_reader_heuristic():
-        rela_reader_heur = SolutionMethod.get_attr_relation_reader_heuristic()
+    def get_attr_relation_reader_heuristic(self):
+        rela_reader_heur = super().get_attr_relation_reader_heuristic()
         return rela_reader_heur

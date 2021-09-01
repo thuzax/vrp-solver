@@ -1,14 +1,14 @@
 from abc import ABCMeta, abstractclassmethod, abstractmethod
 
 import random
+from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.exceptions import CouldNotRemoveWithShawRemoval
 
 import numpy
 
 from src.solution_methods.SolutionMethod import SolutionMethod
-from src.solution_methods.heuristics.RemovalHeuristic import RemovalHeuristic
 
-class ShawRemoval(RemovalHeuristic, metaclass=ABCMeta):
+class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
 
     def initialize_class_attributes(self):
@@ -56,9 +56,11 @@ class ShawRemoval(RemovalHeuristic, metaclass=ABCMeta):
     def remove_from_route(self, route_pos, request, solution):
         route = solution.routes[route_pos]
         if (request in route):
-            new_route = self.try_to_remove(
+            new_route = RemovalOperator().try_to_remove(
                 solution.routes[route_pos], 
-                request
+                request,
+                self.obj_func,
+                self.constraints
             )
             if (new_route is None):
                 raise CouldNotRemoveWithShawRemoval(request)
@@ -66,11 +68,12 @@ class ShawRemoval(RemovalHeuristic, metaclass=ABCMeta):
                 request_pos = route.index(request)
                 solution.remove_request(request)
                 solution.set_route(route_pos, new_route)
-                self.update_solution_requests_costs_after_removal(
+                RemovalOperator().update_solution_requests_costs_after_removal(
                     solution, 
                     new_route,
                     request_pos,
-                    request
+                    request,
+                    self.obj_func
                 )
 
 
@@ -106,8 +109,5 @@ class ShawRemoval(RemovalHeuristic, metaclass=ABCMeta):
             )
             relatedness_measure[candidate] = relation
         return relatedness_measure
-
-    def try_to_remove(self, route, request):
-        return super().try_to_remove(route, request)
 
 

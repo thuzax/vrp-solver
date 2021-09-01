@@ -1,35 +1,36 @@
-from .heuristics.InsertionHeuristic import *
-from .heuristics.KRegret import *
-from .heuristics.KRegretPDPTW import *
-from .heuristics.RandomInsertion import *
-from .heuristics.RandomInsertionPDPTW import *
+from .basic_operators.InsertionOperator import *
+from .basic_operators.InsertionOperatorPDPTW import *
 
-from .heuristics.RemovalHeuristic import *
+from .basic_operators.RemovalOperator import *
+from .basic_operators.RemovalOperatorPDPTW import *
+
+from .basic_operators.RemovalOperator import *
+from .basic_operators.RemovalOperatorPDPTW import *
+
+from .heuristics.KRegret import *
+from .heuristics.RandomInsertion import *
+
 from .heuristics.RandomRemoval import *
-from .heuristics.RandomRemovalPDPTW import *
 from .heuristics.WorstRemoval import *
-from .heuristics.WorstRemovalPDPTW import *
 from .heuristics.ShawRemoval import *
 from .heuristics.ShawRemovalPDPTW import *
 
 from .exact_methods.SetPartitionModel import *
-from .metaheuristics.AGES import *
-from .metaheuristics.LNS import *
+from .local_searches.AGES import *
+from .local_searches.LNS import *
 
 from .acceptance_heuristics.AcceptanceHeuristic import *
 from .acceptance_heuristics.LAHC import *
 
 __all__ = [
-    "InsertionHeuristic",
+    "InsertionOperator",
+    "InsertionOperatorPDPTW",
+    "RemovalOperator",
+    "RemovalOperatorPDPTW",
     "KRegret",
-    "KRegretPDPTW",
     "RandomInsertion",
-    "RandomInsertionPDPTW",
-    "RemovalHeuristic",
     "RandomRemoval",
     "WorstRemoval",
-    "RandomRemovalPDPTW",
-    "WorstRemovalPDPTW",
     "ShawRemoval",
     "ShawRemovalPDPTW",
     "AGES",

@@ -1,3 +1,5 @@
+from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
+from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.solution_classes.Solution import Solution
 from src.objects_managers import *
 from src.GenericClass import GenericClass
@@ -31,6 +33,14 @@ def set_read_objects_attributes(reader):
     for obj_func in obj_funcs_objects:
         read_obj_f_attr_rela = obj_func.get_attr_relation_reader_func()
         set_object_attributes(reader, obj_func, read_obj_f_attr_rela)
+
+    i_op = InsertionOperator()
+    read_insert_op_rela = i_op.get_attr_relation_reader_insert_op()
+    set_object_attributes(reader, i_op, read_insert_op_rela)
+
+    r_op = RemovalOperator()
+    read_remov_op_rela = r_op.get_attr_relation_reader_remov_op()
+    set_object_attributes(reader, r_op, read_remov_op_rela)
 
 
     heuristics_objects = HeuristicsObjects().get_list()
