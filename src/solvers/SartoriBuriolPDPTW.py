@@ -44,9 +44,11 @@ class SartoriBuriolPDPTW(SolverClass):
             parameters["k"] = 1
 
             solution = self.construction.solve(solution, parameters)
+            insertion_requests -= solution.requests()
             if (last_size == len(insertion_requests)):
                 routes.pop()
                 inserted = False
+            
 
         self.remaining_requests_set = insertion_requests
         
@@ -54,7 +56,6 @@ class SartoriBuriolPDPTW(SolverClass):
             set(self.requests)
             - self.remaining_requests_set
         )
-
 
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
         solution.set_routes_total_cost(
@@ -71,7 +72,8 @@ class SartoriBuriolPDPTW(SolverClass):
                     self.obj_func
                 )
             )
-        print(solution)
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        # print(solution)
         parameters["remaining_requests"] = self.remaining_requests_set
         solution = self.local_searches[0].solve(
             solution, 

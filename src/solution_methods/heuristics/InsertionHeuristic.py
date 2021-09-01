@@ -28,9 +28,23 @@ class InsertionHeuristic(SolutionMethod, metaclass=ABCMeta):
         if (self.route_is_feasible(copy_route)):
             return copy_route
 
+
     @abstractmethod
     def get_route_feasible_insertions(self, route, request):
+        """
+        Return a list with a pair (position, new_route) representing the inserting position and the route after insertio. If there is no feasible position, returns empty list.
+        """
         pass
+
+
+    def get_all_feasible_insertions_from_routes(self, request, routes):
+        feasible_insertions = []
+        for route in routes:
+            feasible_insertions.append(
+                self.get_route_feasible_insertions(route, request)
+            )
+
+        return feasible_insertions
 
 
     def get_best_insertion_in_route(self, route, request):
@@ -83,21 +97,6 @@ class InsertionHeuristic(SolutionMethod, metaclass=ABCMeta):
             request_k_insertions,
             request_k_costs
         )
-
-
-    def verify_if_insertion_is_possible(self, routes):
-        can_be_inserted = False
-        i = 0
-        while ((i < len(routes)) and (not can_be_inserted)):
-            route = routes[i]
-            if (route is not None):
-                can_be_inserted = True
-            i += 1
-            continue
-            
-        return can_be_inserted
-
-
 
 
     def update_solution_requests_costs_after_insertion(

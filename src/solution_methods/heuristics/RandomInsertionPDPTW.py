@@ -1,13 +1,10 @@
+from src.solution_methods.heuristics.RandomInsertion import RandomInsertion
 
-import random
 
-from src.solution_methods.SolutionMethod import SolutionMethod
-from src.solution_methods.heuristics.RandomRemoval import RandomRemoval
-
-class RandomRemovalPDPTW(RandomRemoval):
+class RandomInsertionPDPTW(RandomInsertion):
 
     def __init__(self):
-        super().__init__("Random Removal PDPTW")
+        super().__init__("RandomInsertion PDPTW")
 
 
     def initialize_class_attributes(self):
@@ -16,6 +13,43 @@ class RandomRemovalPDPTW(RandomRemoval):
         self.time_matrix = None
         self.depot = None
         self.number_of_requests = None
+
+
+    def get_route_feasible_insertions(self, route, request):
+        if (route.empty()):
+            new_route = self.try_to_insert(
+                route,
+                (0, 1), 
+                request, 
+            )
+
+            if (new_route is None):
+                return []
+            
+            return [
+                (
+                    (0, 1),
+                    new_route
+                )
+            ]
+        
+        feasible_positions = []
+        for i in range(route.size()+1):
+            for j in range(i+1, route.size()+2):
+                new_route = self.try_to_insert(
+                    route, 
+                    (i, j), 
+                    request, 
+                )
+                
+                if (new_route is None):
+                    continue
+
+                feasible_positions.append((
+                    (i, j),
+                    new_route
+                ))
+        return feasible_positions
 
 
     def update_route_values(self, route, position, request):
@@ -83,8 +117,8 @@ class RandomRemovalPDPTW(RandomRemoval):
     def get_attr_relation_reader_heuristic():
         rela_reader_heur = {
             "vertices" : "vertices",
-            "time_matrix" : "time_matrix",
             "number_of_requests" : "number_of_requests",
+            "time_matrix" : "time_matrix",
             "depot" : "depot"
         }
         return rela_reader_heur

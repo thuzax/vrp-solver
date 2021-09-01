@@ -8,7 +8,6 @@ from src.solution_methods.heuristics import InsertionHeuristic
 
 
 class KRegret(InsertionHeuristic, metaclass=ABCMeta):
-    
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
@@ -126,7 +125,7 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
         requests_can_be_inserted = {}
         for request in requests:
             requests_can_be_inserted[request] = (
-                self.verify_if_insertion_is_possible(regret_routes[request])
+                self.verify_if_request_has_regret_route(regret_routes[request])
             )
         
         return {
@@ -136,3 +135,16 @@ class KRegret(InsertionHeuristic, metaclass=ABCMeta):
             "regret_routes_ids" : regret_routes_ids,
             "regret_insert_pos" : regret_insert_pos
         }
+
+
+    def verify_if_request_has_regret_route(self, routes):
+        can_be_inserted = False
+        i = 0
+        while ((i < len(routes)) and (not can_be_inserted)):
+            route = routes[i]
+            if (route is not None):
+                can_be_inserted = True
+            i += 1
+            continue
+            
+        return can_be_inserted

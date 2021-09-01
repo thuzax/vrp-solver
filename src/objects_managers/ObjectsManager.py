@@ -28,7 +28,6 @@ class ObjectsManager:
                 obj_class_name,
                 class_type.__name__
             )
-        
         self.heuristics_list.append(obj)
         self.heuristics_dict[obj_class_name] = obj
 

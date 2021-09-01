@@ -65,8 +65,17 @@ class Solution(GenericClass):
     def set_objective_value(self, new_value):
         self.solution_cost = new_value
 
+
     def set_routes_total_cost(self, new_value):
         self.total_routes_cost = new_value
+
+
+    def find_route_position_by_id(self, route_id):
+        for i in range(len(self.routes)):
+            if (self.routes[i].get_id() == route_id):
+                return i
+        
+        return None
 
 
     def __str__(self):

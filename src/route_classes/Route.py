@@ -11,6 +11,7 @@ class RouteSubClass:
     instance = None
     route_subclass = None
     route_subclass_params = None
+    route_id_counter = 0
 
     def __new__(cls, *args, **kwargs):
         if (len(cls.__subclasses__())):
@@ -25,6 +26,13 @@ class RouteSubClass:
     def __init__(self, subclass=None):
         if (subclass is not None):
             self.route_subclass = subclass
+
+
+    def get_next_route_id(self):
+        route_id = self.route_id_counter
+        self.route_id_counter += 1
+        return route_id
+
 
 
 create_super = False
@@ -42,6 +50,7 @@ class Route(GenericClass, metaclass=ABCMeta):
         
         create_super = True
         cls = RouteSubClass().route_subclass()
+        cls.route_id = RouteSubClass().get_next_route_id()
         cls.child_created = True
         return cls
 
@@ -52,7 +61,7 @@ class Route(GenericClass, metaclass=ABCMeta):
             self.vertices_order = []
             self.requests_set = set()
             self.requests = []
-
+            self.route_id = 0
             self.route_cost = 0
             self.initialize_class_attributes()
             self.set_input_params()
@@ -131,7 +140,7 @@ class Route(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def pop(self, request):
+    def remove(self, request):
         pass
 
 
@@ -143,6 +152,16 @@ class Route(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def cost(self):
         return self.route_cost
+
+    
+    @abstractmethod
+    def copy(self):
+        pass
+
+
+    @abstractmethod
+    def get_id(self):
+        return self.route_id
 
 
     @staticmethod

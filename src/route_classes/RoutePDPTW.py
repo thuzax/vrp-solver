@@ -99,6 +99,7 @@ class RoutePDPTW(Route):
     def copy(self):
         copy_route = Route()
 
+        copy_route.route_id = self.route_id
         copy_route.vertices_order = copy.deepcopy(self.vertices_order)
         copy_route.requests_set = copy.deepcopy(self.requests_set)
         
@@ -110,6 +111,10 @@ class RoutePDPTW(Route):
         )
 
         return copy_route
+
+
+    def get_id(self):
+        return super().get_id()
 
 
     def __str__(self):

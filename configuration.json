@@ -16,6 +16,13 @@
                 "TimeWindowsConstraint"
             ]
         },
+        "RandomInsertionPDPTW" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
         "RandomRemovalPDPTW" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
@@ -113,7 +120,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-100_input",
+            "input_name" : "br-ms-cg-10_input",
             "input_type" : "json"
         }
     },
