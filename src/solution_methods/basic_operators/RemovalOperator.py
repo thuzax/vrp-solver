@@ -80,5 +80,6 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
             request,
             obj_func
         )
+
         return solution
         

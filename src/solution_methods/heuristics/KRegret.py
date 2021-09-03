@@ -73,8 +73,7 @@ class KRegret(SolutionMethod):
             inserted_position = regret_insert_pos[request][0]
 
             new_route = regret_routes[request][0]
-            
-            nwe_solution = InsertionOperator().insert_request_in_solution(
+            new_solution = InsertionOperator().insert_request_in_solution(
                 new_solution,
                 request,
                 inserted_position,

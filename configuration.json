@@ -54,7 +54,8 @@
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
-                "TimeWindowsConstraint"
+                "TimeWindowsConstraint",
+                "AttendAllRequests"
             ],
             "acceptance_algorithm_data" : {
                 "LAHC" : {
@@ -103,6 +104,8 @@
         "HomogeneousCapacityConstraint": {
         },
         "PickupDeliveryConstraint": {
+        },
+        "AttendAllRequests" : {
         }
     },
     "solver" : {
@@ -121,14 +124,15 @@
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "PickupDeliveryConstraint"
+                "PickupDeliveryConstraint",
+                "AttendAllRequests"
             ]
         }
     },
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-10_input",
+            "input_name" : "br-ms-cg-100_input",
             "input_type" : "json"
         }
     },

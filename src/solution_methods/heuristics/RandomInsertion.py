@@ -32,12 +32,11 @@ class RandomInsertion(SolutionMethod):
 
             insertion_positions = []
             routes_after_insertion = []
-            for route_feasible_insertions in feasible_insertions:
-                if (len(route_feasible_insertions) > 0):
-                    positions, routes = tuple(zip(*route_feasible_insertions))
-                    insertion_positions += list(positions)
-                    routes_after_insertion += list(routes)
-            
+            for feasible_insertion in feasible_insertions:
+                positions, routes = feasible_insertion
+                insertion_positions.append(positions)
+                routes_after_insertion.append(routes)
+                
             if (len(routes_after_insertion) <= 0):
                 continue
 

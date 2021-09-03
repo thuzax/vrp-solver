@@ -6,6 +6,7 @@ import random
 from src import exceptions
 from src.solution_methods.local_searches.LocalSearch import LocalSearch
 
+
 class LNS(LocalSearch):
 
     def __init__(self):
@@ -72,38 +73,42 @@ class LNS(LocalSearch):
                 n_b_max = self.b_min
             
             b = random.randint(self.b_min, n_b_max)
-            copy_solution = self.remove_from_solution(
+            new_solution = self.remove_from_solution(
                 b, 
                 new_solution
             )
-
+            
             removed_requests = all_requests - new_solution.requests()
-
             new_solution.set_objective_value(
                 self.obj_func.get_solution_cost(new_solution)
             )
-            
+
             # Reinsertion
             extra_requests = extra_requests.union(removed_requests)
-            
+
             k = random.randint(self.k_min, self.k_max)
-            copy_solution = self.reinsert_requests(
+            new_solution = self.reinsert_requests(
                 extra_requests, 
                 k, 
                 new_solution
             )
 
-            extra_requests = all_requests - new_solution.requests()
 
             new_solution.set_objective_value(
                 self.obj_func.get_solution_cost(new_solution)
             )
-            
+
             # Acceptance
             stop_parameters["it"] += 1
             stop_parameters["time_last_it"] = time.time()
-
-            if (self.obj_func.solution_is_better(new_solution, best_solution)):
+            accepted = self.accept(new_solution)
+            if (
+                accepted 
+                and 
+                self.obj_func.solution_is_better(
+                        new_solution, best_solution
+                )
+            ):
                 best_solution = new_solution
                 stop_parameters["time_last_improv"] = time.time()
                 stop_parameters["it_last_improv"] = stop_parameters["it"]
@@ -113,17 +118,23 @@ class LNS(LocalSearch):
                     best_solution.routes_cost()
                 )
 
-            
-            if (self.accept(new_solution)):
+
+
+            if (accepted):
                 copy_solution = new_solution
-        
+    
+            extra_requests = all_requests - copy_solution.requests()
+
         print("LNS iteartion: ", stop_parameters["it"])
-        print(all_requests)
         return best_solution
 
 
-    def accept(self, new_solution):
-        return super().accept(new_solution)
+    def accept(self, solution):
+        for constraint in self.constraints:
+            if (not constraint.solution_is_feasible(solution)):
+                return False
+        
+        return super().accept(solution)
 
 
     def update_route_values(self, route, position, request):

@@ -102,7 +102,6 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
             and (s_1.routes_cost() >= s_2.routes_cost())
         ):
             return False
-        
         return True
 
 

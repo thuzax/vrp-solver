@@ -70,7 +70,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
     ):
         feasible_insertions = []
         for route in routes:
-            feasible_insertions.append(
+            feasible_insertions += (
                 self.get_route_feasible_insertions(
                     route, 
                     request, 

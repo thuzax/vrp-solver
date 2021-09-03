@@ -18,8 +18,8 @@ class ObjectsManager:
         super().__init__()
         if (not hasattr(self, "name")):
             self.name = self.__class__.__name__
-            self.heuristics_list = []
-            self.heuristics_dict = {}
+            self.objs_list = []
+            self.objs_dict = {}
     
     def add_object(self, obj, class_type):
         obj_class_name = obj.__class__.__name__
@@ -28,13 +28,13 @@ class ObjectsManager:
                 obj_class_name,
                 class_type.__name__
             )
-        self.heuristics_list.append(obj)
-        self.heuristics_dict[obj_class_name] = obj
+        self.objs_list.append(obj)
+        self.objs_dict[obj_class_name] = obj
 
 
     def get_by_name(self, class_name):
-        return self.heuristics_dict[class_name]
+        return self.objs_dict[class_name]
 
 
     def get_list(self):
-        return self.heuristics_list
+        return self.objs_list

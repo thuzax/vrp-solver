@@ -108,7 +108,6 @@ class RemovalOperatorPDPTW(RemovalOperator):
             solution.set_request_cost(pair, cost)
 
 
-
     def update_route_values(self, route, position, request):
         pickup_position, delivery_position = position
         

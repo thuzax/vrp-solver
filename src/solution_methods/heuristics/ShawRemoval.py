@@ -50,7 +50,6 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         for route_pos in range(new_solution.number_of_routes()):
             for request in requests_to_remove:
                 self.remove_from_route(route_pos, request, new_solution)
-
         return new_solution
 
 
@@ -63,11 +62,11 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
                 self.obj_func,
                 self.constraints
             )
+
             if (new_route is None):
                 raise CouldNotRemoveWithShawRemoval(request)
             else:
                 request_pos = route.index(request)
-
                 solution = RemovalOperator().remove_request_from_solution(
                     solution,
                     request,
