@@ -7,15 +7,42 @@
             
         }
     },
-    "heuristics" : {
-        "KRegretPDPTW" : {
+    "solution_methods" : {
+        "KRegret" : {
             "non_insertion_cost" : 9999999999999,
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
-            },
+        },
+        "RandomInsertion" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "RandomRemoval" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+            ]
+        },
+        "WorstRemoval" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+            ],
+            "p" : 3
+        },
+        "ShawRemovalPDPTW" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+            ],
+            "p" : 6,
+            "phi" : 9,
+            "qui" : 3,
+            "psi" : 2
+        },
         "AGES" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
@@ -27,11 +54,51 @@
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
-                "TimeWindowsConstraint"
-            ]
+                "TimeWindowsConstraint",
+                "AttendAllRequests"
+            ],
+            "acceptance_algorithm_data" : {
+                "LAHC" : {
+                    "list_size" : 3
+                }
+            },
+            "k_min" : 1,
+            "k_max" : 4,
+            "b_min" : 2,
+            "b_max" : 0.20,
+            "max_time" : 10,
+            "max_time_without_improv" : 5,
+            "max_it" : 100,
+            "max_it_without_improv" : 70,
+            "stop_criteria" : "iterations",
+            "local_operators_names" : {
+                "KRegret" : "KRegret",
+                "RandomRemoval" : "RandomRemoval",
+                "WorstRemoval" : "WorstRemoval",
+                "ShawRemoval" : "ShawRemovalPDPTW"
+            },
+            "removals_probabilities" : {
+                "RandomRemoval" : 3,
+                "WorstRemoval" : 1,
+                "ShawRemoval" : 6
+            }
         },
         "SetPartitionModel" : {
             "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "RandomShift" : {
+            "obj_func_name" : "ObjVehicles",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "RandomExchange" : {
+            "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
@@ -44,6 +111,8 @@
         "HomogeneousCapacityConstraint": {
         },
         "PickupDeliveryConstraint": {
+        },
+        "AttendAllRequests" : {
         }
     },
     "solver" : {
@@ -52,23 +121,26 @@
             "output_name" : "br-ms-cg",
             "output_type" : "json",
             "obj_func_name" : "ObjVehicles",
-            "construction_name" : "KRegretPDPTW",
+            "construction_name" : "KRegret",
             "local_searches_order" : [
-                "AGES",
                 "LNS",
+                "RandomShift",
+                "RandomExchange",
+                "AGES",
                 "SetPartitionModel"
             ],
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "PickupDeliveryConstraint"
+                "PickupDeliveryConstraint",
+                "AttendAllRequests"
             ]
         }
     },
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-10_input",
+            "input_name" : "br-ms-cg-100_input",
             "input_type" : "json"
         }
     },
@@ -81,6 +153,17 @@
         "VertexPDPTW" : {
 
         }
+    },
+    "solution_class" : {
+        "obj_func_name" : "ObjVehicles"
+    },
+    "insertion_operator" : {
+        "InsertionOperatorPDPTW" : {
+        }
+    },
+    "removal_operator" : {
+        "RemovalOperatorPDPTW" : {
+        }
     }
-    
+
 }

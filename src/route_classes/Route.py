@@ -11,6 +11,7 @@ class RouteSubClass:
     instance = None
     route_subclass = None
     route_subclass_params = None
+    route_id_counter = 0
 
     def __new__(cls, *args, **kwargs):
         if (len(cls.__subclasses__())):
@@ -27,11 +28,17 @@ class RouteSubClass:
             self.route_subclass = subclass
 
 
+    def get_next_route_id(self):
+        route_id = self.route_id_counter
+        self.route_id_counter += 1
+        return route_id
+
+
+
 create_super = False
 class Route(GenericClass, metaclass=ABCMeta):
 
     child_created = False
-
 
     def __new__(cls, *args, **kwargs):
         global create_super
@@ -43,6 +50,7 @@ class Route(GenericClass, metaclass=ABCMeta):
         
         create_super = True
         cls = RouteSubClass().route_subclass()
+        cls.route_id = RouteSubClass().get_next_route_id()
         cls.child_created = True
         return cls
 
@@ -51,7 +59,9 @@ class Route(GenericClass, metaclass=ABCMeta):
         if (not hasattr(self, "name")):
             self.name = route_class_name
             self.vertices_order = []
-            self.vertices_set = set()
+            self.requests_set = set()
+            self.requests = []
+            self.route_id = 0
             self.route_cost = 0
             self.initialize_class_attributes()
             self.set_input_params()
@@ -59,6 +69,8 @@ class Route(GenericClass, metaclass=ABCMeta):
 
     def set_input_params(self):
         route_input_params = RouteSubClass.route_subclass_params
+        if (route_input_params is None):
+            return
         for param_name, param_value in route_input_params.items():
             self.set_attribute(param_name, param_value)
             
@@ -87,8 +99,12 @@ class Route(GenericClass, metaclass=ABCMeta):
         return self.vertices_order
 
         
-    def get_points_set(self):
-        return self.vertices_set
+    def get_requests_set(self):
+        return self.requests_set
+
+    @abstractmethod
+    def get_request_by_position(self, position):
+        pass
 
 
     def empty(self):
@@ -101,9 +117,12 @@ class Route(GenericClass, metaclass=ABCMeta):
     def size(self):
         return len(self.vertices_order)
 
+    def number_of_requests(self):
+        return len(self.requests_set)
+
 
     def __contains__(self, key):
-        if (key in self.vertices_set):
+        if (key in self.requests_set):
             return True
         return False
 
@@ -119,13 +138,33 @@ class Route(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def remove(self, vertex):
+    def index(self, request):
         pass
 
-    
+
+    @abstractmethod
+    def remove(self, request):
+        pass
+
+
+    @abstractmethod
+    def pop(self, request):
+        pass
+
+
     @abstractmethod
     def cost(self):
         return self.route_cost
+
+    
+    @abstractmethod
+    def copy(self):
+        pass
+
+
+    @abstractmethod
+    def get_id(self):
+        return self.route_id
 
 
     @staticmethod

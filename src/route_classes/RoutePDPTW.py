@@ -20,7 +20,6 @@ class RoutePDPTW(Route):
 
     def insert_vertex(self, position, vertex):
         self.vertices_order.insert(position, vertex)
-        self.vertices_set.add(vertex)
 
         self.arrival_times.insert(position, -1)
         self.capacity_occupations.insert(position, 0)
@@ -29,14 +28,64 @@ class RoutePDPTW(Route):
     def insert(self, insert_position, request):
         pickup_pos, delivery_pos = insert_position
         pickup, delivery = request
+        self.requests_set.add(request)
 
         self.insert_vertex(pickup_pos, pickup)
         self.insert_vertex(delivery_pos, delivery)
 
 
-    def remove(self, vertex):
-        self.vertices_set.remove(vertex)
-        self.vertices_order.remove(vertex)
+    def index(self, request):
+        pickup, delivery = request
+        
+        position_pickup = self.vertices_order.index(pickup)
+        position_delivery = self.vertices_order.index(delivery)
+
+        return (position_pickup, position_delivery)
+
+
+    def pop_vertex(self, position):
+        
+        vertex_id = self.vertices_order.pop(position)
+        self.arrival_times.pop(position)
+        self.capacity_occupations.pop(position)
+
+
+        return vertex_id
+
+
+
+    def pop(self, position):
+        pickup_pos, delivery_pos = position
+
+        pickup = self.pop_vertex(pickup_pos)
+        delivery = self.pop_vertex(delivery_pos-1)
+
+        self.requests_set.remove((pickup, delivery))
+
+        return (pickup, delivery)
+
+
+
+    def remove(self, request):
+        pickup_pos, delivery_pos = self.index(request)
+
+        self.pop_vertex(pickup_pos)
+        self.pop_vertex(delivery_pos)
+
+
+    def get_request_by_position(self, position):
+        pick_pos, deli_pos = position
+
+        return (self.route_order[pick_pos], self.route_order[deli_pos])
+
+
+    def get_arrival_time(self, request):
+        pick_pos, deli_pos = self.index(request)
+        arrival_times = (
+            self.arrival_times[pick_pos],
+            self.arrival_times[deli_pos]
+        )
+        return arrival_times
 
 
     def cost(self):
@@ -50,15 +99,22 @@ class RoutePDPTW(Route):
     def copy(self):
         copy_route = Route()
 
-        copy_route.vertices_order = copy.copy(self.vertices_order)
-        copy_route.vertices_set = copy.copy(self.vertices_set)
+        copy_route.route_id = self.route_id
+        copy_route.vertices_order = copy.deepcopy(self.vertices_order)
+        copy_route.requests_set = copy.deepcopy(self.requests_set)
         
-        copy_route.route_cost = copy.copy(self.route_cost)
+        copy_route.route_cost = copy.deepcopy(self.route_cost)
 
-        copy_route.arrival_times = copy.copy(self.arrival_times)
-        copy_route.capacity_occupations = copy.copy(self.capacity_occupations)
+        copy_route.arrival_times = copy.deepcopy(self.arrival_times)
+        copy_route.capacity_occupations = copy.deepcopy(
+            self.capacity_occupations
+        )
 
         return copy_route
+
+
+    def get_id(self):
+        return super().get_id()
 
 
     def __str__(self):

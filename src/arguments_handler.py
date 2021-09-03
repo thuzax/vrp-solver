@@ -3,6 +3,8 @@ import json
 
 from src import route_classes
 from src import vertex_classes
+from src import solution_classes
+from src.solution_methods import basic_operators
 
 
 from src.objects_managers import ObjFunctionsObjects
@@ -11,6 +13,7 @@ from src.objects_managers import ConstraintsObjects
 
 from src.route_classes.Route import RouteSubClass
 from src.vertex_classes.Vertex import VertexSubClass
+
 
 from src.objects_creation_manager import create_class_by_name
 
@@ -54,6 +57,28 @@ def create_heuristics_objects(dict_heuristics):
         
         heuristic.set_attribute("constraints", constraints)
 
+        if (hasattr(heuristic, "acceptance_algorithm")):
+            alg_data = heuristic.acceptance_algorithm_data
+            obj = create_accept_criteria_object(alg_data)
+            heuristic.acceptance_algorithm = obj
+
+        if (hasattr(heuristic, "local_operators_names")):
+            dict_operators = {}
+            for op, op_name in heuristic.local_operators_names.items():
+                dict_operators[op] = HeuristicsObjects().get_by_name(op_name)
+
+            heuristic.define_local_searches_operators(dict_operators)
+
+
+def create_accept_criteria_object(dict_accept_crit):
+    accept_crit_name = list(dict_accept_crit.keys())[0]
+    accept_crit_object = create_class_by_name(
+        accept_crit_name,
+        dict_accept_crit[accept_crit_name]
+    )
+    return accept_crit_object
+    
+
 
 def create_solver_object(dict_solver):
     solver_class_name = list(dict_solver.keys())[0]
@@ -94,6 +119,7 @@ def configure_route_class(dict_route):
 
     RouteSubClass(route_class_type)
 
+
 def configure_vertex_class(dict_vertex):
     vertex_class_name = list(dict_vertex.keys())[0]
     vertex_class_type = getattr(
@@ -103,6 +129,13 @@ def configure_vertex_class(dict_vertex):
 
     VertexSubClass(vertex_class_type)
 
+
+def create_operator_class(dict_insertion_op):
+    insertion_op_class_name = list(dict_insertion_op.keys())[0]
+    create_class_by_name(
+        insertion_op_class_name,
+        dict_insertion_op[insertion_op_class_name]
+    )
 
 
 def read_configuration(arguments):
@@ -118,7 +151,7 @@ def read_configuration(arguments):
         dict_obj_func = dict_data["constraints"]
         create_constraints_objects(dict_obj_func)
 
-        dict_obj_func = dict_data["heuristics"]
+        dict_obj_func = dict_data["solution_methods"]
         create_heuristics_objects(dict_obj_func)
 
         dict_solver = dict_data["solver"]
@@ -132,6 +165,12 @@ def read_configuration(arguments):
 
         dict_vertex = dict_data["vertex_class"]
         configure_vertex_class(dict_vertex)
+
+        dict_insertion_op = dict_data["insertion_operator"]
+        create_operator_class(dict_insertion_op)
+
+        dict_removal_op = dict_data["removal_operator"]
+        create_operator_class(dict_removal_op)
 
 
 def parse_command_line_arguments():

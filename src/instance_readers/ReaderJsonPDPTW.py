@@ -8,8 +8,6 @@ from src.instance_readers.Reader import Reader
 
 class ReaderJsonPDPTW(Reader):
     
-
-
     def __init__(self):
         super().__init__("PDPTW json input file Reader")
     
@@ -32,8 +30,13 @@ class ReaderJsonPDPTW(Reader):
         self.pickups = None
         self.deliveries = None
         self.requests = None
+        self.relatedness_measure = None
 
         self.has_depot = None
+
+        self.phi = None
+        self.qui = None
+        self.psi = None
 
     
     def read_points(self, points_dict, n_points):

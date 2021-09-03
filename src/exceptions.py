@@ -18,3 +18,17 @@ class ObjectClassIsNotClassType(Exception):
         message += "Class " + obj_class_name + " is not a " 
         message += class_type_name + "."
         super().__init__(message)
+
+class CouldNotRemoveWithShawRemoval(Exception):
+    def __init__(self, request):
+        message = ""
+        message += "The request " + str(request) 
+        message += "could not be removed with Shaw Removal Heuristic"
+        return message
+
+class WrongOrUndefinedStopCriteria(Exception):
+    def __init__(self, heuristic_name):
+        message = ""
+        message += "The stop criteria for " + str(heuristic_name) 
+        message += " is not an option or was undefined."
+        return message

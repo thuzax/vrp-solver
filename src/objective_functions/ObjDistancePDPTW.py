@@ -27,21 +27,44 @@ class ObjDistancePDPTW(ObjFunction):
 
 
     def get_solution_cost(self, solution):
-        total_cost = 0
-        for route in solution:
-            total_cost += self.get_route_cost(route)
-
-        return total_cost
+        return self.get_routes_sum_cost(solution.routes)
 
 
-    def request_inserted_additional_route_cost(self, route, positions, request):
+    def route_additional_route_cost_after_insertion(
+        self, 
+        route, 
+        position, 
+        request
+    ):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n
         positions -> tuple of positions where request was inserted (pickup_pos, delivery_pos);\n
         request -> inserted request;"""
 
-        pick_pos, deli_pos = positions
+        return self.get_request_cost_in_route(route, position, request)
+
+
+    def route_reduced_route_cost_before_removal(self, route, position, request):
+        """Calculate the deacresing cost of route. It is considered that the 'request' was not removed yet and its position in route is 'position'.\n
+        -Parameters:\n
+        route -> Route() object;\n
+        position -> position(s) of the removed;\n
+        request -> request inserted"""
+        if (route.empty()):
+            return 0
+
+        return (-self.get_request_cost_in_route(route, position, request))
+
+
+    def get_request_cost_in_route(self, route, position, request):
+        """The request cost is how much the route cost increase when the request is in route. Inputs: a route, the position where request is inserted, the request.
+
+        Being request = (p, d), we define the request R_c cost as follows:
+        R_c = cost(p-1,p) + cost(p, p+1) + cost(d-1, d) + cost(d, d+1) - cost(p-1, p+1) - cost(d-1, d+1)
+        """
+
+        pick_pos, deli_pos = position
         pickup, delivery = request
 
         # Calulate increasing distance for pickup
@@ -87,7 +110,7 @@ class ObjDistancePDPTW(ObjFunction):
             # If delivery was inserted in last position
             elif (deli_next is None):
                 dist_prv_nxt = self.distance_matrix[pick_previous][self.depot]
-            # If insertion is in intern positions
+            # If insertion is in intern position
             else:
                 dist_prv_nxt = self.distance_matrix[pick_previous][deli_next]
             
@@ -99,7 +122,6 @@ class ObjDistancePDPTW(ObjFunction):
         ## pick_prv -> pick -> pick_nxt -> ... -> deli_prv -> deli -> deli_nxt
         # Add the cost deli_previous -> delivery
         cost += dist_deli_to_previous
-        
         # if pickup was inserted in position 0
         if (pick_previous is None):
             dist_pick_prv_nxt = self.distance_matrix[self.depot][pick_next]
@@ -121,20 +143,6 @@ class ObjDistancePDPTW(ObjFunction):
         )
 
         return cost
-
-
-    @staticmethod
-    def route_is_better(route_1, route_2):
-        if (route_1 is None):
-            return False
-        
-        if (route_2 is None):
-            return True
-
-        if (route_1.cost() > route_2.cost()):
-            return False
-        
-        return True
 
 
     @staticmethod

@@ -51,15 +51,17 @@ class Vertex(GenericClass, metaclass=ABCMeta):
             self.vertex_id = None
 
             self.initialize_class_attributes()
-
+            self.set_input_params
 
     def __str__(self):
         return str(self.vertex_id)
 
 
     def set_input_params(self):
-        route_input_params = VertexSubClass.route_subclass_params
-        for param_name, param_value in route_input_params.items():
+        vertex_input_params = VertexSubClass.vertex_subclass_params
+        if (vertex_input_params is None):
+            return
+        for param_name, param_value in vertex_input_params.items():
             self.set_attribute(param_name, param_value)
             
 

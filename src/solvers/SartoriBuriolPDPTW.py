@@ -1,10 +1,15 @@
+import time
 import copy
+import random
 from pprint import pprint
 
-from src.heuristics import *
+from src.solution_methods import *
 from src.route_classes import *
 from src.objects_managers import *
-from src.solvers.SovlerClass import SolverClass
+from src.solution_classes import *
+
+from src.solvers.SolverClass import SolverClass
+from src.solution_check import solution_check, get_solution_check_complete_data
 
 
 class SartoriBuriolPDPTW(SolverClass):
@@ -16,21 +21,8 @@ class SartoriBuriolPDPTW(SolverClass):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.vertices = None
-        self.distance_matrix = None
-        self.time_matrix = None
-        self.capacity = None
-        self.demands = None
-        self.services_times = None
-        self.time_windows = None
-        self.planning_horizon = None
-        self.time_windows_size = None
-        self.depot = None
-        self.pickups_ids = None
-        self.deliveries_ids = None
         self.number_of_requests = None
         self.requests = None
-
-        self.remaining_requests_set = None
 
         self.construction_name = None
         self.construction = None
@@ -42,48 +34,173 @@ class SartoriBuriolPDPTW(SolverClass):
         insertion_requests = set(self.requests)
         routes = []
         last_size = len(insertion_requests)
+        
+        solution = Solution()
         inserted = True
         while (inserted and len(insertion_requests) > 0):
-            routes.append(Route())
+            solution.add_route(Route())
             parameters = {}
-            parameters["routes"] = routes
+
             parameters["requests"] = insertion_requests
             parameters["k"] = 1
 
-            self.construction.solve(parameters)
+            solution = self.construction.solve(solution, parameters)
+            insertion_requests -= solution.requests()
             if (last_size == len(insertion_requests)):
                 routes.pop()
                 inserted = False
+            
 
         self.remaining_requests_set = insertion_requests
-        self.inserted_request = (
+        
+        self.inserted_requests_set = (
             set(self.requests)
             - self.remaining_requests_set
         )
 
-        return routes
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        if (solution_check(solution, self.constraints, self.obj_func)):
+            print("SOLUTION IS OK AFTER INSERTION")
+        else:
+            print(
+                get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print(
+            "obj_func, obj_route: ", 
+            solution.cost(), 
+            ",",
+            solution.routes_cost()
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        # print(solution)
+        parameters["remaining_requests"] = self.remaining_requests_set
+        solution = self.local_searches[0].solve(
+            solution, 
+            parameters
+        )
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        if (solution_check(solution, self.constraints, self.obj_func)):
+            print("SOLUTION IS OK AFTER LNS")
+        else:
+            print(
+                get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print(
+            "obj_func, obj_route: ", 
+            solution.cost(), 
+            ",",
+            solution.routes_cost()
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        for i in range(100):
+            start = time.time()
+            solution = self.local_searches[1].solve(
+                solution, 
+                parameters
+            )
+            print(time.time() - start)
+
+
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
+
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        if (solution_check(solution, self.constraints, self.obj_func)):
+            print("SOLUTION IS OK AFTER SHIFT")
+        else:
+            print(
+                get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print(
+            "obj_func, obj_route: ", 
+            solution.cost(), 
+            ",",
+            solution.routes_cost()
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+        for i in range(100):
+            start = time.time()
+            solution = self.local_searches[2].solve(
+                solution, 
+                parameters
+            )
+            print(time.time() - start)
+
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
+
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        if (solution_check(solution, self.constraints, self.obj_func)):
+            print("SOLUTION IS OK AFTER EXCHANGE")
+        else:
+            print(
+                get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print(
+            "obj_func, obj_route: ", 
+            solution.cost(), 
+            ",",
+            solution.routes_cost()
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+
+
+        self.remaining_requests_set = (
+            set(self.requests)
+            - solution.requests()
+        )
+        print("REMAINING: " + str(self.remaining_requests_set))
+
+        return solution
 
     def solve(self):
-        solution_routes = self.construct_initial_solution()
-
-        if (not self.solution_is_feasible(solution_routes)):
-            print("Solution not feasible")
-            for route in solution_routes:
-                if (not self.route_is_feasible(route)):
-                    print("Route not feasible: ")
-                    print(route)
-            return
-        
-        print("=========================================================")
-        print("Requests inserted: " + str(self.inserted_request))
-        print("Requests remaining: " + str(self.remaining_requests_set))
-        print("-----------------------Routes----------------------------")
-        for route in solution_routes:
-            print(route)
-        
-        print("Solution Cost:")
-        print(self.obj_func.get_solution_cost(solution_routes))
-        print("Solution is Feasible")
+        solution = self.construct_initial_solution()
+        print("..........................................")
+        print("..........................................")
+        print("FINAL VERIFICATION")
+        print("..........................................")
+        print("..........................................")
+        print(solution)
+        print(
+            get_solution_check_complete_data(
+                solution, 
+                self.constraints, 
+                self.obj_func
+            )
+        )
 
 
     def update_heuristics_data(self):
@@ -104,17 +221,6 @@ class SartoriBuriolPDPTW(SolverClass):
     def get_attr_relation_reader_solver(self):
         read_solv_attr_rela = {
             "vertices" : "vertices",
-            "distance_matrix" : "distance_matrix",
-            "time_matrix" : "time_matrix",
-            "capacity" : "capacity",
-            "demands" : "demands",
-            "services_times" : "services_times",
-            "time_windows" : "time_windows",
-            "planning_horizon" : "planning_horizon",
-            "time_windows_size" : "time_windows_size",
-            "depot" : "depot",
-            "pickups" : "pickups_ids",
-            "deliveries" : "deliveries_ids",
             "requests" : "requests",
             "number_of_requests" : "number_of_requests"
         }

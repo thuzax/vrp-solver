@@ -29,18 +29,45 @@ class ObjVehicles(ObjFunction):
         return route_cost
 
     def get_solution_cost(self, solution):
-        total_cost = len(solution)
+        total_cost = len(solution.routes)
         return total_cost
 
+
     # Use the route distance as second criteria
-    def request_inserted_additional_route_cost(self, route, positions, request):
+    def route_additional_route_cost_after_insertion(
+        self, 
+        route, 
+        position, 
+        request
+    ):
         """Calculate the increasing cost of route. It is considered that the 'request' inserted in 'positions' were the last insertion on the route and that the cost were updated.\n
         -Parameters:\n
         route -> Route() object;\n
         positions -> tuple of positions where request was inserted (pickup_pos, delivery_pos);\n
         request -> inserted request;"""
+        return self.get_request_cost_in_route(route, position, request)
 
-        pick_pos, deli_pos = positions
+
+
+    def route_reduced_route_cost_before_removal(self, route, position, request):
+        """Calculate the deacresing cost of route. It is considered that the 'request' was not removed yet and its position in route is 'position'.\n
+        -Parameters:\n
+        route -> Route() object;\n
+        position -> position(s) of the removed;\n
+        request -> request inserted"""
+        if (route.empty()):
+            return 0
+        return (-self.get_request_cost_in_route(route, position, request))
+
+
+
+    def get_request_cost_in_route(self, route, position, request):
+        """The request cost is how much the route cost increase when the request is in route. Inputs: a Route() object, the position where request is inserted, the request.
+        \n
+        Being request = (p, d), we define the request R_c cost as follows:
+        R_c = cost(p-1,p) + cost(p, p+1) + cost(d-1, d) + cost(d, d+1) - cost(p-1, p+1) - cost(d-1, d+1)"""
+
+        pick_pos, deli_pos = position
         pickup, delivery = request
 
         # Calulate increasing distance for pickup
@@ -120,20 +147,6 @@ class ObjVehicles(ObjFunction):
         )
 
         return cost
-
-
-    @staticmethod
-    def route_is_better(route_1, route_2):
-        if (route_1 is None):
-            return False
-        
-        if (route_2 is None):
-            return True
-
-        if (route_1.cost() > route_2.cost()):
-            return False
-        
-        return True
 
 
     @staticmethod
