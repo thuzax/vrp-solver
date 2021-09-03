@@ -29,6 +29,7 @@ class RandomShift(SolutionMethod):
 
         # Find feasible shift
         while (not found_shift and len(requests_copy) > 0):
+            # Choose request to move and get its route
             request_to_move = random.choice(list(requests_copy))
             requests_copy.remove(request_to_move)
             old_route = new_solution.get_request_route(request_to_move)
@@ -36,6 +37,8 @@ class RandomShift(SolutionMethod):
             route_pos = new_solution.find_route_position_by_id(
                 old_route.get_id()
             )
+
+            # remove request
             new_route = RemovalOperator().try_to_remove(
                 new_solution.routes[route_pos],
                 request_to_move,
@@ -55,23 +58,39 @@ class RandomShift(SolutionMethod):
                 self.obj_func
             )
 
-            feasible_positions_and_routes = (
-                InsertionOperator().get_all_feasible_insertions_from_routes(
-                    request_to_move,
-                    new_solution.routes,
-                    self.obj_func,
-                    self.constraints
+            # Try to find feasible insertions in random routes
+            feasible_positions_and_routes = []
+            new_route_pos = None
+            routes = [route for route in new_solution.routes]
+            while(len(routes) > 0 and not found_shift):
+
+                new_route_pos = random.randint(0, len(routes)-1)
+                route = routes.pop(new_route_pos)
+
+                if (route.get_id() == old_route.get_id()):
+                    new_route_pos += 1
+                    continue
+            
+                feasible_positions_and_routes = (
+                    InsertionOperator().get_route_feasible_insertions(
+                        route,
+                        request_to_move,
+                        self.obj_func,
+                        self.constraints
+                    )
                 )
-            )
-            if (len(feasible_positions_and_routes) > 1):
-                found_shift = True
-            else:
-                old_request_pos, orig_route = feasible_positions_and_routes[0]
+            
+                if (len(feasible_positions_and_routes) > 0):
+                    found_shift = True
+                    continue
+            
+
+            if (not found_shift):
                 new_solution = InsertionOperator().insert_request_in_solution(
                     new_solution,
                     request_to_move,
-                    old_request_pos,
-                    orig_route,
+                    old_route.index(request_to_move),
+                    old_route,
                     route_pos,
                     self.obj_func
                 )

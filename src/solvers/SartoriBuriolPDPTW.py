@@ -1,7 +1,7 @@
+import time
 import copy
 import random
 from pprint import pprint
-from time import sleep, time
 
 from src.solution_methods import *
 from src.route_classes import *
@@ -109,11 +109,14 @@ class SartoriBuriolPDPTW(SolverClass):
             solution.routes_cost()
         )
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        for i in range(10):
+        for i in range(100):
+            start = time.time()
             solution = self.local_searches[1].solve(
                 solution, 
                 parameters
             )
+            print(time.time() - start)
+
 
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
         solution.set_routes_total_cost(
@@ -139,6 +142,40 @@ class SartoriBuriolPDPTW(SolverClass):
             solution.routes_cost()
         )
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+        for i in range(100):
+            start = time.time()
+            solution = self.local_searches[2].solve(
+                solution, 
+                parameters
+            )
+            print(time.time() - start)
+
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
+
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        if (solution_check(solution, self.constraints, self.obj_func)):
+            print("SOLUTION IS OK AFTER EXCHANGE")
+        else:
+            print(
+                get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print(
+            "obj_func, obj_route: ", 
+            solution.cost(), 
+            ",",
+            solution.routes_cost()
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
 
 
         self.remaining_requests_set = (

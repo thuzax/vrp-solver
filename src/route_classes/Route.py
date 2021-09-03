@@ -117,6 +117,9 @@ class Route(GenericClass, metaclass=ABCMeta):
     def size(self):
         return len(self.vertices_order)
 
+    def number_of_requests(self):
+        return len(self.requests_set)
+
 
     def __contains__(self, key):
         if (key in self.requests_set):

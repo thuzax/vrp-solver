@@ -16,6 +16,7 @@ from .heuristics.ShawRemoval import *
 from .heuristics.ShawRemovalPDPTW import *
 
 from .heuristics.RandomShift import *
+from .heuristics.RandomExchange import *
 
 from .exact_methods.SetPartitionModel import *
 from .local_searches.AGES import *
@@ -37,6 +38,7 @@ __all__ = [
     "ShawRemoval",
     "ShawRemovalPDPTW",
     "RandomShift",
+    "RandomExchange",
     "AGES",
     "LNS",
     "SetPartitionModel",

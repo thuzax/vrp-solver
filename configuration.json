@@ -66,11 +66,11 @@
             "k_max" : 4,
             "b_min" : 2,
             "b_max" : 0.20,
-            "max_time" : 5,
-            "max_time_without_improv" : 3,
-            "max_it" : 10,
-            "max_it_without_improv" : 5,
-            "stop_criteria" : "time",
+            "max_time" : 10,
+            "max_time_without_improv" : 5,
+            "max_it" : 100,
+            "max_it_without_improv" : 70,
+            "stop_criteria" : "iterations",
             "local_operators_names" : {
                 "KRegret" : "KRegret",
                 "RandomRemoval" : "RandomRemoval",
@@ -91,6 +91,13 @@
             ]
         },
         "RandomShift" : {
+            "obj_func_name" : "ObjVehicles",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "RandomExchange" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
@@ -118,6 +125,7 @@
             "local_searches_order" : [
                 "LNS",
                 "RandomShift",
+                "RandomExchange",
                 "AGES",
                 "SetPartitionModel"
             ],
@@ -151,12 +159,10 @@
     },
     "insertion_operator" : {
         "InsertionOperatorPDPTW" : {
-
         }
     },
     "removal_operator" : {
         "RemovalOperatorPDPTW" : {
-
         }
     }
 

@@ -16,8 +16,6 @@ class LNS(LocalSearch):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         
-        self.begin_time = None
-
         self.max_time = None
         self.max_time_without_improv = None
         
@@ -54,9 +52,9 @@ class LNS(LocalSearch):
         extra_requests = copy.deepcopy(parameters["remaining_requests"])
         all_requests = extra_requests.union(copy_solution.requests())
 
-        self.begin_time = time.time()
 
         stop_parameters = {}
+        stop_parameters["begin_time"] = time.time()
         stop_parameters["it"] = 0
         stop_parameters["it_last_improv"] = 0
         stop_parameters["time_last_it"] = 0
@@ -126,6 +124,10 @@ class LNS(LocalSearch):
             extra_requests = all_requests - copy_solution.requests()
 
         print("LNS iteartion: ", stop_parameters["it"])
+        print(
+            "LNS time: ", 
+            stop_parameters["time_last_it"] - stop_parameters["begin_time"]
+        )
         return best_solution
 
 
@@ -169,9 +171,11 @@ class LNS(LocalSearch):
 
     def stop_criteria_fulfilled(self, stop_parameters):
         if (self.stop_criteria == "time"):
+            begin_time = stop_parameters["begin_time"]
             time_last_improv = stop_parameters["time_last_improv"]
             time_last_it = stop_parameters["time_last_it"]
             return self.time_stop_criteria_fulfilled(
+                begin_time,
                 time_last_improv, 
                 time_last_it
             )
@@ -186,19 +190,27 @@ class LNS(LocalSearch):
         raise exceptions.WrongOrUndefinedStopCriteria(self.__name__)
 
 
-    def time_stop_criteria_fulfilled(self, time_last_improv, time_last_it):
-        if (time_last_improv - self.begin_time >= self.max_time_without_improv):
+    def time_stop_criteria_fulfilled(self, 
+        begin_time,
+        time_last_improv, 
+        time_last_it
+    ):
+        if (time_last_improv - begin_time >= self.max_time_without_improv):
             return True
-        if (time_last_it - self.begin_time >= self.max_time):
+
+        if (time_last_it - begin_time >= self.max_time):
             return True
+
         return False
 
 
     def it_stop_criteria_fulfilled(self, it_last_improv, it):
         if (it_last_improv >= self.max_it_without_improv):
             return True
+
         if (it >= self.max_it):
             return True
+
         return False
 
 
