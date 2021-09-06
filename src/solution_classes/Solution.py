@@ -48,8 +48,13 @@ class Solution(GenericClass):
         for request in route.get_requests_set():
             self.remove_request(request)
 
-        self.solution_cost -= 1
+        self.total_routes_cost -= route.cost()
+        
         return route
+
+
+    def remove_route(self, route_pos):
+        self.pop_route(route_pos)
 
 
     def set_route(self, route_pos, new_route):

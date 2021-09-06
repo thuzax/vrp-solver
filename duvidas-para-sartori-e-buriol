@@ -6,3 +6,7 @@ Na heurística K-Regret, é calculada a inserção considerando todas as rotas? 
 A "pool" de rotas (utilziadas pelo modelo matemático) é um conjunto que armazena todas as rotas geradas ou apenas parte delas? Se não são todas, existe algum critério para decidir qual deve entrar ou sair?
 
 A LNS proposta por Ropke e Psinger (2006) considera um número limitado de veículos e tenta maximizar o número de pedidos atendidos. Na solução proposta em Sartori e Buriol (2020) a LNS foi adaptada para não aceitar soluções que não atendam todos os pedidos? Ou soluções infactíveis do método também tem rotas aproveitadas pelo modelo matemático?
+
+No componente AGES, quando não for encontrada posição factível e a ejeção de dois pedidos não tornar possível a inserção do pedido removido, o que é feito?
+
+

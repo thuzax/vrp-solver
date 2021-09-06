@@ -23,6 +23,7 @@ class LNS(LocalSearch):
         self.max_it_without_improv = None
 
         self.stop_criteria = None
+        self.stop_parameters = None
 
         self.k_min = None 
         self.k_max = None
@@ -35,7 +36,6 @@ class LNS(LocalSearch):
         self.worst_removal = None
 
         self.removals_probabilities = None
-
 
 
     def solve(self, solution, parameters):
@@ -53,14 +53,14 @@ class LNS(LocalSearch):
         all_requests = extra_requests.union(copy_solution.requests())
 
 
-        stop_parameters = {}
-        stop_parameters["begin_time"] = time.time()
-        stop_parameters["it"] = 0
-        stop_parameters["it_last_improv"] = 0
-        stop_parameters["time_last_it"] = 0
-        stop_parameters["time_last_improv"] = 0
+        self.stop_parameters = {}
+        self.stop_parameters["begin_time"] = time.time()
+        self.stop_parameters["it"] = 0
+        self.stop_parameters["it_last_improv"] = 0
+        self.stop_parameters["time_last_it"] = 0
+        self.stop_parameters["time_last_improv"] = 0
         
-        while (not self.stop_criteria_fulfilled(stop_parameters)):
+        while (not self.stop_criteria_fulfilled()):
             new_solution = copy_solution.copy()
 
             # Removal 
@@ -97,8 +97,8 @@ class LNS(LocalSearch):
             )
 
             # Acceptance
-            stop_parameters["it"] += 1
-            stop_parameters["time_last_it"] = time.time()
+            self.stop_parameters["it"] += 1
+            self.stop_parameters["time_last_it"] = time.time()
             accepted = self.accept(new_solution)
             if (
                 accepted 
@@ -108,8 +108,10 @@ class LNS(LocalSearch):
                 )
             ):
                 best_solution = new_solution
-                stop_parameters["time_last_improv"] = time.time()
-                stop_parameters["it_last_improv"] = stop_parameters["it"]
+                self.stop_parameters["time_last_improv"] = time.time()
+                self.stop_parameters["it_last_improv"] = (
+                    self.stop_parameters["it"]
+                )
                 print(
                     "IMPROVED", 
                     best_solution.cost(), 
@@ -123,10 +125,11 @@ class LNS(LocalSearch):
     
             extra_requests = all_requests - copy_solution.requests()
 
-        print("LNS iteartion: ", stop_parameters["it"])
+        print("LNS iteartion: ", self.stop_parameters["it"])
         print(
             "LNS time: ", 
-            stop_parameters["time_last_it"] - stop_parameters["begin_time"]
+            self.stop_parameters["time_last_it"] 
+            - self.stop_parameters["begin_time"]
         )
         return best_solution
 
@@ -161,27 +164,29 @@ class LNS(LocalSearch):
         keys = list(self.removals_probabilities.keys())
         probabilities = [self.removals_probabilities[key] for key in keys]
         weights = [p/sum(probabilities) for p in probabilities]
+        
         operator_name = random.choices(keys, weights=weights)[0]
         operator = self.local_operators[operator_name]
+        
         parameters = {}
         parameters["b"] = b
         new_solution = operator.solve(solution, parameters)
         return new_solution
 
 
-    def stop_criteria_fulfilled(self, stop_parameters):
+    def stop_criteria_fulfilled(self):
         if (self.stop_criteria == "time"):
-            begin_time = stop_parameters["begin_time"]
-            time_last_improv = stop_parameters["time_last_improv"]
-            time_last_it = stop_parameters["time_last_it"]
+            begin_time = self.stop_parameters["begin_time"]
+            time_last_improv = self.stop_parameters["time_last_improv"]
+            time_last_it = self.stop_parameters["time_last_it"]
             return self.time_stop_criteria_fulfilled(
                 begin_time,
                 time_last_improv, 
                 time_last_it
             )
         elif(self.stop_criteria == "iterations"):
-            it_last_improv = stop_parameters["it_last_improv"]
-            it = stop_parameters["it"]
+            it_last_improv = self.stop_parameters["it_last_improv"]
+            it = self.stop_parameters["it"]
             return self.it_stop_criteria_fulfilled(
                 it_last_improv,
                 it
@@ -220,8 +225,4 @@ class LNS(LocalSearch):
 
 
     def define_local_searches_operators(self, op_dict):
-        self.local_operators = {}
-        self.local_operators["ShawRemoval"] = op_dict["ShawRemoval"]
-        self.local_operators["RandomRemoval"] = op_dict["RandomRemoval"]
-        self.local_operators["WorstRemoval"] = op_dict["WorstRemoval"]
-        self.local_operators["KRegret"] = op_dict["KRegret"]
+        return super().define_local_searches_operators(op_dict)

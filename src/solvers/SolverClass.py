@@ -31,6 +31,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             # Acquired from input
             self.output_path = None
             self.output_name = None
+            self.alternative_output_name = None
             self.output_type = None
             self.obj_func = None
             self.obj_func_name = None
@@ -85,6 +86,9 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         if (self.output_path[-1] != "/"):
             self.output_path += "/"
 
+        if (self.output_name == ""):
+            self.output_name = self.alternative_output_name
+
         json_output_file_name = ""
         json_output_file_name += self.output_path 
         json_output_file_name += "running_data_"
@@ -109,4 +113,6 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
     @abstractmethod
     def get_attr_relation_reader_solver(self):
-        pass
+        return {
+            "input_name" : "alternative_output_name"
+        }
