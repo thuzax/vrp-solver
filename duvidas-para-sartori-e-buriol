@@ -1,12 +1,13 @@
-É dito ser usada uma solução inicial gulosoa. Qual a heurística de construção utilizada? 
+É dito ser usada uma solução inicial gulosoa. Como funciona essa heurística? 
 
 Na heurística K-Regret, é calculada a inserção considerando todas as rotas? Ou só em k melhores rotas?
 
-
 A "pool" de rotas (utilziadas pelo modelo matemático) é um conjunto que armazena todas as rotas geradas ou apenas parte delas? Se não são todas, existe algum critério para decidir qual deve entrar ou sair?
+
+Quando duas rotas são consideradas iguais na "pool" de rotas? A ordem dos pontos/pedidos é relevante?
 
 A LNS proposta por Ropke e Psinger (2006) considera um número limitado de veículos e tenta maximizar o número de pedidos atendidos. Na solução proposta em Sartori e Buriol (2020) a LNS foi adaptada para não aceitar soluções que não atendam todos os pedidos? Ou soluções infactíveis do método também tem rotas aproveitadas pelo modelo matemático?
 
 No componente AGES, quando não for encontrada posição factível e a ejeção de dois pedidos não tornar possível a inserção do pedido removido, o que é feito?
 
-
+Na perturbação enviesada (biased perturbation), é utilizado somente a modificação do Random Shift ou também se utiliza o Random Exchange?

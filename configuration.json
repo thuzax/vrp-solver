@@ -46,6 +46,7 @@
         "AGES" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
+                "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
@@ -53,16 +54,12 @@
                 "AcceptAll" : {}
             },
             "local_operators_names" : {
-                "RandomShift" : "RandomShift",
-                "RandomExchange" : "RandomExchange"
-            },
-            "perturb_probabilities" : {
-                "RandomShift" : 0.5,
-                "RandomExchange" : 0.5
+                "OriginalPerturbation" : "OriginalPerturbation"
             },
             "max_ejections" : 2,
             "stop_criteria" : "max_perturbation",
-            "max_number_of_perturbations" : 10
+            "max_number_of_perturbations" : 10,
+            "number_of_perturb_moves" : 10
         },
         "LNS" : {
             "obj_func_name" : "ObjDistancePDPTW",
@@ -100,9 +97,12 @@
         "SetPartitionModel" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
+                "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
-            ]
+            ],
+            "solver_code" : "CBC",
+            "opt_time_limit" : 30
         },
         "RandomShift" : {
             "obj_func_name" : "ObjVehicles",
@@ -117,6 +117,25 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
+        },
+        "OriginalPerturbation" : {
+            "obj_func_name" : "ObjVehicles",
+            "constraints_names" : [
+                "AttendAllRequests",
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ],
+            "acceptance_algorithm_data" : {
+                "AcceptAll" : {}
+            },
+            "local_operators_names" : {
+                "RandomShift" : "RandomShift",
+                "RandomExchange" : "RandomExchange"
+            },
+            "perturb_probabilities" : {
+                "RandomShift" : 0.5,
+                "RandomExchange" : 0.5
+            }
         }
     },
     "constraints" : {
@@ -137,11 +156,10 @@
             "obj_func_name" : "ObjVehicles",
             "construction_name" : "KRegret",
             "local_searches_order" : [
-                "LNS",
                 "AGES",
-                "RandomShift",
-                "RandomExchange",
-                "SetPartitionModel"
+                "LNS",
+                "SetPartitionModel",
+                "OriginalPerturbation"
             ],
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
@@ -154,7 +172,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-100_input",
+            "input_name" : "br-ms-cg-10_input",
             "input_type" : "json"
         }
     },

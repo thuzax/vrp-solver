@@ -1,10 +1,10 @@
 
 import random
 import math
+import time
 from pprint import pprint
 
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
-from src.solution_methods.basic_operators.RemovalOperatorPDPTW import RemovalOperatorPDPTW
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.local_searches.LocalSearch import LocalSearch
 
@@ -16,30 +16,39 @@ class AGES(LocalSearch):
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
-        self.perturb_probabilities = None
+        self.number_of_perturb_moves = None
+
 
         self.stop_criteria = None
-
-        self.number_of_perturbations = None
-
         self.max_number_of_perturbations = None
-
         self.max_ejections = None
+
+        self.stop_parameters = None
+        self.ejection_sets_cache = None
 
 
     def solve(self, solution, parameters):
         best_solution = solution.copy()
 
-        self.number_of_perturbations = 0
+        self.stop_parameters = {}
+        self.stop_parameters["begin_time"] = time.time()
+        self.stop_parameters["it"] = 0
+        self.stop_parameters["number_perturb"] = 0
+        self.stop_parameters["time_last_it"] = time.time()
+        self.stop_parameters["time_last_improv"] = 0
 
-        while (not self.stop_criteria_fulfilled()):
+        self.ejection_sets_cache = {}
+        can_improve = True
+
+        while (not self.stop_criteria_fulfilled() and can_improve):
             new_solution = best_solution.copy()
             
             route_pos = random.randint(0, len(new_solution.routes)-1)
             removed_route = new_solution.pop_route(route_pos)
             
             if (new_solution.number_of_routes() == 0):
-                return best_solution
+                can_improve = False
+                continue
 
             requests_stack = [
                 request 
@@ -55,15 +64,27 @@ class AGES(LocalSearch):
                 penalities
             )
 
-            if (len(requests_stack) == 0):
+            self.stop_parameters["it"] += 1
+            self.stop_parameters["time_last_it"] = time.time()
+            if (len(requests_stack) == 0 and self.accept(new_solution)):
                 print(
                     "IMPROVED", 
-                    new_solution.cost(), 
+                    self.obj_func.get_solution_cost(new_solution), 
                     new_solution.routes_cost()
                 )
-                self.number_of_perturbations = 0
+                self.stop_parameters["time_last_improv"] = time.time()
+                self.stop_parameters["number_perturb"] = 0
                 best_solution = new_solution
+            
 
+        print("AGES iterations:", self.stop_parameters["it"])
+        # print(
+        #     "AGES time:",
+        #     (
+        #         self.stop_parameters["time_last_it"] 
+        #         - self.stop_parameters["begin_time"]
+        #     )
+        # )
         return best_solution
 
 
@@ -101,7 +122,7 @@ class AGES(LocalSearch):
                     penalities
                 )
                 solution = self.perturb(new_solution)
-                self.number_of_perturbations += 1
+                self.stop_parameters["number_perturb"] += 1
         
         return new_solution
 
@@ -160,24 +181,24 @@ class AGES(LocalSearch):
         if (len(minimals_ejections) > 0):
             ejection = random.choice(minimals_ejections[:1])
         
-        for pair in ejection:
-            requests_stack.append(pair)
+        for req in ejection:
+            requests_stack.append(req)
 
-            pair_route = new_solution.get_request_route(pair)
-            pair_pos_in_route = pair_route.index(pair)
+            req_route = new_solution.get_request_route(req)
+            req_pos_in_route = req_route.index(req)
             new_route = RemovalOperator().try_to_remove(
-                pair_route,
-                pair,
+                req_route,
+                req,
                 self.obj_func,
                 self.constraints
             )
 
             new_solution = RemovalOperator().remove_request_from_solution(
                 new_solution,
-                pair,
-                pair_pos_in_route,
+                req,
+                req_pos_in_route,
                 new_route,
-                new_solution.find_route_position_by_id(pair_route.get_id()),
+                new_solution.find_route_position_by_id(req_route.get_id()),
                 self.obj_func
             )
 
@@ -212,9 +233,6 @@ class AGES(LocalSearch):
         feasible_insertions_found = False
         k = 1
         while (not feasible_insertions_found and k <= self.max_ejections):
-            if (k > 1):
-                print("K > 1")
-                exit(0)
             ejection_sets = self.get_ejection_sets(solution, k)
             ejections_and_insertions = {}
             for ejection_set in ejection_sets:
@@ -267,20 +285,22 @@ class AGES(LocalSearch):
         return feasible_insertions
 
 
-
     def get_ejection_sets(self, solution, k):
         possibles_ejections = []
         for request in solution.requests():
-            ejection_sets = self.get_request_ejection_sets(
-                request, 
-                solution.requests() - {request},
-                k
-            )
+            ejection_sets = self.ejection_sets_cache.get(request)
+            if (ejection_sets is None):
+                ejection_sets = self.get_request_ejection_sets(
+                    request, 
+                    solution.requests() - {request},
+                    k
+                )
+                self.ejection_sets_cache[request] = ejection_sets
+            
             possibles_ejections += ejection_sets
         
         for i in range(len(possibles_ejections)):
             possibles_ejections[i] = frozenset(possibles_ejections[i])
-        
         possibles_ejections = list(set(possibles_ejections))
 
         return possibles_ejections
@@ -308,25 +328,24 @@ class AGES(LocalSearch):
         
 
     def perturb(self, solution):
-        keys = list(self.perturb_probabilities.keys())
-        probabilities = [self.perturb_probabilities[key] for key in keys]
-        weights = [p/sum(probabilities) for p in probabilities]
-
-        perturb_name = random.choices(keys, weights=weights)[0]
-        perturb_operator = self.local_operators[perturb_name]
-        new_solution = perturb_operator.solve(solution, {})
-
-        return new_solution
+        solution = self.local_operators["OriginalPerturbation"].solve(
+            solution,
+            {"n_perturb" : self.number_of_perturb_moves}
+        )
 
 
-    def accept(self, new_solution):
-        return self.acceptance_algorithm.accept(new_solution)
+    def accept(self, solution):
+        for constraint in self.constraints:
+            if (not constraint.solution_is_feasible(solution)):
+                return False
+        
+        return self.acceptance_algorithm.accept(solution)
 
 
     def stop_criteria_fulfilled(self):
         if (self.stop_criteria == "max_perturbation"):
             if (
-                self.number_of_perturbations 
+                self.stop_parameters["number_perturb"] 
                 < self.max_number_of_perturbations
             ):
                 return False

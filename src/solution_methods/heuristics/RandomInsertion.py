@@ -23,11 +23,13 @@ class RandomInsertion(SolutionMethod):
         requests = parameters["requests"]
         i_op = InsertionOperator()
         for request in requests:
-            feasible_insertions = i_op.get_all_feasible_insertions_from_routes(
-                request, 
-                new_solution.routes,
-                self.obj_func,
-                self.constraints
+            feasible_insertions = (
+                i_op.get_all_feasible_insertions_from_solution(
+                    request, 
+                    new_solution,
+                    self.obj_func,
+                    self.constraints
+                )
             )
 
             insertion_positions = []

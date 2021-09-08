@@ -21,10 +21,14 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         
         return cls.instance
 
+
     def __init__(self, insert_op_class_name=None):
         if (not hasattr(self, "name")):
             self.name = insert_op_class_name
+            self.feasible_insertions_in_cache = set()
+            self.feasible_insertions_cache = {}
             self.initialize_class_attributes()
+
 
 
     @abstractmethod
@@ -44,6 +48,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         for constraint in constraints:
             if (not constraint.route_is_feasible(copy_route)):
                 return None
+        
         return copy_route
 
 
@@ -80,6 +85,35 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             )
 
         return feasible_insertions
+
+
+    def get_all_feasible_insertions_from_solution(
+        self, 
+        request, 
+        solution, 
+        obj_func,
+        constraints
+    ):
+        feasible_insertions = []
+        for route in solution.routes:
+            key = (request, route.get_id())
+
+            if (key not in self.feasible_insertions_in_cache):
+                self.feasible_insertions_in_cache.add(key)
+            
+                self.feasible_insertions_cache[key] = (
+                    self.get_route_feasible_insertions(
+                        route, 
+                        request, 
+                        obj_func, 
+                        constraints
+                    )
+                )
+
+            feasible_insertions += self.feasible_insertions_cache[key]
+
+        return feasible_insertions
+
 
 
     def get_best_insertion_in_route(
@@ -131,7 +165,6 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         pass
 
 
-    
     def insert_request_in_solution(
         self, 
         solution, 
@@ -151,4 +184,15 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             obj_func
         )
 
+        self.remove_route_from_feasible_insertions_cache(request, new_route)
+
         return solution
+
+    def remove_route_from_feasible_insertions_cache(self, request, route):
+        key = (request, route.get_id())
+        self.feasible_insertions_in_cache.discard(key)
+
+    
+    def clean_feasible_insertions_cache(self):
+        self.feasible_insertions_in_cache = set()
+        self.feasible_insertions_cache = {}

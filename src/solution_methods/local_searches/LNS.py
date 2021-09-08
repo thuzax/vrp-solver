@@ -75,7 +75,7 @@ class LNS(LocalSearch):
                 b, 
                 new_solution
             )
-            
+
             removed_requests = all_requests - new_solution.requests()
             new_solution.set_objective_value(
                 self.obj_func.get_solution_cost(new_solution)
@@ -125,12 +125,12 @@ class LNS(LocalSearch):
     
             extra_requests = all_requests - copy_solution.requests()
 
-        print("LNS iteartion: ", self.stop_parameters["it"])
-        print(
-            "LNS time: ", 
-            self.stop_parameters["time_last_it"] 
-            - self.stop_parameters["begin_time"]
-        )
+        print("LNS iteartions: ", self.stop_parameters["it"])
+        # print(
+        #     "LNS time: ", 
+        #     self.stop_parameters["time_last_it"] 
+        #     - self.stop_parameters["begin_time"]
+        # )
         return best_solution
 
 

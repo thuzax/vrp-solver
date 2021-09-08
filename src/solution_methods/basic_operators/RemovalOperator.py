@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.GenericClass import GenericClass
 
 class RemovalOperator(GenericClass, metaclass=ABCMeta):
@@ -79,6 +80,11 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
             request_pos,
             request,
             obj_func
+        )
+
+        InsertionOperator().remove_route_from_feasible_insertions_cache(
+            request, 
+            new_route
         )
 
         return solution

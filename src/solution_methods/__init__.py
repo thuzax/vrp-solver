@@ -15,6 +15,8 @@ from .heuristics.WorstRemoval import *
 from .heuristics.ShawRemoval import *
 from .heuristics.ShawRemovalPDPTW import *
 
+
+from .heuristics.OriginalPerturbation import *
 from .heuristics.RandomShift import *
 from .heuristics.RandomExchange import *
 
@@ -30,19 +32,27 @@ from .acceptance_heuristics.LAHC import *
 __all__ = [
     "InsertionOperator",
     "InsertionOperatorPDPTW",
+
     "RemovalOperator",
     "RemovalOperatorPDPTW",
+    
     "KRegret",
     "RandomInsertion",
+    
     "RandomRemoval",
     "WorstRemoval",
     "ShawRemoval",
     "ShawRemovalPDPTW",
+    
+    "OriginalPerturbation",
     "RandomShift",
     "RandomExchange",
+    
     "AGES",
     "LNS",
+    
     "SetPartitionModel",
+    
     "AcceptanceHeuristic",
     "AcceptAll",
     "LAHC"

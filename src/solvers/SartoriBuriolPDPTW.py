@@ -29,14 +29,62 @@ class SartoriBuriolPDPTW(SolverClass):
         self.local_searches = None
         self.local_searches_order = None
 
+    def execute_local_search(
+        self, 
+        solution, 
+        local_search_pos,
+        parameters
+    ):
+        start = time.time()
+        solution = self.local_searches[local_search_pos].solve(
+            solution, 
+            parameters
+        )
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        solution.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution.routes)
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        
+        if (solution_check(solution, self.constraints, self.obj_func)):
+            print(
+                "SOLUTION IS OK AFTER", 
+                self.local_searches_order[local_search_pos]
+            )
+        else:
+            print(
+                get_solution_check_complete_data(
+                    solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
+            )
+        print(
+            "obj_func, obj_route: ", 
+            solution.cost(), 
+            ",",
+            solution.routes_cost()
+        )
+        print(
+            self.local_searches_order[local_search_pos],
+            "time:", 
+            time.time() - start
+        )
+        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+        return solution
+
 
     def construct_initial_solution(self):
         insertion_requests = set(self.requests)
+        # print(self.requests)
         routes = []
         last_size = len(insertion_requests)
         
         solution = Solution()
         inserted = True
+        heuristic_start = time.time()
+        start = time.time()
         while (inserted and len(insertion_requests) > 0):
             solution.add_route(Route())
             parameters = {}
@@ -50,9 +98,7 @@ class SartoriBuriolPDPTW(SolverClass):
                 routes.pop()
                 inserted = False
             
-
         self.remaining_requests_set = insertion_requests
-        
         self.inserted_requests_set = (
             set(self.requests)
             - self.remaining_requests_set
@@ -64,7 +110,7 @@ class SartoriBuriolPDPTW(SolverClass):
         )
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         if (solution_check(solution, self.constraints, self.obj_func)):
-            print("SOLUTION IS OK AFTER INSERTION")
+            print("SOLUTION IS OK AFTER", self.construction_name)
         else:
             print(
                 get_solution_check_complete_data(
@@ -79,134 +125,31 @@ class SartoriBuriolPDPTW(SolverClass):
             ",",
             solution.routes_cost()
         )
+
+        print(self.construction_name, "time:", time.time() - start)
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         # print(solution)
+        parameters = {}
         parameters["remaining_requests"] = self.remaining_requests_set
-        solution = self.local_searches[0].solve(
-            solution, 
-            parameters
-        )
-        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        solution.set_routes_total_cost(
-            self.obj_func.get_routes_sum_cost(solution.routes)
-        )
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        
-        if (solution_check(solution, self.constraints, self.obj_func)):
-            print("SOLUTION IS OK AFTER LNS")
-        else:
-            print(
-                get_solution_check_complete_data(
-                    solution, 
-                    self.constraints, 
-                    self.obj_func
-                )
-            )
-        print(
-            "obj_func, obj_route: ", 
-            solution.cost(), 
-            ",",
-            solution.routes_cost()
-        )
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
+        solution = self.execute_local_search(solution, 0, parameters)
+        # print(solution)
+        parameters = {}
         parameters["remaining_requests"] = self.remaining_requests_set
-        solution = self.local_searches[1].solve(
-            solution, 
-            parameters
-        )
-        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        solution.set_routes_total_cost(
-            self.obj_func.get_routes_sum_cost(solution.routes)
-        )
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        solution = self.execute_local_search(solution, 1, parameters)
+
+        # print(solution)
+        # parameters = {}
+        # parameters["requests"] = set(self.requests)
+        # parameters["routes_pool"] = [route for route in solution.routes]
+        # solution = self.execute_local_search(solution, 2, parameters)
         
-        if (solution_check(solution, self.constraints, self.obj_func)):
-            print("SOLUTION IS OK AFTER AGES")
-        else:
-            print(
-                get_solution_check_complete_data(
-                    solution, 
-                    self.constraints, 
-                    self.obj_func
-                )
-            )
-        print(
-            "obj_func, obj_route: ", 
-            solution.cost(), 
-            ",",
-            solution.routes_cost()
-        )
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        # print(solution)
+        parameters = {}
+        parameters["n_perturb"] = 50
+        solution = self.execute_local_search(solution, 3, parameters)
 
-
-        for i in range(100):
-            start = time.time()
-            solution = self.local_searches[2].solve(
-                solution, 
-                parameters
-            )
-            # print(time.time() - start)
-
-
-        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        solution.set_routes_total_cost(
-            self.obj_func.get_routes_sum_cost(solution.routes)
-        )
-
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        
-        if (solution_check(solution, self.constraints, self.obj_func)):
-            print("SOLUTION IS OK AFTER SHIFT")
-        else:
-            print(
-                get_solution_check_complete_data(
-                    solution, 
-                    self.constraints, 
-                    self.obj_func
-                )
-            )
-        print(
-            "obj_func, obj_route: ", 
-            solution.cost(), 
-            ",",
-            solution.routes_cost()
-        )
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
-        for i in range(100):
-            start = time.time()
-            solution = self.local_searches[3].solve(
-                solution, 
-                parameters
-            )
-            # print(time.time() - start)
-
-        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        solution.set_routes_total_cost(
-            self.obj_func.get_routes_sum_cost(solution.routes)
-        )
-
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        
-        if (solution_check(solution, self.constraints, self.obj_func)):
-            print("SOLUTION IS OK AFTER EXCHANGE")
-        else:
-            print(
-                get_solution_check_complete_data(
-                    solution, 
-                    self.constraints, 
-                    self.obj_func
-                )
-            )
-        print(
-            "obj_func, obj_route: ", 
-            solution.cost(), 
-            ",",
-            solution.routes_cost()
-        )
-        print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-
+        # print(solution)
+        print("Total time:", time.time() - heuristic_start)
 
 
         self.remaining_requests_set = (

@@ -87,7 +87,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             self.output_path += "/"
 
         if (self.output_name == ""):
-            self.output_name = self.alternative_output_name
+            self.output_name = self.alternative_output_name + "_sol"
 
         json_output_file_name = ""
         json_output_file_name += self.output_path 
