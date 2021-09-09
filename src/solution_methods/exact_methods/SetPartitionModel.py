@@ -49,6 +49,17 @@ class SetPartitionModel(SolutionMethod):
                 for i in range(len(routes_pool))
             ]
 
+        initial_routes_pos = set()
+        for i, route_1 in enumerate(routes_pool):
+            for route_2 in solution.routes:
+                if (route_1.is_equal(route_2)):
+                    initial_routes_pos.add(i)
+
+        model.start = [
+            (y[i], 1 if i in initial_routes_pos else 0) 
+            for i in range(len(routes_pool))
+        ]
+
         for request in request_in_route:
             n_routes_sum = xsum(
                 request_in_route[request][i] * y[i] 
@@ -63,11 +74,11 @@ class SetPartitionModel(SolutionMethod):
             routes_pool[i].cost() * y[i]
             for i in range(len(routes_pool))
         )
-        
+
         status = model.optimize(max_seconds=self.opt_time_limit)
         found_feasible = False
         if status == OptimizationStatus.OPTIMAL:
-            print("OPTMAL FOUND")
+            print("OPTMAL FOUND", model.objective_value)
             found_feasible = True
         elif status == OptimizationStatus.FEASIBLE:
             print("FEASIBLE FOUND")
@@ -80,21 +91,22 @@ class SetPartitionModel(SolutionMethod):
         if (found_feasible):
             new_soltuion = Solution()
             for i in range(len(routes_pool)):
-                if (y[i]):
+                if (y[i].x):
                     new_soltuion.add_route(routes_pool[i])
                     for request in routes_pool[i].requests():
                         new_soltuion.add_request(request)
+                        request_cost = self.obj_func.get_request_cost_in_route(
+                            routes_pool[i],
+                            routes_pool[i].index(request),
+                            request
+                        )
+                        new_soltuion.set_request_cost(request, request_cost)
                     
                     new_soltuion.set_objective_value(
                         self.obj_func.get_solution_cost(new_soltuion)
                     )
 
-        if (self.obj_func.solution_is_better(new_soltuion, solution)):
-            print(
-                "IMPROVED",
-                new_soltuion.cost(),
-                solution.cost()
-            )
+        if (new_soltuion is not None):
             return new_soltuion
         
         return solution

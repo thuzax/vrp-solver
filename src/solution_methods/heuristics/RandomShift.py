@@ -97,7 +97,7 @@ class RandomShift(SolutionMethod):
 
         # If there is no feasible shift for any request, return None
         if (not found_shift):
-            return solution
+            return solution.copy()
 
 
         # Otherwise make a shift of the chosen random request to a random route

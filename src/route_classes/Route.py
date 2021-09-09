@@ -1,3 +1,4 @@
+import copy
 import numpy
 
 from abc import ABC, ABCMeta, abstractmethod
@@ -176,10 +177,16 @@ class Route(GenericClass, metaclass=ABCMeta):
     def remove(self, request):
         pass
 
-
+    
     @abstractmethod
-    def pop(self, request):
+    def pop_from_route(self, position):
         pass
+
+
+    def pop(self, position):
+        request = self.pop_from_route(position)
+        self.calculate_route_identifying_value()
+        return request
 
 
     @abstractmethod
@@ -188,8 +195,21 @@ class Route(GenericClass, metaclass=ABCMeta):
 
     
     @abstractmethod
-    def copy(self):
+    def copy_route(self):
         pass
+
+    def copy(self):
+        copy_route = self.copy_route()
+
+        copy_route.route_id = self.route_id
+        copy_route.vertices_order = copy.deepcopy(self.vertices_order)
+        copy_route.requests_set = copy.deepcopy(self.requests_set)
+        
+        copy_route.route_cost = copy.deepcopy(self.route_cost)
+
+        copy_route.identifying_value = copy.copy(self.identifying_value)
+
+        return copy_route
 
 
     @abstractmethod

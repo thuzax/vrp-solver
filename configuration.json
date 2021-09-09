@@ -95,7 +95,7 @@
             }
         },
         "SetPartitionModel" : {
-            "obj_func_name" : "ObjDistancePDPTW",
+            "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "AttendAllRequests",
                 "HomogeneousCapacityConstraint",

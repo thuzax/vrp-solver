@@ -135,7 +135,7 @@ class RandomExchange(SolutionMethod):
             exchange_found = True
         
         if (not exchange_found):
-            return solution
+            return solution.copy()
 
         first_route_insert_pos, first_new_route = exchanged_pos_routes[0]
         second_route_insert_pos, second_new_route = exchanged_pos_routes[1]

@@ -54,7 +54,7 @@ class RoutePDPTW(Route):
 
 
 
-    def pop(self, position):
+    def pop_from_route(self, position):
         pickup_pos, delivery_pos = position
 
         pickup = self.pop_vertex(pickup_pos)
@@ -67,10 +67,8 @@ class RoutePDPTW(Route):
 
 
     def remove(self, request):
-        pickup_pos, delivery_pos = self.index(request)
-
-        self.pop_vertex(pickup_pos)
-        self.pop_vertex(delivery_pos)
+        position = self.index(request)
+        self.pop((position))
 
 
     def get_request_by_position(self, position):
@@ -96,14 +94,8 @@ class RoutePDPTW(Route):
         return int(self.size()/2)
 
 
-    def copy(self):
+    def copy_route(self):
         copy_route = Route()
-
-        copy_route.route_id = self.route_id
-        copy_route.vertices_order = copy.deepcopy(self.vertices_order)
-        copy_route.requests_set = copy.deepcopy(self.requests_set)
-        
-        copy_route.route_cost = copy.deepcopy(self.route_cost)
 
         copy_route.arrival_times = copy.deepcopy(self.arrival_times)
         copy_route.capacity_occupations = copy.deepcopy(
