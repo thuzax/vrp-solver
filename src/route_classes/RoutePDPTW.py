@@ -36,7 +36,7 @@ class RoutePDPTW(Route):
 
     def index(self, request):
         pickup, delivery = request
-        
+
         position_pickup = self.vertices_order.index(pickup)
         position_delivery = self.vertices_order.index(delivery)
 

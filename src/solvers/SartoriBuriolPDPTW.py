@@ -33,12 +33,15 @@ class SartoriBuriolPDPTW(SolverClass):
         self.routes_pool_dict = {}
         self.routes_pool = []
 
+        self.best_solution = None
+
 
     def add_routes_to_pool(self, routes):
         if (len(self.routes_pool) == 0):
             for route in routes:
                 key = route.get_identifying_value()
                 self.routes_pool_dict[key] = route.copy()
+                self.routes_pool_dict[key].change_id()
             
             self.routes_pool = list(self.routes_pool_dict.values())
 
@@ -47,6 +50,8 @@ class SartoriBuriolPDPTW(SolverClass):
             if (key in self.routes_pool_dict):
                 continue
             self.routes_pool_dict[key] = route.copy()
+            self.routes_pool_dict[key].change_id()
+
         
         self.routes_pool = list(self.routes_pool_dict.values())
 
@@ -57,19 +62,22 @@ class SartoriBuriolPDPTW(SolverClass):
         local_search_pos,
         parameters
     ):
+        solution_copy = solution.copy()
         start = time.time()
-        solution = self.local_searches[local_search_pos].solve(
-            solution, 
+        solution_copy = self.local_searches[local_search_pos].solve(
+            solution_copy, 
             parameters
         )
-        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        solution.set_routes_total_cost(
-            self.obj_func.get_routes_sum_cost(solution.routes)
+        solution_copy.set_objective_value(self.obj_func.get_solution_cost(
+            solution_copy
+        ))
+        solution_copy.set_routes_total_cost(
+            self.obj_func.get_routes_sum_cost(solution_copy.routes)
         )
 
         self.remaining_requests_set = (
             set(self.requests)
-            - solution.requests()
+            - solution_copy.requests()
         )
         self.inserted_requests_set = (
             set(self.requests)
@@ -79,7 +87,7 @@ class SartoriBuriolPDPTW(SolverClass):
 
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         
-        if (solution_check(solution, self.constraints, self.obj_func)):
+        if (solution_check(solution_copy, self.constraints, self.obj_func)):
             print(
                 "SOLUTION IS OK AFTER", 
                 self.local_searches_order[local_search_pos]
@@ -87,16 +95,16 @@ class SartoriBuriolPDPTW(SolverClass):
         else:
             print(
                 get_solution_check_complete_data(
-                    solution, 
+                    solution_copy, 
                     self.constraints, 
                     self.obj_func
                 )
             )
         print(
             "obj_func, obj_route: ", 
-            solution.cost(), 
+            solution_copy.cost(), 
             ",",
-            solution.routes_cost()
+            solution_copy.routes_cost()
         )
         print(
             self.local_searches_order[local_search_pos],
@@ -105,9 +113,9 @@ class SartoriBuriolPDPTW(SolverClass):
         )
 
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        self.add_routes_to_pool(solution.routes)
+        self.add_routes_to_pool(solution_copy.routes)
 
-        return solution
+        return solution_copy
 
 
     def construct_initial_solution(self):
@@ -170,27 +178,75 @@ class SartoriBuriolPDPTW(SolverClass):
     def solve(self):
         heuristic_start = time.time()
         solution = self.construct_initial_solution()
+        self.best_solution = solution.copy()
+        print("//////////////////////////////////////////////////////")
         
-        # print(solution)
-        parameters = {}
-        parameters["remaining_requests"] = self.remaining_requests_set
-        solution = self.execute_local_search(solution, 0, parameters)
-        # print(solution)
-        parameters = {}
-        parameters["remaining_requests"] = self.remaining_requests_set
-        solution = self.execute_local_search(solution, 1, parameters)
+        for i in range(2):
+            # print(solution)
+            #AGES
+            parameters = {}
+            parameters["remaining_requests"] = self.remaining_requests_set
+            solution = self.execute_local_search(solution, 0, parameters)
+            
+            if (
+                self.solution_is_feasible(solution)
+                and 
+                self.obj_func.solution_is_better(solution, self.best_solution)
+            ):
+                self.best_solution = solution.copy()
 
-        # print(solution)
-        print("SIZE POOL ROUTES: ", len(self.routes_pool))
-        parameters = {}
-        parameters["requests"] = set(self.requests)
-        parameters["routes_pool"] = self.routes_pool
-        solution = self.execute_local_search(solution, 2, parameters)
-        
-        # print(solution)
-        parameters = {}
-        parameters["n_perturb"] = 50
-        solution = self.execute_local_search(solution, 3, parameters)
+            # print(solution)
+            #LNS
+            parameters = {}
+            parameters["remaining_requests"] = self.remaining_requests_set
+            solution = self.execute_local_search(solution, 1, parameters)
+
+            if (
+                self.solution_is_feasible(solution)
+                and 
+                self.obj_func.solution_is_better(solution, self.best_solution)
+            ):
+                self.best_solution = solution.copy()
+
+            # print(solution)
+            #SP model
+            parameters = {}
+            parameters["requests"] = set(self.requests)
+            parameters["routes_pool"] = self.routes_pool
+            solution = self.execute_local_search(
+                self.best_solution, 
+                2, 
+                parameters
+            )
+            
+
+            if (
+                self.solution_is_feasible(solution)
+                and 
+                self.obj_func.solution_is_better(solution, self.best_solution)
+            ):
+                self.best_solution = solution.copy()
+
+            # print(solution)
+            parameters = {}
+            parameters["n_perturb"] = 50
+            solution = self.execute_local_search(solution, 3, parameters)
+
+            if (
+                self.solution_is_feasible(solution)
+                and 
+                self.obj_func.solution_is_better(solution, self.best_solution)
+            ):
+                self.best_solution = solution.copy()
+
+            print(
+                "best obj, best route_cost:", 
+                self.best_solution.cost(),
+                ",",
+                self.best_solution.routes_cost()
+            )
+            print("SIZE POOL ROUTES: ", len(self.routes_pool))
+            print("//////////////////////////////////////////////////////")
 
 
         print("REMAINING REQUESTS: " + str(self.remaining_requests_set))
@@ -200,10 +256,10 @@ class SartoriBuriolPDPTW(SolverClass):
         print("FINAL VERIFICATION")
         print("..........................................")
         print("..........................................")
-        print(solution)
+        print(self.best_solution)
         print(
             get_solution_check_complete_data(
-                solution, 
+                self.best_solution, 
                 self.constraints, 
                 self.obj_func
             )

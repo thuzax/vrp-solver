@@ -11,3 +11,5 @@ A LNS proposta por Ropke e Psinger (2006) considera um número limitado de veíc
 No componente AGES, quando não for encontrada posição factível e a ejeção de dois pedidos não tornar possível a inserção do pedido removido, o que é feito?
 
 Na perturbação enviesada (biased perturbation), é utilizado somente a modificação do Random Shift ou também se utiliza o Random Exchange?
+
+Quando exatamente há inserção de rotas na "pool" de rotas? Após cada componente? A cada iteração?

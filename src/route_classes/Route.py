@@ -139,8 +139,9 @@ class Route(GenericClass, metaclass=ABCMeta):
         return self
 
     def calculate_route_identifying_value(self):
-        string_order = [str(v) for v in self.vertices_order]
-        self.identifying_value = ".".join(string_order)
+        self.identifying_value = tuple(self.vertices_order)
+        # string_order = [str(v) for v in self.vertices_order]
+        # self.identifying_value = ".".join(string_order)
 
 
     def get_identifying_value(self):

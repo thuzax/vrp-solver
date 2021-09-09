@@ -108,8 +108,9 @@ class Solution(GenericClass):
 
         copy_solution.routes = [route.copy() for route in self.routes]
 
-        
         copy_solution.total_routes_cost = self.total_routes_cost
+
+        copy_solution.solution_cost = self.solution_cost
 
         return copy_solution
 

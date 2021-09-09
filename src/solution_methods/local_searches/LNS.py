@@ -104,7 +104,8 @@ class LNS(LocalSearch):
                 accepted 
                 and 
                 self.obj_func.solution_is_better(
-                        new_solution, best_solution
+                        new_solution, 
+                        best_solution
                 )
             ):
                 best_solution = new_solution

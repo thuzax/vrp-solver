@@ -45,7 +45,7 @@ class RandomShift(SolutionMethod):
                 self.obj_func,
                 self.constraints
             )
-            
+
             if (new_route is None):
                 continue
             
@@ -63,7 +63,6 @@ class RandomShift(SolutionMethod):
             new_route_pos = None
             routes = [route for route in new_solution.routes]
             while(len(routes) > 0 and not found_shift):
-
                 new_route_pos = random.randint(0, len(routes)-1)
                 route = routes.pop(new_route_pos)
 
@@ -84,7 +83,6 @@ class RandomShift(SolutionMethod):
                     found_shift = True
                     continue
             
-
             if (not found_shift):
                 new_solution = InsertionOperator().insert_request_in_solution(
                     new_solution,
