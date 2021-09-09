@@ -29,6 +29,28 @@ class SartoriBuriolPDPTW(SolverClass):
         self.local_searches = None
         self.local_searches_order = None
 
+
+        self.routes_pool_dict = {}
+        self.routes_pool = []
+
+
+    def add_routes_to_pool(self, routes):
+        if (len(self.routes_pool) == 0):
+            for route in routes:
+                key = route.get_identifying_value()
+                self.routes_pool_dict[key] = route.copy()
+            
+            self.routes_pool = list(self.routes_pool_dict.values())
+
+        for route in routes:
+            key = route.get_identifying_value()
+            if (key in self.routes_pool_dict):
+                continue
+            self.routes_pool_dict[key] = route.copy()
+        
+        self.routes_pool = list(self.routes_pool_dict.values())
+
+
     def execute_local_search(
         self, 
         solution, 
@@ -44,6 +66,17 @@ class SartoriBuriolPDPTW(SolverClass):
         solution.set_routes_total_cost(
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
+
+        self.remaining_requests_set = (
+            set(self.requests)
+            - solution.requests()
+        )
+        self.inserted_requests_set = (
+            set(self.requests)
+            - self.remaining_requests_set
+        )
+
+
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         
         if (solution_check(solution, self.constraints, self.obj_func)):
@@ -70,7 +103,9 @@ class SartoriBuriolPDPTW(SolverClass):
             "time:", 
             time.time() - start
         )
+
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        self.add_routes_to_pool(solution.routes)
 
         return solution
 
@@ -83,7 +118,6 @@ class SartoriBuriolPDPTW(SolverClass):
         
         solution = Solution()
         inserted = True
-        heuristic_start = time.time()
         start = time.time()
         while (inserted and len(insertion_requests) > 0):
             solution.add_route(Route())
@@ -108,6 +142,7 @@ class SartoriBuriolPDPTW(SolverClass):
         solution.set_routes_total_cost(
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
+
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
         if (solution_check(solution, self.constraints, self.obj_func)):
             print("SOLUTION IS OK AFTER", self.construction_name)
@@ -128,6 +163,14 @@ class SartoriBuriolPDPTW(SolverClass):
 
         print(self.construction_name, "time:", time.time() - start)
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
+        self.add_routes_to_pool(solution.routes)
+
+        return solution
+
+    def solve(self):
+        heuristic_start = time.time()
+        solution = self.construct_initial_solution()
+        
         # print(solution)
         parameters = {}
         parameters["remaining_requests"] = self.remaining_requests_set
@@ -138,30 +181,20 @@ class SartoriBuriolPDPTW(SolverClass):
         solution = self.execute_local_search(solution, 1, parameters)
 
         # print(solution)
-        # parameters = {}
-        # parameters["requests"] = set(self.requests)
-        # parameters["routes_pool"] = [route for route in solution.routes]
-        # solution = self.execute_local_search(solution, 2, parameters)
+        print("SIZE POOL ROUTES: ", len(self.routes_pool))
+        parameters = {}
+        parameters["requests"] = set(self.requests)
+        parameters["routes_pool"] = self.routes_pool
+        solution = self.execute_local_search(solution, 2, parameters)
         
         # print(solution)
         parameters = {}
         parameters["n_perturb"] = 50
         solution = self.execute_local_search(solution, 3, parameters)
 
-        # print(solution)
-        print("Total time:", time.time() - heuristic_start)
 
+        print("REMAINING REQUESTS: " + str(self.remaining_requests_set))
 
-        self.remaining_requests_set = (
-            set(self.requests)
-            - solution.requests()
-        )
-        print("REMAINING: " + str(self.remaining_requests_set))
-
-        return solution
-
-    def solve(self):
-        solution = self.construct_initial_solution()
         print("..........................................")
         print("..........................................")
         print("FINAL VERIFICATION")
@@ -175,6 +208,7 @@ class SartoriBuriolPDPTW(SolverClass):
                 self.obj_func
             )
         )
+        print("Total time:", time.time() - heuristic_start)
 
 
     def update_heuristics_data(self):

@@ -60,9 +60,9 @@ class Route(GenericClass, metaclass=ABCMeta):
             self.name = route_class_name
             self.vertices_order = []
             self.requests_set = set()
-            self.requests = []
             self.route_id = 0
             self.route_cost = 0
+            self.identifying_value = None
             self.initialize_class_attributes()
             self.set_input_params()
 
@@ -95,11 +95,11 @@ class Route(GenericClass, metaclass=ABCMeta):
         return self.vertices_order[position+1]
 
     
-    def get_order(self):
+    def requests_order(self):
         return self.vertices_order
 
         
-    def get_requests_set(self):
+    def requests(self):
         return self.requests_set
 
     @abstractmethod
@@ -121,9 +121,35 @@ class Route(GenericClass, metaclass=ABCMeta):
         return len(self.requests_set)
 
 
+    def is_equal(self, route):
+        if (self.identifying_value is None):
+            return False
+        
+        if (route.identifying_value is None):
+            return False
+        
+        if (self.identifying_value != route.identifying_value):
+            return False
+        
+        return True
+
+    def change_id(self):
+        self.route_id = RouteSubClass().get_next_route_id()
+        return self
+
+    def calculate_route_identifying_value(self):
+        string_order = [str(v) for v in self.vertices_order]
+        self.identifying_value = ".".join(string_order)
+
+
+    def get_identifying_value(self):
+        return self.identifying_value
+
+
     def __contains__(self, key):
         if (key in self.requests_set):
             return True
+        
         return False
 
 
@@ -133,8 +159,12 @@ class Route(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def insert(self, insert_position, request, obj_func):
+    def insert_in_route(self, insert_position, request):
         pass
+    
+    def insert(self, insert_position, request):
+        self.insert_in_route(insert_position, request)
+        self.calculate_route_identifying_value()
 
 
     @abstractmethod

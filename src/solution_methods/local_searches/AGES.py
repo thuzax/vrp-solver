@@ -52,7 +52,7 @@ class AGES(LocalSearch):
 
             requests_stack = [
                 request 
-                for request in removed_route.get_requests_set()
+                for request in removed_route.requests()
             ]
             
             penalities = {request : 1 for request in solution.requests()}

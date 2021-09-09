@@ -28,7 +28,7 @@ class RemovalOperatorPDPTW(RemovalOperator):
         request,
         obj_func
     ):
-        route_order = route.get_order()
+        route_order = route.requests_order()
         # Positions from where the request were removed
         pick_pos, deli_pos = position
         pick_next_pos = pick_pos
@@ -124,7 +124,7 @@ class RemovalOperatorPDPTW(RemovalOperator):
 
 
     def calculate_demand_on_vertex(self, route, position):
-        route_order = route.get_order()
+        route_order = route.requests_order()
         vertex_id = route_order[position]
 
         if (position == 0):
@@ -141,7 +141,7 @@ class RemovalOperatorPDPTW(RemovalOperator):
 
 
     def calculate_arrival_time(self, route, position):
-        route_order = route.get_order()
+        route_order = route.requests_order()
         vertex_id = route_order[position]
         
         if (position == 0):

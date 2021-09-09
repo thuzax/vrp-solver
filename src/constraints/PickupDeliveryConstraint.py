@@ -18,7 +18,7 @@ class PickupDeliveryConstraint(Constraint):
         if (route.empty()):
             return True
         
-        route_order = route.get_order()
+        route_order = route.requests_order()
 
         if (end_pos < 0):
             end_pos = route.size() + end_pos

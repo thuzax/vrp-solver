@@ -25,7 +25,7 @@ class RoutePDPTW(Route):
         self.capacity_occupations.insert(position, 0)
 
 
-    def insert(self, insert_position, request):
+    def insert_in_route(self, insert_position, request):
         pickup_pos, delivery_pos = insert_position
         pickup, delivery = request
         self.requests_set.add(request)

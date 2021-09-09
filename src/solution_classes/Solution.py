@@ -16,7 +16,6 @@ class Solution(GenericClass):
 
 
     def initialize_class_attributes(self):
-
         self.routes = []
 
         self.requests_set = set()
@@ -25,7 +24,6 @@ class Solution(GenericClass):
         self.total_routes_cost = 0
         self.solution_cost = 0
         
-
 
     def add_route(self, route):
         self.routes.append(route)
@@ -45,7 +43,7 @@ class Solution(GenericClass):
     def pop_route(self, route_position):
         route = self.routes.pop(route_position)
         
-        for request in route.get_requests_set():
+        for request in route.requests():
             self.remove_request(request)
 
         self.total_routes_cost -= route.cost()

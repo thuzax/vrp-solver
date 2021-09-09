@@ -59,7 +59,7 @@
             "max_ejections" : 2,
             "stop_criteria" : "max_perturbation",
             "max_number_of_perturbations" : 10,
-            "number_of_perturb_moves" : 10
+            "number_of_perturb_moves" : 5
         },
         "LNS" : {
             "obj_func_name" : "ObjDistancePDPTW",
@@ -172,7 +172,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-10_input",
+            "input_name" : "br-ms-cg-100_input",
             "input_type" : "json"
         }
     },

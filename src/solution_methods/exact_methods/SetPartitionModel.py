@@ -1,3 +1,4 @@
+from src.solution_classes.Solution import Solution
 from mip import *
 from src.solution_methods.SolutionMethod import SolutionMethod
 
@@ -38,8 +39,7 @@ class SetPartitionModel(SolutionMethod):
                     request_in_route[request][pos] = 0
             
             if (not request_has_at_least_one_route):
-                request_in_route.remove(request)
-
+                request_in_route.pop(request)
 
         y = [
                 model.add_var(
@@ -50,12 +50,12 @@ class SetPartitionModel(SolutionMethod):
             ]
 
         for request in request_in_route:
-            n_routes_sum = (
+            n_routes_sum = xsum(
                 request_in_route[request][i] * y[i] 
                 for i in range(len(routes_pool))
             )
             model.add_constr(
-                n_routes_sum == 1, 
+                lin_expr=(n_routes_sum == 1), 
                 name="one_attendance_"+str(request)
             )
         
@@ -64,23 +64,40 @@ class SetPartitionModel(SolutionMethod):
             for i in range(len(routes_pool))
         )
         
-        status = model.optimize(max_seconds=self.opt_time)
+        status = model.optimize(max_seconds=self.opt_time_limit)
         found_feasible = False
         if status == OptimizationStatus.OPTIMAL:
-            print("Optimal")
+            print("OPTMAL FOUND")
             found_feasible = True
         elif status == OptimizationStatus.FEASIBLE:
-            print("Feasible")
+            print("FEASIBLE FOUND")
             print(model.objective_value, model.objective_bound)
             found_feasible = True
         elif status == OptimizationStatus.NO_SOLUTION_FOUND:
-            print("No feasible solution found")
+            print("NO FEASIBLE FOUND")
 
+        new_soltuion = None
         if (found_feasible):
+            new_soltuion = Solution()
             for i in range(len(routes_pool)):
                 if (y[i]):
-                    print(routes_pool[i])
+                    new_soltuion.add_route(routes_pool[i])
+                    for request in routes_pool[i].requests():
+                        new_soltuion.add_request(request)
+                    
+                    new_soltuion.set_objective_value(
+                        self.obj_func.get_solution_cost(new_soltuion)
+                    )
 
+        if (self.obj_func.solution_is_better(new_soltuion, solution)):
+            print(
+                "IMPROVED",
+                new_soltuion.cost(),
+                solution.cost()
+            )
+            return new_soltuion
+        
+        return solution
 
     def update_route_values(self, route, position, request):
         super().update_route_values(route, position, request)

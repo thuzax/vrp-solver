@@ -98,10 +98,10 @@ class RandomExchange(SolutionMethod):
                 continue
             
             first_request = random.choice(
-                list(first_route.get_requests_set())
+                list(first_route.requests())
             )
             second_request = random.choice(
-                list(second_route.get_requests_set())
+                list(second_route.requests())
             )
 
             move_1 = (
