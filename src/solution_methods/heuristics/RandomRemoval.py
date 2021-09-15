@@ -30,7 +30,7 @@ class RandomRemoval(SolutionMethod):
                 routes.pop(route_pos)
                 continue
             
-            request = random.choice(list(routes[route_pos].get_requests_set()))
+            request = random.choice(list(routes[route_pos].requests()))
             request_pos = routes[route_pos].index(request)
 
             new_route = RemovalOperator().try_to_remove(

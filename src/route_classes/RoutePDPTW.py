@@ -25,7 +25,7 @@ class RoutePDPTW(Route):
         self.capacity_occupations.insert(position, 0)
 
 
-    def insert(self, insert_position, request):
+    def insert_in_route(self, insert_position, request):
         pickup_pos, delivery_pos = insert_position
         pickup, delivery = request
         self.requests_set.add(request)
@@ -36,7 +36,7 @@ class RoutePDPTW(Route):
 
     def index(self, request):
         pickup, delivery = request
-        
+
         position_pickup = self.vertices_order.index(pickup)
         position_delivery = self.vertices_order.index(delivery)
 
@@ -54,7 +54,7 @@ class RoutePDPTW(Route):
 
 
 
-    def pop(self, position):
+    def pop_from_route(self, position):
         pickup_pos, delivery_pos = position
 
         pickup = self.pop_vertex(pickup_pos)
@@ -67,16 +67,14 @@ class RoutePDPTW(Route):
 
 
     def remove(self, request):
-        pickup_pos, delivery_pos = self.index(request)
-
-        self.pop_vertex(pickup_pos)
-        self.pop_vertex(delivery_pos)
+        position = self.index(request)
+        self.pop((position))
 
 
     def get_request_by_position(self, position):
         pick_pos, deli_pos = position
 
-        return (self.route_order[pick_pos], self.route_order[deli_pos])
+        return (self.vertices_order[pick_pos], self.vertices_order[deli_pos])
 
 
     def get_arrival_time(self, request):
@@ -96,14 +94,8 @@ class RoutePDPTW(Route):
         return int(self.size()/2)
 
 
-    def copy(self):
+    def copy_route(self):
         copy_route = Route()
-
-        copy_route.route_id = self.route_id
-        copy_route.vertices_order = copy.deepcopy(self.vertices_order)
-        copy_route.requests_set = copy.deepcopy(self.requests_set)
-        
-        copy_route.route_cost = copy.deepcopy(self.route_cost)
 
         copy_route.arrival_times = copy.deepcopy(self.arrival_times)
         copy_route.capacity_occupations = copy.deepcopy(
@@ -111,11 +103,6 @@ class RoutePDPTW(Route):
         )
 
         return copy_route
-
-
-    def get_id(self):
-        return super().get_id()
-
 
     def __str__(self):
         text = "Route: " + str(self.vertices_order) + "\n"

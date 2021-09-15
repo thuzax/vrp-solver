@@ -16,7 +16,7 @@ class ObjVehicles(ObjFunction):
 
 
     def get_route_cost(self, route):
-        route_order = route.get_order()
+        route_order = route.requests_order()
         
         route_cost = 0
         previous = self.depot

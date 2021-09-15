@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.GenericClass import GenericClass
 
 class RemovalOperator(GenericClass, metaclass=ABCMeta):
@@ -27,7 +28,6 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def try_to_remove(self, route, request, obj_func, constraints):
         copy_route = route.copy()
-
         position = copy_route.index(request)
         copy_route.pop(position)
 
@@ -44,6 +44,7 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
         for constraint in constraints:
             if (not constraint.route_is_feasible(copy_route)):
                 return None
+        
         return copy_route
 
     @abstractmethod

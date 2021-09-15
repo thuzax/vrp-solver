@@ -16,8 +16,11 @@ class AttendAllRequests(Constraint):
 
 
     def solution_is_feasible(self, solution):
-        if (len(self.all_requests) > len(solution.requests())):
-            return False
+        for request in self.all_requests:
+            if (request not in solution.requests()):
+                return False
+
+
         return True
 
 

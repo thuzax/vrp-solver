@@ -1,19 +1,22 @@
 import random
 import copy
+import numpy
+import time
+from numpy.lib.function_base import insert
 
 
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.solution_methods.SolutionMethod import SolutionMethod
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 
-class RandomShift(SolutionMethod):
+class ModBiasedShift(SolutionMethod):
 
     def __init__(self):
         super().__init__("Random Shift")
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
-
+        self.mi = None
 
     def solve(self, solution, parameters):
         new_solution = solution.copy()
@@ -94,7 +97,35 @@ class RandomShift(SolutionMethod):
 
         # Otherwise make a shift of the chosen random request to a random route
         # Choose a random new route
-        feasible_insertion = random.choice(feasible_positions_and_routes)
+
+        insertion_costs = []
+
+        for position, route_after in feasible_positions_and_routes:
+            cost = self.obj_func.route_additional_route_cost_after_insertion(
+                route_after,
+                position,
+                route_after.get_request_by_position(position)
+            )
+            insertion_costs.append(cost)
+
+        a = time.time()
+        partition_k = int(self.mi * len(insertion_costs))
+        if (partition_k == 0):
+            partition_k = 1
+
+        best_indices = [i for i in range(len(insertion_costs))]
+        
+        if (len(insertion_costs) > partition_k):
+            costs_array = numpy.array(insertion_costs)
+            best_indices = numpy.argpartition(
+                costs_array, 
+                partition_k
+            )
+            best_indices = best_indices[:partition_k].tolist()
+
+        feasible_insert_pos = random.randint(0, len(best_indices)-1)
+
+        feasible_insertion = feasible_positions_and_routes[feasible_insert_pos]
         insertion_pos, route_inserted = feasible_insertion
 
         old_route_identifying = (
@@ -130,4 +161,5 @@ class RandomShift(SolutionMethod):
     
 
     def get_attr_relation_reader_heuristic(self):
-        return {}
+        rela = {}
+        return rela

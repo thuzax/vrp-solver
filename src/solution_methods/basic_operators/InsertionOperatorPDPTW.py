@@ -24,7 +24,7 @@ class InsertionOperatorPDPTW(InsertionOperator):
         )
 
     
-    def get_route_feasible_insertions(
+    def get_child_class_route_feasible_insertions(
         self, 
         route, 
         request, 
@@ -80,7 +80,7 @@ class InsertionOperatorPDPTW(InsertionOperator):
         request, 
         obj_func
     ):
-        route_order = route.get_order()
+        route_order = route.requests_order()
         pick_pos, deli_pos = position
         pick_prev_pair = (-1, -1)
         if (pick_pos > 0):
@@ -172,7 +172,7 @@ class InsertionOperatorPDPTW(InsertionOperator):
 
 
     def calculate_demand_on_vertex(self, route, position):
-        route_order = route.get_order()
+        route_order = route.requests_order()
         vertex_id = route_order[position]
 
         if (position == 0):
@@ -189,7 +189,7 @@ class InsertionOperatorPDPTW(InsertionOperator):
 
 
     def calculate_arrival_time(self, route, position):
-        route_order = route.get_order()
+        route_order = route.requests_order()
         vertex_id = route_order[position]
         
         if (position == 0):

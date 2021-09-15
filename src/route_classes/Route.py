@@ -1,3 +1,4 @@
+import copy
 import numpy
 
 from abc import ABC, ABCMeta, abstractmethod
@@ -11,7 +12,6 @@ class RouteSubClass:
     instance = None
     route_subclass = None
     route_subclass_params = None
-    route_id_counter = 0
 
     def __new__(cls, *args, **kwargs):
         if (len(cls.__subclasses__())):
@@ -26,12 +26,6 @@ class RouteSubClass:
     def __init__(self, subclass=None):
         if (subclass is not None):
             self.route_subclass = subclass
-
-
-    def get_next_route_id(self):
-        route_id = self.route_id_counter
-        self.route_id_counter += 1
-        return route_id
 
 
 
@@ -50,7 +44,6 @@ class Route(GenericClass, metaclass=ABCMeta):
         
         create_super = True
         cls = RouteSubClass().route_subclass()
-        cls.route_id = RouteSubClass().get_next_route_id()
         cls.child_created = True
         return cls
 
@@ -60,9 +53,8 @@ class Route(GenericClass, metaclass=ABCMeta):
             self.name = route_class_name
             self.vertices_order = []
             self.requests_set = set()
-            self.requests = []
-            self.route_id = 0
             self.route_cost = 0
+            self.id_value = None
             self.initialize_class_attributes()
             self.set_input_params()
 
@@ -95,11 +87,11 @@ class Route(GenericClass, metaclass=ABCMeta):
         return self.vertices_order[position+1]
 
     
-    def get_order(self):
+    def requests_order(self):
         return self.vertices_order
 
         
-    def get_requests_set(self):
+    def requests(self):
         return self.requests_set
 
     @abstractmethod
@@ -121,9 +113,40 @@ class Route(GenericClass, metaclass=ABCMeta):
         return len(self.requests_set)
 
 
+    def is_equal(self, route):
+        if (self.id_value is None):
+            return False
+        
+        if (route.id_value is None):
+            return False
+        
+        if (self.id_value != route.id_value):
+            return False
+        
+        return True
+
+
+    def has_same_requests(self, route):
+        if (self.requests_set == route.requests_set):
+            return True
+        
+        return False
+
+
+    def calculate_route_id_value(self):
+        self.id_value = tuple(self.vertices_order)
+        # string_order = [str(v) for v in self.vertices_order]
+        # self.id_value = ".".join(string_order)
+
+
+    def get_id_value(self):
+        return self.id_value
+
+
     def __contains__(self, key):
         if (key in self.requests_set):
             return True
+        
         return False
 
 
@@ -133,8 +156,12 @@ class Route(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def insert(self, insert_position, request, obj_func):
+    def insert_in_route(self, insert_position, request):
         pass
+    
+    def insert(self, insert_position, request):
+        self.insert_in_route(insert_position, request)
+        self.calculate_route_id_value()
 
 
     @abstractmethod
@@ -146,10 +173,16 @@ class Route(GenericClass, metaclass=ABCMeta):
     def remove(self, request):
         pass
 
-
+    
     @abstractmethod
-    def pop(self, request):
+    def pop_from_route(self, position):
         pass
+
+
+    def pop(self, position):
+        request = self.pop_from_route(position)
+        self.calculate_route_id_value()
+        return request
 
 
     @abstractmethod
@@ -158,13 +191,20 @@ class Route(GenericClass, metaclass=ABCMeta):
 
     
     @abstractmethod
-    def copy(self):
+    def copy_route(self):
         pass
 
+    def copy(self):
+        copy_route = self.copy_route()
 
-    @abstractmethod
-    def get_id(self):
-        return self.route_id
+        copy_route.vertices_order = copy.deepcopy(self.vertices_order)
+        copy_route.requests_set = copy.deepcopy(self.requests_set)
+        
+        copy_route.route_cost = copy.deepcopy(self.route_cost)
+
+        copy_route.id_value = copy.copy(self.id_value)
+
+        return copy_route
 
 
     @staticmethod

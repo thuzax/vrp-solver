@@ -1,7 +1,7 @@
 def calculate_requests_total_cost(solution, obj_func):
     obj_requests_cost = 0
     for route in solution.routes:
-        for request in route.get_requests_set():
+        for request in route.requests():
             obj_requests_cost += (
                 obj_func.get_request_cost_in_route(
                     route, 

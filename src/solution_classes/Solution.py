@@ -16,7 +16,6 @@ class Solution(GenericClass):
 
 
     def initialize_class_attributes(self):
-
         self.routes = []
 
         self.requests_set = set()
@@ -25,7 +24,6 @@ class Solution(GenericClass):
         self.total_routes_cost = 0
         self.solution_cost = 0
         
-
 
     def add_route(self, route):
         self.routes.append(route)
@@ -45,11 +43,16 @@ class Solution(GenericClass):
     def pop_route(self, route_position):
         route = self.routes.pop(route_position)
         
-        for request in route.get_requests_set():
+        for request in route.requests():
             self.remove_request(request)
 
-        self.solution_cost -= 1
+        self.total_routes_cost -= route.cost()
+        
         return route
+
+
+    def remove_route(self, route_pos):
+        self.pop_route(route_pos)
 
 
     def set_route(self, route_pos, new_route):
@@ -70,9 +73,10 @@ class Solution(GenericClass):
         self.total_routes_cost = new_value
 
 
-    def find_route_position_by_id(self, route_id):
+    def find_route_position_by_identifying_value(self, route_id_value):
         for i in range(len(self.routes)):
-            if (self.routes[i].get_id() == route_id):
+            route_i_id_value = self.routes[i].get_id_value()
+            if (route_i_id_value == route_id_value):
                 return i
         
         return None
@@ -105,8 +109,9 @@ class Solution(GenericClass):
 
         copy_solution.routes = [route.copy() for route in self.routes]
 
-        
         copy_solution.total_routes_cost = self.total_routes_cost
+
+        copy_solution.solution_cost = self.solution_cost
 
         return copy_solution
 
@@ -128,9 +133,10 @@ class Solution(GenericClass):
 
 
     def get_request_route(self, request):
-        for route in self.routes:
+        for route_pos, route in enumerate(self.routes):
             if request in route:
-                return route
+                return (route_pos, route)
+            
         return None
 
     def number_of_routes(self):

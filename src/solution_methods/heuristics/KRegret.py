@@ -38,6 +38,7 @@ class KRegret(SolutionMethod):
         inserted = True
         while (inserted and len(requests) > 0):
             best_routes_ids = self.get_indices_best_routes(routes, k)
+            # best_routes_ids = [i for i in range(len(routes))]
             regret_sets = self.get_regret_data(
                 requests, 
                 routes, 
@@ -69,7 +70,7 @@ class KRegret(SolutionMethod):
 
 
 
-            route_id = regret_routes_ids[request][0]
+            route_pos = regret_routes_ids[request][0]
             inserted_position = regret_insert_pos[request][0]
 
             new_route = regret_routes[request][0]
@@ -78,7 +79,7 @@ class KRegret(SolutionMethod):
                 request,
                 inserted_position,
                 new_route,
-                route_id,
+                route_pos,
                 self.obj_func
             )
 
@@ -144,7 +145,7 @@ class KRegret(SolutionMethod):
         regret_insert_pos = {}
 
         for request in requests:
-            route_ids, request_routes, request_insert_pos, routes_costs = (
+            routes_pos, request_routes, request_insert_pos, routes_costs = (
                 self.get_best_insertions_in_routes(
                     request, 
                     routes, 
@@ -156,7 +157,7 @@ class KRegret(SolutionMethod):
             
             regret_values[request] = regret_value
             regret_routes[request] = request_routes
-            regret_routes_ids[request] = route_ids
+            regret_routes_ids[request] = routes_pos
             regret_insert_pos[request] = request_insert_pos
 
         requests_can_be_inserted = {}

@@ -36,8 +36,8 @@ class ShawRemovalPDPTW(ShawRemoval, metaclass=ABCMeta):
             ) / 2
         )
 
-        route_r_1 = solution.get_request_route(r_1)
-        route_r_2 = solution.get_request_route(r_2)
+        route_pos_r_1, route_r_1 = solution.get_request_route(r_1)
+        route_pos_r_2, route_r_2 = solution.get_request_route(r_2)
 
         arrival_times_r_1 = route_r_1.get_arrival_time(r_1)
         arrival_times_r_2 = route_r_2.get_arrival_time(r_2)

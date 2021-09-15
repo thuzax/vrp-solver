@@ -28,5 +28,7 @@ class LocalSearch(SolutionMethod, metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def define_local_searches_operators(self, operators_dict):
-        pass
+    def define_local_searches_operators(self, op_dict):
+        self.local_operators = {}
+        for key, value in op_dict.items():
+            self.local_operators[key] = value
