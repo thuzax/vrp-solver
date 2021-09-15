@@ -19,6 +19,7 @@ class OriginalPerturbation(LocalSearch):
 
         number_of_perturbations = parameters["n_perturb"]
         for i in range(number_of_perturbations):
+
             keys = list(self.perturb_probabilities.keys())
             probabilities = [self.perturb_probabilities[key] for key in keys]
             weights = [p/sum(probabilities) for p in probabilities]

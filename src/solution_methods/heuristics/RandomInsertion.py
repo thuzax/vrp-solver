@@ -46,8 +46,17 @@ class RandomInsertion(SolutionMethod):
             new_route = routes_after_insertion[new_route_pos]
             inserted_pos = insertion_positions[new_route_pos]
             
-            old_route_pos = new_solution.find_route_position_by_id(
-                new_route.get_id()
+            old_route_identifying = (
+                InsertionOperator().get_route_id_value_before_inserted(
+                    new_route,
+                    request
+                )
+            )
+
+            old_route_pos = (
+                new_solution.find_route_position_by_identifying_value(
+                    old_route_identifying
+                )
             )
 
             new_solution = i_op.insert_request_in_solution(

@@ -104,7 +104,19 @@ class AGES(LocalSearch):
 
             if (feasible_position is not None):
                 insert_pos, route_after = feasible_position
-                r = new_solution.find_route_position_by_id(route_after.get_id())
+                
+
+                old_route_identifying_value = (
+                    InsertionOperator().get_route_id_value_before_inserted(
+                        route_after,
+                        request
+                    )
+                )
+
+                r = new_solution.find_route_position_by_identifying_value(
+                    old_route_identifying_value
+                )
+
                 InsertionOperator().insert_request_in_solution(
                     new_solution,
                     request,
@@ -128,25 +140,16 @@ class AGES(LocalSearch):
 
 
     def get_random_feasible_insertion(self, request, routes):
-        can_insert = False
-        while (not can_insert and len(routes) > 0):
-            random_route_pos = random.randint(0, len(routes)-1)
-            r = routes.pop(random_route_pos)
-            feasible_insertions = (
-                InsertionOperator().get_route_feasible_insertions(
-                    r,
-                    request,
-                    self.obj_func,
-                    self.constraints
-                )
+        feasible_insertions = (
+            InsertionOperator().get_all_feasible_insertions_from_routes(
+                request,
+                routes,
+                self.obj_func,
+                self.constraints
             )
-
-            if (len(feasible_insertions) <= 0):
-                continue
-            
-            can_insert = True
-
-        if (not can_insert):
+        )
+        
+        if (len(feasible_insertions) <= 0):
             return None
         
         feasible_insertion = random.choice(feasible_insertions)
@@ -184,7 +187,7 @@ class AGES(LocalSearch):
         for req in ejection:
             requests_stack.append(req)
 
-            req_route = new_solution.get_request_route(req)
+            req_route_pos, req_route = new_solution.get_request_route(req)
             req_pos_in_route = req_route.index(req)
             new_route = RemovalOperator().try_to_remove(
                 req_route,
@@ -198,20 +201,30 @@ class AGES(LocalSearch):
                 req,
                 req_pos_in_route,
                 new_route,
-                new_solution.find_route_position_by_id(req_route.get_id()),
+                req_route_pos,
                 self.obj_func
             )
 
         insert_position, new_route = random.choice(
             ejections_and_insertions[ejection]
         )
+        old_route_identifying_value = (
+            InsertionOperator().get_route_id_value_before_inserted(
+                new_route,
+                request
+            )
+        )
 
+        new_route_pos = new_solution.find_route_position_by_identifying_value(
+            old_route_identifying_value
+        )
+        
         new_solution = InsertionOperator().insert_request_in_solution(
             new_solution,
             request,
             insert_position,
             new_route,
-            new_solution.find_route_position_by_id(new_route.get_id()),
+            new_route_pos,
             self.obj_func
         )
 
@@ -256,8 +269,8 @@ class AGES(LocalSearch):
         for element in ejection_set:
             route_without_ejection_set = None
 
-            old_route = solution.get_request_route(element)
-            r = routes_where_removed.get(old_route.get_id())
+            old_route_pos, old_route = solution.get_request_route(element)
+            r = routes_where_removed.get(old_route.get_id_value())
             
             if (r is not None):
                 old_route = r
@@ -269,7 +282,7 @@ class AGES(LocalSearch):
                 self.constraints
             )
 
-            routes_where_removed[old_route.get_id()] = (
+            routes_where_removed[old_route.get_id_value()] = (
                 route_without_ejection_set
             )
         

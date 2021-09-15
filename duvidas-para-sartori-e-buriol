@@ -1,15 +1,77 @@
-É dito ser usada uma solução inicial gulosoa. Como funciona essa heurística? 
+1) É dito ser usada uma solução inicial gulosa. Como funciona essa heurística?
 
-Na heurística K-Regret, é calculada a inserção considerando todas as rotas? Ou só em k melhores rotas?
+- Nós usamos a "insertion heuristic" do Solomon modificada para o PDPTW, mas
+a ideia é a mesma: Crie uma rota vazia. Para cada request não inserida, tenta
+inserir ela na rota atual na melhor posição factível. Se nenhuma request
+puder mais ser inserida, crie uma nova rota e repita o processo. Isso segue
+até todas as requests estiverem em uma rota. Obviamente isso pode gerar um
+número bem maior de rotas do que a solução "ótima", mas é uma heurística
+rápida.
 
-A "pool" de rotas (utilziadas pelo modelo matemático) é um conjunto que armazena todas as rotas geradas ou apenas parte delas? Se não são todas, existe algum critério para decidir qual deve entrar ou sair?
+Comentario arthur: Usei a k-regret para simular a insertion heuristic. Funciona da mesma forma.
 
-Quando duas rotas são consideradas iguais na "pool" de rotas? A ordem dos pontos/pedidos é relevante?
+2) Na heurística K-Regret, são calculadas todas as posições factíveis de inserção? Ou só nas k melhores rotas?
 
-A LNS proposta por Ropke e Psinger (2006) considera um número limitado de veículos e tenta maximizar o número de pedidos atendidos. Na solução proposta em Sartori e Buriol (2020) a LNS foi adaptada para não aceitar soluções que não atendam todos os pedidos? Ou soluções infactíveis do método também tem rotas aproveitadas pelo modelo matemático?
+- Na k-regret nós seguimos exatamente a proposta de Ropke e Pisinger (2006).
+No caso, calculamos a melhor inserção da request em *todas* as rotas. Depois
+ordenamos estas posições em ordem crescente de custo (a primeira é a melhor).
+Nota que isso é parte do algoritmo proposto por Ropke e Pisinger (2006)
+porque a ideia de calcular a posição de inserção da request em todas as rotas
+é justamente para verificar se corremos o risco de nos "arrepender" de não
+inserir uma request agora, pois ela só possui 1 opção (rota) de inserção ou
+porque todas as outras opções são muito piores. Por fim, nós mantemos
+movimentos computados em uma "cache" para evitar recomputações sempre que
+possível.
 
-No componente AGES, quando não for encontrada posição factível e a ejeção de dois pedidos não tornar possível a inserção do pedido removido, o que é feito?
+3) A pool de rotas (utilizadas pelo modelo matemático) é um conjunto que armazena todas as rotas geradas ou apenas parte delas? Se não são todas, existe algum critério para decidir qual deve entrar ou sair?
 
-Na perturbação enviesada (biased perturbation), é utilizado somente a modificação do Random Shift ou também se utiliza o Random Exchange?
+- A pool armazena todas as rotas já geradas que não sejam redundantes. Para
+o pool, nós identificamos rotas não pela ordem das requests nela, mas apenas
+pelo conjunto de requests nela (ou seja, não importa a ordem de visita).
+Assim, duas rotas que visitam o mesmo conjunto de requests, mas em ordens
+diferentes, serão consideradas como a mesma rota pelo pool. Se uma rota R é
+inserida no pool e uma outra rota R' já existe com o mesmo conjunto de
+clientes, nós verificamos qual das duas tem o menor custo (se R ou R') e
+apenas a rota de menor custo é mantida no pool, já que a outra nunca poderá
+aparecer em uma solução ótima.
 
-Quando exatamente há inserção de rotas na "pool" de rotas? Após cada componente? A cada iteração?
+4) Quando duas rotas são consideradas iguais na pool de rotas? A ordem dos pontos/pedidos é relevante?
+
+- Acho que a (3) responde isso? Se não, me avise.
+
+5) A LNS proposta por Ropke e Psinger (2006) considera um número limitado de veículos e tenta maximizar o número de pedidos atendidos. Na solução proposta em Sartori e Buriol (2020) a LNS foi adaptada para não aceitar soluções que não atendam todos os pedidos? Ou soluções infactíveis do método também têm rotas aproveitadas pelo modelo matemático?
+
+- Se nem todas as requests conseguem ser reinseridas usando o número de
+veículos atual, então nós consideramos ela infactível e portanto a solução é
+ignorada. Soluções infactíveis, de maneira geral, são descartadas em todo
+nosso algoritmo pois decidimos não lidar com elas no estudo, apesar de ser
+uma direção de pesquisa promissora.
+
+6) No componente AGES, quando não for encontrada posição factível e a ejeção de dois pedidos não tornar possível a inserção do pedido removido, o que é feito?
+
+- A request não inserida é recolocada na lista de requests a serem inseridas
+(conjunto E se lembro bem da notação) e a solução é perturbada normalmente.
+Então o algoritmo inicia uma nova iteração (escolhe um elemento da lista E de
+requests a serem inseridas e tenta novamente, mas desta vez a solução está
+diferente por causa da perturbação, então mesmo que a mesma request seja
+escolhida, é possível que um novo espaço para ela exista). O contador de
+iterações sem melhoras do AGES ainda é incrementado, contanto para o final
+dele caso o método siga "ciclando" devido a essa inserção que falha.
+
+Comentario Arthur: Implementei igual
+
+7) Na perturbação enviesada (biased perturbation), é utilizado somente a modificação do Random Shift ou também se utiliza o Random Exchange?
+
+-  Só do random shift. O random exchange parecia tomar muito tempo porque
+inseria na melhor posição (e fazer ele first-improvement ou só random não deu
+melhoras nos nossos experimentos preliminares), e muitas vezes não parecia
+ajudar, então justamente tentamos nos livrar dele e manter uma perturbação
+mais simples possível.
+
+8) Quando exatamente há inserção de rotas na pool de rotas? Após cada componente (AGES, LNS e modelo SP)? A cada iteração?
+
+- A cada iteração, as rotas da solução atual são candidatas a serem
+inseridas no pool. Mas apenas depois de "passar" por AGES + LNS e *antes* de
+"passar" pelo SP. Basicamente, antes de chamar o SP o pool é atualizado para
+garantir que temos as rotas mais atualizadas nele e então o modelo em si é
+resolvido com a atualização.

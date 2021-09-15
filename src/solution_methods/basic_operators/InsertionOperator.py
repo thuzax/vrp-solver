@@ -1,4 +1,7 @@
 
+import copy
+import time
+
 from abc import ABCMeta, abstractmethod
 
 from src import exceptions
@@ -53,6 +56,20 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
+    def get_child_class_route_feasible_insertions(
+        self,
+        route, 
+        request, 
+        obj_func, 
+        constraints
+    ): 
+        """
+        Return a list with a pair (position, new_route) representing the inserting position and the route after insertio. If there is no feasible position, returns empty list.
+        """
+        pass
+
+
+
     def get_route_feasible_insertions(
         self, 
         route, 
@@ -60,10 +77,22 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         obj_func, 
         constraints
     ):
-        """
-        Return a list with a pair (position, new_route) representing the inserting position and the route after insertio. If there is no feasible position, returns empty list.
-        """
-        pass
+        key = (request, route.get_id_value())
+        if (key in self.feasible_insertions_in_cache):
+            return self.feasible_insertions_cache[key]
+
+        feasible_insertions = self.get_child_class_route_feasible_insertions(
+            route, 
+            request, 
+            obj_func, 
+            constraints
+        )
+
+        self.feasible_insertions_in_cache.add(key)
+        self.feasible_insertions_cache[key] = feasible_insertions
+
+        return feasible_insertions
+
 
 
     def get_all_feasible_insertions_from_routes(
@@ -75,14 +104,17 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
     ):
         feasible_insertions = []
         for route in routes:
-            feasible_insertions += (
+            key = (request, route.get_id_value())
+
+            if (key not in self.feasible_insertions_in_cache):
                 self.get_route_feasible_insertions(
                     route, 
                     request, 
                     obj_func, 
                     constraints
                 )
-            )
+
+            feasible_insertions += self.feasible_insertions_cache[key]
 
         return feasible_insertions
 
@@ -96,18 +128,14 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
     ):
         feasible_insertions = []
         for route in solution.routes:
-            key = (request, route.get_id())
+            key = (request, route.get_id_value())
 
             if (key not in self.feasible_insertions_in_cache):
-                self.feasible_insertions_in_cache.add(key)
-            
-                self.feasible_insertions_cache[key] = (
-                    self.get_route_feasible_insertions(
-                        route, 
-                        request, 
-                        obj_func, 
-                        constraints
-                    )
+                self.get_route_feasible_insertions(
+                    route, 
+                    request, 
+                    obj_func, 
+                    constraints
                 )
 
             feasible_insertions += self.feasible_insertions_cache[key]
@@ -184,15 +212,54 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             obj_func
         )
 
-        self.remove_route_from_feasible_insertions_cache(request, new_route)
-
         return solution
 
     def remove_route_from_feasible_insertions_cache(self, request, route):
-        key = (request, route.get_id())
+        key = (request, route.get_id_value())
         self.feasible_insertions_in_cache.discard(key)
 
     
     def clean_feasible_insertions_cache(self):
         self.feasible_insertions_in_cache = set()
         self.feasible_insertions_cache = {}
+
+    def clean_feasible_insertions_cache_with_exception(self, routes):
+        keys_in_cache = copy.deepcopy(self.feasible_insertions_in_cache)
+
+        cache_keys_exceptions = set()
+        cache_exceptions = {}
+
+        for route in routes:
+            route_id_value = route.get_id_value()
+            
+            for key in self.feasible_insertions_in_cache:
+                request, id_value = key
+
+                if (route_id_value == id_value):
+                    cache_keys_exceptions.add(key)
+                    cache_exceptions[key] = self.feasible_insertions_cache[key]
+                
+        self.feasible_insertions_in_cache = cache_keys_exceptions
+        self.feasible_insertions_cache = cache_exceptions
+
+
+
+    def get_route_id_value_before_inserted(
+        self, 
+        route, 
+        request_inserted
+    ):
+        try:
+            len(request_inserted)
+        except:
+            request_inserted = (request_inserted)
+        
+        req_set = set(request_inserted)
+        
+        old_route_identifying = tuple([
+            i
+            for i in route.get_id_value()
+            if i not in req_set
+        ])
+        
+        return old_route_identifying

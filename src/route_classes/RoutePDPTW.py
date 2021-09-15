@@ -104,11 +104,6 @@ class RoutePDPTW(Route):
 
         return copy_route
 
-
-    def get_id(self):
-        return super().get_id()
-
-
     def __str__(self):
         text = "Route: " + str(self.vertices_order) + "\n"
         text += "Arrivals: " + str(self.arrival_times) + "\n"

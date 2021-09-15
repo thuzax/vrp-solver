@@ -1,5 +1,6 @@
-from src.solution_classes.Solution import Solution
 from mip import *
+
+from src.solution_classes.Solution import Solution
 from src.solution_methods.SolutionMethod import SolutionMethod
 
 class SetPartitionModel(SolutionMethod):

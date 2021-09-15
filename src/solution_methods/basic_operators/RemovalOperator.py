@@ -82,10 +82,5 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
             obj_func
         )
 
-        InsertionOperator().remove_route_from_feasible_insertions_cache(
-            request, 
-            new_route
-        )
-
         return solution
         

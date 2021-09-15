@@ -24,7 +24,7 @@ class InsertionOperatorPDPTW(InsertionOperator):
         )
 
     
-    def get_route_feasible_insertions(
+    def get_child_class_route_feasible_insertions(
         self, 
         route, 
         request, 

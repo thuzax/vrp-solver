@@ -39,10 +39,8 @@ class WorstRemoval(SolutionMethod):
                 * len(sorted_requests)
             )
             request = sorted_requests[request_sort_position]
-            route = new_solution.get_request_route(request)
+            route_pos, route = new_solution.get_request_route(request)
             request_pos = route.index(request)
-
-            route_pos = routes.index(route)
             
             new_route = RemovalOperator().try_to_remove(
                 routes[route_pos],

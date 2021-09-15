@@ -37,23 +37,26 @@ class SartoriBuriolPDPTW(SolverClass):
 
 
     def add_routes_to_pool(self, routes):
+        start = time.time()
         if (len(self.routes_pool) == 0):
             for route in routes:
-                key = route.get_identifying_value()
+                key = route.get_id_value()
                 self.routes_pool_dict[key] = route.copy()
-                self.routes_pool_dict[key].change_id()
             
             self.routes_pool = list(self.routes_pool_dict.values())
 
         for route in routes:
-            key = route.get_identifying_value()
+            key = route.get_id_value()
             if (key in self.routes_pool_dict):
+                # a = time.time()
+                # print(route.has_same_requests(self.routes_pool_dict[key]))
+                # print(time.time() - a)
                 continue
             self.routes_pool_dict[key] = route.copy()
-            self.routes_pool_dict[key].change_id()
 
-        
         self.routes_pool = list(self.routes_pool_dict.values())
+
+        print("Time adding in pool:", time.time() - start)
 
 
     def execute_local_search(
@@ -113,7 +116,6 @@ class SartoriBuriolPDPTW(SolverClass):
         )
 
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++")
-        self.add_routes_to_pool(solution_copy.routes)
 
         return solution_copy
 
@@ -181,7 +183,7 @@ class SartoriBuriolPDPTW(SolverClass):
         self.best_solution = solution.copy()
         print("//////////////////////////////////////////////////////")
         
-        for i in range(2):
+        for i in range(10):
             # print(solution)
             #AGES
             parameters = {}
@@ -208,6 +210,11 @@ class SartoriBuriolPDPTW(SolverClass):
             ):
                 self.best_solution = solution.copy()
 
+            self.add_routes_to_pool(solution.routes)
+            InsertionOperator().clean_feasible_insertions_cache_with_exception(
+                solution.routes
+            )
+
             # print(solution)
             #SP model
             parameters = {}
@@ -228,9 +235,12 @@ class SartoriBuriolPDPTW(SolverClass):
                 self.best_solution = solution.copy()
 
             # print(solution)
+            # PERTURBATION
             parameters = {}
-            parameters["n_perturb"] = 50
+            parameters["n_perturb"] = 20
             solution = self.execute_local_search(solution, 3, parameters)
+
+
 
             if (
                 self.solution_is_feasible(solution)

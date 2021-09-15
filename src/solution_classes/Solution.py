@@ -73,9 +73,10 @@ class Solution(GenericClass):
         self.total_routes_cost = new_value
 
 
-    def find_route_position_by_id(self, route_id):
+    def find_route_position_by_identifying_value(self, route_id_value):
         for i in range(len(self.routes)):
-            if (self.routes[i].get_id() == route_id):
+            route_i_id_value = self.routes[i].get_id_value()
+            if (route_i_id_value == route_id_value):
                 return i
         
         return None
@@ -132,9 +133,10 @@ class Solution(GenericClass):
 
 
     def get_request_route(self, request):
-        for route in self.routes:
+        for route_pos, route in enumerate(self.routes):
             if request in route:
-                return route
+                return (route_pos, route)
+            
         return None
 
     def number_of_routes(self):
