@@ -111,6 +111,14 @@
                 "TimeWindowsConstraint"
             ]
         },
+        "ModBiasedShift" : {
+            "obj_func_name" : "ObjVehicles",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ],
+            "mi" : 0.2
+        },
         "RandomExchange" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
@@ -130,11 +138,13 @@
             },
             "local_operators_names" : {
                 "RandomShift" : "RandomShift",
+                "ModBiasedShift" : "ModBiasedShift",
                 "RandomExchange" : "RandomExchange"
             },
             "perturb_probabilities" : {
                 "RandomShift" : 0.5,
-                "RandomExchange" : 0.5
+                "RandomExchange" : 0.5,
+                "ModBiasedShift" : 0
             }
         }
     },

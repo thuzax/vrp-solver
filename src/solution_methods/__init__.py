@@ -18,6 +18,7 @@ from .heuristics.ShawRemovalPDPTW import *
 
 from .heuristics.OriginalPerturbation import *
 from .heuristics.RandomShift import *
+from .heuristics.ModBiasedShift import *
 from .heuristics.RandomExchange import *
 
 from .exact_methods.SetPartitionModel import *
@@ -46,6 +47,7 @@ __all__ = [
     
     "OriginalPerturbation",
     "RandomShift",
+    "ModBiasedShift",
     "RandomExchange",
     
     "AGES",

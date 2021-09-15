@@ -74,7 +74,7 @@ class RoutePDPTW(Route):
     def get_request_by_position(self, position):
         pick_pos, deli_pos = position
 
-        return (self.route_order[pick_pos], self.route_order[deli_pos])
+        return (self.vertices_order[pick_pos], self.vertices_order[deli_pos])
 
 
     def get_arrival_time(self, request):

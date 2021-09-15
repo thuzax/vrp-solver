@@ -1,6 +1,15 @@
 Congresso da Pós
 
+K-Regret: Sobre questão 2 para o Carlo (k-regret). 
+          Sugerir teste relacionado a isso
+
+BiasedPerturbation: Alterações no método
+                    OriginalPerturbation pode mesclar com outras
+
+
 ------------------------------------------------------------------
+
+DECISÕES ANOTADAS
 
 Modificações Modelo
 Restrição Minimo de pedidos/maximo de custo

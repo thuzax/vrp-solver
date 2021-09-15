@@ -38,6 +38,7 @@ class KRegret(SolutionMethod):
         inserted = True
         while (inserted and len(requests) > 0):
             best_routes_ids = self.get_indices_best_routes(routes, k)
+            # best_routes_ids = [i for i in range(len(routes))]
             regret_sets = self.get_regret_data(
                 requests, 
                 routes, 

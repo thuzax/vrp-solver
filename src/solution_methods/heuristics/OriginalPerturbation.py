@@ -23,7 +23,7 @@ class OriginalPerturbation(LocalSearch):
             keys = list(self.perturb_probabilities.keys())
             probabilities = [self.perturb_probabilities[key] for key in keys]
             weights = [p/sum(probabilities) for p in probabilities]
-
+            
             perturb_name = random.choices(keys, weights=weights)[0]
             perturb_operator = self.local_operators[perturb_name]
             new_solution = perturb_operator.solve(new_solution, {})

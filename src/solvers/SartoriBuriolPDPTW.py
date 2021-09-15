@@ -274,6 +274,12 @@ class SartoriBuriolPDPTW(SolverClass):
                 self.obj_func
             )
         )
+        print(
+            "best obj, best route_cost:", 
+            self.best_solution.cost(),
+            ",",
+            self.best_solution.routes_cost()
+        )
         print("Total time:", time.time() - heuristic_start)
 
 
