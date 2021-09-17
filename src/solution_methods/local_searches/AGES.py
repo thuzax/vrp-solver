@@ -66,7 +66,11 @@ class AGES(LocalSearch):
 
             self.stop_parameters["it"] += 1
             self.stop_parameters["time_last_it"] = time.time()
-            if (len(requests_stack) == 0 and self.accept(new_solution)):
+            if (
+                len(requests_stack) == 0 
+                and self.solution_is_feasible(new_solution)
+                and self.accept(new_solution)
+            ):
                 print(
                     "IMPROVED", 
                     self.obj_func.get_solution_cost(new_solution), 
@@ -345,14 +349,6 @@ class AGES(LocalSearch):
             solution,
             {"n_perturb" : self.number_of_perturb_moves}
         )
-
-
-    def accept(self, solution):
-        for constraint in self.constraints:
-            if (not constraint.solution_is_feasible(solution)):
-                return False
-        
-        return self.acceptance_algorithm.accept(solution)
 
 
     def stop_criteria_fulfilled(self):

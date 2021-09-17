@@ -182,7 +182,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-100_input",
+            "input_name" : "br-mg-bh-200_input",
             "input_type" : "json"
         }
     },

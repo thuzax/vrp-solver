@@ -18,10 +18,6 @@ class LocalSearch(SolutionMethod, metaclass=ABCMeta):
         self.acceptance_algorithm_data = None
         self.acceptance_algorithm = None
 
-    @abstractmethod
-    def accept(self, new_solution):
-        return self.acceptance_algorithm.accept(new_solution, self.obj_func)
-
 
     @abstractmethod
     def stop_criteria_fulfilled(self):

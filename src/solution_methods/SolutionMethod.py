@@ -45,6 +45,8 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
 
         return True
 
+    def accept(self, new_solution):
+        return self.acceptance_algorithm.accept(new_solution, self.obj_func)
 
     @abstractmethod
     def solve(self, solution, parameters):

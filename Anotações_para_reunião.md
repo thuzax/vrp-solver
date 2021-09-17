@@ -1,5 +1,9 @@
 Congresso da Pós
 
+Cache de posicoes de insercao factivel: Comentar sobre funcionamento e reset
+                                        Melhoria de desempenho
+
+
 K-Regret: Sobre questão 2 para o Carlo (k-regret). 
           Sugerir teste relacionado a isso
 

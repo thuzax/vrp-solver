@@ -99,7 +99,10 @@ class LNS(LocalSearch):
             # Acceptance
             self.stop_parameters["it"] += 1
             self.stop_parameters["time_last_it"] = time.time()
-            accepted = self.accept(new_solution)
+            accepted = (
+                self.solution_is_feasible(new_solution) 
+                and self.accept(new_solution)
+            )
             if (
                 accepted 
                 and 
@@ -133,14 +136,6 @@ class LNS(LocalSearch):
         #     - self.stop_parameters["begin_time"]
         # )
         return best_solution
-
-
-    def accept(self, solution):
-        for constraint in self.constraints:
-            if (not constraint.solution_is_feasible(solution)):
-                return False
-        
-        return super().accept(solution)
 
 
     def update_route_values(self, route, position, request):

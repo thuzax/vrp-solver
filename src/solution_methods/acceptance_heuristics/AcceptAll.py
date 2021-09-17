@@ -9,7 +9,7 @@ class AcceptAll(AcceptanceHeuristic):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
 
-    def accept(self, new_solution):
+    def accept(self, new_solution, obj_func):
         return True
 
     def get_attr_relation_reader_accept_heuri(self):

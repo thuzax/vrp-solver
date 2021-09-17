@@ -27,16 +27,15 @@ class OriginalPerturbation(LocalSearch):
             perturb_name = random.choices(keys, weights=weights)[0]
             perturb_operator = self.local_operators[perturb_name]
             new_solution = perturb_operator.solve(new_solution, {})
-            
-        return new_solution
-    
-
-    def accept(self, solution):
-        for constraint in self.constraints:
-            if (not constraint.solution_is_feasible(solution)):
-                return False
         
-        return self.acceptance_algorithm.accept(solution)
+        if (
+            self.solution_is_feasible(new_solution) 
+            and self.accept(new_solution)
+        ):
+            return new_solution
+
+        return solution
+
 
     def stop_criteria_fulfilled(self):
         super().stop_criteria_fulfilled()
