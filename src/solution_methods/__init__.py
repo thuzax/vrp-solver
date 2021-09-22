@@ -8,6 +8,7 @@ from .basic_operators.RemovalOperator import *
 from .basic_operators.RemovalOperatorPDPTW import *
 
 from .heuristics.KRegret import *
+from .heuristics.WKRegret import *
 from .heuristics.RandomInsertion import *
 
 from .heuristics.RandomRemoval import *
@@ -38,6 +39,7 @@ __all__ = [
     "RemovalOperatorPDPTW",
     
     "KRegret",
+    "WKRegret",
     "RandomInsertion",
     
     "RandomRemoval",

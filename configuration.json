@@ -10,6 +10,15 @@
     "solution_methods" : {
         "KRegret" : {
             "non_insertion_cost" : 9999999999999,
+            "use_modification" : false,
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "WKRegret" : {
+            "non_insertion_cost" : 9999999999999,
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
@@ -74,7 +83,7 @@
                 }
             },
             "local_operators_names" : {
-                "KRegret" : "KRegret",
+                "KRegret" : "WKRegret",
                 "RandomRemoval" : "RandomRemoval",
                 "WorstRemoval" : "WorstRemoval",
                 "ShawRemoval" : "ShawRemovalPDPTW"
@@ -182,7 +191,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-mg-bh-200_input",
+            "input_name" : "br-ms-cg-10_input",
             "input_type" : "json"
         }
     },

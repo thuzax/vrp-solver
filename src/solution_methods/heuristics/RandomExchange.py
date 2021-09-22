@@ -37,7 +37,7 @@ class RandomExchange(SolutionMethod):
         if (new_route_2 is None):
             return None
 
-        insert_pos_1, insert_route_1 = (
+        insert_pos_1, insert_route_1, insert_cost_1 = (
             InsertionOperator().get_best_insertion_in_route(
                 new_route_1,
                 request_2,
@@ -50,7 +50,7 @@ class RandomExchange(SolutionMethod):
             return None
         
 
-        insert_pos_2, insert_route_2 = (
+        insert_pos_2, insert_route_2, insert_cost_2 = (
             InsertionOperator().get_best_insertion_in_route(
                 new_route_2,
                 request_1,

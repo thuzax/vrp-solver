@@ -40,12 +40,13 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         copy_route.insert(position, request)
 
         self.update_route_values(copy_route, position, request)
+        additional_cost = obj_func.route_additional_route_cost_after_insertion(
+            copy_route,
+            position, 
+            request
+        )
         copy_route.route_cost += (
-            obj_func.route_additional_route_cost_after_insertion(
-                copy_route,
-                position, 
-                request
-            )
+            additional_cost
         )
 
         for constraint in constraints:
@@ -64,7 +65,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         constraints
     ): 
         """
-        Return a list with a pair (position, new_route) representing the inserting position and the route after insertio. If there is no feasible position, returns empty list.
+        Return a list with a pair (position, new_route, insertion_cost) representing the inserting position and the route after insertio. If there is no feasible position, returns empty list.
         """
         pass
 
@@ -160,15 +161,18 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
 
         best_route = None
         best_insertion_position = None
+        best_insert_cost = None
 
-        for position, route in feasible_positions:
+        for position, route, insert_cost in feasible_positions:
             if (obj_func.route_is_better(route, best_route)):
                 best_route = route
                 best_insertion_position = position
+                best_insert_cost = insert_cost
 
         return (
             best_insertion_position,
-            best_route
+            best_route,
+            best_insert_cost
         )
 
     @abstractmethod
@@ -261,5 +265,5 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             for i in route.get_id_value()
             if i not in req_set
         ])
-        
+
         return old_route_identifying

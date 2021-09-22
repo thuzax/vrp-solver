@@ -83,6 +83,7 @@ mais simples possível.
 
 Comentario: Implementado o ModBiasedShift + OriginalPerturbation é flexivel para usar ela sozinha ou em conjunto
 
+(NOT DONE)
 
 8) Quando exatamente há inserção de rotas na pool de rotas? Após cada componente (AGES, LNS e modelo SP)? A cada iteração?
 

@@ -54,7 +54,7 @@ class Route(GenericClass, metaclass=ABCMeta):
             self.vertices_order = []
             self.requests_set = set()
             self.route_cost = 0
-            self.id_value = None
+            self.id_value = ()
             self.initialize_class_attributes()
             self.set_input_params()
 

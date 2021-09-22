@@ -95,7 +95,7 @@ class RandomShift(SolutionMethod):
         # Otherwise make a shift of the chosen random request to a random route
         # Choose a random new route
         feasible_insertion = random.choice(feasible_positions_and_routes)
-        insertion_pos, route_inserted = feasible_insertion
+        insertion_pos, route_inserted, insert_cost = feasible_insertion
 
         old_route_identifying = (
             InsertionOperator().get_route_id_value_before_inserted(

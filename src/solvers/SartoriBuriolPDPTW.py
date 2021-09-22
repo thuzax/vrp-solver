@@ -135,9 +135,10 @@ class SartoriBuriolPDPTW(SolverClass):
 
             parameters["requests"] = insertion_requests
             parameters["k"] = 1
-
             solution = self.construction.solve(solution, parameters)
+            # print(solution)
             insertion_requests -= solution.requests()
+            # print(insertion_requests)
             if (last_size == len(insertion_requests)):
                 routes.pop()
                 inserted = False

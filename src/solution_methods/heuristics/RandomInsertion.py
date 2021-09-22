@@ -35,9 +35,9 @@ class RandomInsertion(SolutionMethod):
             insertion_positions = []
             routes_after_insertion = []
             for feasible_insertion in feasible_insertions:
-                positions, routes = feasible_insertion
-                insertion_positions.append(positions)
-                routes_after_insertion.append(routes)
+                position, route, insert_cost = feasible_insertion
+                insertion_positions.append(position)
+                routes_after_insertion.append(route)
                 
             if (len(routes_after_insertion) <= 0):
                 continue

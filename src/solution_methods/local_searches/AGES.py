@@ -107,7 +107,7 @@ class AGES(LocalSearch):
             )
 
             if (feasible_position is not None):
-                insert_pos, route_after = feasible_position
+                insert_pos, route_after, insert_cost = feasible_position
                 
 
                 old_route_identifying_value = (
@@ -209,7 +209,7 @@ class AGES(LocalSearch):
                 self.obj_func
             )
 
-        insert_position, new_route = random.choice(
+        insert_position, new_route, insert_cost = random.choice(
             ejections_and_insertions[ejection]
         )
         old_route_identifying_value = (
