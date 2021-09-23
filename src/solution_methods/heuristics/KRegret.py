@@ -127,7 +127,7 @@ class KRegret(SolutionMethod):
 
     def solve(self, solution, parameters):
         self.k = parameters["k"]
-        requests = copy.deepcopy(parameters["requests"])
+        requests = copy.deepcopy(parameters["requests_set"])
         new_solution = solution.copy()
 
         could_insert = True

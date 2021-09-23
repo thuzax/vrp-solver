@@ -148,7 +148,7 @@ class LNS(LocalSearch):
         if (k >= solution.number_of_routes()):
             parameters["k"] = solution.number_of_routes()-1
         
-        parameters["requests"] = requests
+        parameters["requests_set"] = requests
         solution = (
             self.local_operators["KRegret"].solve(solution, parameters)
         )

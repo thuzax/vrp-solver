@@ -22,7 +22,7 @@ class LAHC(AcceptanceHeuristic):
             self.first_inserted_position = 0
 
 
-    def accept(self, new_solution, obj_func):
+    def accept(self, new_solution, obj_func, parameters=None):
         if(len(self.obj_values_list) == 0):
             self.initialize_list_with_value(new_solution)
             return True

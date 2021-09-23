@@ -8,6 +8,15 @@
         }
     },
     "solution_methods" : {
+        "BasicGreedy" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "AttendAllRequests",
+                "PickupDeliveryConstraint",
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
         "KRegret" : {
             "non_insertion_cost" : 9999999999999,
             "use_modification" : false,
@@ -113,6 +122,33 @@
             "solver_code" : "CBC",
             "opt_time_limit" : 30
         },
+        "SBMath" : {
+            "obj_func_name" : "ObjVehicles",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint",
+                "PickupDeliveryConstraint",
+                "AttendAllRequests"
+            ],
+            "local_operators_names" : {
+                "AGES" : "AGES",
+                "LNS" : "LNS",
+                "SetPartitionModel" : "SetPartitionModel",
+                "OriginalPerturbation" : "OriginalPerturbation"
+            },
+            "stop_criteria" : "iterations",
+            "max_time" : 10,
+            "max_time_without_improv" : 10,
+            "max_it" : 10,
+            "max_it_without_improv" : 10,
+            "acceptance_algorithm_data" : {
+                "LAHC" : {
+                    "list_size" : 6
+                }
+            },
+            "routes_diff_method" : "order",
+            "number_of_perturb_moves" : 20 
+        },
         "RandomShift" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
@@ -138,7 +174,6 @@
         "OriginalPerturbation" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
-                "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
@@ -168,18 +203,13 @@
         }
     },
     "solver" : {
-        "SartoriBuriolPDPTW" : {
+        "SolverPDPTW" : {
             "output_path" : "./test_instances/result_files/",
             "output_name" : "",
             "output_type" : "json",
             "obj_func_name" : "ObjVehicles",
-            "construction_name" : "KRegret",
-            "local_searches_order" : [
-                "AGES",
-                "LNS",
-                "SetPartitionModel",
-                "OriginalPerturbation"
-            ],
+            "construction_name" : "BasicGreedy",
+            "metaheuristic_name" : "SBMath",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",

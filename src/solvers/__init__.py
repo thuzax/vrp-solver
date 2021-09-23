@@ -1,7 +1,7 @@
 from .SolverClass import *
-from .SartoriBuriolPDPTW import *
+from .SolverPDPTW import *
 
 __all__ = [
     "SolverClass",
-    "SartoriBuriolPDPTW"
+    "SolverPDPTW"
 ]

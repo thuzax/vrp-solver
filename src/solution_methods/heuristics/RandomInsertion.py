@@ -20,7 +20,7 @@ class RandomInsertion(SolutionMethod):
 
     def solve(self, solution, parameters):
         new_solution = solution.copy()
-        requests = parameters["requests"]
+        requests = parameters["requests_set"]
         i_op = InsertionOperator()
         for request in requests:
             feasible_insertions = (

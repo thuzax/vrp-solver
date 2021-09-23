@@ -17,7 +17,7 @@ class SetPartitionModel(SolutionMethod):
 
 
     def solve(self, solution, parameters):
-        requests = parameters["requests"]
+        requests = parameters["requests_set"]
         # list of routes
         routes_pool = parameters["routes_pool"]
 

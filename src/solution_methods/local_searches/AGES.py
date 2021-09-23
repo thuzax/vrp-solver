@@ -79,7 +79,6 @@ class AGES(LocalSearch):
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["number_perturb"] = 0
                 best_solution = new_solution
-            
 
         print("AGES iterations:", self.stop_parameters["it"])
         # print(

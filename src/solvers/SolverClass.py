@@ -1,6 +1,8 @@
 import json
 
 from abc import ABC, ABCMeta, abstractmethod
+import time
+from src.solution_check import get_solution_check_complete_data
 
 from src import exceptions
 from src.GenericClass import GenericClass
@@ -33,10 +35,18 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             self.output_name = None
             self.alternative_output_name = None
             self.output_type = None
+
             self.obj_func = None
             self.obj_func_name = None
+            
             self.constraints_names = None
             self.constraints = None
+
+            self.construction_name = None
+            self.construction = None
+            
+            self.metaheuristic_name = None
+            self.metaheuristic = None
 
             self.initialize_class_attributes()
 
@@ -94,6 +104,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         json_output_file_name += "running_data_"
         json_output_file_name += self.output_name 
         json_output_file_name += ".json"
+
         with open(json_output_file_name, "w") as output_file:
             output_file.write(json.dumps(running_data, indent=2))
 
@@ -101,6 +112,28 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def solve(self):
         pass
+
+    def print_solution_verification(self, solution, exec_time):
+        print("..........................................")
+        print("..........................................")
+        print("FINAL VERIFICATION")
+        print("..........................................")
+        print("..........................................")
+        print(solution)
+        print(
+            get_solution_check_complete_data(
+                solution, 
+                self.constraints, 
+                self.obj_func
+            )
+        )
+        print(
+            "best obj, best route_cost:", 
+            solution.cost(),
+            ",",
+            solution.routes_cost()
+        )
+        print("Total time:", exec_time)
 
 
     def update_heuristics_data(self):

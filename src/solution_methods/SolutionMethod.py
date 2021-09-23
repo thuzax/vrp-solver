@@ -20,7 +20,7 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
 
     def __init__(self, name):
         if (not hasattr(self, "name")):
-            self.name = None
+            self.name = name
 
             # Acquired/created from input
             self.obj_func = None
@@ -45,8 +45,12 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
 
         return True
 
-    def accept(self, new_solution):
-        return self.acceptance_algorithm.accept(new_solution, self.obj_func)
+    def accept(self, new_solution, parameters=None):
+        return self.acceptance_algorithm.accept(
+            new_solution, 
+            self.obj_func, 
+            parameters
+        )
 
     @abstractmethod
     def solve(self, solution, parameters):

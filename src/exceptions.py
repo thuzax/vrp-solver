@@ -32,3 +32,10 @@ class WrongOrUndefinedStopCriteria(Exception):
         message += "The stop criteria for " + str(heuristic_name) 
         message += " is not an option or was undefined."
         return message
+
+class RoutesDiffMethodNotSpecified(Exception):
+    def __init__(self, heuristic):
+        message = ""
+        message += "The Route differenctiation Method for " + str(heuristic)
+        message += " was not defined."
+        return message

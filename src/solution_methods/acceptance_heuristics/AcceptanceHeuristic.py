@@ -14,7 +14,7 @@ class AcceptanceHeuristic(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def accept(self, new_solution, obj_func):
+    def accept(self, new_solution, obj_func=None, parameters=None):
         pass
 
     @abstractmethod

@@ -7,6 +7,8 @@ from .basic_operators.RemovalOperatorPDPTW import *
 from .basic_operators.RemovalOperator import *
 from .basic_operators.RemovalOperatorPDPTW import *
 
+from .construction_heuristics.BasicGreedy import *
+
 from .heuristics.KRegret import *
 from .heuristics.WKRegret import *
 from .heuristics.RandomInsertion import *
@@ -25,6 +27,7 @@ from .heuristics.RandomExchange import *
 from .exact_methods.SetPartitionModel import *
 from .local_searches.AGES import *
 from .local_searches.LNS import *
+from .local_searches.SBMath import *
 
 from .acceptance_heuristics.AcceptanceHeuristic import *
 from .acceptance_heuristics.AcceptAll import *
@@ -38,6 +41,8 @@ __all__ = [
     "RemovalOperator",
     "RemovalOperatorPDPTW",
     
+    "BasicGreedy",
+
     "KRegret",
     "WKRegret",
     "RandomInsertion",
@@ -54,6 +59,7 @@ __all__ = [
     
     "AGES",
     "LNS",
+    "SBMath",
     
     "SetPartitionModel",
     

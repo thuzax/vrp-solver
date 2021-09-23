@@ -34,6 +34,7 @@ class OriginalPerturbation(LocalSearch):
         ):
             return new_solution
 
+
         return solution
 
 
