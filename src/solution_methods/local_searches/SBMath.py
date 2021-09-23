@@ -61,9 +61,6 @@ class SBMath(LocalSearch):
         for route in routes:
             key = route.get_id_value()
             if (key in self.routes_pool_dict):
-                # a = time.time()
-                # print(route.has_same_requests(self.routes_pool_dict[key]))
-                # print(time.time() - a)
                 continue
             self.routes_pool_dict[key] = route.copy()
 
@@ -73,7 +70,29 @@ class SBMath(LocalSearch):
 
 
     def add_routes_to_pool_diff_by_set(self, routes):
-        pass
+        start = time.time()
+        if (len(self.routes_pool) == 0):
+            for route in routes:
+                key = frozenset(route.requests())
+                self.routes_pool_dict[key] = route.copy()
+            
+            self.routes_pool = list(self.routes_pool_dict.values())
+
+        for route in routes:
+            key = frozenset(route.requests())
+            if (key not in self.routes_pool_dict):
+                self.routes_pool_dict[key] = route.copy()
+                continue
+            is_better = self.obj_func.route_is_better(
+                route, 
+                self.routes_pool_dict[key]
+            )
+            if (is_better):
+                self.routes_pool_dict[key] = route
+
+        self.routes_pool = list(self.routes_pool_dict.values())
+
+        print("Time adding in pool:", time.time() - start)
 
 
     def add_routes_to_pool(self, routes):
@@ -92,16 +111,20 @@ class SBMath(LocalSearch):
         
         all_requests = copy.deepcopy(parameters["requests_set"])
 
+        self.begin_time = time.time()
+        self.time_last_it = self.begin_time
 
         self.iteration = 0
         self.iteration_without_imp = 0
+
+
         self.routes_pool = []
         self.routes_pool_dict = {}
         
         self.best_solution = solution
         self.add_routes_to_pool(solution.routes)
 
-        while (self.iteration < self.max_it):
+        while (not self.stop_criteria_fulfilled()):
             self.iteration += 1
             self.iteration_without_imp += 1
 
@@ -193,8 +216,9 @@ class SBMath(LocalSearch):
                 "OriginalPerturbation", 
                 exec_time
             )
-            self.iteration += 1
-            self.iteration_without_imp += 1
+
+            self.time_last_it = time.time()
+
 
             print("IT:", self.iteration)
             print("IT SEM MELHORA:", self.iteration_without_imp)
@@ -256,8 +280,37 @@ class SBMath(LocalSearch):
     def define_local_searches_operators(self, op_dict):
         return super().define_local_searches_operators(op_dict)
 
+
     def stop_criteria_fulfilled(self):
-        return super().stop_criteria_fulfilled()
+        if (self.stop_criteria == "time"):
+            begin_time = self.begin_time
+            time_last_it = self.time_last_it
+            return self.time_stop_criteria_fulfilled(
+                begin_time,
+                time_last_it
+            )
+        elif(self.stop_criteria == "iterations"):
+            it = self.iteration
+            return self.it_stop_criteria_fulfilled(it)
+
+        raise exceptions.WrongOrUndefinedStopCriteria(self.__name__)
+
+
+    def time_stop_criteria_fulfilled(self, 
+        begin_time,
+        time_last_it
+    ):
+        if (time_last_it - begin_time >= self.max_time):
+            return True
+
+        return False
+
+
+    def it_stop_criteria_fulfilled(self, it):
+        if (it >= self.max_it):
+            return True
+
+        return False
 
 
     def update_route_values(self, route, position, request):

@@ -31,6 +31,7 @@ from .local_searches.SBMath import *
 
 from .acceptance_heuristics.AcceptanceHeuristic import *
 from .acceptance_heuristics.AcceptAll import *
+from .acceptance_heuristics.AcceptBetterOrWithProbability import *
 from .acceptance_heuristics.LAHC import *
 
 
@@ -65,5 +66,6 @@ __all__ = [
     
     "AcceptanceHeuristic",
     "AcceptAll",
+    "AcceptBetterOrWithProbability",
     "LAHC"
 ]

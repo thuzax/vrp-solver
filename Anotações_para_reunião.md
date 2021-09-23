@@ -5,7 +5,13 @@ Basic Greedy Heuristic == KRegret[1]
 
 Padrão de Projeto Factory!
 
+Como implmentar um TimeOut
 
+Separação do Solver de construção e metaheuristica
+
+Instancias de 200, 300 e 400 precisam de valor alto na perturbação para melhorar
+
+Quando aumentar o its_sem_melhora?
 
 ------------------------------------------------------------------
 

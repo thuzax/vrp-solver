@@ -138,15 +138,12 @@
             },
             "stop_criteria" : "iterations",
             "max_time" : 10,
-            "max_time_without_improv" : 10,
             "max_it" : 10,
             "max_it_without_improv" : 10,
             "acceptance_algorithm_data" : {
-                "LAHC" : {
-                    "list_size" : 6
-                }
+                "AcceptBetterOrWithProbability" : {}
             },
-            "routes_diff_method" : "order",
+            "routes_diff_method" : "set",
             "number_of_perturb_moves" : 20 
         },
         "RandomShift" : {
@@ -221,7 +218,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-10_input",
+            "input_name" : "br-ms-cg-100_input",
             "input_type" : "json"
         }
     },
