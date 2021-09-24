@@ -27,8 +27,12 @@ class AGES(LocalSearch):
         self.ejection_sets_cache = None
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
+
     def solve(self, solution, parameters):
-        best_solution = solution.copy()
+        self.best_solution = solution.copy()
 
         self.stop_parameters = {}
         self.stop_parameters["begin_time"] = time.time()
@@ -41,7 +45,7 @@ class AGES(LocalSearch):
         can_improve = True
 
         while (not self.stop_criteria_fulfilled() and can_improve):
-            new_solution = best_solution.copy()
+            new_solution = self.best_solution.copy()
             
             route_pos = random.randint(0, len(new_solution.routes)-1)
             removed_route = new_solution.pop_route(route_pos)
@@ -78,7 +82,7 @@ class AGES(LocalSearch):
                 )
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["number_perturb"] = 0
-                best_solution = new_solution
+                self.best_solution = new_solution
 
         print("AGES iterations:", self.stop_parameters["it"])
         # print(
@@ -88,8 +92,7 @@ class AGES(LocalSearch):
         #         - self.stop_parameters["begin_time"]
         #     )
         # )
-        return best_solution
-
+        return self.best_solution
 
 
     def reinsert_requests(self, requests_stack, solution, penalities):

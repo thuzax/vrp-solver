@@ -47,6 +47,8 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             self.metaheuristic_name = None
             self.metaheuristic = None
 
+            self.best_solution = None
+
             self.initialize_class_attributes()
 
 
@@ -112,13 +114,34 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
     def solve(self):
         pass
 
+
+    def update_and_get_best_after_timeout(self):
+        metaheuristic_solution = self.metaheuristic.get_current_best_solution()
+        meta_is_better = (
+            self.solution_is_feasible(metaheuristic_solution)
+            and 
+            self.obj_func.solution_is_better(
+                metaheuristic_solution, 
+                self.best_solution
+            )
+        )
+        if (meta_is_better):
+            self.best_solution = metaheuristic_solution
+
+        return self.best_solution
+
+
+    def print_best_solution(self):
+        print(self.best_solution)
+
+
     def print_solution_verification(self, solution, exec_time):
         print("..........................................")
         print("..........................................")
         print("FINAL VERIFICATION")
         print("..........................................")
         print("..........................................")
-        print(solution)
+        self.print_best_solution
         print(
             get_solution_check_complete_data(
                 solution, 

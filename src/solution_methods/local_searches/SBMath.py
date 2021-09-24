@@ -40,7 +40,7 @@ class SBMath(LocalSearch):
         new_solution.set_routes_total_cost(routes_costs)
 
         new_best_found = self.obj_func.solution_is_better(
-            new_solution, 
+            self.local_operators[operator_name].get_current_best_solution(), 
             self.best_solution
         )
         if (new_best_found):
@@ -126,6 +126,7 @@ class SBMath(LocalSearch):
 
         while (not self.stop_criteria_fulfilled()):
             self.iteration += 1
+            # Incr
             self.iteration_without_imp += 1
 
             it_start = time.time()
@@ -239,6 +240,36 @@ class SBMath(LocalSearch):
             print("//////////////////////////////////////////////////////")
 
         return self.best_solution
+
+
+    def get_current_best_solution(self):
+        current_best = self.best_solution
+        
+        ages_best = self.local_operators["AGES"].get_current_best_solution()
+        if (
+            self.solution_is_feasible(ages_best) 
+            and self.obj_func.solution_is_better(ages_best, current_best)
+        ):
+            current_best = ages_best
+
+        lns_best = self.local_operators["LNS"].get_current_best_solution()
+        if (
+            self.solution_is_feasible(lns_best) 
+            and self.obj_func.solution_is_better(lns_best, current_best)
+        ):
+            current_best = lns_best
+        
+        sp = self.local_operators["SetPartitionModel"]
+        sp_best = sp.get_current_best_solution()
+        if (
+            self.solution_is_feasible(sp_best) 
+            and self.obj_func.solution_is_better(sp_best, current_best)
+        ):
+            current_best = sp_best
+
+        return current_best
+
+
 
 
     def print_solution_pos_operator_status(

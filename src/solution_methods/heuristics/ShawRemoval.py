@@ -94,6 +94,7 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         pass
 
 
+
     def calculate_requests_relatedness_measure(
         self, 
         solution, 
@@ -111,3 +112,5 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         return relatedness_measure
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()

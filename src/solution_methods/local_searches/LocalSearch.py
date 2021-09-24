@@ -23,6 +23,7 @@ class LocalSearch(SolutionMethod, metaclass=ABCMeta):
     def stop_criteria_fulfilled(self):
         pass
 
+
     @abstractmethod
     def define_local_searches_operators(self, op_dict):
         self.local_operators = {}

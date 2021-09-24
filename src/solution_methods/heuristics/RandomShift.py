@@ -124,10 +124,11 @@ class RandomShift(SolutionMethod):
         return new_solution
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
 
     def update_route_values(self, route, position, request):
         pass
-    
 
     def get_attr_relation_reader_heuristic(self):
         return {}

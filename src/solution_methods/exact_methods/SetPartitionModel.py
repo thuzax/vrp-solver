@@ -15,11 +15,17 @@ class SetPartitionModel(SolutionMethod):
         self.solver_code = None
         self.opt_time_limit = None
 
+    
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
 
     def solve(self, solution, parameters):
         requests = parameters["requests_set"]
         # list of routes
         routes_pool = parameters["routes_pool"]
+
+        self.best_solution = None
 
         model = Model(
             name="Set Partitioning", 
@@ -108,6 +114,7 @@ class SetPartitionModel(SolutionMethod):
                     )
 
         if (new_soltuion is not None):
+            self.best_solution = new_soltuion
             return new_soltuion
         
         return solution

@@ -19,7 +19,6 @@ from .heuristics.ShawRemoval import *
 from .heuristics.ShawRemovalPDPTW import *
 
 
-from .heuristics.OriginalPerturbation import *
 from .heuristics.RandomShift import *
 from .heuristics.ModBiasedShift import *
 from .heuristics.RandomExchange import *
@@ -28,6 +27,7 @@ from .exact_methods.SetPartitionModel import *
 from .local_searches.AGES import *
 from .local_searches.LNS import *
 from .local_searches.SBMath import *
+from .local_searches.OriginalPerturbation import *
 
 from .acceptance_heuristics.AcceptanceHeuristic import *
 from .acceptance_heuristics.AcceptAll import *

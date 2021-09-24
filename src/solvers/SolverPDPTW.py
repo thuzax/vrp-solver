@@ -27,13 +27,12 @@ class SolverPDPTW(SolverClass):
     def solve(self):
         heuristic_start = time.time()
         requests_set = set(self.requests)
-        
         parameters = {
             "requests_set" : requests_set
         }
         
         solution = self.construction.solve(parameters)
-        
+        self.best_solution = solution.copy()
         self.best_solution = self.metaheuristic.solve(solution, parameters)
         heuristic_end = time.time()
         exec_time = heuristic_end - heuristic_start

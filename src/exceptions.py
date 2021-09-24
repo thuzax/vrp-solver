@@ -1,3 +1,9 @@
+class TimeLimitExceeded(Exception):
+    def __init__(self):
+        message = ""
+        message += "Exectution exceeded time limit."
+        super().__init__(message)
+
 class ObjectDoesNotHaveAttribute(Exception):
     def __init__(self, class_name, attribute_name):
         message = ""
@@ -24,18 +30,18 @@ class CouldNotRemoveWithShawRemoval(Exception):
         message = ""
         message += "The request " + str(request) 
         message += "could not be removed with Shaw Removal Heuristic"
-        return message
+        super().__init__(message)
 
 class WrongOrUndefinedStopCriteria(Exception):
     def __init__(self, heuristic_name):
         message = ""
         message += "The stop criteria for " + str(heuristic_name) 
         message += " is not an option or was undefined."
-        return message
+        super().__init__(message)
 
 class RoutesDiffMethodNotSpecified(Exception):
     def __init__(self, heuristic):
         message = ""
         message += "The Route differenctiation Method for " + str(heuristic)
         message += " was not defined."
-        return message
+        super().__init__(message)

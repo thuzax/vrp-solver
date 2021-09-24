@@ -72,6 +72,9 @@ class BasicGreedy(SolutionMethod):
         # self.add_routes_to_pool(solution.routes)
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
     def update_route_values(self, route, position, request):
         pass
     

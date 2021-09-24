@@ -61,6 +61,9 @@ class WorstRemoval(SolutionMethod):
         return new_solution
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
     def get_attr_relation_reader_heuristic(self):
         return {}
 

@@ -27,6 +27,7 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
             self.obj_func_name = None
             self.constraints = None
             self.constraints_names = None
+            self.best_solution = None
 
             self.initialize_class_attributes()
 
@@ -51,6 +52,10 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
             self.obj_func, 
             parameters
         )
+
+    @abstractmethod
+    def get_current_best_solution(self):
+        return self.best_solution
 
     @abstractmethod
     def solve(self, solution, parameters):

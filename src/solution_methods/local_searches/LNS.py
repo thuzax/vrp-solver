@@ -38,6 +38,10 @@ class LNS(LocalSearch):
         self.removals_probabilities = None
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
+
     def solve(self, solution, parameters):
         copy_solution = solution.copy()
         copy_solution.set_objective_value(
@@ -47,7 +51,7 @@ class LNS(LocalSearch):
             self.obj_func.get_routes_sum_cost(copy_solution.routes)
         )
         
-        best_solution = copy_solution
+        self.best_solution = copy_solution
 
         extra_requests = copy.deepcopy(parameters["remaining_requests"])
         all_requests = extra_requests.union(copy_solution.requests())
@@ -108,18 +112,18 @@ class LNS(LocalSearch):
                 and 
                 self.obj_func.solution_is_better(
                         new_solution, 
-                        best_solution
+                        self.best_solution
                 )
             ):
-                best_solution = new_solution
+                self.best_solution = new_solution
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["it_last_improv"] = (
                     self.stop_parameters["it"]
                 )
                 print(
                     "IMPROVED", 
-                    best_solution.cost(), 
-                    best_solution.routes_cost()
+                    self.best_solution.cost(), 
+                    self.best_solution.routes_cost()
                 )
 
 
@@ -135,7 +139,7 @@ class LNS(LocalSearch):
         #     self.stop_parameters["time_last_it"] 
         #     - self.stop_parameters["begin_time"]
         # )
-        return best_solution
+        return self.best_solution
 
 
     def update_route_values(self, route, position, request):

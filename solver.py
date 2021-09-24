@@ -1,11 +1,15 @@
+from mip import solver
+from src.TimeOut import TimeOut
+import time
+import multiprocessing
+import random
+import numpy
+
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.solution_classes.Solution import Solution
 from src.objects_managers import *
 from src.GenericClass import GenericClass
-import time
-import random
-import numpy
 
 from src import arguments_handler
 from src import execution_log
@@ -87,6 +91,11 @@ def solve_problem():
     solver_obj.solve()
 
 
+def run():
+    read_input_file()
+    solve_problem()
+
+
 if __name__=="__main__":
     execution_log.info_log("*Starting Program*")
     start_time = time.time()
@@ -97,13 +106,20 @@ if __name__=="__main__":
 
     execution_log.info_log("Setting Random Seed")
     random.seed(arguments["seed"])
+    time_limit = 5
+    
     numpy.random.seed(arguments["seed"])
-
     exception = None
     try:
-
-        read_input_file()
-        solve_problem()
+        TimeOut(time_limit=time_limit)
+        TimeOut().run(run)
+    
+    except exceptions.TimeLimitExceeded:
+        solver_problem = SolverClass()
+        best_sol = solver_problem.update_and_get_best_after_timeout()
+        solver_problem.print_best_solution()
+        solver_problem.print_solution_verification(best_sol, time_limit)
+        execution_log.info_log("Time Limit Exceeded")
 
 
     except Exception as ex:
@@ -114,16 +130,15 @@ if __name__=="__main__":
             print(exception)
             raise exception
         
-        solver = SolverClass()
-
-
+        solver_problem = SolverClass()
         execution_log.info_log("Writting Running Data...")
         end_time = time.time()
         total_time = end_time - start_time
         
         running_data = {
             "seed" : arguments["seed"],
-            "time" : total_time
+            "time" : total_time,
+            "timeout" : False
         }
-        solver.write_final_data(running_data)
+        solver_problem.write_final_data(running_data)
         execution_log.info_log("*Ending Program.*")
