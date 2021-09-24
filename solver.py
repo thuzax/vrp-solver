@@ -1,9 +1,9 @@
 from mip import solver
-from src.TimeOut import TimeOut
 import time
 import multiprocessing
 import random
 import numpy
+from func_timeout import func_timeout, FunctionTimedOut
 
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
@@ -106,15 +106,13 @@ if __name__=="__main__":
 
     execution_log.info_log("Setting Random Seed")
     random.seed(arguments["seed"])
-    time_limit = 5
+    time_limit = arguments["time_limit"]
     
     numpy.random.seed(arguments["seed"])
     exception = None
     try:
-        TimeOut(time_limit=time_limit)
-        TimeOut().run(run)
-    
-    except exceptions.TimeLimitExceeded:
+        func_timeout(time_limit, run)
+    except FunctionTimedOut:
         solver_problem = SolverClass()
         best_sol = solver_problem.update_and_get_best_after_timeout()
         solver_problem.print_best_solution()

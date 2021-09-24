@@ -1,9 +1,3 @@
-class TimeLimitExceeded(Exception):
-    def __init__(self):
-        message = ""
-        message += "Exectution exceeded time limit."
-        super().__init__(message)
-
 class ObjectDoesNotHaveAttribute(Exception):
     def __init__(self, class_name, attribute_name):
         message = ""

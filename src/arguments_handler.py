@@ -197,6 +197,17 @@ def parse_command_line_arguments():
         required=False
     )
 
+    parser.add_argument(
+        "--set-time-limit",
+        dest="time_limit",
+        help="set the time limit for a timeout.",
+        action="store",
+        default=None,
+        type=int,
+        required=False
+    )
+
+
     args = parser.parse_args()
 
     arguments = vars(args)
