@@ -111,7 +111,12 @@ if __name__=="__main__":
     numpy.random.seed(arguments["seed"])
     exception = None
     try:
-        func_timeout(time_limit, run)
+
+        if (time_limit is not None):
+            func_timeout(time_limit, run)
+        else:
+            run()
+
     except FunctionTimedOut:
         solver_problem = SolverClass()
         best_sol = solver_problem.update_and_get_best_after_timeout()
