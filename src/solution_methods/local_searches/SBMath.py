@@ -37,7 +37,7 @@ class SBMath(LocalSearch):
         new_solution.set_objective_value(obj_value)
         
         routes_costs = self.obj_func.get_routes_sum_cost(new_solution.routes)
-        new_solution.set_routes_total_cost(routes_costs)
+        new_solution.set_routes_cost(routes_costs)
 
         new_best_found = self.obj_func.solution_is_better(
             self.local_operators[operator_name].get_current_best_solution(), 

@@ -47,7 +47,7 @@ class LNS(LocalSearch):
         copy_solution.set_objective_value(
             self.obj_func.get_solution_cost(copy_solution)
         )
-        copy_solution.set_routes_total_cost(
+        copy_solution.set_routes_cost(
             self.obj_func.get_routes_sum_cost(copy_solution.routes)
         )
         

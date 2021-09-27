@@ -39,3 +39,9 @@ class RoutesDiffMethodNotSpecified(Exception):
         message += "The Route differenctiation Method for " + str(heuristic)
         message += " was not defined."
         super().__init__(message)
+
+class NoSolutionFound(Exception):
+    def __init__(self):
+        message = ""
+        message += "Could not find a solution."
+        super().__init__(message)

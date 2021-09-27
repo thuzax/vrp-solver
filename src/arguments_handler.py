@@ -1,5 +1,6 @@
 import argparse
 import json
+from src.vertex_classes import Vertex
 
 from src import route_classes
 from src import vertex_classes
@@ -11,8 +12,7 @@ from src.objects_managers import ObjFunctionsObjects
 from src.objects_managers import HeuristicsObjects
 from src.objects_managers import ConstraintsObjects
 
-from src.route_classes.Route import RouteSubClass
-from src.vertex_classes.Vertex import VertexSubClass
+from src.route_classes.Route import Route
 
 
 from src.objects_creation_manager import create_class_by_name
@@ -117,7 +117,7 @@ def configure_route_class(dict_route):
         route_class_name
     )
 
-    RouteSubClass(route_class_type)
+    Route.set_class(route_class_type)
 
 
 def configure_vertex_class(dict_vertex):
@@ -127,7 +127,7 @@ def configure_vertex_class(dict_vertex):
         vertex_class_name
     )
 
-    VertexSubClass(vertex_class_type)
+    Vertex.set_class(vertex_class_type)
 
 
 def create_operator_class(dict_insertion_op):

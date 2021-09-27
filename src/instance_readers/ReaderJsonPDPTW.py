@@ -1,6 +1,6 @@
 
 import json
-from src.vertex_classes.Vertex import Vertex
+from src.vertex_classes import Vertex
 import numpy
 import math
 
@@ -187,7 +187,7 @@ class ReaderJsonPDPTW(Reader):
         self.read_demands(dem)
         self.read_services_times(serv_times)
         self.read_time_windows(tws)
-
+    
 
     def create_request_vertex(self, request_position):
         request = self.requests[request_position]

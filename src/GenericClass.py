@@ -7,8 +7,7 @@ class GenericClass(metaclass=ABCMeta):
 
     @abstractmethod
     def __init__(self):
-        self.initialize_class_attributes()
-
+        pass
 
     def set_attribute(self, name, value):
         if (not hasattr(self, name)):

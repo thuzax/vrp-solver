@@ -1,84 +1,39 @@
-import numpy
-
-from abc import ABC, ABCMeta, abstractmethod
-
-from src import exceptions
+from os import stat
 from src.GenericClass import GenericClass
+from src import exceptions
 
-
-class VertexSubClass:
+class Vertex(GenericClass):
     instance = None
-    vertex_subclass = None
-    vertex_subclass_params = None
+    
+    vertex_cls = None
+    reader_vertex_attr = None
+
 
     def __new__(cls, *args, **kwargs):
         if (len(cls.__subclasses__())):
-            raise exceptions.ClassCannotBeInherited("VertexSubClass")
-
+            raise exceptions.ClassCannotBeInherited("Vertex")
+        
         if (cls.instance is None):
-            cls.instance = super(VertexSubClass, cls).__new__(cls)
-
-        return cls.instance
-
-
-    def __init__(self, subclass=None):
-        if (subclass is not None):
-            self.vertex_subclass = subclass
-
-
-create_super = False
-class Vertex(GenericClass, metaclass=ABCMeta):
-
-    child_created = False
-
-    def __new__(cls, *args, **kwargs):
-        global create_super
+            cls.instance = super(Vertex, cls).__new__(cls)
         
-        if (create_super):
-            cls = super(Vertex, cls).__new__(cls, *args, **kwargs)
-            create_super = False
-            return cls
+        vertex = cls.vertex_cls()
         
-        create_super = True
-        cls = VertexSubClass().vertex_subclass()
-        cls.child_created = True
-        return cls
+        return vertex
 
-
-    def __init__(self, vertex_class_name=None):
-        if (not hasattr(self, "name")):
-            self.name = vertex_class_name
-            self.vertex_id = None
-
+    def __init__(self):
+        if (not hasattr(self, "vertex_cls")):
             self.initialize_class_attributes()
-            self.set_input_params
-
-    def __str__(self):
-        return str(self.vertex_id)
-
-
-    def set_input_params(self):
-        vertex_input_params = VertexSubClass.vertex_subclass_params
-        if (vertex_input_params is None):
-            return
-        for param_name, param_value in vertex_input_params.items():
-            self.set_attribute(param_name, param_value)
-            
-
 
     @staticmethod
-    @abstractmethod
-    def get_attr_relation_reader_vertex():
-        pass
+    def set_class(vertex_cls):
+        Vertex.vertex_cls = vertex_cls
+        Vertex.reader_vertex_attr = (
+            Vertex.vertex_cls.get_attr_relation_reader_vertex()
+        )
 
+    def initialize_class_attributes(self):
+        return super().initialize_class_attributes()
 
     @staticmethod
     def get_reader_vertex_attr_relation():
-        vertex_subclass = VertexSubClass().vertex_subclass
-        reader_vertex_attr = vertex_subclass.get_attr_relation_reader_vertex()
-        return reader_vertex_attr
-
-
-    @staticmethod
-    def update_vertex_class_params(params):
-        VertexSubClass.vertex_subclass_params = params
+        return Vertex.reader_vertex_attr

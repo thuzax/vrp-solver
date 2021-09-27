@@ -53,6 +53,7 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
             parameters
         )
 
+
     @abstractmethod
     def get_current_best_solution(self):
         return self.best_solution

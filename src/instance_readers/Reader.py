@@ -1,5 +1,5 @@
 from abc import ABC, ABCMeta, abstractmethod
-from src.vertex_classes.Vertex import Vertex
+from src.vertex_classes import Vertex
 
 from src.instance_readers.Reader import *
 from src import exceptions
@@ -53,8 +53,6 @@ class Reader(GenericClass, metaclass=ABCMeta):
             vertex.set_attribute(vertex_attr_name, reader_attr[vertex_id])
 
         self.vertices_dict[vertex_id] = vertex
-
-
 
 
     @abstractmethod

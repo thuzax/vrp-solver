@@ -1,10 +1,10 @@
 
 import copy
 
-from src.vertex_classes import Vertex
+from src.vertex_classes import VertexClass
 
 
-class VertexPDPTW(Vertex):
+class VertexPDPTW(VertexClass):
 
     def __init__(self):
         super().__init__("Route PDPTW")
@@ -15,8 +15,6 @@ class VertexPDPTW(Vertex):
         self.service_time = None
         self.time_window = None
         self.demand = None
-
-
 
     @staticmethod
     def get_attr_relation_reader_vertex():
@@ -36,7 +34,4 @@ class VertexPDPTW(Vertex):
         text += "DEMAND: " + str(self.demand) + "\n"
         text += "SERVICE TIME: " + str(self.service_time) + "\n"
         text += "TIME WINDOW: " + str(self.time_window) + "\n"
-        text += "VEHICLE ARRIVAL: " + str(self.arrival_time) + "\n"
-        text += "VEHICLE OCCUPATION (AFTER SERVICE): " 
-        text += str(self.occupied_capacity) + "\n"
         return text

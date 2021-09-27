@@ -1,19 +1,14 @@
-from mip import solver
 import time
-import multiprocessing
 import random
 import numpy
 from func_timeout import func_timeout, FunctionTimedOut
 
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
-from src.solution_classes.Solution import Solution
 from src.objects_managers import *
-from src.GenericClass import GenericClass
 
-from src import arguments_handler
+from src import arguments_handler, exceptions
 from src import execution_log
-from src import exceptions
 
 from src.solvers import *
 from src.instance_readers import *
@@ -75,20 +70,14 @@ def read_input_file():
     reader = Reader()
     reader.read_input_file()
     set_read_objects_attributes(reader)
+    execution_log.info_log("Finished.")
 
 
 def solve_problem():
+    execution_log.info_log("Starting to solve...")
     solver_obj = SolverClass()
-    solver_route_attr_relation = Route.get_reader_route_attr_relation()
-
-    dict_attr_values = {}
-    for solver_attr, route_attr in solver_route_attr_relation.items():
-        solver_attr_value = getattr(solver_obj, solver_attr)
-        dict_attr_values[route_attr] = solver_attr_value
-    
-    Route.update_route_class_params(dict_attr_values)
-
     solver_obj.solve()
+    execution_log.info_log("Finished.")
 
 
 def run():
@@ -110,6 +99,7 @@ if __name__=="__main__":
     
     numpy.random.seed(arguments["seed"])
     exception = None
+
     try:
 
         if (time_limit is not None):
@@ -120,11 +110,11 @@ if __name__=="__main__":
     except FunctionTimedOut:
         solver_problem = SolverClass()
         best_sol = solver_problem.update_and_get_best_after_timeout()
-        solver_problem.print_best_solution()
-        solver_problem.print_solution_verification(best_sol, time_limit)
-        execution_log.info_log("Time Limit Exceeded")
-
-
+        if (best_sol is not None):
+            solver_problem.print_best_solution()
+            solver_problem.print_solution_verification(best_sol, time_limit)
+        execution_log.warning_log("Time Limit Exceeded")
+    
     except Exception as ex:
         exception = ex
 
@@ -134,6 +124,10 @@ if __name__=="__main__":
             raise exception
         
         solver_problem = SolverClass()
+
+        if (solver_problem.get_best_solution() is None):
+            execution_log.warning_log("No solution found")
+
         execution_log.info_log("Writting Running Data...")
         end_time = time.time()
         total_time = end_time - start_time

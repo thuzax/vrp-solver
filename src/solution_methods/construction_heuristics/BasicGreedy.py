@@ -40,7 +40,7 @@ class BasicGreedy(SolutionMethod):
             
         exec_time = time.time() - start
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        solution.set_routes_total_cost(
+        solution.set_routes_cost(
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
 

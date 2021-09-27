@@ -4,9 +4,10 @@ import copy
 import numpy
 
 from src.route_classes import Route
+from src.route_classes import RouteClass
 
 
-class RoutePDPTW(Route):
+class RoutePDPTW(RouteClass):
 
     def __init__(self):
         super().__init__("Route PDPTW")

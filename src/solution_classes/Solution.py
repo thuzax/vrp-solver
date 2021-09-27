@@ -69,7 +69,7 @@ class Solution(GenericClass):
         self.solution_cost = new_value
 
 
-    def set_routes_total_cost(self, new_value):
+    def set_routes_cost(self, new_value):
         self.total_routes_cost = new_value
 
 

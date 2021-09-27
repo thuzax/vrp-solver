@@ -4,7 +4,7 @@ from abc import ABC, ABCMeta, abstractmethod
 import time
 from src.solution_check import get_solution_check_complete_data
 
-from src import exceptions
+from src import exceptions, execution_log
 from src.GenericClass import GenericClass
 from src.objects_managers import *
 from src.objects_creation_manager import create_class_by_name
@@ -116,7 +116,28 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     def update_and_get_best_after_timeout(self):
+        if (self.best_solution is not None):
+            obj_value = self.obj_func.get_solution_cost(self.best_solution)
+            routes_cost = self.obj_func.get_routes_sum_cost(
+                self.best_solution.routes
+            )
+
+            self.best_solution.set_objective_value(obj_value)
+            self.best_solution.set_routes_cost(routes_cost)
+            
         metaheuristic_solution = self.metaheuristic.get_current_best_solution()
+
+        if (metaheuristic_solution is not None):
+            meta_obj_value = self.obj_func.get_solution_cost(self.best_solution)
+            meta_routes_cost = self.obj_func.get_routes_sum_cost(
+                self.best_solution.routes
+            )
+
+            metaheuristic_solution.set_objective_value(obj_value)
+            metaheuristic_solution.set_routes_cost(routes_cost)
+
+
+
         meta_is_better = (
             self.solution_is_feasible(metaheuristic_solution)
             and 
@@ -125,9 +146,14 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
                 self.best_solution
             )
         )
+        
         if (meta_is_better):
             self.best_solution = metaheuristic_solution
 
+        return self.best_solution
+
+
+    def get_best_solution(self):
         return self.best_solution
 
 
@@ -138,10 +164,13 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
     def print_solution_verification(self, solution, exec_time):
         print("..........................................")
         print("..........................................")
-        print("FINAL VERIFICATION")
+        print("SOLUTION VERIFICATION")
         print("..........................................")
         print("..........................................")
-        self.print_best_solution
+        if (solution is None):
+            execution_log.warning_log("Solution is None")
+            return
+
         print(
             get_solution_check_complete_data(
                 solution, 

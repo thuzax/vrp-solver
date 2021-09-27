@@ -9,7 +9,7 @@
     },
     "solution_methods" : {
         "BasicGreedy" : {
-            "obj_func_name" : "ObjDistancePDPTW",
+            "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "AttendAllRequests",
                 "PickupDeliveryConstraint",
@@ -231,9 +231,6 @@
         "VertexPDPTW" : {
 
         }
-    },
-    "solution_class" : {
-        "obj_func_name" : "ObjVehicles"
     },
     "insertion_operator" : {
         "InsertionOperatorPDPTW" : {
