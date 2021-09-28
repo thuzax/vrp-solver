@@ -1,4 +1,5 @@
 import copy
+from src.route_classes import Route
 import numpy
 
 from abc import ABC, ABCMeta, abstractmethod
@@ -144,20 +145,20 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
 
     
     @abstractmethod
-    def copy_route(self):
+    def copy_route_to(self, route_copy):
         pass
 
     def copy(self):
-        copy_route = self.copy_route()
-
-        copy_route.vertices_order = copy.deepcopy(self.vertices_order)
-        copy_route.requests_set = copy.deepcopy(self.requests_set)
+        route_copy = Route()
         
-        copy_route.route_cost = copy.deepcopy(self.route_cost)
+        route_copy.vertices_order = copy.deepcopy(self.vertices_order)
+        route_copy.requests_set = copy.deepcopy(self.requests_set)
+        route_copy.route_cost = copy.deepcopy(self.route_cost)
+        route_copy.id_value = copy.copy(self.id_value)
+        
+        self.copy_route_to(route_copy)
 
-        copy_route.id_value = copy.copy(self.id_value)
-
-        return copy_route
+        return route_copy
 
 
     @staticmethod

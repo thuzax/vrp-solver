@@ -4,6 +4,7 @@ import math
 import time
 from pprint import pprint
 
+from src import file_log
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.local_searches.LocalSearch import LocalSearch
@@ -40,6 +41,7 @@ class AGES(LocalSearch):
         self.stop_parameters["number_perturb"] = 0
         self.stop_parameters["time_last_it"] = time.time()
         self.stop_parameters["time_last_improv"] = 0
+        improved = False
 
         self.ejection_sets_cache = {}
         can_improve = True
@@ -75,23 +77,22 @@ class AGES(LocalSearch):
                 and self.solution_is_feasible(new_solution)
                 and self.accept(new_solution)
             ):
-                print(
-                    "IMPROVED", 
-                    self.obj_func.get_solution_cost(new_solution), 
-                    new_solution.routes_cost()
-                )
+                improved = True
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["number_perturb"] = 0
                 self.best_solution = new_solution
+        
+        message = "AGES" + "\n"
+        message += "IT: " + str(self.stop_parameters["it"]) + "\n"
+        message += "Exec Time: "
+        message += str(
+            self.stop_parameters["time_last_it"] 
+            - self.stop_parameters["begin_time"]
+        )
+        message += "\n"
+        message += "Improved\n" if improved else ""
+        file_log.add_solution_log(self.best_solution, message)
 
-        print("AGES iterations:", self.stop_parameters["it"])
-        # print(
-        #     "AGES time:",
-        #     (
-        #         self.stop_parameters["time_last_it"] 
-        #         - self.stop_parameters["begin_time"]
-        #     )
-        # )
         return self.best_solution
 
 

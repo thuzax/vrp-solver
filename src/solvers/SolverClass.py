@@ -4,7 +4,7 @@ from abc import ABC, ABCMeta, abstractmethod
 import time
 from src.solution_check import get_solution_check_complete_data
 
-from src import exceptions, execution_log
+from src import exceptions, execution_log, file_log
 from src.GenericClass import GenericClass
 from src.objects_managers import *
 from src.objects_creation_manager import create_class_by_name
@@ -116,15 +116,20 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     def update_and_get_best_after_timeout(self):
-        if (self.best_solution is not None):
-            obj_value = self.obj_func.get_solution_cost(self.best_solution)
-            routes_cost = self.obj_func.get_routes_sum_cost(
-                self.best_solution.routes
-            )
+        file_log.add_warning_log("Searching current best solution.")
+        if (self.best_solution is None):
+            file_log.add_warning_log("Could not create any solution.")
+            return None
+        
+        obj_value = self.obj_func.get_solution_cost(self.best_solution)
+        routes_cost = self.obj_func.get_routes_sum_cost(
+            self.best_solution.routes
+        )
 
-            self.best_solution.set_objective_value(obj_value)
-            self.best_solution.set_routes_cost(routes_cost)
-            
+        self.best_solution.set_objective_value(obj_value)
+        self.best_solution.set_routes_cost(routes_cost)
+    
+
         metaheuristic_solution = self.metaheuristic.get_current_best_solution()
 
         if (metaheuristic_solution is not None):
@@ -136,7 +141,10 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             metaheuristic_solution.set_objective_value(obj_value)
             metaheuristic_solution.set_routes_cost(routes_cost)
 
-
+        else:
+            file_log.add_warning_log(
+                "Metaheuristic could not find any solution."
+            )
 
         meta_is_better = (
             self.solution_is_feasible(metaheuristic_solution)
@@ -150,6 +158,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         if (meta_is_better):
             self.best_solution = metaheuristic_solution
 
+        file_log.add_warning_log("Current best solution found.")
         return self.best_solution
 
 

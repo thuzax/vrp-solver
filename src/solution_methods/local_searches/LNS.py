@@ -4,6 +4,7 @@ import time
 import copy
 import random
 from src import exceptions
+from src import file_log
 from src.solution_methods.local_searches.LocalSearch import LocalSearch
 
 
@@ -63,7 +64,8 @@ class LNS(LocalSearch):
         self.stop_parameters["it_last_improv"] = 0
         self.stop_parameters["time_last_it"] = 0
         self.stop_parameters["time_last_improv"] = 0
-        
+        improved = False
+
         while (not self.stop_criteria_fulfilled()):
             new_solution = copy_solution.copy()
 
@@ -120,11 +122,7 @@ class LNS(LocalSearch):
                 self.stop_parameters["it_last_improv"] = (
                     self.stop_parameters["it"]
                 )
-                print(
-                    "IMPROVED", 
-                    self.best_solution.cost(), 
-                    self.best_solution.routes_cost()
-                )
+                improved = True
 
 
 
@@ -133,12 +131,19 @@ class LNS(LocalSearch):
     
             extra_requests = all_requests - copy_solution.requests()
 
-        print("LNS iteartions: ", self.stop_parameters["it"])
-        # print(
-        #     "LNS time: ", 
-        #     self.stop_parameters["time_last_it"] 
-        #     - self.stop_parameters["begin_time"]
-        # )
+        message = "LNS" + "\n"
+        message += "IT: " +  str(self.stop_parameters["it"])
+        message += "\n"
+        message += "Exec Time: "
+        message += str(
+            self.stop_parameters["time_last_it"] 
+            - self.stop_parameters["begin_time"]
+        )
+        message += "\n"
+        message += "Improved\n" if improved else ""
+
+        file_log.add_solution_log(self.best_solution, message)
+        
         return self.best_solution
 
 

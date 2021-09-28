@@ -7,6 +7,8 @@ from src.solution_methods import *
 from src.route_classes import *
 from src.objects_managers import *
 from src.solution_classes import *
+from src import file_log
+
 
 from src.solvers.SolverClass import SolverClass
 from src.solution_check import solution_check, get_solution_check_complete_data
@@ -25,16 +27,32 @@ class SolverPDPTW(SolverClass):
         self.requests = None
 
     def solve(self):
+        file_log.add_info_log("Starting solver.")
         heuristic_start = time.time()
+
         requests_set = set(self.requests)
         parameters = {
             "requests_set" : requests_set
         }
-        
+
         self.best_solution = self.construction.solve(parameters)
+
+        obj_value = self.obj_func.get_solution_cost(self.best_solution)
+        routes_cost = self.obj_func.get_routes_sum_cost(
+            self.best_solution.routes
+        )
+
+        self.best_solution.set_objective_value(obj_value)
+        self.best_solution.set_routes_cost(routes_cost)
+
+        # Log
+        message = "Solution after " + self.construction_name + "\n"
+        file_log.add_solution_log(self.best_solution, message)
+        
         solution = self.best_solution.copy()
         self.best_solution = self.metaheuristic.solve(solution, parameters)
         
+
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
             self.best_solution.routes
@@ -43,11 +61,15 @@ class SolverPDPTW(SolverClass):
         self.best_solution.set_objective_value(obj_value)
         self.best_solution.set_routes_cost(routes_cost)
         
+        # Log
+        message = "Solution after " + self.metaheuristic_name + "\n"
+        file_log.add_solution_log(self.best_solution, message)
+        
         heuristic_end = time.time()
         exec_time = heuristic_end - heuristic_start
         
-        self.print_best_solution()
-        self.print_solution_verification(self.best_solution, exec_time)
+        # self.print_best_solution()
+        # self.print_solution_verification(self.best_solution, exec_time)
 
         return self.best_solution
 

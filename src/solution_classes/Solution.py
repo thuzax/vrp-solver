@@ -143,6 +143,23 @@ class Solution(GenericClass):
         return len(self.routes)
 
 
+    def get_costs_output(self):
+        text = ""
+        text += "obj_value: " + str(self.cost()) + "; "
+        text += "obj_routes: " + str(self.routes_cost())
+        return text
+
+
+    def get_routes_output(self):
+        text = ""
+        for i, route in enumerate(self.routes):
+            text += "Route " + str(i+1) + " : "
+            for vertex_id in route.requests_order():
+                text += str(vertex_id) + " "
+
+            text += "\n"
+        return text
+
     def get_reader_solut_attr_relation(self):
         return {
         }

@@ -207,6 +207,23 @@ def parse_command_line_arguments():
         required=False
     )
 
+    parser.add_argument(
+        "--make-log",
+        dest="make_log",
+        help="if this flag is set, a log file will be created",
+        action="store_true",
+        default=False,
+        required=False
+    )
+
+    parser.add_argument(
+        "--detail-solution-log",
+        dest="detail_sol",
+        help="if this flag is set and --make-log is set, the log file will add the order of clientes in the routes whenever a solution is inserted in log",
+        action="store_true",
+        default=False,
+        required=False
+    )
 
     args = parser.parse_args()
 

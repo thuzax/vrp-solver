@@ -1,3 +1,4 @@
+from src.solution_check import get_solution_check_complete_data
 import time
 import random
 import numpy
@@ -7,7 +8,7 @@ from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.objects_managers import *
 
-from src import arguments_handler, exceptions
+from src import arguments_handler, exceptions, file_log
 from src import execution_log
 
 from src.solvers import *
@@ -70,13 +71,17 @@ def read_input_file():
     reader = Reader()
     reader.read_input_file()
     set_read_objects_attributes(reader)
-    execution_log.info_log("Finished.")
+    
+    file_log.add_info_log("Input file read with no errors.")
+    execution_log.info_log("File reading finished.")
 
 
 def solve_problem():
     execution_log.info_log("Starting to solve...")
+
     solver_obj = SolverClass()
     solver_obj.solve()
+    
     execution_log.info_log("Finished.")
 
 
@@ -85,7 +90,7 @@ def run():
     solve_problem()
 
 
-if __name__=="__main__":
+def execute():
     execution_log.info_log("*Starting Program*")
     start_time = time.time()
 
@@ -93,11 +98,14 @@ if __name__=="__main__":
     arguments = arguments_handler.parse_command_line_arguments()
     arguments_handler.read_configuration(arguments)
 
-    execution_log.info_log("Setting Random Seed")
+    file_log.set_to_make_log(arguments["make_log"], arguments["detail_sol"])
     random.seed(arguments["seed"])
+    numpy.random.seed(arguments["seed"])
     time_limit = arguments["time_limit"]
     
-    numpy.random.seed(arguments["seed"])
+    file_log.add_info_log("Command line arguments read with no errors.")
+    execution_log.info_log("Setting Random Seed")
+    
     exception = None
 
     try:
@@ -109,6 +117,7 @@ if __name__=="__main__":
 
     except FunctionTimedOut:
         solver_problem = SolverClass()
+        file_log.add_warning_log("Time Limit Exceeded")
         best_sol = solver_problem.update_and_get_best_after_timeout()
         if (best_sol is not None):
             solver_problem.print_best_solution()
@@ -124,11 +133,8 @@ if __name__=="__main__":
             raise exception
         
         solver_problem = SolverClass()
-
-        if (solver_problem.get_best_solution() is None):
-            execution_log.warning_log("No solution found")
-
-        execution_log.info_log("Writting Running Data...")
+        
+        execution_log.info_log("Writting Running Data and Log...")
         end_time = time.time()
         total_time = end_time - start_time
         
@@ -138,4 +144,31 @@ if __name__=="__main__":
             "timeout" : False
         }
         solver_problem.write_final_data(running_data)
+
+        if (solver_problem.get_best_solution() is None):
+            execution_log.warning_log("No solution found")
+        else:
+            message = "Final Solution Verification" + "\n"
+            message += get_solution_check_complete_data(
+                solver_problem.get_best_solution(), 
+                solver_problem.constraints, 
+                solver_problem.obj_func
+            )
+            
+            message += "\n"
+            file_log.add_solution_log(
+                solver_problem.get_best_solution(),
+                message
+            )
+
+
+        print(file_log.log_data)
+        file_log.write_log(
+            solver_problem.output_path,
+            solver_problem.output_name
+        )
         execution_log.info_log("*Ending Program.*")
+
+
+if __name__=="__main__":
+    execute()

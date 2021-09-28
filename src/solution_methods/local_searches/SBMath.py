@@ -2,6 +2,7 @@
 
 import copy
 from src import exceptions
+from src import file_log
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 import time
 from src.solution_check import solution_check
@@ -92,7 +93,7 @@ class SBMath(LocalSearch):
 
         self.routes_pool = list(self.routes_pool_dict.values())
 
-        print("Time adding in pool:", time.time() - start)
+        # print("Time adding in pool:", time.time() - start)
 
 
     def add_routes_to_pool(self, routes):
@@ -142,11 +143,11 @@ class SBMath(LocalSearch):
             )
             end_op = time.time()
             exec_time = end_op - start_op
-            self.print_solution_pos_operator_status(
-                new_solution, 
-                "AGES", 
-                exec_time
-            )
+            # self.print_solution_pos_operator_status(
+            #     new_solution, 
+            #     "AGES", 
+            #     exec_time
+            # )
 
             parameters = {
                 "remaining_requests" : remaining_req
@@ -160,11 +161,11 @@ class SBMath(LocalSearch):
 
             end_op = time.time()
             exec_time = end_op - start_op
-            self.print_solution_pos_operator_status(
-                new_solution, 
-                "LNS", 
-                exec_time
-            )
+            # self.print_solution_pos_operator_status(
+            #     new_solution, 
+            #     "LNS", 
+            #     exec_time
+            # )
 
             self.add_routes_to_pool(solution.routes)
             InsertionOperator().clean_feasible_insertions_cache_with_exception(
@@ -184,11 +185,11 @@ class SBMath(LocalSearch):
 
             end_op = time.time()
             exec_time = end_op - start_op
-            self.print_solution_pos_operator_status(
-                new_solution, 
-                "SetPartitionModel", 
-                exec_time
-            )
+            # self.print_solution_pos_operator_status(
+            #     new_solution, 
+            #     "SetPartitionModel", 
+            #     exec_time
+            # )
             
             acc_parameters = {
                 "best_solution" : self.best_solution,
@@ -209,35 +210,34 @@ class SBMath(LocalSearch):
                 "OriginalPerturbation", 
                 parameters
             )
+            message = "OriginalPerturbation"
+            message += "\n"
+            message += "Exec Time: " + str(time.time() - start_op)
+            message += "\n"
+            file_log.add_solution_log(new_solution, message)
+            
 
             end_op = time.time()
             exec_time = end_op - start_op
-            self.print_solution_pos_operator_status(
-                new_solution, 
-                "OriginalPerturbation", 
-                exec_time
-            )
+            # self.print_solution_pos_operator_status(
+            #     new_solution, 
+            #     "OriginalPerturbation", 
+            #     exec_time
+            # )
 
             self.time_last_it = time.time()
 
 
-            print("IT:", self.iteration)
-            print("IT SEM MELHORA:", self.iteration_without_imp)
-            print("IT time:", time.time() - it_start)
-            print(
-                "solution obj, solution route_cost:", 
-                solution.cost(),
-                ",",
-                solution.routes_cost()
-            )
-            print(
-                "best obj, best route_cost:", 
-                self.best_solution.cost(),
-                ",",
-                self.best_solution.routes_cost()
-            )
-            print("SIZE POOL ROUTES: ", len(self.routes_pool))
-            print("//////////////////////////////////////////////////////")
+            message = ""
+            message += "SBMath" + "\n"
+            message += "IT: " + str(self.iteration) + "\n"
+            message += "ITs witout improving: " 
+            message += str(self.iteration_without_imp) + "\n"
+            message += "IT time: " + str(time.time() - it_start) + "\n"
+            message += "Time since begin: "
+            message += str(time.time() - self.begin_time) + "\n"
+
+            file_log.add_solution_log(new_solution, message)
 
         return self.best_solution
 

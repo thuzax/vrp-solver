@@ -1,4 +1,7 @@
+import time
 from mip import *
+
+from src import file_log
 
 from src.solution_classes.Solution import Solution
 from src.solution_methods.SolutionMethod import SolutionMethod
@@ -27,6 +30,7 @@ class SetPartitionModel(SolutionMethod):
 
         self.best_solution = None
 
+        start_time = time.time()
         model = Model(
             name="Set Partitioning", 
             sense=MINIMIZE,
@@ -85,14 +89,10 @@ class SetPartitionModel(SolutionMethod):
         status = model.optimize(max_seconds=self.opt_time_limit)
         found_feasible = False
         if status == OptimizationStatus.OPTIMAL:
-            print("OPTMAL FOUND", model.objective_value)
             found_feasible = True
         elif status == OptimizationStatus.FEASIBLE:
-            print("FEASIBLE FOUND")
             print(model.objective_value, model.objective_bound)
             found_feasible = True
-        elif status == OptimizationStatus.NO_SOLUTION_FOUND:
-            print("NO FEASIBLE FOUND")
 
         new_soltuion = None
         if (found_feasible):
@@ -115,8 +115,16 @@ class SetPartitionModel(SolutionMethod):
 
         if (new_soltuion is not None):
             self.best_solution = new_soltuion
+            message = "SetPartitioningModel" + "\n"
+            message += "Exec Time: " + str(time.time() - start_time)
+            message += "\n"
+            if (self.obj_func.solution_is_better(new_soltuion, solution)):
+                message += "Improved"
+            file_log.add_solution_log(self.best_solution, message)
             return new_soltuion
         
+        message = self.__class__.__name__ + "did not find a feasible solution."
+        file_log.add_warning_log(message)
         return solution
 
     def update_route_values(self, route, position, request):

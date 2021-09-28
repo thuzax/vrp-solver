@@ -1,5 +1,7 @@
 
 import random
+import time
+from src import file_log
 from src.solution_methods.SolutionMethod import SolutionMethod
 from src.solution_methods.local_searches.LocalSearch import LocalSearch
 
@@ -17,6 +19,7 @@ class OriginalPerturbation(LocalSearch):
     def solve(self, solution, parameters):
         new_solution = solution.copy()
         self.best_solution = new_solution.copy()
+        start_time = time.time()
         
         number_of_perturbations = parameters["n_perturb"]
         for i in range(number_of_perturbations):
@@ -41,7 +44,6 @@ class OriginalPerturbation(LocalSearch):
             and self.accept(new_solution)
         ):
             return new_solution
-
 
         return solution
 

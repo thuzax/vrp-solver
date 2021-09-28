@@ -80,7 +80,7 @@
             "number_of_perturb_moves" : 5
         },
         "LNS" : {
-            "obj_func_name" : "ObjDistancePDPTW",
+            "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
@@ -218,7 +218,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-10_input",
+            "input_name" : "br-ms-cg-20_input",
             "input_type" : "json"
         }
     },

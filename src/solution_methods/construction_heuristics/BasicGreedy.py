@@ -44,7 +44,7 @@ class BasicGreedy(SolutionMethod):
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
 
-        self.print_solution_verification(solution, exec_time)
+        # self.print_solution_verification(solution, exec_time)
         return solution
 
 
