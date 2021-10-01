@@ -158,7 +158,7 @@ class ReaderJsonPDPTW(Reader):
         self.time_windows = tuple(map(tuple, self.time_windows))
 
     def read_specific_input(self, file_name):
-
+        
         with open(file_name, "r") as input_file:
             input_text = input_file.read()
             input_dict = json.loads(input_text)

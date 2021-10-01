@@ -81,6 +81,9 @@ class AGES(LocalSearch):
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["number_perturb"] = 0
                 self.best_solution = new_solution
+                self.best_solution.set_objective_value(
+                    self.obj_func.get_solution_cost(self.best_solution)
+                )
         
         message = "AGES" + "\n"
         message += "IT: " + str(self.stop_parameters["it"]) + "\n"

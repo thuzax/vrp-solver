@@ -1,0 +1,81 @@
+--------------------------------------------------------------------------------(Solver execution current time: 2.4557113647460938e-05)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.01728987693786621)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.017313241958618164)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 13.024227380752563)
+[SOLUTION]
+Solution after BasicGreedy
+obj_value: 10; obj_routes: 1062548
+
+--------------------------------------------------------------------------------(Solver execution current time: 22.977542877197266)
+[SOLUTION]
+AGES
+IT: 2
+Exec Time: 9.948423147201538
+Improved
+obj_value: 9; obj_routes: 1086810
+
+--------------------------------------------------------------------------------(Solver execution current time: 25.9479877948761)
+[SOLUTION]
+LNS
+IT: 31
+Exec Time: 2.9674453735351562
+Improved
+obj_value: 9; obj_routes: 1064351
+
+--------------------------------------------------------------------------------(Solver execution current time: 26.070664405822754)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.09636473655700684
+obj_value: 10; obj_routes: 1062548
+
+--------------------------------------------------------------------------------(Solver execution current time: 29.926575422286987)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 3.855747938156128
+obj_value: 9; obj_routes: 1160202
+
+--------------------------------------------------------------------------------(Solver execution current time: 29.92659068107605)
+[SOLUTION]
+SBMath
+IT: 1
+ITs witout improving: 0
+IT time: 16.90001392364502
+Time since begin: 16.90084409713745
+obj_value: 9; obj_routes: 1160202
+
+--------------------------------------------------------------------------------(Solver execution current time: 30.026310920715332)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 30.02635097503662)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 30.027106046676636)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 30.0277042388916)
+[INFO] Input Seed : 0
+--------------------------------------------------------------------------------(Solver execution current time: 30.027709484100342)
+[INFO] Input time limit : 30
+--------------------------------------------------------------------------------(Solver execution current time: 30.027714729309082)
+[INFO] Total execution time : 30.029009580612183
+--------------------------------------------------------------------------------(Solver execution current time: 30.028027057647705)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Attend All Requests Constraint OK
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+
+obj_value: 9; obj_routes: 1064351
+
+--------------------------------------------------------------------------------

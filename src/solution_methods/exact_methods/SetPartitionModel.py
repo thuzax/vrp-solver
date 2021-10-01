@@ -91,7 +91,6 @@ class SetPartitionModel(SolutionMethod):
         if status == OptimizationStatus.OPTIMAL:
             found_feasible = True
         elif status == OptimizationStatus.FEASIBLE:
-            print(model.objective_value, model.objective_bound)
             found_feasible = True
 
         new_soltuion = None

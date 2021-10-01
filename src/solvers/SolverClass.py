@@ -32,7 +32,6 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             # Acquired from input
             self.output_path = None
             self.output_name = None
-            self.alternative_output_name = None
             self.output_type = None
 
             self.obj_func = None
@@ -93,21 +92,21 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         return heuristic_obj
 
 
-    def write_final_data(self, running_data):
-        if (self.output_path[-1] != "/"):
-            self.output_path += "/"
+    # def write_final_data(self, running_data):
+    #     if (self.output_path[-1] != "/"):
+    #         self.output_path += "/"
 
-        if (self.output_name == ""):
-            self.output_name = self.alternative_output_name + "_sol"
+    #     if (self.output_name == ""):
+    #         self.output_name = self.alternative_output_name + "_sol"
 
-        json_output_file_name = ""
-        json_output_file_name += self.output_path 
-        json_output_file_name += "running_data_"
-        json_output_file_name += self.output_name 
-        json_output_file_name += ".json"
+    #     json_output_file_name = ""
+    #     json_output_file_name += self.output_path 
+    #     json_output_file_name += "running_data_"
+    #     json_output_file_name += self.output_name 
+    #     json_output_file_name += ".json"
 
-        with open(json_output_file_name, "w") as output_file:
-            output_file.write(json.dumps(running_data, indent=2))
+    #     with open(json_output_file_name, "w") as output_file:
+    #         output_file.write(json.dumps(running_data, indent=2))
 
 
     @abstractmethod
@@ -129,23 +128,23 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         self.best_solution.set_objective_value(obj_value)
         self.best_solution.set_routes_cost(routes_cost)
     
-
         metaheuristic_solution = self.metaheuristic.get_current_best_solution()
 
         if (metaheuristic_solution is not None):
-            meta_obj_value = self.obj_func.get_solution_cost(self.best_solution)
+            meta_obj_value = self.obj_func.get_solution_cost(
+                metaheuristic_solution
+            )
             meta_routes_cost = self.obj_func.get_routes_sum_cost(
-                self.best_solution.routes
+                metaheuristic_solution.routes
             )
 
-            metaheuristic_solution.set_objective_value(obj_value)
-            metaheuristic_solution.set_routes_cost(routes_cost)
+            metaheuristic_solution.set_objective_value(meta_obj_value)
+            metaheuristic_solution.set_routes_cost(meta_routes_cost)
 
         else:
             file_log.add_warning_log(
                 "Metaheuristic could not find any solution."
             )
-
         meta_is_better = (
             self.solution_is_feasible(metaheuristic_solution)
             and 
@@ -154,7 +153,6 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
                 self.best_solution
             )
         )
-        
         if (meta_is_better):
             self.best_solution = metaheuristic_solution
 
@@ -207,5 +205,11 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def get_attr_relation_reader_solver(self):
         return {
-            "input_name" : "alternative_output_name"
+            "input_name" : "output_name"
         }
+    
+    # def set_attribute(self, name, value):
+    #     super().set_attribute(name, value)
+    #     if (name == "output_name"):
+    #         print(name)
+    #         exit(0)

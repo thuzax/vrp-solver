@@ -2,6 +2,7 @@ from src.solution_check import get_solution_check_complete_data
 import time
 import random
 import numpy
+import traceback
 from func_timeout import func_timeout, FunctionTimedOut
 
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
@@ -102,7 +103,8 @@ def execute():
     random.seed(arguments["seed"])
     numpy.random.seed(arguments["seed"])
     time_limit = arguments["time_limit"]
-    
+
+
     file_log.add_info_log("Command line arguments read with no errors.")
     execution_log.info_log("Setting Random Seed")
     
@@ -118,32 +120,49 @@ def execute():
     except FunctionTimedOut:
         solver_problem = SolverClass()
         file_log.add_warning_log("Time Limit Exceeded")
-        best_sol = solver_problem.update_and_get_best_after_timeout()
-        if (best_sol is not None):
-            solver_problem.print_best_solution()
-            solver_problem.print_solution_verification(best_sol, time_limit)
         execution_log.warning_log("Time Limit Exceeded")
+        best_sol = solver_problem.update_and_get_best_after_timeout()
+        # if (best_sol is not None):
+        #     solver_problem.print_best_solution()
+        #     solver_problem.print_solution_verification(best_sol, time_limit)
     
     except Exception as ex:
         exception = ex
 
     finally:
+        end_time = time.time()
+        total_time = end_time - start_time
+        file_log.add_info_log(
+            "Input Seed : " + str(arguments["seed"])
+        )
+        file_log.add_info_log(
+            "Input time limit : " + str(arguments["time_limit"])
+        )
+        file_log.add_info_log(
+            "Total execution time : " + str(total_time)
+        )
         if (exception is not None):
-            print(exception)
+            traceback_ex = traceback.format_exception(
+                etype=type(exception), 
+                value=exception, 
+                tb=exception.__traceback__
+            )
+            file_log.add_error_log(
+                "An error has ocurred\n" 
+                + ''.join(traceback_ex)
+            )
+            
+            solver_problem = SolverClass()
+            file_log.write_log(
+                solver_problem.output_path,
+                solver_problem.output_name
+            )
             raise exception
         
         solver_problem = SolverClass()
         
         execution_log.info_log("Writting Running Data and Log...")
-        end_time = time.time()
-        total_time = end_time - start_time
         
-        running_data = {
-            "seed" : arguments["seed"],
-            "time" : total_time,
-            "timeout" : False
-        }
-        solver_problem.write_final_data(running_data)
 
         if (solver_problem.get_best_solution() is None):
             execution_log.warning_log("No solution found")
@@ -161,8 +180,7 @@ def execute():
                 message
             )
 
-
-        print(file_log.log_data)
+        # print(file_log.log_data)
         file_log.write_log(
             solver_problem.output_path,
             solver_problem.output_name

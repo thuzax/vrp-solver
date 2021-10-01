@@ -113,7 +113,7 @@
             }
         },
         "SetPartitionModel" : {
-            "obj_func_name" : "ObjDistancePDPTW",
+            "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
@@ -202,7 +202,6 @@
     "solver" : {
         "SolverPDPTW" : {
             "output_path" : "./test_instances/result_files/",
-            "output_name" : "",
             "output_type" : "json",
             "obj_func_name" : "ObjVehicles",
             "construction_name" : "BasicGreedy",
@@ -218,7 +217,7 @@
     "reader": {
         "ReaderJsonPDPTW" : {
             "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-20_input",
+            "input_name" : "br-ms-cg-30_input",
             "input_type" : "json"
         }
     },

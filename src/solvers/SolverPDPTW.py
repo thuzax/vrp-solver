@@ -35,23 +35,23 @@ class SolverPDPTW(SolverClass):
             "requests_set" : requests_set
         }
 
-        self.best_solution = self.construction.solve(parameters)
+        solution = self.construction.solve(parameters)
 
-        obj_value = self.obj_func.get_solution_cost(self.best_solution)
+        obj_value = self.obj_func.get_solution_cost(solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
-            self.best_solution.routes
+            solution.routes
         )
 
-        self.best_solution.set_objective_value(obj_value)
-        self.best_solution.set_routes_cost(routes_cost)
+        solution.set_objective_value(obj_value)
+        solution.set_routes_cost(routes_cost)
 
+        self.best_solution = solution.copy()
         # Log
         message = "Solution after " + self.construction_name + "\n"
         file_log.add_solution_log(self.best_solution, message)
         
-        solution = self.best_solution.copy()
-        self.best_solution = self.metaheuristic.solve(solution, parameters)
-        
+        new_solution = self.metaheuristic.solve(solution, parameters)
+        self.best_solution = new_solution.copy()
 
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
@@ -90,7 +90,7 @@ class SolverPDPTW(SolverClass):
 
     def get_attr_relation_reader_solver(self):
         read_solv_attr_rela = {
-            "input_name" : "alternative_output_name",
+            "input_name" : "output_name",
             "vertices" : "vertices",
             "requests" : "requests",
             "number_of_requests" : "number_of_requests"
