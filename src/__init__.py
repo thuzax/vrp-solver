@@ -5,6 +5,7 @@ from .solvers import *
 from .constraints import *
 from .solution_methods import *
 from .instance_readers import *
+from .solution_writers import *
 from .objective_functions import *
 from .route_classes import *
 from .solution_classes import *
@@ -19,6 +20,7 @@ __all__ = [
     "constraints",
     "solution_methods",
     "instance_readers",
+    "solution_writers"
     "objective_functions",
     "route_classes",
     "solution_classes",

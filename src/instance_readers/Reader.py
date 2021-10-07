@@ -15,11 +15,6 @@ class Reader(GenericClass, metaclass=ABCMeta):
     
     ### Obrigatory for all Porblems ###
     
-    # Acquired from configuration file
-    input_path = None
-    input_name = None
-    input_type = "json"
-
 
     def __new__(cls, *args, **kwargs):
         for subcls in cls.__subclasses__():
@@ -36,6 +31,11 @@ class Reader(GenericClass, metaclass=ABCMeta):
     def __init__(self, reader_class_name):
         if (not hasattr(self, "name")):
             self.name = reader_class_name
+            
+            self.input_path = None
+            self.input_name = None
+            self.input_type = "json"
+
             self.number_of_requests = None
             self.vertices = []
             self.vertices_dict = {}

@@ -13,5 +13,5 @@ def create_class_by_name(class_name, class_data):
     for attribute, value in class_data.items():
         if (getattr(class_object, attribute) is None):
             class_object.set_attribute(attribute, value)
-
+    
     return class_object

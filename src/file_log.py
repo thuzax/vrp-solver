@@ -5,6 +5,9 @@ solution_detailed = False
 start_time = None
 log_data = ""
 
+def get_log_text():
+    global log_data
+    return log_data
 
 def set_to_make_log(make_log_argument, detail_solution=False):
     global start_time
@@ -89,10 +92,10 @@ def add_solution_log(solution, extra_message=None):
     if (extra_message is not None):
         text += extra_message
 
-    text += solution.get_costs_output() + "\n"
+    text += solution.get_costs_output_text() + "\n"
     
     if (detail_solution()):
-        text += solution.get_routes_output()
+        text += solution.get_routes_output_text()
     
     add_text_to_log_data(text)
 
@@ -106,3 +109,4 @@ def write_log(output_path, output_name):
     output_name = output_name + "_log.txt"
     with open(output_path + output_name, "w") as out_file:
         out_file.write(log_data)
+

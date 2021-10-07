@@ -143,14 +143,14 @@ class Solution(GenericClass):
         return len(self.routes)
 
 
-    def get_costs_output(self):
+    def get_costs_output_text(self):
         text = ""
         text += "obj_value: " + str(self.cost()) + "; "
         text += "obj_routes: " + str(self.routes_cost())
         return text
 
 
-    def get_routes_output(self):
+    def get_routes_output_text(self):
         text = ""
         for i, route in enumerate(self.routes):
             text += "Route " + str(i+1) + " : "

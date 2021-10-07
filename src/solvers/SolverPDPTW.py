@@ -84,10 +84,6 @@ class SolverPDPTW(SolverClass):
         )
 
 
-    def write_file(self):
-        return super().write_file()
-
-
     def get_attr_relation_reader_solver(self):
         read_solv_attr_rela = {
             "input_name" : "output_name",

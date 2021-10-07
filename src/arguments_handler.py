@@ -110,6 +110,14 @@ def create_reader_object(dict_reader):
     )
 
 
+def create_writer_object(dict_writer):
+    writer_class_name = list(dict_writer.keys())[0]
+
+    writer_obj = create_class_by_name(
+        writer_class_name, 
+        dict_writer[writer_class_name]
+    )
+
 def configure_route_class(dict_route):
     route_class_name = list(dict_route.keys())[0]
     route_class_type = getattr(
@@ -159,6 +167,9 @@ def read_configuration(arguments):
 
         dict_reader = dict_data["reader"]
         create_reader_object(dict_reader)
+        
+        dict_writer = dict_data["writer"]
+        create_writer_object(dict_writer)
 
         dict_route = dict_data["route_class"]
         configure_route_class(dict_route)
@@ -171,6 +182,7 @@ def read_configuration(arguments):
 
         dict_removal_op = dict_data["removal_operator"]
         create_operator_class(dict_removal_op)
+
 
 
 def parse_command_line_arguments():

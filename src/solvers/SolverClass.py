@@ -199,10 +199,6 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def write_file(self):
-        pass
-
-    @abstractmethod
     def get_attr_relation_reader_solver(self):
         return {
             "input_name" : "output_name"

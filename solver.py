@@ -11,6 +11,7 @@ from src.objects_managers import *
 
 from src import arguments_handler, exceptions, file_log
 from src import execution_log
+from src.solution_writers import Writer
 
 from src.solvers import *
 from src.instance_readers import *
@@ -141,6 +142,7 @@ def execute():
         file_log.add_info_log(
             "Total execution time : " + str(total_time)
         )
+
         if (exception is not None):
             traceback_ex = traceback.format_exception(
                 etype=type(exception), 
@@ -152,39 +154,35 @@ def execute():
                 + ''.join(traceback_ex)
             )
             
-            solver_problem = SolverClass()
-            file_log.write_log(
-                solver_problem.output_path,
-                solver_problem.output_name
-            )
+            Writer().write_log()
             raise exception
         
         solver_problem = SolverClass()
         
-        execution_log.info_log("Writting Running Data and Log...")
+        execution_log.info_log("Writting Solution and Log (if there is)...")
         
 
         if (solver_problem.get_best_solution() is None):
             execution_log.warning_log("No solution found")
+        
         else:
-            message = "Final Solution Verification" + "\n"
-            message += get_solution_check_complete_data(
+            Writer().write_solution(solver_problem.get_best_solution())
+            
+            log_message = "Final Solution Verification" + "\n"
+            log_message += get_solution_check_complete_data(
                 solver_problem.get_best_solution(), 
                 solver_problem.constraints, 
                 solver_problem.obj_func
             )
             
-            message += "\n"
+            log_message += "\n"
             file_log.add_solution_log(
                 solver_problem.get_best_solution(),
-                message
+                log_message
             )
 
-        # print(file_log.log_data)
-        file_log.write_log(
-            solver_problem.output_path,
-            solver_problem.output_name
-        )
+        
+        Writer().write_log()
         execution_log.info_log("*Ending Program.*")
 
 
