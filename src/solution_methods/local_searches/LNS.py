@@ -89,7 +89,9 @@ class LNS(LocalSearch):
 
             # Reinsertion
             extra_requests = extra_requests.union(removed_requests)
-
+            if (self.k_min > self.k_max):
+                self.k_max = self.k_min
+            
             k = random.randint(self.k_min, self.k_max)
             new_solution = self.reinsert_requests(
                 extra_requests, 

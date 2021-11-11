@@ -165,7 +165,13 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     def print_best_solution(self):
+        if (self.best_solution is None):
+            return None
         print(self.best_solution)
+
+
+    def get_best_solution_dict(self):
+        return self.best_solution.get_dict()
 
 
     def print_solution_verification(self, solution, exec_time):

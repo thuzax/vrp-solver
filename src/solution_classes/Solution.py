@@ -160,6 +160,25 @@ class Solution(GenericClass):
             text += "\n"
         return text
 
+    def get_dict(self):
+        sol_dict = {}
+        sol_dict["routes"] = {}
+        sol_dict["costs"] = {}
+        for i, route in enumerate(self.routes):
+            print(route)
+            sol_dict["routes"][i] = [
+                vertex_id 
+                for vertex_id in route.requests_order()
+            ]
+            sol_dict["costs"][i] = route.cost()
+
+        sol_dict["solution_cost"] = self.cost()
+        sol_dict["solution_routes_cost"] = self.routes_cost()
+        return sol_dict
+
+
     def get_reader_solut_attr_relation(self):
         return {
         }
+        
+    

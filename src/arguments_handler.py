@@ -147,9 +147,9 @@ def create_operator_class(dict_insertion_op):
 
 
 def read_configuration(arguments):
-    constraints_file_name = arguments["configuration_file"]
+    config_data = arguments["configuration_file"]
 
-    with open(constraints_file_name, "r") as config_file:
+    with open(config_data, "r") as config_file:
         text = config_file.read()
         dict_data = json.loads(text)
 

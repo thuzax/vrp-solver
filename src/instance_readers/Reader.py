@@ -70,13 +70,18 @@ class Reader(GenericClass, metaclass=ABCMeta):
         for key, value in self.vertices_dict.items():
             self.vertices[key] = value
 
-
-    def read_input_file(self):
-        
+    
+    def get_file_name(self):
         if (self.input_path[-1] != "/"):
             self.input_path = self.input_path + "/"
         
         file_name = self.input_path + self.input_name + "." + self.input_type
+        
+        return file_name
+
+
+    def read_input_file(self):
+        file_name = self.get_file_name()
 
         self.read_specific_input(file_name)
         self.create_vertices()

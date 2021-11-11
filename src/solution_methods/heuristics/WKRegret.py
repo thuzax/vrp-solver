@@ -40,6 +40,7 @@ class WKRegret(SolutionMethod):
         self.k = parameters["k"]
 
         inserted = True
+        i = 0
         while (inserted and len(requests) > 0):
             best_routes_ids = self.get_indices_best_routes(routes, self.k)
             # best_routes_ids = [i for i in range(len(routes))]
@@ -88,7 +89,6 @@ class WKRegret(SolutionMethod):
             )
 
             requests.remove(request)
-
         return new_solution
 
 
@@ -169,6 +169,7 @@ class WKRegret(SolutionMethod):
             requests_can_be_inserted[request] = (
                 self.verify_if_request_has_regret_route(regret_routes[request])
             )
+
         
         return {
             "can_be_inserted" : requests_can_be_inserted,

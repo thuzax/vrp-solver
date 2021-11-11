@@ -121,7 +121,10 @@ class ReaderJsonPDPTW(Reader):
 
         for pickup, delivery in self.requests:
             self.demands[pickup] = dem[str(pickup)]
-            self.demands[delivery] = -dem[str(delivery)]
+            if (self.demands[delivery] > 0):
+                self.demands[delivery] = -dem[str(delivery)]
+            else:
+                self.demands[delivery] = dem[str(delivery)]
         
         self.demands = tuple(self.demands)
 
@@ -174,7 +177,6 @@ class ReaderJsonPDPTW(Reader):
             tws = input_dict["time_windows_pd"]
             planning_horizon = input_dict["planning_horizon"]
             time_windows_size = input_dict["time_windows_size"]
-
 
         self.capacity = int(cap)
         self.planning_horizon = int(planning_horizon)

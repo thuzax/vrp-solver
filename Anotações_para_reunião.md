@@ -1,11 +1,8 @@
 Congresso da Pós
+Mudar slides:
+    - add imagem
+    - framework
 
-
-Testar a adição de rotas que não estão na "solução da iteração" 
-(adicionar na pool apos exec de cada componente)
-
-Entradas/Saidas?
-Pedidos Parcialmente Atendido Dinamico -> Pontos Fixos? -> MODIFICAR!
 
 
 ------------------------------------------------------------------

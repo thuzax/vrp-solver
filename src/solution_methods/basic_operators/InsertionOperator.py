@@ -158,7 +158,6 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             obj_func,
             constraints
         )
-
         best_route = None
         best_insertion_position = None
         best_insert_cost = None

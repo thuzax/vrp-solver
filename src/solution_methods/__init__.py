@@ -8,6 +8,7 @@ from .basic_operators.RemovalOperator import *
 from .basic_operators.RemovalOperatorPDPTW import *
 
 from .construction_heuristics.BasicGreedy import *
+from .construction_heuristics.WBasicGreedy import *
 
 from .heuristics.KRegret import *
 from .heuristics.WKRegret import *
@@ -43,6 +44,7 @@ __all__ = [
     "RemovalOperatorPDPTW",
     
     "BasicGreedy",
+    "WBasicGreedy",
 
     "KRegret",
     "WKRegret",

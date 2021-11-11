@@ -24,11 +24,17 @@ class SBMath(LocalSearch):
         self.max_it = None
         self.max_it_without_improv = None
         self.routes_diff_method = None
+        self.excluded_local_operators = None
 
         self.number_of_perturb_moves = None
 
 
     def execute_operator(self, initial_solution, operator_name, parameters):
+        if (operator_name in self.excluded_local_operators):
+            file_log.add_info_log("EXCLUDED")
+
+            return initial_solution
+        
         copy_solution = initial_solution.copy()
 
         operator = self.local_operators[operator_name]
@@ -44,9 +50,6 @@ class SBMath(LocalSearch):
             self.local_operators[operator_name].get_current_best_solution(), 
             self.best_solution
         )
-        if (new_best_found):
-            self.best_solution = new_solution
-            self.iteration_without_imp = 0
 
         return new_solution
 
@@ -224,7 +227,12 @@ class SBMath(LocalSearch):
             #     "OriginalPerturbation", 
             #     exec_time
             # )
-
+            
+            best = self.get_current_best_solution()
+            if (self.obj_func.solution_is_better(best, self.best_solution)):
+                self.best_solution = best
+                self.iteration_without_imp = 0
+            
             self.time_last_it = time.time()
 
 
@@ -249,10 +257,11 @@ class SBMath(LocalSearch):
         current_best = self.best_solution
         ages_best = self.local_operators["AGES"].get_current_best_solution()
         
-        obj_value = self.obj_func.get_solution_cost(ages_best)
-        ages_best.set_objective_value(obj_value)
-        routes_costs = self.obj_func.get_routes_sum_cost(ages_best.routes)
-        ages_best.set_routes_cost(routes_costs)        
+        if (ages_best is not None):
+            obj_value = self.obj_func.get_solution_cost(ages_best)
+            ages_best.set_objective_value(obj_value)
+            routes_costs = self.obj_func.get_routes_sum_cost(ages_best.routes)
+            ages_best.set_routes_cost(routes_costs)        
         
         if (
             self.solution_is_feasible(ages_best) 
@@ -261,11 +270,11 @@ class SBMath(LocalSearch):
             current_best = ages_best
 
         lns_best = self.local_operators["LNS"].get_current_best_solution()
-        
-        obj_value = self.obj_func.get_solution_cost(lns_best)
-        lns_best.set_objective_value(obj_value)
-        routes_costs = self.obj_func.get_routes_sum_cost(lns_best.routes)
-        lns_best.set_routes_cost(routes_costs)        
+        if (lns_best is not None):
+            obj_value = self.obj_func.get_solution_cost(lns_best)
+            lns_best.set_objective_value(obj_value)
+            routes_costs = self.obj_func.get_routes_sum_cost(lns_best.routes)
+            lns_best.set_routes_cost(routes_costs)        
 
         if (
             self.solution_is_feasible(lns_best) 
@@ -276,16 +285,34 @@ class SBMath(LocalSearch):
         sp = self.local_operators["SetPartitionModel"]
         sp_best = sp.get_current_best_solution()
 
-        obj_value = self.obj_func.get_solution_cost(sp_best)
-        sp_best.set_objective_value(obj_value)
-        routes_costs = self.obj_func.get_routes_sum_cost(sp_best.routes)
-        sp_best.set_routes_cost(routes_costs)
+        if (sp_best is not None):
+            obj_value = self.obj_func.get_solution_cost(sp_best)
+            sp_best.set_objective_value(obj_value)
+            routes_costs = self.obj_func.get_routes_sum_cost(sp_best.routes)
+            sp_best.set_routes_cost(routes_costs)
 
         if (
             self.solution_is_feasible(sp_best) 
             and self.obj_func.solution_is_better(sp_best, current_best)
         ):
             current_best = sp_best
+
+        
+        perturb_best = sp.get_current_best_solution()
+
+        if (perturb_best is not None):
+            obj_value = self.obj_func.get_solution_cost(perturb_best)
+            perturb_best.set_objective_value(obj_value)
+            routes_costs = self.obj_func.get_routes_sum_cost(
+                perturb_best.routes
+            )
+            perturb_best.set_routes_cost(routes_costs)
+
+        if (
+            self.solution_is_feasible(perturb_best) 
+            and self.obj_func.solution_is_better(perturb_best, current_best)
+        ):
+            current_best = perturb_best
 
         return current_best
 

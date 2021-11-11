@@ -41,3 +41,4 @@ class Constraint(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def get_attr_relation_solver_constr():
         pass
+

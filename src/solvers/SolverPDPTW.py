@@ -35,7 +35,9 @@ class SolverPDPTW(SolverClass):
             "requests_set" : requests_set
         }
 
+        file_log.add_info_log("Starting construction")
         solution = self.construction.solve(parameters)
+        file_log.add_info_log("Finished construction")
 
         obj_value = self.obj_func.get_solution_cost(solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
@@ -50,8 +52,11 @@ class SolverPDPTW(SolverClass):
         message = "Solution after " + self.construction_name + "\n"
         file_log.add_solution_log(self.best_solution, message)
         
+        file_log.add_info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)
         self.best_solution = new_solution.copy()
+        file_log.add_info_log("Finished metaheuristic")
+        
 
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
         routes_cost = self.obj_func.get_routes_sum_cost(

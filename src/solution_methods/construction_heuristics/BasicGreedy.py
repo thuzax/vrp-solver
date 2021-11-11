@@ -20,7 +20,6 @@ class BasicGreedy(SolutionMethod):
     def solve(self, parameters):
         start = time.time()
         insertion_requests = copy.deepcopy(parameters["requests_set"])
-        # print(self.requests)
         routes = []
         last_size = len(insertion_requests)
         
@@ -44,7 +43,6 @@ class BasicGreedy(SolutionMethod):
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
 
-        # self.print_solution_verification(solution, exec_time)
         return solution
 
 

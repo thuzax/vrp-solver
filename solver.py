@@ -1,3 +1,4 @@
+from src import solvers
 from src.solution_check import get_solution_check_complete_data
 import time
 import random
@@ -92,23 +93,85 @@ def run():
     solve_problem()
 
 
-def execute():
+def initialize(arguments):
     execution_log.info_log("*Starting Program*")
-    start_time = time.time()
 
-    execution_log.info_log("Reading Input Parameters...")
-    arguments = arguments_handler.parse_command_line_arguments()
     arguments_handler.read_configuration(arguments)
 
-    file_log.set_to_make_log(arguments["make_log"], arguments["detail_sol"])
-    random.seed(arguments["seed"])
-    numpy.random.seed(arguments["seed"])
-    time_limit = arguments["time_limit"]
-
-
+    file_log.set_to_make_log(
+        make_log_argument=arguments["make_log"], 
+        out_path=Writer().output_path,
+        out_name=Writer().output_name,
+        detail_solution=arguments["detail_sol"]
+    )
+    
+    file_log.add_info_log(
+        "Input Seed : " + str(arguments["seed"])
+    )
+    file_log.add_info_log(
+            "Input time limit : " + str(arguments["time_limit"])
+        )
+    
     file_log.add_info_log("Command line arguments read with no errors.")
     execution_log.info_log("Setting Random Seed")
     
+    random.seed(arguments["seed"])
+    numpy.random.seed(arguments["seed"])
+
+
+def write_error(exception):
+    traceback_ex = traceback.format_exception(
+        etype=type(exception), 
+        value=exception, 
+        tb=exception.__traceback__
+    )
+    file_log.add_error_log(
+        "An error has ocurred\n" 
+        + ''.join(traceback_ex)
+    )
+    
+    Writer().write_log()
+
+
+def write_solution():
+    solver_problem = SolverClass()
+    Writer().write_solution(solver_problem.get_best_solution())
+            
+    log_message = "Final Solution Verification" + "\n"
+    log_message += get_solution_check_complete_data(
+        solver_problem.get_best_solution(), 
+        solver_problem.constraints, 
+        solver_problem.obj_func
+    )
+    
+    log_message += "\n"
+    file_log.add_solution_log(
+        solver_problem.get_best_solution(),
+        log_message
+    )
+
+def make_solution_dict(total_time, arguments):
+    solver_problem = SolverClass()
+    
+    solution_dict = {}
+    solution_dict["solution"] = solver_problem.get_best_solution_dict()
+    solution_dict["time"] = total_time
+    solution_dict["seed"] = arguments["seed"]
+    solution_dict["input"] = Reader().get_file_name()
+    solution_dict["config_file"] = arguments["configuration_file"]
+    solution_dict["output"] = Writer().get_output_file_name()
+    solution_dict["log_file"] = file_log.get_log_file_name()
+    
+    return solution_dict
+
+
+
+def execute(arguments):
+    start_time = time.time()
+    
+    initialize(arguments)
+    time_limit = arguments["time_limit"]
+
     exception = None
 
     try:
@@ -122,10 +185,7 @@ def execute():
         solver_problem = SolverClass()
         file_log.add_warning_log("Time Limit Exceeded")
         execution_log.warning_log("Time Limit Exceeded")
-        best_sol = solver_problem.update_and_get_best_after_timeout()
-        # if (best_sol is not None):
-        #     solver_problem.print_best_solution()
-        #     solver_problem.print_solution_verification(best_sol, time_limit)
+        solver_problem.update_and_get_best_after_timeout()
     
     except Exception as ex:
         exception = ex
@@ -134,57 +194,34 @@ def execute():
         end_time = time.time()
         total_time = end_time - start_time
         file_log.add_info_log(
-            "Input Seed : " + str(arguments["seed"])
-        )
-        file_log.add_info_log(
-            "Input time limit : " + str(arguments["time_limit"])
-        )
-        file_log.add_info_log(
-            "Total execution time : " + str(total_time)
+            "Algorithm execution time : " + str(total_time)
         )
 
         if (exception is not None):
-            traceback_ex = traceback.format_exception(
-                etype=type(exception), 
-                value=exception, 
-                tb=exception.__traceback__
-            )
-            file_log.add_error_log(
-                "An error has ocurred\n" 
-                + ''.join(traceback_ex)
-            )
-            
-            Writer().write_log()
+            write_error(exception)
             raise exception
-        
-        solver_problem = SolverClass()
-        
-        execution_log.info_log("Writting Solution and Log (if there is)...")
-        
 
+
+        execution_log.info_log("Writting Solution and Log (if there is)...")
+        solver_problem = SolverClass()
         if (solver_problem.get_best_solution() is None):
             execution_log.warning_log("No solution found")
         
         else:
-            Writer().write_solution(solver_problem.get_best_solution())
-            
-            log_message = "Final Solution Verification" + "\n"
-            log_message += get_solution_check_complete_data(
-                solver_problem.get_best_solution(), 
-                solver_problem.constraints, 
-                solver_problem.obj_func
-            )
-            
-            log_message += "\n"
-            file_log.add_solution_log(
-                solver_problem.get_best_solution(),
-                log_message
-            )
+            write_solution()
 
+
+        solution_dict = make_solution_dict(total_time, arguments)
+        
         
         Writer().write_log()
         execution_log.info_log("*Ending Program.*")
+        
+        
+        return solution_dict
 
 
 if __name__=="__main__":
-    execute()
+    execution_log.info_log("Reading Input Parameters...")
+    arguments = arguments_handler.parse_command_line_arguments()
+    print(execute(arguments))

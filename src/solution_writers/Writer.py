@@ -35,6 +35,8 @@ class Writer(GenericClass, metaclass=ABCMeta):
             self.output_name = None
             self.output_type = None
             self.initialize_class_attributes()
+            self.get_output_file_name()
+
 
     def get_output_file_name(self):
         if (self.output_path is None):
@@ -57,7 +59,7 @@ class Writer(GenericClass, metaclass=ABCMeta):
         log_data = file_log.get_log_text()
         
         output_file_name = self.get_output_file_name() + "_log.txt"
-        
+
         with open(output_file_name, "w") as out_file:
             out_file.write(log_data)
 

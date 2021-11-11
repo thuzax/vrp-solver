@@ -5,11 +5,20 @@ solution_detailed = False
 start_time = None
 log_data = ""
 
+output_path = ""
+output_name = ""
+
 def get_log_text():
     global log_data
     return log_data
 
-def set_to_make_log(make_log_argument, detail_solution=False):
+def set_to_make_log(
+    make_log_argument, 
+    out_path, 
+    out_name, 
+    detail_solution=False
+):
+
     global start_time
     start_time = time.time()
 
@@ -18,8 +27,14 @@ def set_to_make_log(make_log_argument, detail_solution=False):
 
     global solution_detailed
     solution_detailed = detail_solution
+
     global log_data
     log_data += "-" * 80
+    
+    global output_path
+    output_path = out_path
+    global output_name
+    output_name = out_name
 
 
 def do_file_log():
@@ -100,13 +115,29 @@ def add_solution_log(solution, extra_message=None):
     add_text_to_log_data(text)
 
 
-def write_log(output_path, output_name):
+def get_log_file_name():
     if (not do_file_log()):
-        return
+        return None
+
+    global output_path
+    global output_name
+    
     if (output_path[-1] != "/"):
         output_path = output_path + "/"
 
     output_name = output_name + "_log.txt"
-    with open(output_path + output_name, "w") as out_file:
+    
+    file_name = output_path + output_name
+    
+    return file_name
+
+
+def write_log(output_path, output_name):
+    if (not do_file_log()):
+        return
+
+    file_name = get_log_file_name()
+
+    with open(file_name, "w") as out_file:
         out_file.write(log_data)
 

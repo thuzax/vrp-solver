@@ -17,6 +17,15 @@
                 "TimeWindowsConstraint"
             ]
         },
+        "WBasicGreedy" : {
+            "obj_func_name" : "ObjVehicles",
+            "constraints_names" : [
+                "AttendAllRequests",
+                "PickupDeliveryConstraint",
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
         "KRegret" : {
             "non_insertion_cost" : 9999999999999,
             "use_modification" : false,
@@ -136,6 +145,8 @@
                 "SetPartitionModel" : "SetPartitionModel",
                 "OriginalPerturbation" : "OriginalPerturbation"
             },
+            "excluded_local_operators" : [
+            ],
             "stop_criteria" : "iterations",
             "max_time" : 10,
             "max_it" : 10,
@@ -203,7 +214,7 @@
         "SolverPDPTW" : {
             "output_type" : "json",
             "obj_func_name" : "ObjVehicles",
-            "construction_name" : "BasicGreedy",
+            "construction_name" : "WBasicGreedy",
             "metaheuristic_name" : "SBMath",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
@@ -215,8 +226,8 @@
     },
     "reader": {
         "ReaderJsonPDPTW" : {
-            "input_path" : "./test_instances/input_files/",
-            "input_name" : "br-ms-cg-10_input",
+            "input_path" : "./test_instances/input_files/new_instances/",
+            "input_name" : "br-mg-bh-10_input",
             "input_type" : "json"
         }
     },
@@ -228,12 +239,10 @@
     },
     "route_class" : {
         "RoutePDPTW" : {
-            
         }
     },
     "vertex_class" : {
         "VertexPDPTW" : {
-
         }
     },
     "insertion_operator" : {
