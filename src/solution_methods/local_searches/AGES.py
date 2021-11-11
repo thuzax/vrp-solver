@@ -291,11 +291,12 @@ class AGES(LocalSearch):
                 self.obj_func,
                 self.constraints
             )
-
-            routes_where_removed[old_route.get_id_value()] = (
-                route_without_ejection_set
-            )
-        
+            if (route_without_ejection_set is not None):
+                routes_where_removed[old_route.get_id_value()] = (
+                    route_without_ejection_set
+                )
+        # print(request)
+        # print(routes_where_removed)
         feasible_insertions = (
             InsertionOperator().get_all_feasible_insertions_from_routes(
                 request,

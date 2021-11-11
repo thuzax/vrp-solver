@@ -35,7 +35,6 @@ class Writer(GenericClass, metaclass=ABCMeta):
             self.output_name = None
             self.output_type = None
             self.initialize_class_attributes()
-            self.get_output_file_name()
 
 
     def get_output_file_name(self):
@@ -47,7 +46,6 @@ class Writer(GenericClass, metaclass=ABCMeta):
 
         if (self.output_name is None):
             self.output_name = Reader().input_name
-
 
         return self.output_path + self.output_name
 
@@ -71,8 +69,6 @@ class Writer(GenericClass, metaclass=ABCMeta):
             output_file_name += self.output_type
         else:
             output_file_name += "txt"
-
-
 
         self.write_solution_specific(output_file_name, solution)
 

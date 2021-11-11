@@ -165,7 +165,6 @@ class Solution(GenericClass):
         sol_dict["routes"] = {}
         sol_dict["costs"] = {}
         for i, route in enumerate(self.routes):
-            print(route)
             sol_dict["routes"][i] = [
                 vertex_id 
                 for vertex_id in route.requests_order()

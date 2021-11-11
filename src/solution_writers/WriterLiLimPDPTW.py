@@ -23,7 +23,7 @@ class WriterLiLimPDPTW(Writer):
     def write_solution_specific(self, output_file_name, solution):
         text = self.make_header()
         text += solution.get_routes_output_text()
-
+        print(output_file_name)
         with open(output_file_name, "w") as output_file:
             output_file.write(text)
 

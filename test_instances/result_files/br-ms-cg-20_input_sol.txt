@@ -1,9 +1,0 @@
-Instance name : br-ms-cg-20_input
-Authors : 
-Date : 
-Reference 
-Solution
-Route 1 : 10 20 2 12 
-Route 2 : 6 8 16 4 18 14 
-Route 3 : 1 9 19 7 11 17 
-Route 4 : 5 3 15 13 

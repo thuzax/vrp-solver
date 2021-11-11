@@ -1,5 +1,7 @@
 import argparse
 import json
+from src.instance_readers import Reader
+from src.solution_writers.Writer import Writer
 from src.vertex_classes import Vertex
 
 from src import route_classes
@@ -184,6 +186,43 @@ def read_configuration(arguments):
         create_operator_class(dict_removal_op)
 
 
+    # Set input file from command line
+    if (arguments["input"] is not None):
+        file_name = arguments["input"]
+        
+        splitted_name = file_name.split("/")
+        
+        input_path = "/".join(splitted_name[:-1]) + "/"
+        input_name = splitted_name[-1].split(".")[0]
+        input_type = splitted_name[-1].split(".")[1]
+
+        Reader().set_attribute("input_path", input_path)
+        Reader().set_attribute("input_name", input_name)
+        Reader().set_attribute("input_type", input_type)
+        
+    
+    if (arguments["output_path"] is not None):
+        output_path = arguments["output_path"]
+        Writer().set_attribute("output_path", output_path)
+    
+    # Set output file from command line
+    if (arguments["output"] is not None):
+        file_name = arguments["output"]
+        
+        splitted_name = file_name.split("/")
+        
+        output_path = "/".join(splitted_name[:-1]) + "/"
+        output_name = splitted_name[-1].split(".")[0]
+        output_type = splitted_name[-1].split(".")[1]
+
+        Writer().set_attribute("output_path", output_path)
+        Writer().set_attribute("output_name", output_name)
+        Writer().set_attribute("output_type", output_type)
+
+    # Guarantee that there is a output file path and name
+    Writer().get_output_file_name()
+
+
 
 def parse_command_line_arguments():
     """Manage the command line arguments
@@ -236,6 +275,37 @@ def parse_command_line_arguments():
         default=False,
         required=False
     )
+    
+    parser.add_argument(
+        "--input",
+        dest="input",
+        help="path to input file. This flag has higher proiority over the configuration file",
+        action="store",
+        type=str,
+        default=None,
+        required=False
+    )
+    
+    parser.add_argument(
+        "--output",
+        dest="output",
+        help="path to output file. If --make-log is set, the log file will be written in the same folder. This flag has higher proiority over the configuration file.",
+        action="store",
+        type=str,
+        default=None,
+        required=False
+    )
+
+    parser.add_argument(
+        "--output-path",
+        dest="output_path",
+        help="path to output folder. This flag has higher proiority over the configuration file, but smaller than the flag --output.",
+        action="store",
+        type=str,
+        default=None,
+        required=False
+    )
+
 
     args = parser.parse_args()
 

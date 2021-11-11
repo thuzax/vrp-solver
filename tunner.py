@@ -3,6 +3,8 @@ import hyperopt
 import pprint
 import json
 
+import solver
+
 def constructive_algs():
     algs_data = {
         "BasicGreedy" : {
@@ -312,22 +314,28 @@ def meta_options():
     return meta_choice
 
 
+def solvers_algs():
+    sol_algs = {
+        "SolverPDPTW" : {
+            "output_type" : "json",
+            "obj_func_name" : "ObjVehicles",
+            "construction_name" : constructive_options(),
+            "metaheuristic_name" : "SBMath",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint",
+                "PickupDeliveryConstraint",
+                "AttendAllRequests"
+            ]
+        }
+    }
+    return sol_algs
+
 def solvers_options():
     choice = hyperopt.hp.choice(
         "solver_choice",
         [
-            ("SolverPDPTW", {
-                "output_type" : "json",
-                "obj_func_name" : "ObjVehicles",
-                "construction_name" : constructive_options(),
-                "metaheuristic_name" : "SBMath",
-                "constraints_names" : [
-                    "HomogeneousCapacityConstraint",
-                    "TimeWindowsConstraint",
-                    "PickupDeliveryConstraint",
-                    "AttendAllRequests"
-                ]
-            })
+            "SolverPDPTW"
         ]
     )
     return choice
@@ -416,7 +424,7 @@ def removal_operator_data():
     return remov_data
 
 
-def get_obj(configuration):
+def make_configuration_input_file(configuration, input_config_name):
     algs_keys = [
         "constructive_algs",
         "reinsertion_algs",
@@ -434,9 +442,6 @@ def get_obj(configuration):
     insertion_class_name = "InsertionOperatorPDPTW"
     removal_class_name = "RemovalOperatorPDPTW"
     
-    # for key, value in configuration.items():
-    #     print(key)
-    # print("------------")
     out_data = {}
     
     out_data["objective"] = configuration["objectives"]
@@ -471,28 +476,64 @@ def get_obj(configuration):
     }
     
     out_data["solution_methods"] = {}
+
     
     for algs_key in algs_keys:
         for name, algorithm in configuration[algs_key].items():
             out_data["solution_methods"][name] = algorithm
 
-
+    print(configuration["solver"])
+    solver_name = configuration["solver"]
+    print(configuration["solvers_algs"])
+    out_data["solver"] = {
+        solver_name : configuration["solvers_algs"][solver_name]
+    }
     data = json.dumps(out_data, indent=4)
     with open("teste.json", "w") as f:
         f.write(data)
+
+
+def get_obj(params):
+    configuration, inputs = params
+    input_config_name = "./teste.json"
+    make_configuration_input_file(configuration, input_config_name)
+    
+    results = []
+    for i in range(len(inputs)):
+        arguments = {}
+        arguments["configuration_file"] = "./teste.json"
+        arguments["seed"] = 10
+        arguments["time_limit"] = 5
+        arguments["make_log"] = True
+        arguments["detail_sol"] = False
+        arguments["input"] = inputs[i]
+        arguments["output"] = None
+        arguments["output_path"] = "./test_instances/result_files/"
+        
+        result = solver.execute(arguments=arguments)
+        results.append(result)
+    
+    for i, result in enumerate(results):
+        print(input_config_name)
+        
+        if (result["solution"] is None):
+            print(None, None)
+            continue
+        
+        print(
+            result["solution"]["solution_cost"], 
+            result["solution"]["solution_routes_cost"]
+        )
     
     return len(configuration)
 
 
 
 if __name__ == "__main__":
-    random.seed(0)
 
-    params = hyperopt.hp.choice(
-        "configuration",
-        [
-            {
+    configuration = {
                 "solver" : solvers_options(),
+                "solvers_algs" : solvers_algs(),
                 
                 "constructive_algs" : constructive_algs(),
                 "reinsertion_algs" : reinsertion_algs(),
@@ -512,17 +553,25 @@ if __name__ == "__main__":
                 "route" : route_data(),
                 "vertex" : vertex_data()
                 
-            }
-        ]
-    )
+    }
 
-    print(params)
+    inputs = [
+        "./test_instances/input_files/new_instances/br-ms-cg-10_input.json",
+        "./test_instances/input_files/new_instances/br-ms-cg-20_input.json",
+        "./test_instances/input_files/new_instances/br-ms-cg-30_input.json",
+        "./test_instances/input_files/new_instances/br-ms-cg-100_input.json",
+        "./test_instances/input_files/new_instances/br-mg-bh-10_input.json",
+        "./test_instances/input_files/new_instances/br-mg-bh-200_input.json",
+        "./test_instances/input_files/SB_json/bar-n100-1.json"
+    ]
+    
+    params = (configuration, inputs)
 
     best = hyperopt.fmin(
         fn=get_obj, 
         space=params, 
         algo=hyperopt.tpe.suggest, 
-        max_evals=10
+        max_evals=5
     )
 
-    pprint.pprint(best)
+    # pprint.pprint(best)
