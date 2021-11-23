@@ -1,14 +1,14 @@
 from src.objective_functions import ObjFunction
 
 class ObjDistancePDPTW(ObjFunction):
-    distance_matrix = None
-    depot = None
 
     def __init__(self):
         super().__init__("Distance Objective")
 
 
     def initialize_class_attributes(self):
+        self.distance_matrix = None
+        self.depot = None
         super().initialize_class_attributes()
 
 

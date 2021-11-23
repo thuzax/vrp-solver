@@ -123,3 +123,8 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
             return False
 
         return True
+    
+    
+    @staticmethod
+    def clear():
+        ObjFunction.children_instances.clear()

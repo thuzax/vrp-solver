@@ -82,7 +82,6 @@ class Reader(GenericClass, metaclass=ABCMeta):
 
     def read_input_file(self):
         file_name = self.get_file_name()
-
         self.read_specific_input(file_name)
         self.create_vertices()
 
@@ -93,3 +92,8 @@ class Reader(GenericClass, metaclass=ABCMeta):
     def read_specific_input(self, file_name):
         pass
 
+    @staticmethod
+    def clear():
+        for subcls in Reader.__subclasses__():
+            subcls.instance = None
+        Reader.instance = None

@@ -1,0 +1,94 @@
+--------------------------------------------------------------------------------(Solver execution current time: 4.5299530029296875e-06)
+[INFO] Input Seed : 10
+--------------------------------------------------------------------------------(Solver execution current time: 2.0265579223632812e-05)
+[INFO] Input time limit : 5
+--------------------------------------------------------------------------------(Solver execution current time: 2.47955322265625e-05)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.01826167106628418)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.01831674575805664)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 0.018334627151489258)
+[INFO] Starting construction
+--------------------------------------------------------------------------------(Solver execution current time: 0.08521032333374023)
+[INFO] Finished construction
+--------------------------------------------------------------------------------(Solver execution current time: 0.08555030822753906)
+[SOLUTION]
+Solution after BasicGreedy
+obj_value: 5; obj_routes: 152891
+Route 1 : 10 20 4 3 13 14 
+Route 2 : 6 8 16 18 
+Route 3 : 5 1 15 11 
+Route 4 : 9 7 19 17 
+Route 5 : 2 12 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.08557963371276855)
+[INFO] Starting metaheuristic
+--------------------------------------------------------------------------------(Solver execution current time: 1.4296715259552002)
+[SOLUTION]
+AGES
+IT: 2
+Exec Time: 1.3414654731750488
+Improved
+obj_value: 4; obj_routes: 183048
+Route 1 : 10 20 4 3 13 14 
+Route 2 : 8 7 18 17 
+Route 3 : 5 1 15 11 
+Route 4 : 6 9 16 2 19 12 
+
+--------------------------------------------------------------------------------(Solver execution current time: 3.866818904876709)
+[SOLUTION]
+LNS
+IT: 1001
+Exec Time: 2.4362006187438965
+Improved
+obj_value: 4; obj_routes: 150229
+Route 1 : 2 12 3 13 
+Route 2 : 10 20 9 7 19 17 
+Route 3 : 5 1 15 11 
+Route 4 : 6 8 16 4 18 14 
+
+--------------------------------------------------------------------------------(Solver execution current time: 4.872723340988159)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.9993741512298584
+obj_value: 5; obj_routes: 152891
+Route 1 : 10 20 4 3 13 14 
+Route 2 : 6 8 16 18 
+Route 3 : 5 1 15 11 
+Route 4 : 9 7 19 17 
+Route 5 : 2 12 
+
+--------------------------------------------------------------------------------(Solver execution current time: 5.014672756195068)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 5.014715671539307)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 5.014997243881226)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 5.015010833740234)
+[INFO] Algorithm execution time : 5.031761169433594
+--------------------------------------------------------------------------------(Solver execution current time: 5.015275239944458)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Attend All Requests Constraint OK
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+
+obj_value: 4; obj_routes: 150229
+Route 1 : 2 12 3 13 
+Route 2 : 10 20 9 7 19 17 
+Route 3 : 5 1 15 11 
+Route 4 : 6 8 16 4 18 14 
+
+--------------------------------------------------------------------------------

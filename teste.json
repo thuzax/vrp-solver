@@ -84,22 +84,22 @@
         "ShawRemovalPDPTW": {
             "constraints_names": [],
             "obj_func_name": "ObjDistancePDPTW",
-            "p": 4,
-            "phi": 3,
-            "psi": 8,
-            "qui": 5
+            "p": 3,
+            "phi": 4,
+            "psi": 6,
+            "qui": 6
         },
         "WorstRemoval": {
             "constraints_names": [],
             "obj_func_name": "ObjDistancePDPTW",
-            "p": 6
+            "p": 1
         },
         "ModBiasedShift": {
             "constraints_names": [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "mi": 6.557159057233069,
+            "mi": 4.7473415038850835,
             "obj_func_name": "ObjVehicles"
         },
         "RandomExchange": {
@@ -129,41 +129,41 @@
                 "OriginalPerturbation": "OriginalPerturbation"
             },
             "max_ejections": 2,
-            "max_number_of_perturbations": 28,
-            "number_of_perturb_moves": 19,
+            "max_number_of_perturbations": 6,
+            "number_of_perturb_moves": 14,
             "obj_func_name": "ObjVehicles",
             "stop_criteria": "max_perturbation"
         },
         "LNS": {
             "acceptance_algorithm_data": {
                 "LAHC": {
-                    "list_size": 119
+                    "list_size": 115
                 }
             },
-            "b_max": 0.15071501161320694,
-            "b_min": 4,
+            "b_max": 0.33625359565721,
+            "b_min": 2,
             "constraints_names": [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "AttendAllRequests"
             ],
-            "k_max": 6,
+            "k_max": 1,
             "k_min": 5,
             "local_operators_names": {
-                "KRegret": "WKRegret",
+                "KRegret": "KRegret",
                 "RandomRemoval": "RandomRemoval",
                 "ShawRemoval": "ShawRemovalPDPTW",
                 "WorstRemoval": "WorstRemoval"
             },
             "max_it": 1001,
-            "max_it_without_improv": 296,
+            "max_it_without_improv": 486,
             "max_time": null,
             "max_time_without_improv": null,
             "obj_func_name": "ObjVehicles",
             "removals_probabilities": {
-                "RandomRemoval": 9.704964287248949,
-                "ShawRemoval": 5.245908363862162,
-                "WorstRemoval": 8.300740468824344
+                "RandomRemoval": 7.757178968746732,
+                "ShawRemoval": 7.435840119412738,
+                "WorstRemoval": 6.9047809394393775
             },
             "stop_criteria": "iterations"
         },
@@ -182,9 +182,9 @@
             },
             "obj_func_name": "ObjVehicles",
             "perturb_probabilities": {
-                "ModBiasedShift": 2.7521984082975153,
-                "RandomExchange": 4.660188760676142,
-                "RandomShift": 3.5034574480159066
+                "ModBiasedShift": 3.961957114678671,
+                "RandomExchange": 3.572053708226975,
+                "RandomShift": 3.016159245177707
             }
         },
         "SBMath": {
@@ -207,7 +207,7 @@
             "max_it": 1000,
             "max_it_without_improv": 300,
             "max_time": 0,
-            "number_of_perturb_moves": 201,
+            "number_of_perturb_moves": 116,
             "obj_func_name": "ObjVehicles",
             "routes_diff_method": "set",
             "stop_criteria": "iterations"

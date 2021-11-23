@@ -37,3 +37,13 @@ class Vertex(GenericClass):
     @staticmethod
     def get_reader_vertex_attr_relation():
         return Vertex.reader_vertex_attr
+    
+
+    def clear():
+        for subcls in Vertex.__subclasses__():
+            subcls.instance = None
+            subcls.vertex_cls = None
+            subcls.reader_vertex_attr = None
+        Vertex.instance = None
+        Vertex.vertex_cls = None
+        Vertex.reader_vertex_attr = None

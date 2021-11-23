@@ -179,5 +179,8 @@ class Solution(GenericClass):
     def get_reader_solut_attr_relation(self):
         return {
         }
-        
     
+    
+    @staticmethod
+    def clear():
+        pass

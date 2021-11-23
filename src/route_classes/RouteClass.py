@@ -1,4 +1,5 @@
 import copy
+from os import stat
 from src.route_classes import Route
 import numpy
 
@@ -164,4 +165,9 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
     @staticmethod
     @abstractmethod
     def get_attr_relation_reader_route():
+        pass
+
+    
+    @staticmethod
+    def clear():
         pass

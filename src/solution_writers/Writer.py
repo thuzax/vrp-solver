@@ -76,3 +76,9 @@ class Writer(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def write_solution_specific(self, output_file_name, solution):
         pass
+
+
+    @staticmethod
+    def clear():
+        for subcls in Writer.__subclasses__():
+            subcls.instance = None

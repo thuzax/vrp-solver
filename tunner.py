@@ -2,8 +2,13 @@ import random
 import hyperopt
 import pprint
 import json
+import math
 
 import solver
+
+
+big_m = 99999999999999999999999999999999999999
+
 
 def constructive_algs():
     algs_data = {
@@ -493,43 +498,71 @@ def make_configuration_input_file(configuration, input_config_name):
         f.write(data)
 
 
-def get_obj(params):
-    configuration, inputs = params
-    input_config_name = "./teste.json"
-    make_configuration_input_file(configuration, input_config_name)
-    
+def solve_inputs(inputs, config_file):
     results = []
     for i in range(len(inputs)):
         arguments = {}
-        arguments["configuration_file"] = "./teste.json"
+        arguments["configuration_file"] = config_file
         arguments["seed"] = 10
-        arguments["time_limit"] = 5
+        arguments["time_limit"] = 1
         arguments["make_log"] = True
         arguments["detail_sol"] = False
         arguments["input"] = inputs[i]
         arguments["output"] = None
         arguments["output_path"] = "./test_instances/result_files/"
         
+        
         result = solver.execute(arguments=arguments)
         results.append(result)
+        
+    return results
+
+
+def read_cost_matrix():
+    pass
+
+
+
+def calculate_solution_value(result_dict, matrix_maxis, norm_divisor):
+    if (result_dict["solution"] is None):
+        return big_m
+
+
+def get_obj(params):
+    configuration, inputs = params
+    input_config_name = "./teste.json"
+    
+    make_configuration_input_file(configuration, input_config_name)
+    
+    results = solve_inputs(inputs, input_config_name)
     
     for i, result in enumerate(results):
-        print(input_config_name)
+        print(inputs[i])
         
         if (result["solution"] is None):
-            print(None, None)
+            print("None" + " " + "None")
             continue
         
         print(
-            result["solution"]["solution_cost"], 
-            result["solution"]["solution_routes_cost"]
+            str(result["solution"]["solution_cost"])
+            + " "
+            + str(result["solution"]["solution_routes_cost"])
         )
+    
+    normalized_cost_divisor = 10 ** (int(math.log(len(inputs), 10)) + 1)
+    
+    matrices_maxis = []
+    
+    for inp in inputs:
+        matrix = read_cost_matrix()
     
     return len(configuration)
 
 
 
 if __name__ == "__main__":
+
+    random.seed(0)
 
     configuration = {
                 "solver" : solvers_options(),
@@ -571,7 +604,7 @@ if __name__ == "__main__":
         fn=get_obj, 
         space=params, 
         algo=hyperopt.tpe.suggest, 
-        max_evals=5
+        max_evals=1
     )
 
     # pprint.pprint(best)

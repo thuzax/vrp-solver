@@ -50,3 +50,14 @@ class Route(GenericClass):
     @staticmethod
     def update_route_class_params(params):
         Route.route_subclass_params = params
+    
+    
+    @staticmethod
+    def clear():
+        for subcls in Route.__subclasses__():
+            subcls.instance = None
+            subcls.route_cls = None
+            subcls.reader_route_attr = None
+        Route.instance = None
+        Route.route_cls = None
+        Route.reader_route_attr = None

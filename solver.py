@@ -1,10 +1,12 @@
 from src import solvers
+from src.GenericClass import GenericClass
 from src.solution_check import get_solution_check_complete_data
 import time
 import random
 import numpy
 import traceback
 from func_timeout import func_timeout, FunctionTimedOut
+from src.solution_methods.SolutionMethod import SolutionMethod
 
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
@@ -13,6 +15,7 @@ from src.objects_managers import *
 from src import arguments_handler, exceptions, file_log
 from src import execution_log
 from src.solution_writers import Writer
+from src.solution_writers.WriterLiLimPDPTW import WriterLiLimPDPTW
 
 from src.solvers import *
 from src.instance_readers import *
@@ -70,7 +73,7 @@ def set_read_objects_attributes(reader):
 
 
 def read_input_file():
-    execution_log.info_log("Reading input file...")
+    execution_log.info_log("Reading input file: " + Reader().get_file_name())
     reader = Reader()
     reader.read_input_file()
     set_read_objects_attributes(reader)
@@ -165,6 +168,10 @@ def make_solution_dict(total_time, arguments):
     return solution_dict
 
 
+def clear():
+    for child_class in GenericClass.__subclasses__():
+        child_class.clear()
+
 
 def execute(arguments):
     start_time = time.time()
@@ -202,7 +209,10 @@ def execute(arguments):
             raise exception
 
 
-        execution_log.info_log("Writting Solution and Log (if there is)...")
+        execution_log.info_log(
+            "Writting Solution and Log (if there is): "
+            + str(Writer().get_output_file_name())
+        )
         solver_problem = SolverClass()
         if (solver_problem.get_best_solution() is None):
             execution_log.warning_log("No solution found")
@@ -216,7 +226,7 @@ def execute(arguments):
         
         Writer().write_log()
         execution_log.info_log("*Ending Program.*")
-        
+        clear()
         
         return solution_dict
 

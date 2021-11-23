@@ -3,11 +3,11 @@
 from src.objective_functions import ObjFunction
 
 class ObjVehicles(ObjFunction):
-    distance_matrix = None
-    depot = None
 
 
     def __init__(self):
+        self.distance_matrix = None
+        self.depot = None
         super().__init__("Distance Objective")
 
 

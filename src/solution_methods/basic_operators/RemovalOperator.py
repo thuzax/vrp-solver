@@ -84,3 +84,9 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
 
         return solution
         
+    
+    @staticmethod
+    def clear():
+        for subcls in RemovalOperator.__subclasses__():
+            subcls.instance = None
+        RemovalOperator.instance = None

@@ -1,3 +1,4 @@
+from os import stat
 import numpy
 
 from abc import ABC, ABCMeta, abstractmethod
@@ -6,6 +7,7 @@ from src import exceptions
 from src.GenericClass import GenericClass
 
 class VertexClass(GenericClass, metaclass=ABCMeta):
+    
     def __init__(self, vertex_class_name):
         if (not hasattr(self, "name")):
             self.name = vertex_class_name
@@ -19,4 +21,9 @@ class VertexClass(GenericClass, metaclass=ABCMeta):
     @staticmethod
     @abstractmethod
     def get_attr_relation_reader_vertex():
+        pass
+
+    
+    @staticmethod
+    def clear():
         pass

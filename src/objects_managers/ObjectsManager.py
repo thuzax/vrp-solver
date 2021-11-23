@@ -38,3 +38,8 @@ class ObjectsManager:
 
     def get_list(self):
         return self.objs_list
+
+
+    @staticmethod
+    def clear():
+        ObjectsManager.children_instances.clear()

@@ -20,3 +20,7 @@ class AcceptanceHeuristic(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def get_attr_relation_reader_accept_heuri(self):
         pass
+    
+    @staticmethod
+    def clear():
+        pass

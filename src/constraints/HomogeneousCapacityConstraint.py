@@ -36,7 +36,7 @@ class HomogeneousCapacityConstraint(Constraint):
         }
         return attr_relation
 
+
     def set_attribute(self, name, value):
         super().set_attribute(name, value)
-        if ("name" == "max_capacity"):
-            exit(0)
+

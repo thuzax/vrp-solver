@@ -42,3 +42,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
     def get_attr_relation_solver_constr():
         pass
 
+
+    @staticmethod
+    def clear():
+        Constraint.children_instances.clear()

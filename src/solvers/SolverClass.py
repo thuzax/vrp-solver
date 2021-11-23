@@ -165,12 +165,12 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     def print_best_solution(self):
-        if (self.best_solution is None):
-            return None
         print(self.best_solution)
 
 
     def get_best_solution_dict(self):
+        if (self.best_solution is None):
+            return None
         return self.best_solution.get_dict()
 
 
@@ -209,9 +209,10 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         return {
             "input_name" : "output_name"
         }
-    
-    # def set_attribute(self, name, value):
-    #     super().set_attribute(name, value)
-    #     if (name == "output_name"):
-    #         print(name)
-    #         exit(0)
+
+
+    @staticmethod
+    def clear():
+        for subcls in SolverClass.__subclasses__():
+            subcls.instance = None
+        SolverClass.instance = None

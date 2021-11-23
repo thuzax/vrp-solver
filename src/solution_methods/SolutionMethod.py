@@ -71,3 +71,9 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def get_attr_relation_reader_heuristic(self):
         return {}
+
+
+    @staticmethod
+    def clear():
+        SolutionMethod.children_instances.clear()
+            

@@ -266,3 +266,10 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         ])
 
         return old_route_identifying
+    
+    
+    @staticmethod
+    def clear():
+        for subcls in InsertionOperator.__subclasses__():
+            subcls.instance = None
+        InsertionOperator.instance = None
