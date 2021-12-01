@@ -1,0 +1,7 @@
+Instance name : br-ms-cg-10_input
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 1 5 6 10 
+Route 2 : 2 4 7 9 3 8 

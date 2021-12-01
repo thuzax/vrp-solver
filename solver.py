@@ -153,6 +153,7 @@ def write_solution():
         log_message
     )
 
+
 def make_solution_dict(total_time, arguments):
     solver_problem = SolverClass()
     

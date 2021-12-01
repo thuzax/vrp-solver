@@ -1,0 +1,4 @@
+./test_instances/input_files/new_instances/br-ms-cg-10_input.json
+./test_instances/input_files/new_instances/br-ms-cg-20_input.json
+./test_instances/input_files/new_instances/br-ms-cg-30_input.json
+./test_instances/input_files/new_instances/br-mg-bh-10_input.json

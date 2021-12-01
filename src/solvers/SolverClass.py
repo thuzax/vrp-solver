@@ -92,23 +92,6 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         return heuristic_obj
 
 
-    # def write_final_data(self, running_data):
-    #     if (self.output_path[-1] != "/"):
-    #         self.output_path += "/"
-
-    #     if (self.output_name == ""):
-    #         self.output_name = self.alternative_output_name + "_sol"
-
-    #     json_output_file_name = ""
-    #     json_output_file_name += self.output_path 
-    #     json_output_file_name += "running_data_"
-    #     json_output_file_name += self.output_name 
-    #     json_output_file_name += ".json"
-
-    #     with open(json_output_file_name, "w") as output_file:
-    #         output_file.write(json.dumps(running_data, indent=2))
-
-
     @abstractmethod
     def solve(self):
         pass

@@ -1,9 +1,13 @@
 import time
+import json
+
+from numpy import e
 
 make_log = False
 solution_detailed = False
 start_time = None
 log_data = ""
+log_solutions_dicts = []
 
 output_path = ""
 output_name = ""
@@ -11,6 +15,10 @@ output_name = ""
 def get_log_text():
     global log_data
     return log_data
+
+def get_log_sol_dict():
+    global log_solutions_dicts
+    return log_solutions_dicts
 
 def set_to_make_log(
     make_log_argument, 
@@ -52,6 +60,11 @@ def add_text_to_log_data(text):
     global log_data
     log_data += text
     log_data += "-" * 80
+    
+    
+def add_dict_to_log_dicts(sol_dict):
+    global log_solutions_dicts
+    log_solutions_dicts.append(sol_dict)
 
 
 def get_time_text():
@@ -113,7 +126,7 @@ def add_solution_log(solution, extra_message=None):
         text += solution.get_routes_output_text()
     
     add_text_to_log_data(text)
-
+    add_dict_to_log_dicts(solution.get_dict())
 
 def get_log_file_name():
     if (not do_file_log()):
@@ -138,6 +151,16 @@ def write_log(output_path, output_name):
 
     file_name = get_log_file_name()
 
-    with open(file_name, "w") as out_file:
+    with open(file_name, "w+") as out_file:
         out_file.write(log_data)
+
+
+def write_sol_json_log(output_path, output_name):
+    if (not do_file_log()):
+        return
+
+    file_name = get_log_file_name()
+
+    with open(file_name, "w+") as out_file:
+        out_file.write(json.dumps(log_solutions_dicts))
 

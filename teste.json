@@ -84,22 +84,22 @@
         "ShawRemovalPDPTW": {
             "constraints_names": [],
             "obj_func_name": "ObjDistancePDPTW",
-            "p": 3,
-            "phi": 4,
+            "p": 6,
+            "phi": 3,
             "psi": 6,
-            "qui": 6
+            "qui": 9
         },
         "WorstRemoval": {
             "constraints_names": [],
             "obj_func_name": "ObjDistancePDPTW",
-            "p": 1
+            "p": 9
         },
         "ModBiasedShift": {
             "constraints_names": [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "mi": 4.7473415038850835,
+            "mi": 8.031634609353091,
             "obj_func_name": "ObjVehicles"
         },
         "RandomExchange": {
@@ -129,26 +129,26 @@
                 "OriginalPerturbation": "OriginalPerturbation"
             },
             "max_ejections": 2,
-            "max_number_of_perturbations": 6,
-            "number_of_perturb_moves": 14,
+            "max_number_of_perturbations": 41,
+            "number_of_perturb_moves": 95,
             "obj_func_name": "ObjVehicles",
             "stop_criteria": "max_perturbation"
         },
         "LNS": {
             "acceptance_algorithm_data": {
                 "LAHC": {
-                    "list_size": 115
+                    "list_size": 161
                 }
             },
-            "b_max": 0.33625359565721,
-            "b_min": 2,
+            "b_max": 0.30909927383829416,
+            "b_min": 4,
             "constraints_names": [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "AttendAllRequests"
             ],
-            "k_max": 1,
-            "k_min": 5,
+            "k_max": 6,
+            "k_min": 2,
             "local_operators_names": {
                 "KRegret": "KRegret",
                 "RandomRemoval": "RandomRemoval",
@@ -156,14 +156,14 @@
                 "WorstRemoval": "WorstRemoval"
             },
             "max_it": 1001,
-            "max_it_without_improv": 486,
+            "max_it_without_improv": 444,
             "max_time": null,
             "max_time_without_improv": null,
             "obj_func_name": "ObjVehicles",
             "removals_probabilities": {
-                "RandomRemoval": 7.757178968746732,
-                "ShawRemoval": 7.435840119412738,
-                "WorstRemoval": 6.9047809394393775
+                "RandomRemoval": 5.109705349722561,
+                "ShawRemoval": 1.5146180070304267,
+                "WorstRemoval": 9.381494907267218
             },
             "stop_criteria": "iterations"
         },
@@ -182,9 +182,9 @@
             },
             "obj_func_name": "ObjVehicles",
             "perturb_probabilities": {
-                "ModBiasedShift": 3.961957114678671,
-                "RandomExchange": 3.572053708226975,
-                "RandomShift": 3.016159245177707
+                "ModBiasedShift": 2.983522680604433,
+                "RandomExchange": 7.984775875654556,
+                "RandomShift": 1.2014932043896887
             }
         },
         "SBMath": {
@@ -207,7 +207,7 @@
             "max_it": 1000,
             "max_it_without_improv": 300,
             "max_time": 0,
-            "number_of_perturb_moves": 116,
+            "number_of_perturb_moves": 60,
             "obj_func_name": "ObjVehicles",
             "routes_diff_method": "set",
             "stop_criteria": "iterations"
@@ -231,7 +231,7 @@
                 "PickupDeliveryConstraint",
                 "AttendAllRequests"
             ],
-            "construction_name": "BasicGreedy",
+            "construction_name": "WBasicGreedy",
             "metaheuristic_name": "SBMath",
             "obj_func_name": "ObjVehicles",
             "output_type": "json"

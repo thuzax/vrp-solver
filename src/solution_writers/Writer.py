@@ -1,3 +1,4 @@
+import json
 from abc import ABC, ABCMeta, abstractmethod
 from src.instance_readers import Reader
 from src.vertex_classes import Vertex
@@ -8,7 +9,6 @@ from src import exceptions
 from src.GenericClass import GenericClass
 
 from pprint import pprint
-
 
 class Writer(GenericClass, metaclass=ABCMeta):
 
@@ -58,8 +58,15 @@ class Writer(GenericClass, metaclass=ABCMeta):
         
         output_file_name = self.get_output_file_name() + "_log.txt"
 
-        with open(output_file_name, "w") as out_file:
+        with open(output_file_name, "w+") as out_file:
             out_file.write(log_data)
+
+        solutions_dict = file_log.get_log_sol_dict()
+        output_json_file_name = self.get_output_file_name() + "_sol_log.json"
+        
+        with open(output_json_file_name, "w+") as out_file:
+            out_file.write(json.dumps(solutions_dict))
+
 
 
     def write_solution(self, solution):
