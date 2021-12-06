@@ -13,7 +13,7 @@ if __name__=="__main__":
         lines = text.split("\n")
         
         json_file_name = lines[0].strip().split(":")[1]
-        json_file_name = json_file_name.strip().split(" ")[0] + ".json"
+        json_file_name = "SB_" + json_file_name.strip().split(" ")[0] + ".json"
         
         number_of_points = lines[4].strip().split(":")[1]
         number_of_points = int(number_of_points.strip().split(" ")[0])

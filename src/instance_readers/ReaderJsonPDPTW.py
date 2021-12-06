@@ -180,7 +180,8 @@ class ReaderJsonPDPTW(Reader):
 
         self.capacity = int(cap)
         self.planning_horizon = int(planning_horizon)
-        self.time_windows_size = int(time_windows_size)
+        if (time_windows_size is not None):
+            self.time_windows_size = int(time_windows_size)
 
         self.read_points(points_dict, n_points)
         self.distance_matrix = self.read_matrix(dist_mat)
