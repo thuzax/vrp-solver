@@ -1,0 +1,12 @@
+./static_version_parametrization/instances/json_format/li_lim_LC1_10_7-100v.json
+./static_version_parametrization/instances/json_format/li_lim_LC2_2_10-200v.json
+./static_version_parametrization/instances/json_format/li_lim_LRC1_6_1-600v.json
+./static_version_parametrization/instances/json_format/SB_bar-n100-6.json
+./static_version_parametrization/instances/json_format/SB_bar-n2000-7.json
+./static_version_parametrization/instances/json_format/SB_ber-n800-3.json
+./static_version_parametrization/instances/json_format/SB_ber-n4000-4.json
+./static_version_parametrization/instances/json_format/SB_nyc-n400-1.json
+./static_version_parametrization/instances/json_format/SB_nyc-n2500-1.json
+./static_version_parametrization/instances/json_format/SB_poa-n1500-5.json
+./static_version_parametrization/instances/json_format/SB_poa-n3000-2.json
+./static_version_parametrization/instances/json_format/SB_poa-n5000-2.json
