@@ -20,7 +20,7 @@ class RandomInsertion(SolutionMethod):
 
     def solve(self, solution, parameters):
         new_solution = solution.copy()
-        requests = parameters["requests"]
+        requests = parameters["requests_set"]
         i_op = InsertionOperator()
         for request in requests:
             feasible_insertions = (
@@ -35,9 +35,9 @@ class RandomInsertion(SolutionMethod):
             insertion_positions = []
             routes_after_insertion = []
             for feasible_insertion in feasible_insertions:
-                positions, routes = feasible_insertion
-                insertion_positions.append(positions)
-                routes_after_insertion.append(routes)
+                position, route, insert_cost = feasible_insertion
+                insertion_positions.append(position)
+                routes_after_insertion.append(route)
                 
             if (len(routes_after_insertion) <= 0):
                 continue
@@ -81,9 +81,11 @@ class RandomInsertion(SolutionMethod):
         return new_solution
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
     def update_route_values(self, route, position, request):
         pass
-    
 
     def get_attr_relation_reader_heuristic(self):
         return {}

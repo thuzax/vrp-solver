@@ -24,11 +24,24 @@ class CouldNotRemoveWithShawRemoval(Exception):
         message = ""
         message += "The request " + str(request) 
         message += "could not be removed with Shaw Removal Heuristic"
-        return message
+        super().__init__(message)
 
 class WrongOrUndefinedStopCriteria(Exception):
     def __init__(self, heuristic_name):
         message = ""
         message += "The stop criteria for " + str(heuristic_name) 
         message += " is not an option or was undefined."
-        return message
+        super().__init__(message)
+
+class RoutesDiffMethodNotSpecified(Exception):
+    def __init__(self, heuristic):
+        message = ""
+        message += "The Route differenctiation Method for " + str(heuristic)
+        message += " was not defined."
+        super().__init__(message)
+
+class NoSolutionFound(Exception):
+    def __init__(self):
+        message = ""
+        message += "Could not find a solution."
+        super().__init__(message)

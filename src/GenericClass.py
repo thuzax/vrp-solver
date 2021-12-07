@@ -1,4 +1,4 @@
-from abc import ABC, ABCMeta, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod, abstractstaticmethod
 
 from src import exceptions
 
@@ -7,8 +7,7 @@ class GenericClass(metaclass=ABCMeta):
 
     @abstractmethod
     def __init__(self):
-        self.initialize_class_attributes()
-
+        pass
 
     def set_attribute(self, name, value):
         if (not hasattr(self, name)):
@@ -23,6 +22,12 @@ class GenericClass(metaclass=ABCMeta):
         for name, value in dict_update.items():
             self.set_attribute(name, value)
 
+
     @abstractmethod
     def initialize_class_attributes(self):
+        pass
+    
+    
+    @abstractstaticmethod
+    def clear():
         pass

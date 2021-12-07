@@ -79,12 +79,14 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
     def get_request_to_remove(self, candidates, values, position):
         list_candidates = [key for key in candidates]
+        if (len(list_candidates) >= position):
+            return max(list_candidates)
         list_candidates_values = [values[i] for i in list_candidates]
         request_position = numpy.argpartition(
             numpy.array(list_candidates_values) * -1,
             position
         )
-
+        
         return list_candidates[request_position[position]]
 
 
@@ -92,6 +94,7 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
     @abstractclassmethod
     def calculate_request_relatedness_measure(self, solution, r_1, r_2):
         pass
+
 
 
     def calculate_requests_relatedness_measure(
@@ -111,3 +114,5 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         return relatedness_measure
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()

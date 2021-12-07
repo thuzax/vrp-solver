@@ -1,6 +1,6 @@
 
 import json
-from src.vertex_classes.Vertex import Vertex
+from src.vertex_classes import Vertex
 import numpy
 import math
 
@@ -121,7 +121,10 @@ class ReaderJsonPDPTW(Reader):
 
         for pickup, delivery in self.requests:
             self.demands[pickup] = dem[str(pickup)]
-            self.demands[delivery] = -dem[str(delivery)]
+            if (self.demands[delivery] > 0):
+                self.demands[delivery] = -dem[str(delivery)]
+            else:
+                self.demands[delivery] = dem[str(delivery)]
         
         self.demands = tuple(self.demands)
 
@@ -158,7 +161,7 @@ class ReaderJsonPDPTW(Reader):
         self.time_windows = tuple(map(tuple, self.time_windows))
 
     def read_specific_input(self, file_name):
-
+        
         with open(file_name, "r") as input_file:
             input_text = input_file.read()
             input_dict = json.loads(input_text)
@@ -175,10 +178,10 @@ class ReaderJsonPDPTW(Reader):
             planning_horizon = input_dict["planning_horizon"]
             time_windows_size = input_dict["time_windows_size"]
 
-
         self.capacity = int(cap)
         self.planning_horizon = int(planning_horizon)
-        self.time_windows_size = int(time_windows_size)
+        if (time_windows_size is not None):
+            self.time_windows_size = int(time_windows_size)
 
         self.read_points(points_dict, n_points)
         self.distance_matrix = self.read_matrix(dist_mat)
@@ -187,7 +190,7 @@ class ReaderJsonPDPTW(Reader):
         self.read_demands(dem)
         self.read_services_times(serv_times)
         self.read_time_windows(tws)
-
+    
 
     def create_request_vertex(self, request_position):
         request = self.requests[request_position]

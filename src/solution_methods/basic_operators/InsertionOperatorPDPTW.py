@@ -46,7 +46,8 @@ class InsertionOperatorPDPTW(InsertionOperator):
             return [
                 (
                     (0, 1),
-                    new_route
+                    new_route,
+                    new_route.cost() - route.cost()
                 )
             ]
         
@@ -66,7 +67,8 @@ class InsertionOperatorPDPTW(InsertionOperator):
 
                 feasible_positions.append((
                     (i, j),
-                    new_route
+                    new_route,
+                    new_route.cost() - route.cost()
                 ))
         
         return feasible_positions

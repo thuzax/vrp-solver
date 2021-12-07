@@ -4,6 +4,7 @@ import math
 import time
 from pprint import pprint
 
+from src import file_log
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.solution_methods.local_searches.LocalSearch import LocalSearch
@@ -27,8 +28,12 @@ class AGES(LocalSearch):
         self.ejection_sets_cache = None
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
+
     def solve(self, solution, parameters):
-        best_solution = solution.copy()
+        self.best_solution = solution.copy()
 
         self.stop_parameters = {}
         self.stop_parameters["begin_time"] = time.time()
@@ -36,12 +41,13 @@ class AGES(LocalSearch):
         self.stop_parameters["number_perturb"] = 0
         self.stop_parameters["time_last_it"] = time.time()
         self.stop_parameters["time_last_improv"] = 0
+        improved = False
 
         self.ejection_sets_cache = {}
         can_improve = True
 
         while (not self.stop_criteria_fulfilled() and can_improve):
-            new_solution = best_solution.copy()
+            new_solution = self.best_solution.copy()
             
             route_pos = random.randint(0, len(new_solution.routes)-1)
             removed_route = new_solution.pop_route(route_pos)
@@ -71,26 +77,26 @@ class AGES(LocalSearch):
                 and self.solution_is_feasible(new_solution)
                 and self.accept(new_solution)
             ):
-                print(
-                    "IMPROVED", 
-                    self.obj_func.get_solution_cost(new_solution), 
-                    new_solution.routes_cost()
-                )
+                improved = True
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["number_perturb"] = 0
-                best_solution = new_solution
-            
+                self.best_solution = new_solution
+                self.best_solution.set_objective_value(
+                    self.obj_func.get_solution_cost(self.best_solution)
+                )
+        
+        message = "AGES" + "\n"
+        message += "IT: " + str(self.stop_parameters["it"]) + "\n"
+        message += "Exec Time: "
+        message += str(
+            self.stop_parameters["time_last_it"] 
+            - self.stop_parameters["begin_time"]
+        )
+        message += "\n"
+        message += "Improved\n" if improved else ""
+        file_log.add_solution_log(self.best_solution, message)
 
-        print("AGES iterations:", self.stop_parameters["it"])
-        # print(
-        #     "AGES time:",
-        #     (
-        #         self.stop_parameters["time_last_it"] 
-        #         - self.stop_parameters["begin_time"]
-        #     )
-        # )
-        return best_solution
-
+        return self.best_solution
 
 
     def reinsert_requests(self, requests_stack, solution, penalities):
@@ -107,7 +113,7 @@ class AGES(LocalSearch):
             )
 
             if (feasible_position is not None):
-                insert_pos, route_after = feasible_position
+                insert_pos, route_after, insert_cost = feasible_position
                 
 
                 old_route_identifying_value = (
@@ -209,7 +215,7 @@ class AGES(LocalSearch):
                 self.obj_func
             )
 
-        insert_position, new_route = random.choice(
+        insert_position, new_route, insert_cost = random.choice(
             ejections_and_insertions[ejection]
         )
         old_route_identifying_value = (
@@ -285,11 +291,12 @@ class AGES(LocalSearch):
                 self.obj_func,
                 self.constraints
             )
-
-            routes_where_removed[old_route.get_id_value()] = (
-                route_without_ejection_set
-            )
-        
+            if (route_without_ejection_set is not None):
+                routes_where_removed[old_route.get_id_value()] = (
+                    route_without_ejection_set
+                )
+        # print(request)
+        # print(routes_where_removed)
         feasible_insertions = (
             InsertionOperator().get_all_feasible_insertions_from_routes(
                 request,

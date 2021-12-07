@@ -1,5 +1,5 @@
 from abc import ABC, ABCMeta, abstractmethod
-from src.vertex_classes.Vertex import Vertex
+from src.vertex_classes import Vertex
 
 from src.instance_readers.Reader import *
 from src import exceptions
@@ -15,11 +15,6 @@ class Reader(GenericClass, metaclass=ABCMeta):
     
     ### Obrigatory for all Porblems ###
     
-    # Acquired from configuration file
-    input_path = None
-    input_name = None
-    input_type = "json"
-
 
     def __new__(cls, *args, **kwargs):
         for subcls in cls.__subclasses__():
@@ -36,6 +31,11 @@ class Reader(GenericClass, metaclass=ABCMeta):
     def __init__(self, reader_class_name):
         if (not hasattr(self, "name")):
             self.name = reader_class_name
+            
+            self.input_path = None
+            self.input_name = None
+            self.input_type = "json"
+
             self.number_of_requests = None
             self.vertices = []
             self.vertices_dict = {}
@@ -55,8 +55,6 @@ class Reader(GenericClass, metaclass=ABCMeta):
         self.vertices_dict[vertex_id] = vertex
 
 
-
-
     @abstractmethod
     def create_depots(self, request_position):
         pass
@@ -72,14 +70,18 @@ class Reader(GenericClass, metaclass=ABCMeta):
         for key, value in self.vertices_dict.items():
             self.vertices[key] = value
 
-
-    def read_input_file(self):
-        
+    
+    def get_file_name(self):
         if (self.input_path[-1] != "/"):
             self.input_path = self.input_path + "/"
         
         file_name = self.input_path + self.input_name + "." + self.input_type
+        
+        return file_name
 
+
+    def read_input_file(self):
+        file_name = self.get_file_name()
         self.read_specific_input(file_name)
         self.create_vertices()
 
@@ -90,3 +92,8 @@ class Reader(GenericClass, metaclass=ABCMeta):
     def read_specific_input(self, file_name):
         pass
 
+    @staticmethod
+    def clear():
+        for subcls in Reader.__subclasses__():
+            subcls.instance = None
+        Reader.instance = None

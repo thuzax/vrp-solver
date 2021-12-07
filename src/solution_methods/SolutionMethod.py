@@ -20,13 +20,14 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
 
     def __init__(self, name):
         if (not hasattr(self, "name")):
-            self.name = None
+            self.name = name
 
             # Acquired/created from input
             self.obj_func = None
             self.obj_func_name = None
             self.constraints = None
             self.constraints_names = None
+            self.best_solution = None
 
             self.initialize_class_attributes()
 
@@ -45,8 +46,17 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
 
         return True
 
-    def accept(self, new_solution):
-        return self.acceptance_algorithm.accept(new_solution, self.obj_func)
+    def accept(self, new_solution, parameters=None):
+        return self.acceptance_algorithm.accept(
+            new_solution, 
+            self.obj_func, 
+            parameters
+        )
+
+
+    @abstractmethod
+    def get_current_best_solution(self):
+        return self.best_solution
 
     @abstractmethod
     def solve(self, solution, parameters):
@@ -61,3 +71,9 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
     @abstractmethod
     def get_attr_relation_reader_heuristic(self):
         return {}
+
+
+    @staticmethod
+    def clear():
+        SolutionMethod.children_instances.clear()
+            

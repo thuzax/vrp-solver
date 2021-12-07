@@ -95,7 +95,7 @@ class RandomShift(SolutionMethod):
         # Otherwise make a shift of the chosen random request to a random route
         # Choose a random new route
         feasible_insertion = random.choice(feasible_positions_and_routes)
-        insertion_pos, route_inserted = feasible_insertion
+        insertion_pos, route_inserted, insert_cost = feasible_insertion
 
         old_route_identifying = (
             InsertionOperator().get_route_id_value_before_inserted(
@@ -124,10 +124,11 @@ class RandomShift(SolutionMethod):
         return new_solution
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
 
     def update_route_values(self, route, position, request):
         pass
-    
 
     def get_attr_relation_reader_heuristic(self):
         return {}

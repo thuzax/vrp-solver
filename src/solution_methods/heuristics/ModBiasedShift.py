@@ -100,7 +100,7 @@ class ModBiasedShift(SolutionMethod):
 
         insertion_costs = []
 
-        for position, route_after in feasible_positions_and_routes:
+        for position, route_after, insert_cost in feasible_positions_and_routes:
             cost = self.obj_func.route_additional_route_cost_after_insertion(
                 route_after,
                 position,
@@ -126,7 +126,7 @@ class ModBiasedShift(SolutionMethod):
         feasible_insert_pos = random.randint(0, len(best_indices)-1)
 
         feasible_insertion = feasible_positions_and_routes[feasible_insert_pos]
-        insertion_pos, route_inserted = feasible_insertion
+        insertion_pos, route_inserted, insertion_cost = feasible_insertion
 
         old_route_identifying = (
             InsertionOperator().get_route_id_value_before_inserted(
@@ -155,6 +155,8 @@ class ModBiasedShift(SolutionMethod):
         return new_solution
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
 
     def update_route_values(self, route, position, request):
         pass

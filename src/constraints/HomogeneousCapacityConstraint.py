@@ -35,3 +35,8 @@ class HomogeneousCapacityConstraint(Constraint):
             "capacity" : "max_capacity"
         }
         return attr_relation
+
+
+    def set_attribute(self, name, value):
+        super().set_attribute(name, value)
+

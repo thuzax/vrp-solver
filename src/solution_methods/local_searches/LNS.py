@@ -4,6 +4,7 @@ import time
 import copy
 import random
 from src import exceptions
+from src import file_log
 from src.solution_methods.local_searches.LocalSearch import LocalSearch
 
 
@@ -38,16 +39,20 @@ class LNS(LocalSearch):
         self.removals_probabilities = None
 
 
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
+
+
     def solve(self, solution, parameters):
         copy_solution = solution.copy()
         copy_solution.set_objective_value(
             self.obj_func.get_solution_cost(copy_solution)
         )
-        copy_solution.set_routes_total_cost(
+        copy_solution.set_routes_cost(
             self.obj_func.get_routes_sum_cost(copy_solution.routes)
         )
         
-        best_solution = copy_solution
+        self.best_solution = copy_solution
 
         extra_requests = copy.deepcopy(parameters["remaining_requests"])
         all_requests = extra_requests.union(copy_solution.requests())
@@ -59,7 +64,8 @@ class LNS(LocalSearch):
         self.stop_parameters["it_last_improv"] = 0
         self.stop_parameters["time_last_it"] = 0
         self.stop_parameters["time_last_improv"] = 0
-        
+        improved = False
+
         while (not self.stop_criteria_fulfilled()):
             new_solution = copy_solution.copy()
 
@@ -83,7 +89,9 @@ class LNS(LocalSearch):
 
             # Reinsertion
             extra_requests = extra_requests.union(removed_requests)
-
+            if (self.k_min > self.k_max):
+                self.k_max = self.k_min
+            
             k = random.randint(self.k_min, self.k_max)
             new_solution = self.reinsert_requests(
                 extra_requests, 
@@ -108,19 +116,15 @@ class LNS(LocalSearch):
                 and 
                 self.obj_func.solution_is_better(
                         new_solution, 
-                        best_solution
+                        self.best_solution
                 )
             ):
-                best_solution = new_solution
+                self.best_solution = new_solution
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["it_last_improv"] = (
                     self.stop_parameters["it"]
                 )
-                print(
-                    "IMPROVED", 
-                    best_solution.cost(), 
-                    best_solution.routes_cost()
-                )
+                improved = True
 
 
 
@@ -129,13 +133,20 @@ class LNS(LocalSearch):
     
             extra_requests = all_requests - copy_solution.requests()
 
-        print("LNS iteartions: ", self.stop_parameters["it"])
-        # print(
-        #     "LNS time: ", 
-        #     self.stop_parameters["time_last_it"] 
-        #     - self.stop_parameters["begin_time"]
-        # )
-        return best_solution
+        message = "LNS" + "\n"
+        message += "IT: " +  str(self.stop_parameters["it"])
+        message += "\n"
+        message += "Exec Time: "
+        message += str(
+            self.stop_parameters["time_last_it"] 
+            - self.stop_parameters["begin_time"]
+        )
+        message += "\n"
+        message += "Improved\n" if improved else ""
+
+        file_log.add_solution_log(self.best_solution, message)
+        
+        return self.best_solution
 
 
     def update_route_values(self, route, position, request):
@@ -148,7 +159,7 @@ class LNS(LocalSearch):
         if (k >= solution.number_of_routes()):
             parameters["k"] = solution.number_of_routes()-1
         
-        parameters["requests"] = requests
+        parameters["requests_set"] = requests
         solution = (
             self.local_operators["KRegret"].solve(solution, parameters)
         )

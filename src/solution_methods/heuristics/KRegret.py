@@ -1,197 +1,189 @@
-from src.solution_methods.SolutionMethod import SolutionMethod
+
+import copy
+import random
+from numpy.lib.function_base import insert
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 import numpy
-import bisect
-import math
-
-from src.objective_functions import *
-from src.route_classes.Route import *
+from src.solution_methods.SolutionMethod import SolutionMethod
 
 
 class KRegret(SolutionMethod):
 
     def __init__(self):
         super().__init__("KRegret")
-
+    
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.non_insertion_cost = None
+        self.use_modification = None
+        
+        self.k = None
 
+    def get_m_best_routes(self, routes):
+        m = self.k
+        if (not self.use_modification or m == 1):
+            return routes
+        
+        routes_costs_arr = numpy.array([
+            route.cost()
+            for route in routes
+        ])
 
-    def get_indices_best_routes(self, routes, k):
-        if (len(routes) == 1):
-            return [0]
-
-        costs_arr = numpy.array([route.cost() for route in routes])
-        partition = numpy.argpartition(costs_arr, k)
-        best_routes = partition[:k].tolist()
+        best_posistions = numpy.argpartition(routes_costs_arr, m)[:m]
+        best_routes = []
+        for i in best_posistions:
+            best_routes.append(routes[i])
 
         return best_routes
 
 
-    def solve(self, solution, parameters):
-        new_solution = solution.copy()
-        routes = new_solution.routes
-        requests = parameters["requests"]
-        k = parameters["k"]
+    def get_requests_best_feasible_insertions(self, requests, solution):
+        requests_feasible_insertions = {}
+        routes = self.get_m_best_routes(solution.routes)
+        for request in requests:
+            feasible_insertions = []
+            for route in routes:
+                best_insertion = (
+                    InsertionOperator().get_best_insertion_in_route(
+                        route,
+                        request,
+                        self.obj_func,
+                        self.constraints
+                    )
+                )
+                if (any(best_insertion)):
+                    feasible_insertions.append(best_insertion)
+                    continue
+                
+                feasible_insertions.append(
+                    (None, None, self.non_insertion_cost)
+                )
 
-        inserted = True
-        while (inserted and len(requests) > 0):
-            best_routes_ids = self.get_indices_best_routes(routes, k)
-            # best_routes_ids = [i for i in range(len(routes))]
-            regret_sets = self.get_regret_data(
+            requests_feasible_insertions[request] = feasible_insertions
+        
+        return requests_feasible_insertions
+
+    def get_insertions_and_regret_value(self, requests, feasible_insertions):
+        insertions_and_regret_values = {}
+        for request in requests:
+            request_feasible_insertions = feasible_insertions[request]
+            insert_costs_arr = numpy.array(
+                [
+                    insert_cost
+                    for pos, route, insert_cost in request_feasible_insertions
+                ]
+            )
+            if (self.k > len(insert_costs_arr)):
+                k_best_insertions_pos = (
+                    numpy.argpartition(insert_costs_arr, self.k)[:self.k]
+                )
+
+                k_feasible_insertions = [
+                    request_feasible_insertions[i]
+                    for i in k_best_insertions_pos
+                ]
+
+            else:
+                k_best_insertions_pos = [i for i in range(self.k)]
+                k_feasible_insertions = request_feasible_insertions
+            
+            min_insertion_pos = numpy.argmin(insert_costs_arr)
+            
+            if (not all(request_feasible_insertions[min_insertion_pos])):
+                continue
+            
+            if (min_insertion_pos not in k_best_insertions_pos):
+                i = 0
+                found = False
+                while (i < len(k_best_insertions_pos) and not found):
+                    pos = k_best_insertions_pos[i]
+                    if (
+                        insert_costs_arr[pos] 
+                        != insert_costs_arr[min_insertion_pos]
+                    ):
+                        i += 1
+                        continue
+                    found = True
+                    min_insertion_pos = pos
+                    
+
+            regret_value = 0
+            pos_min, route_min, insert_cost_min = (
+                request_feasible_insertions[min_insertion_pos]
+            )
+            for i in range(self.k):
+                pos_i, route_i, insert_cost_i = k_feasible_insertions[i]
+
+                regret_value += (
+                    insert_cost_i - insert_cost_min
+                )
+            insertions_and_regret_values[request] = (
+                request_feasible_insertions[min_insertion_pos],
+                regret_value
+            )
+        
+        return insertions_and_regret_values
+
+
+    def solve(self, solution, parameters):
+        self.k = parameters["k"]
+        requests = copy.deepcopy(parameters["requests_set"])
+        new_solution = solution.copy()
+
+        could_insert = True
+        while (could_insert and len(requests) > 0):
+            feasible_insertions = self.get_requests_best_feasible_insertions(
+                requests,
+                new_solution
+            )
+            insertions_and_regret_values = self.get_insertions_and_regret_value(
                 requests, 
-                routes, 
-                best_routes_ids
+                feasible_insertions
             )
             
-            can_be_inserted = regret_sets["can_be_inserted"]
-            regret_values = regret_sets["regret_values"]
-            regret_routes = regret_sets["regret_routes"]
-            regret_routes_ids = regret_sets["regret_routes_ids"]
-            regret_insert_pos = regret_sets["regret_insert_pos"]
-
-            impossibles_requests = set([
-                request
-                for request, possible in can_be_inserted.items()
-                if (not possible)
-            ])
-
-            if (len(impossibles_requests) == len(requests)):
-                inserted = False
+            if (len(insertions_and_regret_values) == 0):
+                could_insert = False
                 continue
+            
+            request, items = max(
+                insertions_and_regret_values.items(), 
+                key=lambda x : x[1][1]
+            )
 
-            for request in impossibles_requests:
-                regret_values.pop(request)
-                regret_routes.pop(request)
-                regret_routes_ids.pop(request)
+            insertion, regret_value = insertions_and_regret_values[request]
+            position, new_route, insert_cost = insertion
+            old_route_identifying = (
+                InsertionOperator().get_route_id_value_before_inserted(
+                    new_route,
+                    request
+                )
+            )
 
-            request = max(regret_values, key=regret_values.get)
+            old_route_pos = (
+                new_solution.find_route_position_by_identifying_value(
+                    old_route_identifying
+                )
+            )
 
-
-
-            route_pos = regret_routes_ids[request][0]
-            inserted_position = regret_insert_pos[request][0]
-
-            new_route = regret_routes[request][0]
-            new_solution = InsertionOperator().insert_request_in_solution(
+            InsertionOperator().insert_request_in_solution(
                 new_solution,
                 request,
-                inserted_position,
+                position,
                 new_route,
-                route_pos,
+                old_route_pos,
                 self.obj_func
             )
 
-            requests.remove(request)
+            requests.discard(request)
 
         return new_solution
 
 
-    def get_best_insertions_in_routes(self, request, routes, best_routes_pos):
-        request_k_routes = []
-        request_k_insertions = []
-        request_k_costs = []
-        routes_pos = []
-
-        for i in best_routes_pos:
-            route = routes[i]
-            position, new_route = (
-                InsertionOperator().get_best_insertion_in_route(
-                    route, 
-                    request,
-                    self.obj_func,
-                    self.constraints
-                )
-            )
-            if (new_route is None):
-                cost = self.non_insertion_cost
-                new_route = None
-            else:
-                cost = new_route.cost()
-            
-            order_position = bisect.bisect(
-                request_k_costs, 
-                cost
-            )
-        
-            request_k_costs.insert(order_position, cost)
-            request_k_insertions.insert(order_position, position)
-            request_k_routes.insert(order_position, new_route)
-            routes_pos.insert(order_position, i)
-
-        return (
-            routes_pos,
-            request_k_routes,
-            request_k_insertions,
-            request_k_costs
-        )
-
-
-    def get_regret_value(self, routes_costs):
-        regret_value = 0
-        cost_best = routes_costs[0]
-        for i in range(1, len(routes_costs)):
-            cost_current = routes_costs[i]
-            regret_value +=  cost_current - cost_best
-        
-        return regret_value
-
-
-    def get_regret_data(self, requests, routes, best_routes_ids):
-        regret_values = {}
-        regret_routes = {}
-        regret_routes_ids = {}
-        regret_insert_pos = {}
-
-        for request in requests:
-            routes_pos, request_routes, request_insert_pos, routes_costs = (
-                self.get_best_insertions_in_routes(
-                    request, 
-                    routes, 
-                    best_routes_ids
-                )
-            )
-            
-            regret_value = self.get_regret_value(routes_costs)
-            
-            regret_values[request] = regret_value
-            regret_routes[request] = request_routes
-            regret_routes_ids[request] = routes_pos
-            regret_insert_pos[request] = request_insert_pos
-
-        requests_can_be_inserted = {}
-        for request in requests:
-            requests_can_be_inserted[request] = (
-                self.verify_if_request_has_regret_route(regret_routes[request])
-            )
-        
-        return {
-            "can_be_inserted" : requests_can_be_inserted,
-            "regret_values" : regret_values,
-            "regret_routes" : regret_routes,
-            "regret_routes_ids" : regret_routes_ids,
-            "regret_insert_pos" : regret_insert_pos
-        }
-
-
-    def verify_if_request_has_regret_route(self, routes):
-        can_be_inserted = False
-        i = 0
-        while ((i < len(routes)) and (not can_be_inserted)):
-            route = routes[i]
-            if (route is not None):
-                can_be_inserted = True
-            i += 1
-            continue
-            
-        return can_be_inserted
-
+    def get_current_best_solution(self):
+        return super().get_current_best_solution()
 
     def update_route_values(self, route, position, request):
-        pass
-    
+        return super().update_route_values(route, position, request)
 
     def get_attr_relation_reader_heuristic(self):
-        return {}
-
+        return super().get_attr_relation_reader_heuristic()

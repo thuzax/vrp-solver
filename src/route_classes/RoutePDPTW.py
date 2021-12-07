@@ -4,9 +4,10 @@ import copy
 import numpy
 
 from src.route_classes import Route
+from src.route_classes import RouteClass
 
 
-class RoutePDPTW(Route):
+class RoutePDPTW(RouteClass):
 
     def __init__(self):
         super().__init__("Route PDPTW")
@@ -94,15 +95,12 @@ class RoutePDPTW(Route):
         return int(self.size()/2)
 
 
-    def copy_route(self):
-        copy_route = Route()
-
-        copy_route.arrival_times = copy.deepcopy(self.arrival_times)
-        copy_route.capacity_occupations = copy.deepcopy(
+    def copy_route_to(self, route_copy):
+        route_copy.arrival_times = copy.deepcopy(self.arrival_times)
+        route_copy.capacity_occupations = copy.deepcopy(
             self.capacity_occupations
         )
 
-        return copy_route
 
     def __str__(self):
         text = "Route: " + str(self.vertices_order) + "\n"
