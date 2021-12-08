@@ -23,6 +23,15 @@ class GenericClass(metaclass=ABCMeta):
             self.set_attribute(name, value)
 
 
+    @staticmethod
+    def get_all_subclasses(cls):
+        subclasses = []
+        for subclass in cls.__subclasses__():
+            subclasses.append(subclass)
+            subclasses += GenericClass.get_all_subclasses(subclass)
+        
+        return subclasses
+
     @abstractmethod
     def initialize_class_attributes(self):
         pass

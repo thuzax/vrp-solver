@@ -8,6 +8,7 @@ from src.route_classes import *
 from src.objects_managers import *
 from src.solution_classes import *
 from src import file_log
+from src import execution_log
 
 
 from src.solvers.SolverClass import SolverClass
@@ -37,6 +38,7 @@ class SolverPDPTW(SolverClass):
 
         file_log.add_info_log("Starting construction")
         solution = self.construction.solve(parameters)
+        
         file_log.add_info_log("Finished construction")
 
         obj_value = self.obj_func.get_solution_cost(solution)
@@ -48,6 +50,21 @@ class SolverPDPTW(SolverClass):
         solution.set_routes_cost(routes_cost)
 
         self.best_solution = solution.copy()
+        
+        if (
+            not solution_check(
+                self.best_solution, 
+                self.constraints, 
+                self.obj_func
+            )
+        ):
+            file_log.add_warning_log("Could not construct feasible solution")
+            execution_log.warning_log(
+                "Could not construct feasible solution"
+            )
+            self.best_solution = None
+            return self.best_solution
+        
         # Log
         message = "Solution after " + self.construction_name + "\n"
         file_log.add_solution_log(self.best_solution, message)

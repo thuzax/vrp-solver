@@ -45,6 +45,7 @@ class WBasicGreedy(SolutionMethod):
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
 
+
         return solution
 
 

@@ -20,7 +20,6 @@ class AttendAllRequests(Constraint):
             if (request not in solution.requests()):
                 return False
 
-
         return True
 
 

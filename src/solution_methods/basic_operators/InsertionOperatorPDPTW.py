@@ -109,6 +109,7 @@ class InsertionOperatorPDPTW(InsertionOperator):
                     deli_next_id - self.number_of_requests,
                     deli_next_id
                 )
+        
         pick_next_pair = (-1, -1)
         deli_prev_pair = (-1, -1)
         if (pick_pos < deli_pos-1):

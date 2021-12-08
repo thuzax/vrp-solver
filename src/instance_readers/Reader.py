@@ -17,7 +17,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
     
 
     def __new__(cls, *args, **kwargs):
-        for subcls in cls.__subclasses__():
+        for subcls in GenericClass.get_all_subclasses(cls):
             if (subcls.instance is not None):
                 return subcls.instance
         
@@ -25,7 +25,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
             cls.instance = super(Reader, cls).__new__(
                 cls, *args, **kwargs
             )
-        
+
         return cls.instance
 
     def __init__(self, reader_class_name):
@@ -62,6 +62,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
 
     def create_vertices(self):
         self.create_depots()
+        self.create_specific_vertices()
         for request_position in range(self.number_of_requests):
             self.create_request_vertex(request_position)
 
@@ -85,11 +86,16 @@ class Reader(GenericClass, metaclass=ABCMeta):
         self.read_specific_input(file_name)
         self.create_vertices()
 
+
         
 
 
     @abstractmethod
     def read_specific_input(self, file_name):
+        pass
+
+    @abstractmethod
+    def create_specific_vertices(self):
         pass
 
     @staticmethod

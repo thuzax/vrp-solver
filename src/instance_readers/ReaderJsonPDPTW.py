@@ -95,16 +95,15 @@ class ReaderJsonPDPTW(Reader):
         self.number_of_requests = len(pds)
         # pickups = first half of points
         self.pickups = numpy.array(
-            [i for i in range(1, len(pds)+1)], 
+            [r[0] for r in pds], 
             dtype=int
         )
 
         # deliveries = second half of points
         self.deliveries = numpy.array(
-            [i + 1 + len(pds) for i in range(len(pds))], 
+            [r[1] for r in pds], 
             dtype=int
         )
-
         self.requests = tuple([
             (self.pickups[i], self.deliveries[i])
             for i in range(len(pds))
@@ -202,3 +201,7 @@ class ReaderJsonPDPTW(Reader):
 
     def create_depots(self):
         self.create_vertex(self.depot)
+
+
+    def create_specific_vertices(self):
+        pass

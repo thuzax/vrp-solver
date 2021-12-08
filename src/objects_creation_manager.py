@@ -8,6 +8,7 @@ def create_class_by_name(class_name, class_data):
         src, 
         class_name
     )
+
     class_object = class_type()
 
     for attribute, value in class_data.items():
