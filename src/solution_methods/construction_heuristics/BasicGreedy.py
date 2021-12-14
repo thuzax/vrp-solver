@@ -33,8 +33,8 @@ class BasicGreedy(SolutionMethod):
             parameters["k"] = 1
             solution = KRegret().solve(solution, parameters)
             insertion_requests -= solution.requests()
-            if (last_size == len(insertion_requests)):
-                routes.pop()
+            if (solution.has_empty_route()):
+                solution.routes.pop()
                 inserted = False
             
         exec_time = time.time() - start

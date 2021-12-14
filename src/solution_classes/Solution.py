@@ -180,6 +180,11 @@ class Solution(GenericClass):
         return {
         }
     
+    def has_empty_route(self):
+        for route in self.routes:
+            if(route.empty()):
+                return True
+
     
     @staticmethod
     def clear():

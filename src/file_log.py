@@ -60,6 +60,7 @@ def add_text_to_log_data(text):
     global log_data
     log_data += text
     log_data += "-" * 80
+    log_data += "\n"
     
     
 def add_dict_to_log_dicts(sol_dict):
@@ -151,8 +152,9 @@ def write_log(output_path, output_name):
 
     file_name = get_log_file_name()
 
-    with open(file_name, "w+") as out_file:
+    with open(file_name, "w") as out_file:
         out_file.write(log_data)
+        out_file.close()
 
 
 def write_sol_json_log(output_path, output_name):
@@ -161,6 +163,6 @@ def write_sol_json_log(output_path, output_name):
 
     file_name = get_log_file_name()
 
-    with open(file_name, "w+") as out_file:
+    with open(file_name, "w") as out_file:
         out_file.write(json.dumps(log_solutions_dicts))
-
+        out_file.close()

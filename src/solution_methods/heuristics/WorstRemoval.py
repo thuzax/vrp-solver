@@ -32,6 +32,8 @@ class WorstRemoval(SolutionMethod):
             )
 
             sorted_requests = [x for x, y in sorted_requests_tuple]
+            if (len(sorted_requests) == 0):
+                continue
             random_multiplier = random.uniform(0, 0.9999999999)
             # random_multiplier = random.randint(0, 999)/1000.0
             request_sort_position = int(

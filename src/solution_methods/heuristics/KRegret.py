@@ -17,6 +17,8 @@ class KRegret(SolutionMethod):
         self.non_insertion_cost = None
         self.use_modification = None
         
+        self.last = None
+        
         self.k = None
 
     def get_m_best_routes(self, routes):
@@ -54,7 +56,7 @@ class KRegret(SolutionMethod):
                 if (any(best_insertion)):
                     feasible_insertions.append(best_insertion)
                     continue
-                
+
                 feasible_insertions.append(
                     (None, None, self.non_insertion_cost)
                 )

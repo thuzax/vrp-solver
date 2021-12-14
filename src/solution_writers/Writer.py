@@ -58,14 +58,16 @@ class Writer(GenericClass, metaclass=ABCMeta):
         
         output_file_name = self.get_output_file_name() + "_log.txt"
 
-        with open(output_file_name, "w+") as out_file:
+        with open(output_file_name, "w") as out_file:
             out_file.write(log_data)
+            out_file.close()
 
         solutions_dict = file_log.get_log_sol_dict()
         output_json_file_name = self.get_output_file_name() + "_sol_log.json"
         
-        with open(output_json_file_name, "w+") as out_file:
+        with open(output_json_file_name, "w") as out_file:
             out_file.write(json.dumps(solutions_dict))
+            out_file.close()
 
 
 

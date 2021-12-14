@@ -96,6 +96,7 @@ if __name__=="__main__":
         file_dict["planning_horizon"] = plan_horizon
         file_dict["time_windows_size"] = tws_size
 
-        with open(out_path + json_file_name, "w+") as output_file:
+        with open(out_path + json_file_name, "w") as output_file:
             output_file.write(json.dumps(file_dict))
             # output_file.write(json.dumps(file_dict, indent=2))
+            out_file.close()

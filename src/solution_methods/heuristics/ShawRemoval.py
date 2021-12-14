@@ -26,6 +26,8 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         while (len(requests_to_remove) < number_of_removals):
             request = random.choice(list(new_solution.requests()))
             candidates = new_solution.requests() - requests_to_remove
+            if (len(candidates) == 0):
+                continue
             related_measure = self.calculate_requests_relatedness_measure(
                 new_solution, 
                 candidates, 
@@ -37,6 +39,7 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
                 (random_multiplier**randomization_parameter) 
                 * len(candidates)
             )
+
 
             request_to_remove = self.get_request_to_remove(
                 candidates, 

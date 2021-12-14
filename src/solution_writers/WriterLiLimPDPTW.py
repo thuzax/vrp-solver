@@ -33,6 +33,7 @@ class WriterLiLimPDPTW(Writer):
         except:
             print()
         finally:
-            with open(output_file_name, "w+") as output_file:
+            with open(output_file_name, "w") as output_file:
                 output_file.write(text)
+                output_file.close()
 

@@ -97,7 +97,11 @@ def read_command_line_inputs():
     )
     
     data["best_params_file_name"] = "best_params.json"
-        
+    
+    if (not os.path.exists(data["output_path"])):
+        os.mkdir(data["output_path"])
+
+
     if (not os.path.exists(all_solutions_path)):
         os.mkdir(all_solutions_path)
     
@@ -399,8 +403,9 @@ def make_configuration_input_file(configuration, config_file_name):
     }
     data = json.dumps(out_data, indent=4)
     
-    with open(config_file_name, "w+") as f:
+    with open(config_file_name, "w") as f:
         f.write(data)
+        f.close()
 
 
 def solve_inputs(inputs, output_path, time_limit, config_file):
@@ -572,8 +577,9 @@ if __name__ == "__main__":
     
     
     results_conf_f = command_input_data["output_path"] + "results_configs.json"
-    with open(results_conf_f, "w+") as r_conf: 
+    with open(results_conf_f, "w") as r_conf: 
         r_conf.write(json.dumps(results_configs))
+        r_conf.close()
 
     # WRITE BEST PARAMS
     best_params_file_name = (
@@ -583,7 +589,7 @@ if __name__ == "__main__":
 
     json_acceptable = str(best_params).replace("'", "\"")
     
-    with open(best_params_file_name, "w+") as best_file:
+    with open(best_params_file_name, "w") as best_file:
         best_file.write(json.dumps(json.loads(json_acceptable), indent=2))
 
     # WRITE BEST CONFIG FILE
@@ -594,7 +600,8 @@ if __name__ == "__main__":
     
     best_config = hyperopt.space_eval(params, best_params)[0]
     
-    with open(best_out, "w+") as best_file:
+    with open(best_out, "w") as best_file:
         best_file.write(json.dumps(best_config, indent=2))
+        best_file.claose()
         
     

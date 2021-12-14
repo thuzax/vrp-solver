@@ -35,9 +35,10 @@ class WBasicGreedy(SolutionMethod):
             parameters["k"] = 1
             solution = WKRegret().solve(solution, parameters)
             insertion_requests -= solution.requests()
-            if (last_size == len(insertion_requests)):
-                solution.remove_route(-1)
+            if (solution.has_empty_route()):
+                solution.routes.pop()
                 inserted = False
+            
             
         exec_time = time.time() - start
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
