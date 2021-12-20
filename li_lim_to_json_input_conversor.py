@@ -9,7 +9,6 @@ def euclidian(p1, p2):
     result = (x**2 + y**2)**(1/2)
     return result
 
-
 if __name__=="__main__":
     file_name = sys.argv[1]
     out_path = "./"
@@ -39,28 +38,76 @@ if __name__=="__main__":
         services_times = {}
         pairs = set()
 
+        pickups = set()
+        deliveries = set()
+
+        old_pairs = {}
+
 
         for i in range(number_of_points):
             line = lines[i].strip().split()
             if (len(line) == 0):
                 continue
-            idx = line[0]
-
-            points[idx] = [float(line[1]), float(line[2])]
+            idx = int(line[0])
 
             if (int(idx) != 0):
-                demands[idx] = int(line[3])
-                tws[idx] = [int(line[4]), int(line[5])]
-                
-                services_times[idx] = int(line[6])
-            
                 pick = int(line[7])
                 deli = int(line[8])
+
                 if (pick == 0 and deli != 0):
-                    pairs.add((int(idx), deli))
+                    deliveries.add(deli)
+                    pickups.add(idx)
+                    old_pairs[idx] = deli
+                
                 if (pick != 0 and deli == 0):
-                    pairs.add((pick, int(idx)))
+                    pickups.add(pick)
+                    deliveries.add(idx)
+                    old_pairs[idx] = pick
+                    
+
+        pickups = tuple(pickups)
+        deliveries = tuple(deliveries)
+
+        old_id_to_new = {}
+        new_id_to_old = {}
         
+        pairs = set()
+        
+        for i, pickup in enumerate(pickups):
+            
+            new_pick_id = i+1
+            new_deli_id = new_pick_id + int((number_of_points-1)/2)
+            
+            old_id_to_new[pickup] = new_pick_id
+            new_id_to_old[new_pick_id] = pickup
+            
+            deli_old_id = old_pairs[pickup]
+            
+            old_id_to_new[deli_old_id] = new_deli_id
+            new_id_to_old[new_deli_id] = deli_old_id
+            
+            pairs.add((new_pick_id, new_deli_id))
+
+
+        old_id_to_new[0] = 0
+        new_id_to_old[0] = 0
+
+
+        for i in range(number_of_points):
+            line_pos = new_id_to_old[i]
+            line = lines[line_pos].strip().split()
+            if (len(line) == 0):
+                continue
+
+            idx = i
+            points[idx] = [float(line[1]), float(line[2])]
+            
+            if (idx != 0):
+
+                demands[idx] = int(line[3])
+                tws[idx] = [int(line[4]), int(line[5])]
+                services_times[idx] = int(line[6])
+                
         pairs = [list(pair) for pair in pairs]
 
 
@@ -71,7 +118,7 @@ if __name__=="__main__":
                 if (i == j):
                     time_matrix[i][j] = 0
                     continue
-                time_matrix[i][j] = euclidian(points[str(i)], points[str(j)])
+                time_matrix[i][j] = euclidian(points[i], points[j])
         
         # TEMPORARIO
         distance_matrix = time_matrix
@@ -96,6 +143,7 @@ if __name__=="__main__":
         file_dict["planning_horizon"] = plan_horizon
         file_dict["time_windows_size"] = tws_size
 
+        print("ouput: ", out_path + json_file_name)
         with open(out_path + json_file_name, "w+") as output_file:
             output_file.write(json.dumps(file_dict))
             # output_file.write(json.dumps(file_dict, indent=2))

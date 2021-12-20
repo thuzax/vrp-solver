@@ -1,0 +1,62 @@
+--------------------------------------------------------------------------------(Solver execution current time: 5.245208740234375e-06)
+[INFO] Input Seed : 10
+--------------------------------------------------------------------------------(Solver execution current time: 1.52587890625e-05)
+[INFO] Input time limit : 30
+--------------------------------------------------------------------------------(Solver execution current time: 1.8358230590820312e-05)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.020463943481445312)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.020498275756835938)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 0.020508527755737305)
+[INFO] Starting construction
+--------------------------------------------------------------------------------(Solver execution current time: 24.978586435317993)
+[INFO] Finished construction
+--------------------------------------------------------------------------------(Solver execution current time: 24.979839086532593)
+[SOLUTION]
+Solution after WBasicGreedy
+obj_value: 6; obj_routes: 2374
+Route 1 : 19 70 1 52 6 51 36 17 102 8 57 23 74 87 68 10 4 24 38 89 61 75 59 55 41 92 
+Route 2 : 47 98 15 43 26 2 5 56 77 53 46 94 66 29 97 30 34 85 81 28 80 48 79 99 14 65 
+Route 3 : 27 78 50 32 22 11 73 13 39 37 101 83 45 90 64 12 62 63 88 96 35 86 
+Route 4 : 33 7 42 93 9 60 40 84 3 54 44 95 49 91 58 20 71 100 
+Route 5 : 31 18 82 25 21 76 69 72 
+Route 6 : 16 67 
+
+--------------------------------------------------------------------------------(Solver execution current time: 24.979930639266968)
+[INFO] Starting metaheuristic
+--------------------------------------------------------------------------------(Solver execution current time: 30.011175394058228)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 30.011213064193726)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 30.01156210899353)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 30.01157569885254)
+[INFO] Algorithm execution time : 30.012161254882812
+--------------------------------------------------------------------------------(Solver execution current time: 30.0122172832489)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Attend All Requests Constraint OK
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+
+obj_value: 6; obj_routes: 2374
+Route 1 : 19 70 1 52 6 51 36 17 102 8 57 23 74 87 68 10 4 24 38 89 61 75 59 55 41 92 
+Route 2 : 47 98 15 43 26 2 5 56 77 53 46 94 66 29 97 30 34 85 81 28 80 48 79 99 14 65 
+Route 3 : 27 78 50 32 22 11 73 13 39 37 101 83 45 90 64 12 62 63 88 96 35 86 
+Route 4 : 33 7 42 93 9 60 40 84 3 54 44 95 49 91 58 20 71 100 
+Route 5 : 31 18 82 25 21 76 69 72 
+Route 6 : 16 67 
+
+--------------------------------------------------------------------------------
