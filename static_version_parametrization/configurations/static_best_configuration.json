@@ -42,41 +42,41 @@
         "OriginalPerturbation": "OriginalPerturbation"
       },
       "max_ejections": 2,
-      "max_number_of_perturbations": 30,
-      "number_of_perturb_moves": 38,
+      "max_number_of_perturbations": 38,
+      "number_of_perturb_moves": 53,
       "obj_func_name": "ObjVehicles",
       "stop_criteria": "max_perturbation"
     },
     "LNS": {
       "acceptance_algorithm_data": {
         "LAHC": {
-          "list_size": 144
+          "list_size": 138
         }
       },
-      "b_max": 0.12793253627933063,
-      "b_min": 4,
+      "b_max": 0.2117291346936019,
+      "b_min": 2,
       "constraints_names": [
         "HomogeneousCapacityConstraint",
         "TimeWindowsConstraint",
         "AttendAllRequests"
       ],
-      "k_max": 6,
+      "k_max": 3,
       "k_min": 6,
       "local_operators_names": {
-        "KRegret": "WKRegret",
+        "KRegret": "KRegret",
         "RandomRemoval": "RandomRemoval",
         "ShawRemoval": "ShawRemovalPDPTW",
         "WorstRemoval": "WorstRemoval"
       },
       "max_it": 1001,
-      "max_it_without_improv": 191,
+      "max_it_without_improv": 156,
       "max_time": null,
       "max_time_without_improv": null,
       "obj_func_name": "ObjVehicles",
       "removals_probabilities": {
-        "RandomRemoval": 1.355339304425268,
-        "ShawRemoval": 4.991643254255267,
-        "WorstRemoval": 6.440885483906615
+        "RandomRemoval": 7.920967102863649,
+        "ShawRemoval": 9.751986336711441,
+        "WorstRemoval": 9.359973366610873
       },
       "stop_criteria": "iterations"
     },
@@ -95,9 +95,9 @@
       },
       "obj_func_name": "ObjVehicles",
       "perturb_probabilities": {
-        "ModBiasedShift": 2.702400003186324,
-        "RandomExchange": 9.083010882524038,
-        "RandomShift": 7.788473360408002
+        "ModBiasedShift": 1.1291665183312447,
+        "RandomExchange": 7.5627912639757495,
+        "RandomShift": 4.864231867981061
       }
     },
     "SBMath": {
@@ -120,7 +120,7 @@
       "max_it": 1000,
       "max_it_without_improv": 300,
       "max_time": 0,
-      "number_of_perturb_moves": 52,
+      "number_of_perturb_moves": 298,
       "obj_func_name": "ObjVehicles",
       "routes_diff_method": "set",
       "stop_criteria": "iterations"
@@ -146,7 +146,7 @@
         "HomogeneousCapacityConstraint",
         "TimeWindowsConstraint"
       ],
-      "mi": 6.6130854414654,
+      "mi": 5.306247188838469,
       "obj_func_name": "ObjVehicles"
     },
     "RandomExchange": {
@@ -205,15 +205,15 @@
     "ShawRemovalPDPTW": {
       "constraints_names": [],
       "obj_func_name": "ObjDistancePDPTW",
-      "p": 2,
-      "phi": 4,
-      "psi": 2,
-      "qui": 9
+      "p": 9,
+      "phi": 0,
+      "psi": 0,
+      "qui": 1
     },
     "WorstRemoval": {
       "constraints_names": [],
       "obj_func_name": "ObjDistancePDPTW",
-      "p": 10
+      "p": 1
     }
   },
   "removal_operator": {

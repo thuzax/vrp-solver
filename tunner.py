@@ -6,6 +6,7 @@ import pprint
 import json
 import math
 import numpy
+import multiprocessing
 
 import solver
 
@@ -119,17 +120,6 @@ def constructive_algs():
     return algs_data
 
 
-# def constructive_options():
-#     choice = hyperopt.hp.choice(
-#         "constructive_opt",
-#         ["BasicGreedy", "WBasicGreedy"]
-#     )
-    
-#     add_to_param_dict("constructive_opt", choice)
-
-#     return choice
-
-
 def reinsertion_algs():
     algs_data = {
         "KRegret" : params_insertions.k_regret(),
@@ -139,17 +129,6 @@ def reinsertion_algs():
     return algs_data
 
 
-# def reinsertion_options():
-#     choice = hyperopt.hp.choice(
-#         "reinsertion_opt",
-#         ["KRegret", "WKRegret"]
-#     )
-    
-#     add_to_param_dict("reinsertion_opt", choice)
-    
-#     return choice
-
-
 def removal_algs():
     algs_data = {
         "RandomRemoval" : params_removals.random_removal(),
@@ -157,17 +136,6 @@ def removal_algs():
         "ShawRemovalPDPTW" : params_removals.shaw_removal_PDPTW()
     }
     return algs_data
-
-
-# def removal_options():
-#     choice = hyperopt.hp.choice(
-#         "removal_opt",
-#         [("RandomRemoval", "WorstRemoval", "ShawRemovalPDPTW")]
-#     )
-
-#     add_to_param_dict("removal_opt", choice)
-    
-#     return choice
 
 
 def perturb_algs():
@@ -182,51 +150,7 @@ def perturb_algs():
     return algs_data
 
 
-# def perturb_options():
-#     choice = hyperopt.hp.choice(
-#         "perturb_opt",
-#         [("RandomShift", "ModBiasedShift", "RandomExchange")]
-#     )
-    
-#     add_to_param_dict("perturb_opt", choice)
-    
-#     return choice
-
-
 def meta_algs():
-    # "list_size" : (
-    #     hyperopt.hp.choice(
-    #         "size", 
-    #         [i for i in range(100, 200)]
-    #     )
-    # )
-    # "max_it_without_improv" : hyperopt.hp.choice(
-    #     "max_it", 
-    #     [i for i in range(100, 501)]
-    # ),
-    # "k_min" : hyperopt.hp.choice(
-    #     "k_min",
-    #     [i for i in range(1, 7)]
-    # ),
-    # "k_max" : hyperopt.hp.choice(
-    #     "k_max",
-    #     [i for i in range(1, 7)]
-    # ),
-    # "b_min" : hyperopt.hp.choice(
-    #     "b_min", 
-    #     [i for i in range(1,6)]
-    # ),
-    # "b_max" : hyperopt.hp.uniform("b_max", 0.1, 0.4),
-    # "RandomRemoval" :hyperopt.hp.uniform("rr_prob", 1, 10),
-    # "WorstRemoval" : hyperopt.hp.uniform("wr_prob", 1, 10),
-    # "ShawRemoval" : hyperopt.hp.uniform("sr_prob", 1, 10)
-    # "RandomShift" : hyperopt.hp.uniform("rs_prb", 1, 10),
-    # "RandomExchange" : hyperopt.hp.uniform("re_prb", 1, 10),
-    # "ModBiasedShift" : hyperopt.hp.uniform("bs_prb", 1, 10)
-    # "number_of_perturb_moves" : hyperopt.hp.choice(
-    #         "max_pert_math", 
-    #         [i for i in range(1, 301)]
-    # )
     algs_data = {
         "AGES" : params_meta.ages(),
         "LNS" : params_meta.lns(),
@@ -237,20 +161,6 @@ def meta_algs():
     return algs_data
 
 
-# def meta_options():
-#     meta_choice = hyperopt.hp.choice(
-#         "metaheuristic",
-#         [
-#             "AGES"
-#             "LNS"
-#             "SetPartitionModel"
-#             "OriginalPerturbation"
-#             "SBMath"
-#         ]
-#     )
-#     return meta_choice
-
-
 def solvers_algs():
     sol_algs = {
         "SolverPDPTW" : params_solver.solver_pdptw()
@@ -258,14 +168,6 @@ def solvers_algs():
     
     return sol_algs
 
-# def solvers_options():
-#     choice = hyperopt.hp.choice(
-#         "solver_choice",
-#         [
-#             "SolverPDPTW"
-#         ]
-#     )
-#     return choice
 
 def constraints_data():
     constr_data = {
@@ -408,6 +310,10 @@ def make_configuration_input_file(configuration, config_file_name):
         f.close()
 
 
+def executed_process(arguments, result):
+    result["data"] = solver.execute(arguments=arguments)
+    return result
+
 def solve_inputs(inputs, output_path, time_limit, config_file):
     global config_idx
     
@@ -424,14 +330,22 @@ def solve_inputs(inputs, output_path, time_limit, config_file):
         arguments["seed"] = random.randint(0, 10000000)
         arguments["time_limit"] = time_limit
         arguments["make_log"] = True
-        arguments["detail_sol"] = False
+        arguments["detail_sol"] = True
         arguments["input"] = inputs[i]
         arguments["output"] = output
         arguments["output_path"] = None
         
-        
+        # result = {}
+        # # p = multiprocessing.Process(
+        # #     target=executed_process, 
+        # #     args=(arguments, result)
+        # # )
+        # # p.start()
+        # # p.join()
+        # results[i] = result["data"]
         result = solver.execute(arguments=arguments)
         results[i] = result
+
     
     # print(results)
     
@@ -602,6 +516,6 @@ if __name__ == "__main__":
     
     with open(best_out, "w") as best_file:
         best_file.write(json.dumps(best_config, indent=2))
-        best_file.claose()
+        best_file.close()
         
     

@@ -37,7 +37,7 @@ def set_to_make_log(
     solution_detailed = detail_solution
 
     global log_data
-    log_data += "-" * 80
+    log_data += "-" * 80 + "\n"
     
     global output_path
     output_path = out_path

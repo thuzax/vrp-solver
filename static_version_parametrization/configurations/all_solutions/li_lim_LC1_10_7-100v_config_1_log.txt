@@ -1,27 +1,27 @@
---------------------------------------------------------------------------------(Solver execution current time: 2.86102294921875e-06)
+--------------------------------------------------------------------------------(Solver execution current time: 2.6226043701171875e-06)
 [INFO] Input Seed : 6463343
 --------------------------------------------------------------------------------
 (Solver execution current time: 8.344650268554688e-06)
-[INFO] Input time limit : 120
+[INFO] Input time limit : 600
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.0967254638671875e-05)
+(Solver execution current time: 1.1205673217773438e-05)
 [INFO] Command line arguments read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.7388360500335693)
+(Solver execution current time: 1.7268140316009521)
 [INFO] Input file read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.7392172813415527)
+(Solver execution current time: 1.7272074222564697)
 [INFO] Starting solver.
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.7392659187316895)
+(Solver execution current time: 1.7272567749023438)
 [INFO] Starting construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 13.875935792922974)
+(Solver execution current time: 14.01659870147705)
 [INFO] Finished construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 13.883954286575317)
+(Solver execution current time: 14.024731636047363)
 [WARNING] Could not construct feasible solution
 --------------------------------------------------------------------------------
-(Solver execution current time: 13.884691953659058)
-[INFO] Algorithm execution time : 13.885528326034546
+(Solver execution current time: 14.025484561920166)
+[INFO] Algorithm execution time : 14.026247024536133
 --------------------------------------------------------------------------------

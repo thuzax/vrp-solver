@@ -1,127 +1,127 @@
---------------------------------------------------------------------------------(Solver execution current time: 2.86102294921875e-06)
+--------------------------------------------------------------------------------(Solver execution current time: 2.6226043701171875e-06)
 [INFO] Input Seed : 6463343
 --------------------------------------------------------------------------------
 (Solver execution current time: 8.344650268554688e-06)
-[INFO] Input time limit : 120
---------------------------------------------------------------------------------
-(Solver execution current time: 1.0967254638671875e-05)
-[INFO] Command line arguments read with no errors.
---------------------------------------------------------------------------------
-(Solver execution current time: 1.7388360500335693)
-[INFO] Input file read with no errors.
---------------------------------------------------------------------------------
-(Solver execution current time: 1.7392172813415527)
-[INFO] Starting solver.
---------------------------------------------------------------------------------
-(Solver execution current time: 1.7392659187316895)
-[INFO] Starting construction
---------------------------------------------------------------------------------
-(Solver execution current time: 13.875935792922974)
-[INFO] Finished construction
---------------------------------------------------------------------------------
-(Solver execution current time: 13.883954286575317)
-[WARNING] Could not construct feasible solution
---------------------------------------------------------------------------------
-(Solver execution current time: 13.884691953659058)
-[INFO] Algorithm execution time : 13.885528326034546
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------(Solver execution current time: 3.337860107421875e-06)
-[INFO] Input Seed : 302518
+[INFO] Input time limit : 600
 --------------------------------------------------------------------------------
 (Solver execution current time: 1.1205673217773438e-05)
-[INFO] Input time limit : 120
---------------------------------------------------------------------------------
-(Solver execution current time: 1.430511474609375e-05)
 [INFO] Command line arguments read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.08074069023132324)
+(Solver execution current time: 1.7268140316009521)
 [INFO] Input file read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.08112621307373047)
+(Solver execution current time: 1.7272074222564697)
 [INFO] Starting solver.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.08113837242126465)
+(Solver execution current time: 1.7272567749023438)
 [INFO] Starting construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 54.88510179519653)
+(Solver execution current time: 14.01659870147705)
 [INFO] Finished construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 54.88669776916504)
+(Solver execution current time: 14.024731636047363)
 [WARNING] Could not construct feasible solution
 --------------------------------------------------------------------------------
-(Solver execution current time: 54.88725543022156)
-[INFO] Algorithm execution time : 54.88809251785278
+(Solver execution current time: 14.025484561920166)
+[INFO] Algorithm execution time : 14.026247024536133
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------(Solver execution current time: 4.291534423828125e-06)
+--------------------------------------------------------------------------------(Solver execution current time: 3.5762786865234375e-06)
+[INFO] Input Seed : 302518
+--------------------------------------------------------------------------------
+(Solver execution current time: 1.0251998901367188e-05)
+[INFO] Input time limit : 600
+--------------------------------------------------------------------------------
+(Solver execution current time: 1.33514404296875e-05)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------
+(Solver execution current time: 0.08057117462158203)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------
+(Solver execution current time: 0.08101201057434082)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------
+(Solver execution current time: 0.08103823661804199)
+[INFO] Starting construction
+--------------------------------------------------------------------------------
+(Solver execution current time: 57.304245471954346)
+[INFO] Finished construction
+--------------------------------------------------------------------------------
+(Solver execution current time: 57.30591893196106)
+[WARNING] Could not construct feasible solution
+--------------------------------------------------------------------------------
+(Solver execution current time: 57.30646562576294)
+[INFO] Algorithm execution time : 57.307313680648804
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------(Solver execution current time: 4.76837158203125e-06)
 [INFO] Input Seed : 4520679
 --------------------------------------------------------------------------------
 (Solver execution current time: 1.2874603271484375e-05)
-[INFO] Input time limit : 120
+[INFO] Input time limit : 600
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.5497207641601562e-05)
+(Solver execution current time: 1.5974044799804688e-05)
 [INFO] Command line arguments read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.5910875797271729)
+(Solver execution current time: 0.6147394180297852)
 [INFO] Input file read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.5915079116821289)
+(Solver execution current time: 0.6151275634765625)
 [INFO] Starting solver.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.5915541648864746)
+(Solver execution current time: 0.6151509284973145)
 [INFO] Starting construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 16.301331043243408)
+(Solver execution current time: 16.778746843338013)
 [INFO] Finished construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 16.304834842681885)
+(Solver execution current time: 16.78232979774475)
 [WARNING] Could not construct feasible solution
 --------------------------------------------------------------------------------
-(Solver execution current time: 16.305425882339478)
-[INFO] Algorithm execution time : 16.30649495124817
+(Solver execution current time: 16.78294610977173)
+[INFO] Algorithm execution time : 16.78384757041931
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------(Solver execution current time: 3.5762786865234375e-06)
+--------------------------------------------------------------------------------(Solver execution current time: 3.814697265625e-06)
 [INFO] Input Seed : 8231874
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.0251998901367188e-05)
-[INFO] Input time limit : 120
+(Solver execution current time: 1.1682510375976562e-05)
+[INFO] Input time limit : 600
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.3113021850585938e-05)
+(Solver execution current time: 1.52587890625e-05)
 [INFO] Command line arguments read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.014914751052856445)
+(Solver execution current time: 0.014583826065063477)
 [INFO] Input file read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.015293359756469727)
+(Solver execution current time: 0.014967918395996094)
 [INFO] Starting solver.
 --------------------------------------------------------------------------------
-(Solver execution current time: 0.015301942825317383)
+(Solver execution current time: 0.014991283416748047)
 [INFO] Starting construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 21.170352697372437)
+(Solver execution current time: 21.781397104263306)
 [INFO] Finished construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 21.171550273895264)
+(Solver execution current time: 21.78263235092163)
 [SOLUTION]
 Solution after WBasicGreedy
 obj_value: 4; obj_routes: 1207
 
 --------------------------------------------------------------------------------
-(Solver execution current time: 21.171574354171753)
+(Solver execution current time: 21.782655715942383)
 [INFO] Starting metaheuristic
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.02140808105469)
+(Solver execution current time: 600.0265853404999)
 [WARNING] Time Limit Exceeded
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.02166414260864)
+(Solver execution current time: 600.0267899036407)
 [WARNING] Searching current best solution.
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.02192187309265)
+(Solver execution current time: 600.0270402431488)
 [WARNING] Current best solution found.
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.02193260192871)
-[INFO] Algorithm execution time : 120.0227906703949
+(Solver execution current time: 600.0270516872406)
+[INFO] Algorithm execution time : 600.0279912948608
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.02272582054138)
+(Solver execution current time: 600.0276391506195)
 [SOLUTION]
 Final Solution Verification
 ====================================
@@ -142,33 +142,33 @@ REQUESTS TOTAL COST OK
 obj_value: 4; obj_routes: 1207
 
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------(Solver execution current time: 4.5299530029296875e-06)
-[INFO] Input Seed : 7919679
+--------------------------------------------------------------------------------(Solver execution current time: 4.291534423828125e-06)
+[INFO] Input Seed : 4449429
 --------------------------------------------------------------------------------
-(Solver execution current time: 1.1444091796875e-05)
-[INFO] Input time limit : 120
+(Solver execution current time: 1.1205673217773438e-05)
+[INFO] Input time limit : 600
 --------------------------------------------------------------------------------
 (Solver execution current time: 1.4543533325195312e-05)
 [INFO] Command line arguments read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 4.3963236808776855)
+(Solver execution current time: 4.33331036567688)
 [INFO] Input file read with no errors.
 --------------------------------------------------------------------------------
-(Solver execution current time: 4.3967201709747314)
+(Solver execution current time: 4.333750247955322)
 [INFO] Starting solver.
 --------------------------------------------------------------------------------
-(Solver execution current time: 4.396819353103638)
+(Solver execution current time: 4.333831071853638)
 [INFO] Starting construction
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.0064263343811)
+(Solver execution current time: 600.0269386768341)
 [WARNING] Time Limit Exceeded
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.00663447380066)
+(Solver execution current time: 600.0272331237793)
 [WARNING] Searching current best solution.
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.0066397190094)
+(Solver execution current time: 600.027238368988)
 [WARNING] Could not create any solution.
 --------------------------------------------------------------------------------
-(Solver execution current time: 120.00664949417114)
-[INFO] Algorithm execution time : 120.0077657699585
+(Solver execution current time: 600.0272436141968)
+[INFO] Algorithm execution time : 600.0283327102661
 --------------------------------------------------------------------------------
