@@ -14,7 +14,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
     instance = None
 
     def __new__(cls, *args, **kwargs):
-        for subcls in cls.__subclasses__():
+        for subcls in GenericClass.get_all_subclasses(cls):
             if (subcls.instance is not None):
                 return subcls.instance
         
@@ -140,6 +140,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             self.best_solution = metaheuristic_solution
 
         file_log.add_warning_log("Current best solution found.")
+        self.print_best_solution()
         return self.best_solution
 
 

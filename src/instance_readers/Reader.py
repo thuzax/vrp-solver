@@ -55,6 +55,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
         self.vertices_dict[vertex_id] = vertex
 
 
+
     @abstractmethod
     def create_depots(self, request_position):
         pass
@@ -67,7 +68,6 @@ class Reader(GenericClass, metaclass=ABCMeta):
             self.create_request_vertex(request_position)
 
         self.vertices = [None for i in range(len(self.vertices_dict))]
-
         for key, value in self.vertices_dict.items():
             self.vertices[key] = value
 
@@ -87,9 +87,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
         self.create_vertices()
 
 
-        
-
-
+    
     @abstractmethod
     def read_specific_input(self, file_name):
         pass

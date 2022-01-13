@@ -1,7 +1,6 @@
 import copy
 from os import stat
 from src.route_classes import Route
-import numpy
 
 from abc import ABC, ABCMeta, abstractmethod
 import typing
@@ -90,8 +89,6 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
 
     def calculate_route_id_value(self):
         self.id_value = tuple(self.vertices_order)
-        # string_order = [str(v) for v in self.vertices_order]
-        # self.id_value = ".".join(string_order)
 
 
     def get_id_value(self):
@@ -124,9 +121,9 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
         pass
 
 
-    @abstractmethod
     def remove(self, request):
-        pass
+        position = self.index(request)
+        self.pop(position)
 
     
     @abstractmethod

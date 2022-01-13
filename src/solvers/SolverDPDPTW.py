@@ -11,26 +11,54 @@ from src import file_log
 from src import execution_log
 
 
-from src.solvers import SolverClass
+from src.solvers import SolverPDPTW
 from src.solution_check import solution_check, get_solution_check_complete_data
 
 
-class SolverPDPTW(SolverClass):
+class SolverDPDPTW(SolverPDPTW):
 
     def __init__(self):
-        super().__init__("Solver for PDPTW")
+        super().__init__()
 
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
-        self.vertices = None
-        self.number_of_requests = None
-        self.requests = None
+        self.fixed_requests = None
+
+
+    def insert_fixed(self, solution):
+        for route_pos, route_fixed in enumerate(self.fixed_requests):
+            route = Route()
+            solution.add_route(route)
+            for pair in route_fixed:
+                insertion = InsertionOperator().get_best_insertion_in_route( 
+                    route,
+                    pair,
+                    self.obj_func,
+                    self.constraints
+                )
+                insert_pos, new_route, insert_cost = insertion
+                InsertionOperator().insert_request_in_solution(
+                    solution,
+                    pair,
+                    insert_pos,
+                    new_route,
+                    route_pos,
+                    self.obj_func
+                )
+                route = new_route
+
+        return solution
+
 
 
     def construct(self, parameters):
         file_log.add_info_log("Starting construction")
         solution = Solution()
+        
+        solution = self.insert_fixed(solution)
+        parameters["requests_set"] -= solution.requests()
+        
         solution = self.construction.solve(solution, parameters)
         
         file_log.add_info_log("Finished construction")
@@ -63,6 +91,7 @@ class SolverPDPTW(SolverClass):
         message = "Solution after " + self.construction_name + "\n"
         file_log.add_solution_log(self.best_solution, message)
 
+        print(solution)
         return solution
         
 
@@ -121,6 +150,7 @@ class SolverPDPTW(SolverClass):
             "input_name" : "output_name",
             "vertices" : "vertices",
             "requests" : "requests",
-            "number_of_requests" : "number_of_requests"
+            "number_of_requests" : "number_of_requests",
+            "fixed" : "fixed_requests"
         }
         return read_solv_attr_rela

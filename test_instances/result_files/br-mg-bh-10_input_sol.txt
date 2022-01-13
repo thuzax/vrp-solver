@@ -3,5 +3,5 @@ Authors :
 Date : 
 Reference 
 Solution
-Route 1 : 1 5 2 7 10 6 4 9 
-Route 2 : 3 8 
+Route 1 : 2 7 3 8 
+Route 2 : 1 5 10 6 4 9 

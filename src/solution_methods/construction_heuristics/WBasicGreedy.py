@@ -17,13 +17,12 @@ class WBasicGreedy(SolutionMethod):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
 
-    def solve(self, parameters):
+    def solve(self, solution, parameters):
         start = time.time()
         insertion_requests = copy.deepcopy(parameters["requests_set"])
         routes = []
         last_size = len(insertion_requests)
         
-        solution = Solution()
         inserted = True
         while (inserted and len(insertion_requests) > 0):
             last_size = len(insertion_requests)

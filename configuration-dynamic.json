@@ -11,7 +11,6 @@
         "BasicGreedy" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
-                "AttendAllRequests",
                 "PickupDeliveryConstraint",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
@@ -20,7 +19,6 @@
         "WBasicGreedy" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
-                "AttendAllRequests",
                 "PickupDeliveryConstraint",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
@@ -73,7 +71,6 @@
         "AGES" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
-                "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
@@ -92,8 +89,7 @@
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
-                "TimeWindowsConstraint",
-                "AttendAllRequests"
+                "TimeWindowsConstraint"
             ],
             "acceptance_algorithm_data" : {
                 "LAHC" : {
@@ -124,7 +120,6 @@
         "SetPartitionModel" : {
             "obj_func_name" : "ObjVehicles",
             "constraints_names" : [
-                "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
@@ -211,7 +206,7 @@
         }
     },
     "solver" : {
-        "SolverPDPTW" : {
+        "SolverDPDPTW" : {
             "output_type" : "json",
             "obj_func_name" : "ObjVehicles",
             "construction_name" : "WBasicGreedy",
@@ -236,7 +231,7 @@
         }
     },
     "route_class" : {
-        "RoutePDPTW" : {
+        "RouteDPDPTW" : {
         }
     },
     "vertex_class" : {
