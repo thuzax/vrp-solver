@@ -169,10 +169,10 @@ class Solution(GenericClass):
                 int(vertex_id) 
                 for vertex_id in route.requests_order()
             ]
-            sol_dict["costs"][i] = route.cost()
+            sol_dict["costs"][i] = float(route.cost())
 
-        sol_dict["solution_cost"] = self.cost()
-        sol_dict["solution_routes_cost"] = self.routes_cost()
+        sol_dict["solution_cost"] = float(self.cost())
+        sol_dict["solution_routes_cost"] = float(self.routes_cost())
         return sol_dict
 
 

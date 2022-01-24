@@ -9,6 +9,7 @@ from src.objects_managers import *
 from src.solution_classes import *
 from src import file_log
 from src import execution_log
+from src.objects_managers import ConstraintsObjects
 
 
 from src.solvers import SolverPDPTW
@@ -31,13 +32,27 @@ class SolverDPDPTW(SolverPDPTW):
             route = Route()
             solution.add_route(route)
             for pair in route_fixed:
+                cons = list(
+                    set(self.constraints) 
+                    - {ConstraintsObjects().get_by_name("FixedRequests")}
+                )
                 insertion = InsertionOperator().get_best_insertion_in_route( 
                     route,
                     pair,
                     self.obj_func,
-                    self.constraints
+                    cons
                 )
                 insert_pos, new_route, insert_cost = insertion
+
+                new_route = InsertionOperator().try_to_insert(
+                    route,
+                    insert_pos, 
+                    pair,
+                    self.obj_func, 
+                    cons,
+                    True
+                )
+
                 InsertionOperator().insert_request_in_solution(
                     solution,
                     pair,
@@ -47,12 +62,14 @@ class SolverDPDPTW(SolverPDPTW):
                     self.obj_func
                 )
                 route = new_route
-
+        
+        solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        self.print_solution_verification(solution, 0)
         return solution
 
 
 
-    def construct(self, parameters):
+    def construct(self, parameters, start_time):
         file_log.add_info_log("Starting construction")
         solution = Solution()
         
@@ -60,7 +77,7 @@ class SolverDPDPTW(SolverPDPTW):
         parameters["requests_set"] -= solution.requests()
         
         solution = self.construction.solve(solution, parameters)
-        
+
         file_log.add_info_log("Finished construction")
 
         obj_value = self.obj_func.get_solution_cost(solution)
@@ -80,19 +97,14 @@ class SolverDPDPTW(SolverPDPTW):
                 self.obj_func
             )
         ):
-            file_log.add_warning_log("Could not construct feasible solution")
-            execution_log.warning_log(
-                "Could not construct feasible solution"
-            )
-            self.best_solution = None
+            exec_time = time.time() - start_time
             return self.best_solution
-        
+
         # Log
         message = "Solution after " + self.construction_name + "\n"
         file_log.add_solution_log(self.best_solution, message)
 
-        print(solution)
-        return solution
+        return self.best_solution
         
 
 
@@ -105,8 +117,17 @@ class SolverDPDPTW(SolverPDPTW):
             "requests_set" : requests_set
         }
 
-        solution = self.construct(parameters)
+        solution = self.construct(parameters, heuristic_start)
+        self.print_solution_verification(self.best_solution, 0)
 
+
+        if (solution is None):
+            file_log.add_warning_log("Could not construct feasible solution")
+            execution_log.warning_log(
+                "Could not construct feasible solution"
+            )
+            self.best_solution = None
+            return self.best_solution
 
         file_log.add_info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)
@@ -130,7 +151,7 @@ class SolverDPDPTW(SolverPDPTW):
         exec_time = heuristic_end - heuristic_start
         
         # self.print_best_solution()
-        # self.print_solution_verification(self.best_solution, exec_time)
+        self.print_solution_verification(self.best_solution, exec_time)
 
         return self.best_solution
 

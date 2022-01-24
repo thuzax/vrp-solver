@@ -90,7 +90,20 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
             for item in route_fixed_vertices:
                 pick, deli = item
                 self.create_vertex(pick)
+                self.make_vertex_fake(pick)
                 self.vertices_dict[pick].make_fixed()
                 self.create_vertex(deli)
                 self.vertices_dict[deli].make_fixed()
 
+    def make_vertex_fake(self, idx):
+
+        self.vertices_dict[idx].set_attribute("service_time", 0)
+        tw_null = (0, self.planning_horizon)
+        self.vertices_dict[idx].set_attribute("time_window", tw_null)
+        
+        for i in range(len(self.time_matrix)):
+            self.time_matrix[i][idx] = 0
+            self.distance_matrix[i][idx] = 0
+
+            self.time_matrix[idx][i] = 0
+            self.distance_matrix[idx][i] = 0

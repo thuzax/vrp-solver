@@ -86,7 +86,8 @@ class ReaderJsonPDPTW(Reader):
             for j in range(start_index, self.number_of_points):
                 matrix[i][j] = int(matrix_dict[str(i)][str(j)])
 
-        matrix = tuple(map(tuple, matrix))
+        # matrix = tuple(map(tuple, matrix))
+        matrix = numpy.array(matrix)
 
         return matrix
 
@@ -109,8 +110,8 @@ class ReaderJsonPDPTW(Reader):
             for i in range(len(pds))
         ])
 
-        self.pickups = tuple(self.pickups)
-        self.deliveries = tuple(self.deliveries)
+        self.pickups = set(tuple(self.pickups))
+        self.deliveries = set(tuple(self.deliveries))
 
 
     def read_demands(self, dem):

@@ -70,6 +70,7 @@ class ObjDistancePDPTW(ObjFunction):
         # Calulate increasing distance for pickup
         pick_previous = route.get_previous_vertex_of_position(pick_pos)
         pick_next = route.get_next_vertex_of_position(pick_pos)
+
         if (pick_previous is None):
             dist_pick_to_previous = self.distance_matrix[self.depot][pickup]
         else:

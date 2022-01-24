@@ -63,11 +63,12 @@ class Reader(GenericClass, metaclass=ABCMeta):
 
     def create_vertices(self):
         self.create_depots()
-        self.create_specific_vertices()
         for request_position in range(self.number_of_requests):
             self.create_request_vertex(request_position)
 
+        self.create_specific_vertices()
         self.vertices = [None for i in range(len(self.vertices_dict))]
+        
         for key, value in self.vertices_dict.items():
             self.vertices[key] = value
 

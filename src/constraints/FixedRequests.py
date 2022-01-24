@@ -1,0 +1,54 @@
+from src.constraints import Constraint
+
+class FixedRequests(Constraint):
+    
+
+    def __init__(self):
+        super().__init__("Fixed Requests")
+
+    def initialize_class_attributes(self):
+        super().initialize_class_attributes()
+        self.fixed_routes = None
+
+
+    def route_is_feasible(self, route):
+        ## TODO O DE BAIXO
+        fixed_requests_in_routes = 0
+
+        for fixed_route in self.fixed_routes:
+            
+            has_a_fixed_request = False
+            does_not_have_one_fixed_request = False
+
+            for request in fixed_route:
+            
+                if (request in route):
+                    has_a_fixed_request = True
+                else:
+                    does_not_have_one_fixed_request = True
+
+            if (has_a_fixed_request and does_not_have_one_fixed_request):
+                return False
+
+        return True
+
+
+    def solution_is_feasible(self, solution):
+        for fixed_route in self.fixed_routes:
+            for request in fixed_route:
+                if (request not in solution.requests()):
+                    return False
+
+        for route in solution.routes:
+            if (not self.route_is_feasible(route)):
+                return False
+        
+        return True
+
+
+    @staticmethod
+    def get_attr_relation_solver_constr():
+        attr_relation = {
+            "fixed" : "fixed_routes"
+        }
+        return attr_relation

@@ -15,23 +15,29 @@ class RouteDPDPTW(RoutePDPTW):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.fixed_requests = set()
+        self.last_fixed_pickup = 0
 
-    def insert_in_route(self, insert_position, request, is_fixed=False):
+
+    def insert_in_route(self, insert_position, request, params=None):
+        
         pickup_pos, delivery_pos = insert_position
         pickup, delivery = request
         self.requests_set.add(request)
+        
+        ## REMOVER E ESTUDAR POSSIBILIDADE DE USAR ROTA PDPTW
+        if (params is not None and params["is_fixed"]):
+            pickup_pos = self.last_fixed_pickup
+            self.last_fixed_pickup += 1
+            self.fixed_requests.add(request)
+            
 
         self.insert_vertex(pickup_pos, pickup)
         self.insert_vertex(delivery_pos, delivery)
 
-        if (is_fixed):
-            self.fixed_requests.add(request)
 
 
     def pop_from_route(self, position):
         request = self.get_request_by_position(position)
-        if (request in self.fixed_requests):
-            return (None, None)
 
         pickup_pos, delivery_pos = position
 
@@ -56,6 +62,7 @@ class RouteDPDPTW(RoutePDPTW):
             self.capacity_occupations
         )
         route_copy.fixed_requests = copy.deepcopy(self.fixed_requests)
+        route_copy.last_fixed_pickup = self.last_fixed_pickup
 
 
     def __str__(self):

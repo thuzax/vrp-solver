@@ -14,7 +14,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
     instance = None
 
     def __new__(cls, *args, **kwargs):
-        for subcls in cls.__subclasses__():
+        for subcls in GenericClass.get_all_subclasses(cls):
             if (subcls.instance is not None):
                 return subcls.instance
         
@@ -46,6 +46,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             position, 
             request
         )
+        
         copy_route.route_cost += (
             additional_cost
         )

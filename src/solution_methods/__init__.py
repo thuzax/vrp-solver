@@ -1,5 +1,6 @@
 from .basic_operators.InsertionOperator import *
 from .basic_operators.InsertionOperatorPDPTW import *
+from .basic_operators.InsertionOperatorDPDPTW import *
 
 from .basic_operators.RemovalOperator import *
 from .basic_operators.RemovalOperatorPDPTW import *
@@ -18,6 +19,7 @@ from .heuristics.RandomRemoval import *
 from .heuristics.WorstRemoval import *
 from .heuristics.ShawRemoval import *
 from .heuristics.ShawRemovalPDPTW import *
+from .heuristics.ShawRemovalDPDPTW import *
 
 
 from .heuristics.RandomShift import *
@@ -39,6 +41,7 @@ from .acceptance_heuristics.LAHC import *
 __all__ = [
     "InsertionOperator",
     "InsertionOperatorPDPTW",
+    "InsertionOperatorDPDPTW",
 
     "RemovalOperator",
     "RemovalOperatorPDPTW",
@@ -54,6 +57,7 @@ __all__ = [
     "WorstRemoval",
     "ShawRemoval",
     "ShawRemovalPDPTW",
+    "ShawRemovalDPDPTW",
     
     "OriginalPerturbation",
     "RandomShift",

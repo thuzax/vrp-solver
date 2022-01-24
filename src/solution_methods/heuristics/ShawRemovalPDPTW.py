@@ -3,9 +3,7 @@ from abc import ABCMeta, abstractmethod
 import random
 from src.solution_methods.heuristics.ShawRemoval import ShawRemoval
 
-from src.solution_methods.SolutionMethod import SolutionMethod
-
-class ShawRemovalPDPTW(ShawRemoval, metaclass=ABCMeta):
+class ShawRemovalPDPTW(ShawRemoval):
 
     def __init__(self):
         super().__init__("Shaw Removal PDPTW")
@@ -73,3 +71,5 @@ class ShawRemovalPDPTW(ShawRemoval, metaclass=ABCMeta):
         return super().update_route_values(route, position, request)
 
 
+    def get_exception_requests(self):
+        return super().get_exception_requests()

@@ -1,0 +1,80 @@
+--------------------------------------------------------------------------------(Solver execution current time: 3.337860107421875e-06)
+[INFO] Input Seed : 0
+--------------------------------------------------------------------------------(Solver execution current time: 2.0265579223632812e-05)
+[INFO] Input time limit : 20
+--------------------------------------------------------------------------------(Solver execution current time: 2.3365020751953125e-05)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.020139455795288086)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.020176410675048828)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 0.020185470581054688)
+[INFO] Starting construction
+--------------------------------------------------------------------------------(Solver execution current time: 3.450615167617798)
+[INFO] Finished construction
+--------------------------------------------------------------------------------(Solver execution current time: 3.4529454708099365)
+[SOLUTION]
+Solution after WBasicGreedy
+obj_value: 8; obj_routes: 782
+Route 1 : 39 89 31 50 81 100 20 37 87 70 
+Route 2 : 47 97 35 3 22 85 72 11 61 53 
+Route 3 : 49 45 30 80 8 58 41 95 38 91 99 9 59 6 56 88 
+Route 4 : 33 42 2 52 92 40 90 21 83 71 26 76 23 36 28 86 78 73 1 51 
+Route 5 : 29 79 16 66 32 82 27 77 25 46 96 75 
+Route 6 : 13 15 65 17 67 63 48 19 14 69 64 34 84 4 18 68 43 98 54 93 
+Route 7 : 12 62 5 55 7 57 10 60 24 74 
+Route 8 : 44 94 
+
+--------------------------------------------------------------------------------(Solver execution current time: 3.453420400619507)
+[INFO] Starting metaheuristic
+--------------------------------------------------------------------------------(Solver execution current time: 13.402884721755981)
+[SOLUTION]
+AGES
+IT: 2
+Exec Time: 9.94410228729248
+Improved
+obj_value: 7; obj_routes: 826
+Route 1 : 39 89 31 50 81 100 20 37 87 70 
+Route 2 : 5 47 97 35 55 3 22 85 72 11 61 53 
+Route 3 : 49 45 30 80 8 58 41 95 38 91 99 9 59 6 56 88 
+Route 4 : 33 42 2 52 92 40 90 21 83 71 26 76 23 36 28 86 78 73 1 51 
+Route 5 : 29 79 16 10 66 32 82 27 77 7 60 25 57 46 96 75 
+Route 6 : 13 15 65 17 67 63 48 19 14 69 64 34 84 4 18 68 43 98 54 93 
+Route 7 : 24 44 12 94 62 74 
+
+--------------------------------------------------------------------------------(Solver execution current time: 20.011163473129272)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 20.011195421218872)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 20.01178288459778)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 20.01204013824463)
+[INFO] Algorithm execution time : 20.01279330253601
+--------------------------------------------------------------------------------(Solver execution current time: 20.012715101242065)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Attend All Requests Constraint OK
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+
+obj_value: 7; obj_routes: 671
+Route 1 : 40 31 39 81 20 70 89 25 46 75 50 90 96 100 
+Route 2 : 47 97 29 35 2 52 79 3 85 53 
+Route 3 : 30 80 5 55 42 92 8 58 43 38 48 98 93 9 59 88 
+Route 4 : 49 22 11 21 71 72 10 61 60 26 76 36 99 28 86 78 1 51 
+Route 5 : 16 66 32 82 34 27 4 77 84 7 57 23 54 73 
+Route 6 : 13 15 65 17 67 63 19 14 69 64 45 41 91 18 95 68 6 56 37 87 
+Route 7 : 33 24 83 12 44 62 94 74 
+
+--------------------------------------------------------------------------------

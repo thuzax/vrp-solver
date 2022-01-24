@@ -11,13 +11,19 @@ class VertexDPDPTW(VertexPDPTW):
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
-        self.is_fixed = False
+        self.fixed = False
 
+    def make_fixed(self):
+        self.fixed = True
+
+
+    def is_fixed(self):
+        return self.fixed
+
+    
     def __str__(self):
         text = super().__str__()
-        text += "IS FIXED? " + str(self.is_fixed) + "\n"
+        text += "IS FIXED? " + str(self.fixed) + "\n"
         return text
 
 
-    def make_fixed(self):
-        self.is_fixed = True

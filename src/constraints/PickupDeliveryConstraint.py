@@ -25,8 +25,8 @@ class PickupDeliveryConstraint(Constraint):
 
         route_order = route_order[start_pos:end_pos+1]
 
-        set_pickups = set(self.pickups)
-        set_deliveries = set(self.deliveries)
+        set_pickups = self.pickups
+        set_deliveries = self.deliveries
         
         pickups_found = {}
         deliveries_found = {}

@@ -21,11 +21,20 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         number_of_removals = parameters["b"]
         randomization_parameter = self.p
 
-        request = random.choice(list(new_solution.requests()))
+        request = self.choose_one_random_request_to_remove(
+            new_solution.requests()
+        )
         requests_to_remove = {request}
         while (len(requests_to_remove) < number_of_removals):
-            request = random.choice(list(new_solution.requests()))
-            candidates = new_solution.requests() - requests_to_remove
+            request = self.choose_one_random_request_to_remove(
+                new_solution.requests()
+            )
+
+            candidates = (
+                new_solution.requests() 
+                - requests_to_remove
+                - set(self.get_exception_requests())
+            )
             related_measure = self.calculate_requests_relatedness_measure(
                 new_solution, 
                 candidates, 
@@ -77,11 +86,19 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
                 )
 
 
+    def choose_one_random_request_to_remove(self, requests):
+        request = random.choice(list(requests()))
+        return request
+
+
     def get_request_to_remove(self, candidates, values, position):
         list_candidates = [key for key in candidates]
+
         if (len(list_candidates) >= position):
             return max(list_candidates)
+        
         list_candidates_values = [values[i] for i in list_candidates]
+        
         request_position = numpy.argpartition(
             numpy.array(list_candidates_values) * -1,
             position
@@ -90,8 +107,12 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         return list_candidates[request_position[position]]
 
 
+    @abstractmethod
+    def get_exception_requests(self):
+        return []
 
-    @abstractclassmethod
+
+    @abstractmethod
     def calculate_request_relatedness_measure(self, solution, r_1, r_2):
         pass
 

@@ -108,11 +108,11 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def insert_in_route(self, insert_position, request):
+    def insert_in_route(self, insert_position, request, params):
         pass
     
-    def insert(self, insert_position, request):
-        self.insert_in_route(insert_position, request)
+    def insert(self, insert_position, request, params):
+        self.insert_in_route(insert_position, request, params)
         self.calculate_route_id_value()
 
 

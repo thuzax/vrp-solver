@@ -38,7 +38,7 @@ class WKRegret(SolutionMethod):
         routes = new_solution.routes
         requests = parameters["requests_set"]
         self.k = parameters["k"]
-
+        
         inserted = True
         i = 0
         while (inserted and len(requests) > 0):
@@ -49,13 +49,12 @@ class WKRegret(SolutionMethod):
                 routes, 
                 best_routes_ids
             )
-            
             can_be_inserted = regret_sets["can_be_inserted"]
             regret_values = regret_sets["regret_values"]
             regret_routes = regret_sets["regret_routes"]
             regret_routes_ids = regret_sets["regret_routes_ids"]
             regret_insert_pos = regret_sets["regret_insert_pos"]
-
+            
             impossibles_requests = set([
                 request
                 for request, possible in can_be_inserted.items()
@@ -72,7 +71,6 @@ class WKRegret(SolutionMethod):
                 regret_routes_ids.pop(request)
 
             request = max(regret_values, key=regret_values.get)
-
 
 
             route_pos = regret_routes_ids[request][0]

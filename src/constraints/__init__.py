@@ -3,6 +3,7 @@ from .TimeWindowsConstraint import *
 from .HomogeneousCapacityConstraint  import *
 from .PickupDeliveryConstraint  import *
 from .AttendAllRequests import *
+from .FixedRequests import *
 
 
 __all__ = [
@@ -10,5 +11,6 @@ __all__ = [
     "TimeWindowsConstraint",
     "HomogeneousCapacityConstraint",
     "PickupDeliveryConstraint",
-    "AttendAllRequests"
+    "AttendAllRequests",
+    "FixedRequests"
 ]

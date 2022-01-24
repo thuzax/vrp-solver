@@ -20,14 +20,14 @@ class WBasicGreedy(SolutionMethod):
     def solve(self, solution, parameters):
         start = time.time()
         insertion_requests = copy.deepcopy(parameters["requests_set"])
-        routes = []
         last_size = len(insertion_requests)
-        
         inserted = True
+        if (len(solution.routes) == 0):
+            solution.add_route(Route())
+        
         while (inserted and len(insertion_requests) > 0):
             last_size = len(insertion_requests)
 
-            solution.add_route(Route())
             parameters = {}
 
             parameters["requests_set"] = insertion_requests
@@ -38,12 +38,17 @@ class WBasicGreedy(SolutionMethod):
                 solution.remove_route(-1)
                 inserted = False
             
+            solution.add_route(Route())
+        
+        for i, route in enumerate(solution.routes):
+            if (route.empty()):
+                solution.remove_route(i)
+
         exec_time = time.time() - start
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
         solution.set_routes_cost(
             self.obj_func.get_routes_sum_cost(solution.routes)
         )
-
 
         return solution
 
