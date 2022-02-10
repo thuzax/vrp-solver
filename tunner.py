@@ -108,8 +108,7 @@ def read_command_line_inputs():
 
 def constructive_algs():
     algs_data = {
-        "BasicGreedy" : params_constructives.basic_greedy(),
-        "WBasicGreedy" : params_constructives.w_basic_greedy()
+        "BasicGreedy" : params_constructives.basic_greedy()
     }
 
     return algs_data
@@ -280,7 +279,7 @@ def constraints_data():
 def objectives_data():
     obj_data = {
         "ObjDistancePDPTW" : params_objectives.obj_distance_PDPTW(),
-        "ObjVehicles" : params_objectives.obj_vehicles()
+        "ObjVehiclePDPTW" : params_objectives.obj_vehicles()
     }
     
     return obj_data

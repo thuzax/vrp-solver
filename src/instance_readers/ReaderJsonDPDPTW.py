@@ -1,4 +1,5 @@
 
+from gc import freeze
 import json
 from src.vertex_classes import Vertex
 import numpy
@@ -47,7 +48,7 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
         self.time_matrix = self.read_matrix(time_mat)
         
         self.read_pickups_and_deliveries(pds)
-        self.fixed = self.read_fixed(fixed_requests)
+        self.fixed_routes_dict = self.read_fixed(fixed_requests)
 
         self.read_demands(dem)
         self.read_services_times(serv_times)
@@ -60,15 +61,18 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
         pairs = []
         picks = []
         delis = []
-        for route_fixed in fixed_requests:
-            fix_req.append([])
-            for pair in route_fixed:
-                pair = tuple(pair)
-                fix_req[-1].append(pair)
-                pairs.append(pair)
-                delis.append(pair[1])
-                picks.append(pair[0])
-
+        for route_dict in fixed_requests:
+            fix_req.append(route_dict)
+            fix_req[-1]["requests"] = set()
+            route_fixed = route_dict["route"]
+            for vertex_id in route_fixed:
+                pair = (vertex_id, vertex_id + int(len(self.points)/2))
+                if (pair[1] < len(self.points)):
+                    fix_req[-1]["requests"].add(pair)
+                    pairs.append(pair)
+                    delis.append(pair[1])
+                    picks.append(pair[0])
+        
         self.requests = tuple(list(self.requests) + pairs)
         self.pickups = list(self.pickups) + picks
         self.deliveries = list(self.deliveries) + delis
@@ -76,8 +80,8 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
         self.pickups.sort()
         self.deliveries.sort()
 
-        self.pickups = tuple(self.pickups)
-        self.deliveries = tuple(self.deliveries)
+        self.pickups = set(self.pickups)
+        self.deliveries = set(self.deliveries)
 
         self.number_of_requests = len(self.requests)
 
@@ -86,24 +90,24 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
 
 
     def create_specific_vertices(self):
-        for route_fixed_vertices in self.fixed:
-            for item in route_fixed_vertices:
+        for route_fixed_dict in self.fixed_routes_dict:
+            route_fixed_requests = route_fixed_dict["requests"]
+            for item in route_fixed_requests:
                 pick, deli = item
                 self.create_vertex(pick)
-                self.make_vertex_fake(pick)
                 self.vertices_dict[pick].make_fixed()
                 self.create_vertex(deli)
                 self.vertices_dict[deli].make_fixed()
 
-    def make_vertex_fake(self, idx):
+    # def make_vertex_fake(self, idx):
 
-        self.vertices_dict[idx].set_attribute("service_time", 0)
-        tw_null = (0, self.planning_horizon)
-        self.vertices_dict[idx].set_attribute("time_window", tw_null)
+    #     self.vertices_dict[idx].set_attribute("service_time", 0)
+    #     tw_null = (0, self.planning_horizon)
+    #     self.vertices_dict[idx].set_attribute("time_window", tw_null)
         
-        for i in range(len(self.time_matrix)):
-            self.time_matrix[i][idx] = 0
-            self.distance_matrix[i][idx] = 0
+    #     for i in range(len(self.time_matrix)):
+    #         self.time_matrix[i][idx] = 0
+    #         self.distance_matrix[i][idx] = 0
 
-            self.time_matrix[idx][i] = 0
-            self.distance_matrix[idx][i] = 0
+    #         self.time_matrix[idx][i] = 0
+    #         self.distance_matrix[idx][i] = 0

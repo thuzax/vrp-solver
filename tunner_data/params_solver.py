@@ -24,7 +24,7 @@ def solvers_options():
 def solver_pdptw():
     data  = {
         "output_type" : "json",
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "construction_name" : params_constructives.constructive_options(),
         "metaheuristic_name" : "SBMath",
         "constraints_names" : [

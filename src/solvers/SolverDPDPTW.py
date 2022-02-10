@@ -28,29 +28,49 @@ class SolverDPDPTW(SolverPDPTW):
 
 
     def insert_fixed(self, solution):
-        for route_pos, route_fixed in enumerate(self.fixed_requests):
+        for route_pos, route_fixed_dict in enumerate(self.fixed_requests):
+            route_requests = route_fixed_dict["requests"]
+            route_order = route_fixed_dict["route"]
             route = Route()
             solution.add_route(route)
-            for pair in route_fixed:
+
+            vertices_positions = {
+                vertex_id:position 
+                for position, vertex_id in enumerate(route_order)
+            }
+            for pair in route_requests:
                 cons = list(
                     set(self.constraints) 
                     - {ConstraintsObjects().get_by_name("FixedRequests")}
                 )
-                insertion = InsertionOperator().get_best_insertion_in_route( 
-                    route,
-                    pair,
-                    self.obj_func,
-                    cons
-                )
-                insert_pos, new_route, insert_cost = insertion
+                
+                pick, deli = pair
+                
+                pick_insert_pos = 0
+                deli_insert_pos = 1
+
+                if (route.size() > 0):
+                    pick_pos = vertices_positions[pick]
+                    deli_pos = vertices_positions[deli]
+
+                    new_route_order = route.requests_order()
+
+
+                    for vertex_id in new_route_order:
+                        vertex_pos = vertices_positions[vertex_id]
+                        if (vertex_pos < pick_pos):
+                            pick_insert_pos += 1
+                        if (vertex_pos < deli_pos):
+                            deli_insert_pos += 1
+
+                insert_pos = (pick_insert_pos, deli_insert_pos)
 
                 new_route = InsertionOperator().try_to_insert(
                     route,
                     insert_pos, 
                     pair,
                     self.obj_func, 
-                    cons,
-                    True
+                    cons
                 )
 
                 InsertionOperator().insert_request_in_solution(
@@ -64,6 +84,7 @@ class SolverDPDPTW(SolverPDPTW):
                 route = new_route
         
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
+        
         self.print_solution_verification(solution, 0)
         return solution
 
@@ -76,6 +97,7 @@ class SolverDPDPTW(SolverPDPTW):
         solution = self.insert_fixed(solution)
         parameters["requests_set"] -= solution.requests()
         
+
         solution = self.construction.solve(solution, parameters)
 
         file_log.add_info_log("Finished construction")
@@ -118,8 +140,6 @@ class SolverDPDPTW(SolverPDPTW):
         }
 
         solution = self.construct(parameters, heuristic_start)
-        self.print_solution_verification(self.best_solution, 0)
-
 
         if (solution is None):
             file_log.add_warning_log("Could not construct feasible solution")
@@ -172,6 +192,6 @@ class SolverDPDPTW(SolverPDPTW):
             "vertices" : "vertices",
             "requests" : "requests",
             "number_of_requests" : "number_of_requests",
-            "fixed" : "fixed_requests"
+            "fixed_routes_dict" : "fixed_requests"
         }
         return read_solv_attr_rela

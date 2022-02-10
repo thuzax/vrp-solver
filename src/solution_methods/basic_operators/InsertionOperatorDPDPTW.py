@@ -16,13 +16,10 @@ class InsertionOperatorDPDPTW(InsertionOperatorPDPTW):
         position, 
         request, 
         obj_func, 
-        constraints,
-        is_fixed=False
+        constraints
     ):
         copy_route = route.copy()
-        params = {}
-        params["is_fixed"] = is_fixed
-        copy_route.insert(position, request, params)
+        copy_route.insert(position, request)
 
         self.update_route_values(copy_route, position, request)
         additional_cost = obj_func.route_additional_route_cost_after_insertion(

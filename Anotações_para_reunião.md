@@ -25,3 +25,6 @@ Testes
 
 Texto
 - Exemplo Biased Exchange
+
+Adição do 2-opt
+- Porcentagem aleatória de rotas com pontos fixos vai sofrer um 2-opt a cada iteração da meta-heuristica

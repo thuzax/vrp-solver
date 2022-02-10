@@ -251,9 +251,7 @@ class SBMath(LocalSearch):
 
 
     def get_current_best_solution(self):
-        # print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-        # print(self.best_solution)
-        # raise Exception("PAROU")
+
         current_best = self.best_solution
         ages_best = self.local_operators["AGES"].get_current_best_solution()
         

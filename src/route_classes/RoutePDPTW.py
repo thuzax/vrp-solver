@@ -26,7 +26,7 @@ class RoutePDPTW(RouteClass):
         self.capacity_occupations.insert(position, 0)
 
 
-    def insert_in_route(self, insert_position, request):
+    def insert_in_route(self, insert_position, request, params=None):
         pickup_pos, delivery_pos = insert_position
         pickup, delivery = request
         self.requests_set.add(request)
@@ -93,7 +93,6 @@ class RoutePDPTW(RouteClass):
         route_copy.capacity_occupations = copy.deepcopy(
             self.capacity_occupations
         )
-
 
     def __str__(self):
         text = "Route: " + str(self.vertices_order) + "\n"

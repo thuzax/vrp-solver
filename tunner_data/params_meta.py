@@ -45,7 +45,7 @@ def ages():
     meta_params["n_pert"] =  number_of_perturb_moves
     
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
@@ -103,7 +103,7 @@ def lns():
     
     
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint",
@@ -144,7 +144,7 @@ def lns():
 
 def set_partitioning():
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "AttendAllRequests",
             "HomogeneousCapacityConstraint",
@@ -168,7 +168,7 @@ def original_perturbation():
     meta_params["bs_prb"] = bs_prb
     
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint"
@@ -198,7 +198,7 @@ def sb_math():
     )
     
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint",

@@ -1,0 +1,1435 @@
+--------------------------------------------------------------------------------(Solver execution current time: 2.6226043701171875e-06)
+[INFO] Input Seed : 0
+--------------------------------------------------------------------------------(Solver execution current time: 1.1444091796875e-05)
+[INFO] Input time limit : 3
+--------------------------------------------------------------------------------(Solver execution current time: 1.4066696166992188e-05)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.0009090900421142578)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.0009474754333496094)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 0.0009562969207763672)
+[INFO] Starting construction
+--------------------------------------------------------------------------------(Solver execution current time: 0.007187366485595703)
+[INFO] Finished construction
+--------------------------------------------------------------------------------(Solver execution current time: 0.007442474365234375)
+[SOLUTION]
+Solution after BasicGreedy
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 2 7 3 8 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.007470607757568359)
+[INFO] Starting metaheuristic
+--------------------------------------------------------------------------------(Solver execution current time: 0.03402876853942871)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.02594733238220215
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 2 7 3 8 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.07397580146789551)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03944516181945801
+Improved
+obj_value: 3; obj_routes: 158960
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 
+Route 3 : 1 6 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.14453887939453125)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0695030689239502
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 2 7 3 8 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.18454933166503906)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03994297981262207
+obj_value: 3; obj_routes: 182201
+Route 1 : 1 3 6 4 8 9 
+Route 2 : 2 7 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.18472695350646973)
+[SOLUTION]
+SBMath
+IT: 1
+ITs witout improving: 0
+IT time: 0.17695283889770508
+Time since begin: 0.17707300186157227
+obj_value: 3; obj_routes: 182201
+Route 1 : 1 3 6 4 8 9 
+Route 2 : 2 7 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.22029376029968262)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.035195112228393555
+obj_value: 3; obj_routes: 182201
+Route 1 : 1 3 6 4 8 9 
+Route 2 : 2 7 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.24764275550842285)
+[SOLUTION]
+LNS
+IT: 32
+Exec Time: 0.02691793441772461
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 1 6 4 9 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.25065112113952637)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.002204418182373047
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.2745993137359619)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.023848533630371094
+obj_value: 3; obj_routes: 163989
+Route 1 : 5 10 3 8 4 9 
+Route 2 : 2 7 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.27474164962768555)
+[SOLUTION]
+SBMath
+IT: 2
+ITs witout improving: 0
+IT time: 0.08998799324035645
+Time since begin: 0.2670879364013672
+obj_value: 3; obj_routes: 163989
+Route 1 : 5 10 3 8 4 9 
+Route 2 : 2 7 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.31229305267333984)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.0372006893157959
+obj_value: 3; obj_routes: 163989
+Route 1 : 5 10 3 8 4 9 
+Route 2 : 2 7 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.3488645553588867)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03615307807922363
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 5 10 3 8 
+Route 2 : 1 6 4 9 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.35288143157958984)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0031862258911132812
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.3888235092163086)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03586721420288086
+obj_value: 3; obj_routes: 179668
+Route 1 : 2 7 4 9 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.388965368270874)
+[SOLUTION]
+SBMath
+IT: 3
+ITs witout improving: 1
+IT time: 0.11419892311096191
+Time since begin: 0.38131141662597656
+obj_value: 3; obj_routes: 179668
+Route 1 : 2 7 4 9 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.40451860427856445)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.015203714370727539
+obj_value: 3; obj_routes: 179668
+Route 1 : 2 7 4 9 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.44202375411987305)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03709077835083008
+obj_value: 3; obj_routes: 179668
+Route 1 : 2 7 4 9 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.5497455596923828)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.10695648193359375
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.608257532119751)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.058278799057006836
+obj_value: 3; obj_routes: 182201
+Route 1 : 1 3 6 4 8 9 
+Route 2 : 2 7 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.608403205871582)
+[SOLUTION]
+SBMath
+IT: 4
+ITs witout improving: 2
+IT time: 0.21941304206848145
+Time since begin: 0.6007492542266846
+obj_value: 3; obj_routes: 182201
+Route 1 : 1 3 6 4 8 9 
+Route 2 : 2 7 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.6436033248901367)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.03483295440673828
+obj_value: 3; obj_routes: 182201
+Route 1 : 1 3 6 4 8 9 
+Route 2 : 2 7 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.6781659126281738)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.034139156341552734
+obj_value: 3; obj_routes: 182201
+Route 1 : 1 3 6 4 8 9 
+Route 2 : 2 7 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.6818532943725586)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0028731822967529297
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.7132971286773682)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03136134147644043
+obj_value: 3; obj_routes: 160896
+Route 1 : 1 6 
+Route 2 : 2 7 4 9 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.7134451866149902)
+[SOLUTION]
+SBMath
+IT: 5
+ITs witout improving: 3
+IT time: 0.10501503944396973
+Time since begin: 0.7057909965515137
+obj_value: 3; obj_routes: 160896
+Route 1 : 1 6 
+Route 2 : 2 7 4 9 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.7468111515045166)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.033004045486450195
+obj_value: 3; obj_routes: 160896
+Route 1 : 1 6 
+Route 2 : 2 7 4 9 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.7814102172851562)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03417611122131348
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 1 6 4 9 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.7853283882141113)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0031495094299316406
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.80942702293396)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.024024009704589844
+obj_value: 3; obj_routes: 160896
+Route 1 : 2 7 4 9 
+Route 2 : 1 6 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.809577226638794)
+[SOLUTION]
+SBMath
+IT: 6
+ITs witout improving: 4
+IT time: 0.09610605239868164
+Time since begin: 0.8019230365753174
+obj_value: 3; obj_routes: 160896
+Route 1 : 2 7 4 9 
+Route 2 : 1 6 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.8285787105560303)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.018641948699951172
+obj_value: 3; obj_routes: 160896
+Route 1 : 2 7 4 9 
+Route 2 : 1 6 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.8653557300567627)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03635001182556152
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 2 7 
+Route 2 : 1 6 4 9 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.8691534996032715)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003171682357788086
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.8993804454803467)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.030150413513183594
+obj_value: 3; obj_routes: 158960
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 
+Route 3 : 1 6 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.8995366096496582)
+[SOLUTION]
+SBMath
+IT: 7
+ITs witout improving: 5
+IT time: 0.08993315696716309
+Time since begin: 0.8918826580047607
+obj_value: 3; obj_routes: 158960
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 
+Route 3 : 1 6 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.9259133338928223)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.026015520095825195
+obj_value: 3; obj_routes: 158960
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 
+Route 3 : 1 6 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.9613723754882812)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03501081466674805
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 5 10 3 8 
+Route 2 : 2 7 
+Route 3 : 1 6 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.9652454853057861)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0031456947326660156
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.9919633865356445)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.026638507843017578
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.9921722412109375)
+[SOLUTION]
+SBMath
+IT: 8
+ITs witout improving: 6
+IT time: 0.09260845184326172
+Time since begin: 0.9845168590545654
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.0043766498565674)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.011816978454589844
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.0399062633514404)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.035099029541015625
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.0437850952148438)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003259897232055664
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.0753402709960938)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.031468868255615234
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.0754919052124023)
+[SOLUTION]
+SBMath
+IT: 9
+ITs witout improving: 7
+IT time: 0.08328485488891602
+Time since begin: 1.0678377151489258
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.0869526863098145)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.011106252670288086
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.1212396621704102)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.033863067626953125
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.125053882598877)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003236532211303711
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.148195505142212)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.0230710506439209
+obj_value: 3; obj_routes: 182761
+Route 1 : 2 7 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.1483407020568848)
+[SOLUTION]
+SBMath
+IT: 10
+ITs witout improving: 8
+IT time: 0.07282209396362305
+Time since begin: 1.1406865119934082
+obj_value: 3; obj_routes: 182761
+Route 1 : 2 7 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.188913345336914)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.04021096229553223
+obj_value: 3; obj_routes: 182761
+Route 1 : 2 7 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.225379467010498)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.0360410213470459
+obj_value: 3; obj_routes: 182761
+Route 1 : 2 7 
+Route 2 : 5 10 
+Route 3 : 1 3 6 8 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.2291603088378906)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003045320510864258
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.2668211460113525)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03758502006530762
+obj_value: 3; obj_routes: 163990
+Route 1 : 1 6 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.2669708728790283)
+[SOLUTION]
+SBMath
+IT: 11
+ITs witout improving: 9
+IT time: 0.11860251426696777
+Time since begin: 1.2593166828155518
+obj_value: 3; obj_routes: 163990
+Route 1 : 1 6 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.2960469722747803)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.028679609298706055
+obj_value: 3; obj_routes: 163990
+Route 1 : 1 6 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.332045316696167)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03555703163146973
+obj_value: 3; obj_routes: 163990
+Route 1 : 1 6 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.3362140655517578)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0034279823303222656
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.3651368618011475)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.028844356536865234
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.3652920722961426)
+[SOLUTION]
+SBMath
+IT: 12
+ITs witout improving: 10
+IT time: 0.09829473495483398
+Time since begin: 1.357637882232666
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.3945939540863037)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.02894759178161621
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.4291963577270508)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03417539596557617
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.4331767559051514)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0032422542572021484
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.4597101211547852)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.0264585018157959
+obj_value: 3; obj_routes: 163990
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.459867000579834)
+[SOLUTION]
+SBMath
+IT: 13
+ITs witout improving: 11
+IT time: 0.09454774856567383
+Time since begin: 1.4522128105163574
+obj_value: 3; obj_routes: 163990
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.497896671295166)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.037667274475097656
+obj_value: 3; obj_routes: 163990
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.5333616733551025)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.035024404525756836
+obj_value: 3; obj_routes: 163990
+Route 1 : 5 10 
+Route 2 : 2 7 3 8 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.5375711917877197)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003482818603515625
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.5762977600097656)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03864884376525879
+obj_value: 3; obj_routes: 179667
+Route 1 : 5 10 4 9 
+Route 2 : 1 3 6 8 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.5764544010162354)
+[SOLUTION]
+SBMath
+IT: 14
+ITs witout improving: 12
+IT time: 0.11655926704406738
+Time since begin: 1.5688002109527588
+obj_value: 3; obj_routes: 179667
+Route 1 : 5 10 4 9 
+Route 2 : 1 3 6 8 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.6050987243652344)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.028284549713134766
+obj_value: 3; obj_routes: 179667
+Route 1 : 5 10 4 9 
+Route 2 : 1 3 6 8 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.6407537460327148)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03516960144042969
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 1 6 4 9 
+Route 2 : 5 10 3 8 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.6447689533233643)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003305196762084961
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.6757879257202148)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.030928850173950195
+obj_value: 3; obj_routes: 163989
+Route 1 : 1 6 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.675943374633789)
+[SOLUTION]
+SBMath
+IT: 15
+ITs witout improving: 13
+IT time: 0.09946084022521973
+Time since begin: 1.6682887077331543
+obj_value: 3; obj_routes: 163989
+Route 1 : 1 6 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.7120847702026367)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.035759687423706055
+obj_value: 3; obj_routes: 163989
+Route 1 : 1 6 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 4 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.7460086345672607)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03348493576049805
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 1 6 4 9 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.7500464916229248)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003281831741333008
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.785923957824707)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03580045700073242
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.78617262840271)
+[SOLUTION]
+SBMath
+IT: 16
+ITs witout improving: 14
+IT time: 0.110198974609375
+Time since begin: 1.7785179615020752
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.820486068725586)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.03384733200073242
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.856384515762329)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03491377830505371
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.860539197921753)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0034279823303222656
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.8877651691436768)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.0271453857421875
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.8879246711730957)
+[SOLUTION]
+SBMath
+IT: 17
+ITs witout improving: 15
+IT time: 0.10172080993652344
+Time since begin: 1.8802707195281982
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.922896146774292)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.03461313247680664
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.9570097923278809)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03360891342163086
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 1 6 
+Route 3 : 2 7 3 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.9610564708709717)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0033082962036132812
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.9989521503448486)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03780531883239746
+obj_value: 3; obj_routes: 160896
+Route 1 : 2 7 3 8 
+Route 2 : 5 10 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.999110460281372)
+[SOLUTION]
+SBMath
+IT: 18
+ITs witout improving: 16
+IT time: 0.11115741729736328
+Time since begin: 1.9914562702178955
+obj_value: 3; obj_routes: 160896
+Route 1 : 2 7 3 8 
+Route 2 : 5 10 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.0171782970428467)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.01770782470703125
+obj_value: 3; obj_routes: 160896
+Route 1 : 2 7 3 8 
+Route 2 : 5 10 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.0514004230499268)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03372383117675781
+obj_value: 3; obj_routes: 160896
+Route 1 : 2 7 3 8 
+Route 2 : 5 10 4 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.0555105209350586)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003428220748901367
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.083866834640503)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.028249025344848633
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.0840156078338623)
+[SOLUTION]
+SBMath
+IT: 19
+ITs witout improving: 17
+IT time: 0.08487772941589355
+Time since begin: 2.0763614177703857
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.1058287620544434)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.021302461624145508
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.140901565551758)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03456735610961914
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.1449131965637207)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0033693313598632812
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.1686148643493652)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.023627042770385742
+obj_value: 3; obj_routes: 167983
+Route 1 : 5 10 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.1687700748443604)
+[SOLUTION]
+SBMath
+IT: 20
+ITs witout improving: 18
+IT time: 0.08472084999084473
+Time since begin: 2.161115884780884
+obj_value: 3; obj_routes: 167983
+Route 1 : 5 10 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.1891353130340576)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.020000457763671875
+obj_value: 3; obj_routes: 167983
+Route 1 : 5 10 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.225356101989746)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.035794973373413086
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 5 10 3 8 
+Route 2 : 1 6 4 9 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.2292606830596924)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0032808780670166016
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.26062273979187)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03128385543823242
+obj_value: 3; obj_routes: 182761
+Route 1 : 2 7 
+Route 2 : 1 3 6 8 4 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.260784387588501)
+[SOLUTION]
+SBMath
+IT: 21
+ITs witout improving: 19
+IT time: 0.09198617935180664
+Time since begin: 2.2531299591064453
+obj_value: 3; obj_routes: 182761
+Route 1 : 2 7 
+Route 2 : 1 3 6 8 4 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.280251979827881)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.019107341766357422
+obj_value: 3; obj_routes: 182761
+Route 1 : 2 7 
+Route 2 : 1 3 6 8 4 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.3136181831359863)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03292226791381836
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 2 7 
+Route 2 : 1 6 4 9 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.317603588104248)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0032796859741210938
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.3492183685302734)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03153681755065918
+obj_value: 3; obj_routes: 163990
+Route 1 : 2 7 3 8 4 9 
+Route 2 : 5 10 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.349371910095215)
+[SOLUTION]
+SBMath
+IT: 22
+ITs witout improving: 20
+IT time: 0.08855962753295898
+Time since begin: 2.3417177200317383
+obj_value: 3; obj_routes: 163990
+Route 1 : 2 7 3 8 4 9 
+Route 2 : 5 10 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.3884143829345703)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.038677215576171875
+obj_value: 3; obj_routes: 163990
+Route 1 : 2 7 3 8 4 9 
+Route 2 : 5 10 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.4230597019195557)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.034157752990722656
+obj_value: 3; obj_routes: 163990
+Route 1 : 2 7 3 8 4 9 
+Route 2 : 5 10 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.426947832107544)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0031359195709228516
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.459807872772217)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.032785892486572266
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.4599599838256836)
+[SOLUTION]
+SBMath
+IT: 23
+ITs witout improving: 21
+IT time: 0.11055946350097656
+Time since begin: 2.452305793762207
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.5017523765563965)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.04143166542053223
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.5374090671539307)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.035195112228393555
+obj_value: 3; obj_routes: 167984
+Route 1 : 2 7 3 4 8 9 
+Route 2 : 1 6 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.5413873195648193)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.0032372474670410156
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.573410987854004)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.03194141387939453
+obj_value: 3; obj_routes: 163989
+Route 1 : 1 6 
+Route 2 : 5 10 3 8 4 9 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.573570489883423)
+[SOLUTION]
+SBMath
+IT: 24
+ITs witout improving: 22
+IT time: 0.11358213424682617
+Time since begin: 2.565916061401367
+obj_value: 3; obj_routes: 163989
+Route 1 : 1 6 
+Route 2 : 5 10 3 8 4 9 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.5921449661254883)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.01821732521057129
+obj_value: 3; obj_routes: 163989
+Route 1 : 1 6 
+Route 2 : 5 10 3 8 4 9 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.627612829208374)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03503584861755371
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 1 6 4 9 
+Route 2 : 5 10 3 8 
+Route 3 : 2 7 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.6315717697143555)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003337860107421875
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.6584949493408203)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.02683734893798828
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.658674955368042)
+[SOLUTION]
+SBMath
+IT: 25
+ITs witout improving: 23
+IT time: 0.08507609367370605
+Time since begin: 2.6510205268859863
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.69661021232605)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.03753495216369629
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.7306997776031494)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03363800048828125
+obj_value: 3; obj_routes: 160896
+Route 1 : 5 10 4 9 
+Route 2 : 1 6 
+Route 3 : 2 7 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.7347934246063232)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003355264663696289
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.7569286823272705)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.02205371856689453
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 2 7 3 4 8 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.7570900917053223)
+[SOLUTION]
+SBMath
+IT: 26
+ITs witout improving: 24
+IT time: 0.09838485717773438
+Time since begin: 2.7494359016418457
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 2 7 3 4 8 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.7956602573394775)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.03820657730102539
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 2 7 3 4 8 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.835101842880249)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.039003610610961914
+obj_value: 3; obj_routes: 167984
+Route 1 : 5 10 
+Route 2 : 2 7 3 4 8 9 
+Route 3 : 1 6 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.8393619060516357)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003534555435180664
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.8669590950012207)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.02747631072998047
+obj_value: 3; obj_routes: 179667
+Route 1 : 5 10 4 9 
+Route 2 : 2 7 
+Route 3 : 1 3 6 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.8672752380371094)
+[SOLUTION]
+SBMath
+IT: 27
+ITs witout improving: 25
+IT time: 0.1101541519165039
+Time since begin: 2.8596198558807373
+obj_value: 3; obj_routes: 179667
+Route 1 : 5 10 4 9 
+Route 2 : 2 7 
+Route 3 : 1 3 6 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.8997199535369873)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.03205084800720215
+obj_value: 3; obj_routes: 179667
+Route 1 : 5 10 4 9 
+Route 2 : 2 7 
+Route 3 : 1 3 6 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.934300184249878)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.0341188907623291
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 1 6 4 9 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.938386917114258)
+[SOLUTION]
+SetPartitioningModel
+Exec Time: 0.003322601318359375
+obj_value: 19999999999999999999; obj_routes: 97839
+Route 1 : 1 3 6 4 8 9 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.9641647338867188)
+[SOLUTION]
+OriginalPerturbation
+Exec Time: 0.025699377059936523
+obj_value: 3; obj_routes: 182201
+Route 1 : 2 7 
+Route 2 : 1 3 6 4 8 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 2.9643468856811523)
+[SOLUTION]
+SBMath
+IT: 28
+ITs witout improving: 26
+IT time: 0.09703254699707031
+Time since begin: 2.9566903114318848
+obj_value: 3; obj_routes: 182201
+Route 1 : 2 7 
+Route 2 : 1 3 6 4 8 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 3.0014069080352783)
+[SOLUTION]
+AGES
+IT: 1
+Exec Time: 0.036693572998046875
+obj_value: 3; obj_routes: 182201
+Route 1 : 2 7 
+Route 2 : 1 3 6 4 8 9 
+Route 3 : 5 10 
+
+--------------------------------------------------------------------------------(Solver execution current time: 3.036735773086548)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 0.03488039970397949
+Improved
+obj_value: 3; obj_routes: 158959
+Route 1 : 2 7 
+Route 2 : 1 6 4 9 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------(Solver execution current time: 3.0379648208618164)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 3.038018226623535)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 3.038194179534912)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 3.038297653198242)
+[INFO] Algorithm execution time : 3.0388906002044678
+--------------------------------------------------------------------------------(Solver execution current time: 3.038590908050537)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Fixed Requests OK
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+
+obj_value: 3; obj_routes: 158959
+Route 1 : 1 6 4 9 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 
+
+--------------------------------------------------------------------------------

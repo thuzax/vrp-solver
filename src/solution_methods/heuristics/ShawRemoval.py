@@ -47,6 +47,10 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
                 * len(candidates)
             )
 
+
+            if (position == 0):
+                continue
+            
             request_to_remove = self.get_request_to_remove(
                 candidates, 
                 related_measure, 
@@ -93,6 +97,7 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
     def get_request_to_remove(self, candidates, values, position):
         list_candidates = [key for key in candidates]
+
 
         if (len(list_candidates) >= position):
             return max(list_candidates)

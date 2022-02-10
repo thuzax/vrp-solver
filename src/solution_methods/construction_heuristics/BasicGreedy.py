@@ -3,9 +3,9 @@ import copy
 import time
 
 from src.solution_check import get_solution_check_complete_data, solution_check
+from src.solution_methods.heuristics.WKRegret import WKRegret
 from src.solution_methods.heuristics.KRegret import KRegret
 from src.route_classes.Route import Route
-from src.solution_classes.Solution import Solution
 from src.solution_methods.SolutionMethod import SolutionMethod
 
 
@@ -16,26 +16,54 @@ class BasicGreedy(SolutionMethod):
     
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
+        self.insertion_heuristic_code = None
+
+
+    def get_insertion_heuristic(self):
+        if (self.insertion_heuristic_code == "wkr"):
+            return WKRegret()
+        
+        if (self.insertion_heuristic_code == "kr"):
+            return KRegret()
+
 
     def solve(self, solution, parameters):
+        
+        insertion_heuristic = self.get_insertion_heuristic()
         start = time.time()
         insertion_requests = copy.deepcopy(parameters["requests_set"])
-        routes = []
         last_size = len(insertion_requests)
-        
         inserted = True
+
+        if (len(solution.routes) > 0):
+            parameters = {}
+            parameters["requests_set"] = insertion_requests
+            parameters["k"] = 1
+            solution = insertion_heuristic.solve(solution, parameters)
+            insertion_requests -= solution.requests()
+        
+        solution.add_route(Route())
+
+        
         while (inserted and len(insertion_requests) > 0):
-            solution.add_route(Route())
+            last_size = len(insertion_requests)
+
             parameters = {}
 
             parameters["requests_set"] = insertion_requests
             parameters["k"] = 1
-            solution = KRegret().solve(solution, parameters)
+            solution = insertion_heuristic.solve(solution, parameters)
             insertion_requests -= solution.requests()
             if (last_size == len(insertion_requests)):
-                routes.pop()
+                solution.remove_route(-1)
                 inserted = False
             
+            solution.add_route(Route())
+        
+        for i, route in enumerate(solution.routes):
+            if (route.empty()):
+                solution.remove_route(i)
+
         exec_time = time.time() - start
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
         solution.set_routes_cost(

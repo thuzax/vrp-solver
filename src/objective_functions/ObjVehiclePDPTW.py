@@ -2,7 +2,7 @@
 
 from src.objective_functions import ObjFunction
 
-class ObjVehicle(ObjFunction):
+class ObjVehiclePDPTW(ObjFunction):
 
 
     def __init__(self):

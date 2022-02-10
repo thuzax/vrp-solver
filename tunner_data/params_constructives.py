@@ -12,7 +12,7 @@ def get_params_dict():
 def constructive_options():
     choice = hyperopt.hp.choice(
         "constructive_opt",
-        ["BasicGreedy", "WBasicGreedy"]
+        ["BasicGreedy"]
     )
     
     global constructive_params
@@ -24,24 +24,13 @@ def constructive_options():
 
 def basic_greedy():
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "AttendAllRequests",
             "PickupDeliveryConstraint",
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint"
-        ]
-    }
-    return data
-    
-def w_basic_greedy():
-    data =  {
-        "obj_func_name" : "ObjVehicles",
-        "constraints_names" : [
-            "AttendAllRequests",
-            "PickupDeliveryConstraint",
-            "HomogeneousCapacityConstraint",
-            "TimeWindowsConstraint"
-        ]
+        ],
+        "insertion_heuristic_code" : "kr"
     }
     return data

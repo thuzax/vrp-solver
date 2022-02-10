@@ -11,7 +11,7 @@ class ShawRemovalDPDPTW(ShawRemovalPDPTW):
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
-        self.fixed_routes = None
+        self.fixed_routes_dict = None
 
 
     def get_attr_relation_reader_heuristic(self):
@@ -19,7 +19,7 @@ class ShawRemovalDPDPTW(ShawRemovalPDPTW):
             "distance_matrix" : "distance_matrix",
             "demands" : "demands",
             "time_windows" : "time_windows",
-            "fixed" : "fixed_routes"
+            "fixed_routes_dict" : "fixed_routes_dict"
         }
         return rela_reader_heur
 
@@ -36,8 +36,8 @@ class ShawRemovalDPDPTW(ShawRemovalPDPTW):
 
     def get_exception_requests(self):
         exception_requests = []
-        for fixed_route in self.fixed_routes:
-            for request in fixed_route:
+        for fixed_route_dict in self.fixed_routes_dict:
+            for request in fixed_route_dict["requests"]:
                 exception_requests.append(request)
 
         return exception_requests

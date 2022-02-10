@@ -1,7 +1,7 @@
 {
     "objective": {
         "ObjDistancePDPTW": {},
-        "ObjVehicles": {}
+        "ObjVehiclePDPTW": {}
     },
     "constraints": {
         "AttendAllRequests": {},
@@ -42,16 +42,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "obj_func_name": "ObjVehicles"
-        },
-        "WBasicGreedy": {
-            "constraints_names": [
-                "AttendAllRequests",
-                "PickupDeliveryConstraint",
-                "HomogeneousCapacityConstraint",
-                "TimeWindowsConstraint"
-            ],
-            "obj_func_name": "ObjVehicles"
+            "obj_func_name": "ObjVehiclePDPTW",
+            "insertion_heuristic_code" : "kr"
         },
         "KRegret": {
             "constraints_names": [
@@ -100,21 +92,21 @@
                 "TimeWindowsConstraint"
             ],
             "mi": 8.031634609353091,
-            "obj_func_name": "ObjVehicles"
+            "obj_func_name": "ObjVehiclePDPTW"
         },
         "RandomExchange": {
             "constraints_names": [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "obj_func_name": "ObjVehicles"
+            "obj_func_name": "ObjVehiclePDPTW"
         },
         "RandomShift": {
             "constraints_names": [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "obj_func_name": "ObjVehicles"
+            "obj_func_name": "ObjVehiclePDPTW"
         },
         "AGES": {
             "acceptance_algorithm_data": {
@@ -131,7 +123,7 @@
             "max_ejections": 2,
             "max_number_of_perturbations": 41,
             "number_of_perturb_moves": 95,
-            "obj_func_name": "ObjVehicles",
+            "obj_func_name": "ObjVehiclePDPTW",
             "stop_criteria": "max_perturbation"
         },
         "LNS": {
@@ -159,7 +151,7 @@
             "max_it_without_improv": 444,
             "max_time": null,
             "max_time_without_improv": null,
-            "obj_func_name": "ObjVehicles",
+            "obj_func_name": "ObjVehiclePDPTW",
             "removals_probabilities": {
                 "RandomRemoval": 5.109705349722561,
                 "ShawRemoval": 1.5146180070304267,
@@ -180,7 +172,7 @@
                 "RandomExchange": "RandomExchange",
                 "RandomShift": "RandomShift"
             },
-            "obj_func_name": "ObjVehicles",
+            "obj_func_name": "ObjVehiclePDPTW",
             "perturb_probabilities": {
                 "ModBiasedShift": 2.983522680604433,
                 "RandomExchange": 7.984775875654556,
@@ -208,7 +200,7 @@
             "max_it_without_improv": 300,
             "max_time": 0,
             "number_of_perturb_moves": 60,
-            "obj_func_name": "ObjVehicles",
+            "obj_func_name": "ObjVehiclePDPTW",
             "routes_diff_method": "set",
             "stop_criteria": "iterations"
         },
@@ -218,7 +210,7 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "obj_func_name": "ObjVehicles",
+            "obj_func_name": "ObjVehiclePDPTW",
             "opt_time_limit": 60,
             "solver_code": "CBC"
         }
@@ -231,9 +223,9 @@
                 "PickupDeliveryConstraint",
                 "AttendAllRequests"
             ],
-            "construction_name": "WBasicGreedy",
+            "construction_name": "BasicGreedy",
             "metaheuristic_name": "SBMath",
-            "obj_func_name": "ObjVehicles",
+            "obj_func_name": "ObjVehiclePDPTW",
             "output_type": "json"
         }
     }

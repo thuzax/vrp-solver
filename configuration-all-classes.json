@@ -3,28 +3,20 @@
         "ObjDistancePDPTW" : {
 
         },
-        "ObjVehicle" : {
+        "ObjVehiclePDPTW" : {
             
         }
     },
     "solution_methods" : {
         "BasicGreedy" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "AttendAllRequests",
                 "PickupDeliveryConstraint",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
-            ]
-        },
-        "WBasicGreedy" : {
-            "obj_func_name" : "ObjVehicle",
-            "constraints_names" : [
-                "AttendAllRequests",
-                "PickupDeliveryConstraint",
-                "HomogeneousCapacityConstraint",
-                "TimeWindowsConstraint"
-            ]
+            ],
+            "insertion_heuristic_code" : "wkr"
         },
         "KRegret" : {
             "non_insertion_cost" : 9999999999999,
@@ -71,7 +63,7 @@
             "psi" : 2
         },
         "AGES" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
@@ -89,7 +81,7 @@
             "number_of_perturb_moves" : 5
         },
         "LNS" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
@@ -122,7 +114,7 @@
             }
         },
         "SetPartitionModel" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "AttendAllRequests",
                 "HomogeneousCapacityConstraint",
@@ -132,7 +124,7 @@
             "opt_time_limit" : 30
         },
         "SBMath" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
@@ -158,14 +150,14 @@
             "number_of_perturb_moves" : 20 
         },
         "RandomShift" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
         "ModBiasedShift" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
@@ -173,14 +165,14 @@
             "mi" : 0.2
         },
         "RandomExchange" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
         "OriginalPerturbation" : {
-            "obj_func_name" : "ObjVehicle",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
@@ -213,8 +205,8 @@
     "solver" : {
         "SolverPDPTW" : {
             "output_type" : "json",
-            "obj_func_name" : "ObjVehicle",
-            "construction_name" : "WBasicGreedy",
+            "obj_func_name" : "ObjVehiclePDPTW",
+            "construction_name" : "BasicGreedy",
             "metaheuristic_name" : "SBMath",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",

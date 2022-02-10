@@ -24,7 +24,7 @@ def perturb_options():
 
 def random_shift():
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint"
@@ -40,7 +40,7 @@ def mod_biased_shift():
     perturb_params["mi_prob"] = mi
     
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint"
@@ -52,7 +52,7 @@ def mod_biased_shift():
 
 def random_exchange():
     data = {
-        "obj_func_name" : "ObjVehicles",
+        "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint"
