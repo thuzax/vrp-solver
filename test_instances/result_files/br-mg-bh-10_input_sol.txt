@@ -1,7 +1,0 @@
-Instance name : br-mg-bh-10_input
-Authors : 
-Date : 
-Reference 
-Solution
-Route 1 : 2 7 3 8 
-Route 2 : 1 5 10 6 4 9 

@@ -91,7 +91,7 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
 
     def choose_one_random_request_to_remove(self, requests):
-        request = random.choice(list(requests()))
+        request = random.choice(list(requests))
         return request
 
 

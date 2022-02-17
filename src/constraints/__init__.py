@@ -1,9 +1,9 @@
-from .Constraint import *
-from .TimeWindowsConstraint import *
-from .HomogeneousCapacityConstraint  import *
-from .PickupDeliveryConstraint  import *
-from .AttendAllRequests import *
-from .FixedRequests import *
+from .Constraint import Constraint
+from .TimeWindowsConstraint import TimeWindowsConstraint
+from .HomogeneousCapacityConstraint  import HomogeneousCapacityConstraint
+from .PickupDeliveryConstraint  import PickupDeliveryConstraint
+from .AttendAllRequests import AttendAllRequests
+from .FixedRequests import FixedRequests
 
 
 __all__ = [

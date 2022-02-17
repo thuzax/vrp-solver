@@ -1,7 +1,7 @@
-from .Route import *
-from .RouteClass import *
-from .RoutePDPTW import *
-from .RouteDPDPTW import *
+from .Route import Route
+from .RouteClass import RouteClass
+from .RoutePDPTW import RoutePDPTW
+from .RouteDPDPTW import RouteDPDPTW
 
 
 __all__ = [

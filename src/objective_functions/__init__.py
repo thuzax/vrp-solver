@@ -1,14 +1,12 @@
-from .ObjFunction import *
-from .ObjDistancePDPTW import *
-from .ObjDistanceDPDPTW import *
-from .ObjVehiclePDPTW import *
-from .ObjVehicleDPDPTW import *
+from .ObjFunction import ObjFunction
+from .ObjFunctionPDPTW import ObjFunctionPDPTW
+from .ObjDistancePDPTW import ObjDistancePDPTW
+from .ObjVehiclePDPTW import ObjVehiclePDPTW
 
 
 __all__ = [
     "ObjFunction",
+    "ObjFunctionPDPTW",
     "ObjDistancePDPTW",
-    "ObjDistanceDPDPTW",
-    "ObjVehiclePDPTW",
-    "ObjVehicleDPDPTW"
+    "ObjVehiclePDPTW"
 ]

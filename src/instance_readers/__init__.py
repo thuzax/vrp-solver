@@ -1,6 +1,6 @@
-from .Reader import *
-from .ReaderJsonPDPTW import *
-from .ReaderJsonDPDPTW import *
+from .Reader import Reader
+from .ReaderJsonPDPTW import ReaderJsonPDPTW
+from .ReaderJsonDPDPTW import ReaderJsonDPDPTW
 
 __all__ = [
     "Reader",

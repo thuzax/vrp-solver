@@ -1,4 +1,5 @@
 from abc import ABC, ABCMeta, abstractmethod
+from curses import KEY_A1
 from src.vertex_classes import Vertex
 
 from src.instance_readers.Reader import *
@@ -67,6 +68,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
             self.create_request_vertex(request_position)
 
         self.create_specific_vertices()
+        
         self.vertices = [None for i in range(len(self.vertices_dict))]
         
         for key, value in self.vertices_dict.items():

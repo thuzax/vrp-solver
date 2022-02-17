@@ -1,6 +1,6 @@
-from .SolverClass import *
-from .SolverPDPTW import *
-from .SolverDPDPTW import *
+from .SolverClass import SolverClass
+from .SolverPDPTW import SolverPDPTW
+from .SolverDPDPTW import SolverDPDPTW
 
 __all__ = [
     "SolverClass",

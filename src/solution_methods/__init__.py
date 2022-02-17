@@ -1,47 +1,50 @@
-from .basic_operators.InsertionOperator import *
-from .basic_operators.InsertionOperatorPDPTW import *
-from .basic_operators.InsertionOperatorDPDPTW import *
+from .basic_operators.InsertionOperator import InsertionOperator
+from .basic_operators.InsertionOperatorPDPTW import InsertionOperatorPDPTW
 
-from .basic_operators.RemovalOperator import *
-from .basic_operators.RemovalOperatorPDPTW import *
+from .basic_operators.RemovalOperator import RemovalOperator
+from .basic_operators.RemovalOperatorPDPTW import RemovalOperatorPDPTW
 
-from .basic_operators.RemovalOperator import *
-from .basic_operators.RemovalOperatorPDPTW import *
+from .construction_heuristics.BasicGreedy import BasicGreedy
 
-from .construction_heuristics.BasicGreedy import *
-from .construction_heuristics.BasicGreedy import *
+from .heuristics.KRegret import KRegret
+from .heuristics.WKRegret import WKRegret
+from .heuristics.RandomInsertion import RandomInsertion
 
-from .heuristics.KRegret import *
-from .heuristics.WKRegret import *
-from .heuristics.RandomInsertion import *
-
-from .heuristics.RandomRemoval import *
-from .heuristics.WorstRemoval import *
-from .heuristics.ShawRemoval import *
-from .heuristics.ShawRemovalPDPTW import *
-from .heuristics.ShawRemovalDPDPTW import *
+from .heuristics.RandomRemoval import RandomRemoval
+from .heuristics.WorstRemoval import WorstRemoval
+from .heuristics.ShawRemoval import ShawRemoval
+from .heuristics.ShawRemovalPDPTW import ShawRemovalPDPTW
+from .heuristics.ShawRemovalDPDPTW import ShawRemovalDPDPTW
 
 
-from .heuristics.RandomShift import *
-from .heuristics.ModBiasedShift import *
-from .heuristics.RandomExchange import *
+from .heuristics.RandomShift import RandomShift
+from .heuristics.ModBiasedShift import ModBiasedShift
+from .heuristics.RandomExchange import RandomExchange
 
-from .exact_methods.SetPartitionModel import *
-from .local_searches.AGES import *
-from .local_searches.LNS import *
-from .local_searches.SBMath import *
-from .local_searches.OriginalPerturbation import *
+from .exact_methods.SetPartitionModel import SetPartitionModel
 
-from .acceptance_heuristics.AcceptanceHeuristic import *
-from .acceptance_heuristics.AcceptAll import *
-from .acceptance_heuristics.AcceptBetterOrWithProbability import *
-from .acceptance_heuristics.LAHC import *
+from .local_searches.AGES import AGES
+from .local_searches.LNS import LNS
+from .local_searches.SBMath import SBMath
+from .local_searches.OriginalPerturbation import OriginalPerturbation
+
+from .acceptance_heuristics.AcceptanceHeuristic \
+    import AcceptanceHeuristic
+    
+from .acceptance_heuristics.AcceptAll \
+    import AcceptAll
+    
+from .acceptance_heuristics.AcceptBetterOrWithProbability \
+    import AcceptBetterOrWithProbability
+    
+from .acceptance_heuristics.LAHC \
+    import LAHC
+    
 
 
 __all__ = [
     "InsertionOperator",
     "InsertionOperatorPDPTW",
-    "InsertionOperatorDPDPTW",
 
     "RemovalOperator",
     "RemovalOperatorPDPTW",

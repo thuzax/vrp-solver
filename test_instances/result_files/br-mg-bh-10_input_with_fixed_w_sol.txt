@@ -1,6 +1,0 @@
-Instance name : br-mg-bh-10_input_with_fixed_w
-Authors : 
-Date : 
-Reference 
-Solution
-Route 1 : 1 3 6 4 

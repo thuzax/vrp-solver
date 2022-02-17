@@ -3,24 +3,19 @@
         "ObjDistancePDPTW" : {
 
         },
-        "ObjDistanceDPDPTW" : {
-
-        },
         "ObjVehiclePDPTW" : {
-
-        },
-        "ObjVehicleDPDPTW" : {
-            "big_m" : 9999999999999999999
+        
         }
     },
     "solution_methods" : {
         "BasicGreedy" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "PickupDeliveryConstraint",
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ],
             "insertion_heuristic_code" : "kr"
         },
@@ -75,11 +70,12 @@
             "psi" : 2
         },
         "AGES" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ],
             "acceptance_algorithm_data" : {
                 "AcceptAll" : {}
@@ -93,11 +89,12 @@
             "number_of_perturb_moves" : 5
         },
         "LNS" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ],
             "acceptance_algorithm_data" : {
                 "LAHC" : {
@@ -126,22 +123,24 @@
             }
         },
         "SetPartitionModel" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ],
             "solver_code" : "CBC",
             "opt_time_limit" : 30
         },
         "SBMath" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "PickupDeliveryConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ],
             "local_operators_names" : {
                 "AGES" : "AGES",
@@ -162,36 +161,40 @@
             "number_of_perturb_moves" : 20 
         },
         "RandomShift" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ]
         },
         "ModBiasedShift" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ],
             "mi" : 0.2
         },
         "RandomExchange" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ]
         },
         "OriginalPerturbation" : {
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ],
             "acceptance_algorithm_data" : {
                 "AcceptAll" : {}
@@ -223,14 +226,15 @@
     "solver" : {
         "SolverDPDPTW" : {
             "output_type" : "json",
-            "obj_func_name" : "ObjVehicleDPDPTW",
+            "obj_func_name" : "ObjVehiclePDPTW",
             "construction_name" : "BasicGreedy",
             "metaheuristic_name" : "SBMath",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "PickupDeliveryConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "AttendAllRequests"
             ]
         }
     },
