@@ -77,21 +77,21 @@ class RandomExchange(SolutionMethod):
 
         past_moves = set()
         max_number_of_moves = 0
-        for i in range(len(new_solution.routes)-1):
-            route_i_size = new_solution.routes[i].number_of_requests()
-            for j in range(i+1, len(new_solution.routes)):
-                route_j_size = new_solution.routes[j].number_of_requests()
+        for i in range(len(new_solution.routes())-1):
+            route_i_size = new_solution.routes()[i].number_of_requests()
+            for j in range(i+1, len(new_solution.routes())):
+                route_j_size = new_solution.routes()[j].number_of_requests()
                 max_number_of_moves += route_i_size * route_j_size
 
         exchange_found = False
         while(len(past_moves) < max_number_of_moves and not exchange_found):
             first_route_pos, second_route_pos = tuple(random.sample(
-                [i for i in range(len(new_solution.routes))],
+                [i for i in range(len(new_solution.routes()))],
                 2
             ))
 
-            first_route = new_solution.routes[first_route_pos]
-            second_route = new_solution.routes[second_route_pos]
+            first_route = new_solution.routes()[first_route_pos]
+            second_route = new_solution.routes()[second_route_pos]
             if (first_route.size() == 0):
                 continue
             if (second_route.size() == 0):

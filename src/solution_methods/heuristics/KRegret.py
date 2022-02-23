@@ -39,7 +39,7 @@ class KRegret(SolutionMethod):
 
     def get_requests_best_feasible_insertions(self, requests, solution):
         requests_feasible_insertions = {}
-        routes = self.get_m_best_routes(solution.routes)
+        routes = self.get_m_best_routes(solution.routes())
         for request in requests:
             feasible_insertions = []
             for route in routes:

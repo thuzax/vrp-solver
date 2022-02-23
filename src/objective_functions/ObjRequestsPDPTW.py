@@ -1,19 +1,24 @@
+
+
 from src.objective_functions import ObjFunctionPDPTW
 
-class ObjDistancePDPTW(ObjFunctionPDPTW):
+class ObjRequestsPDPTW(ObjFunctionPDPTW):
+
 
     def __init__(self):
-        super().__init__("Distance Objective")
+        self.distance_matrix = None
+        self.depot = None
+        super().__init__("Requests Objective")
 
 
     def initialize_class_attributes(self):
-        self.distance_matrix = None
-        self.depot = None
         super().initialize_class_attributes()
 
 
     def get_solution_cost(self, solution):
-        return self.get_routes_sum_cost(solution.routes())
+        total_cost = - len(solution.requests())
+        return total_cost
+
 
 
     @staticmethod
@@ -23,5 +28,6 @@ class ObjDistancePDPTW(ObjFunctionPDPTW):
             "depot" : "depot"
         }
         return solver_func_attr_rela
+
 
     

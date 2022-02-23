@@ -4,7 +4,7 @@ class FixedRequests(Constraint):
     
 
     def __init__(self):
-        super().__init__("Fixed Requests")
+        super().__init__("Fixed Requests Constraint")
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
@@ -47,7 +47,7 @@ class FixedRequests(Constraint):
                 if (request not in solution.requests()):
                     return False
 
-        for route in solution.routes:
+        for route in solution.routes():
             if (not self.route_is_feasible(route)):
                 return False
         

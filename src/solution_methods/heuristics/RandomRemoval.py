@@ -17,7 +17,7 @@ class RandomRemoval(SolutionMethod):
     def solve(self, solution, parameters):
         new_solution = solution.copy()
         
-        routes = new_solution.routes
+        routes = new_solution.routes()
         number_of_removals = parameters["b"]
 
         empty_routes = []

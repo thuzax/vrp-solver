@@ -30,7 +30,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
         if (solution is None):
             return False
         
-        for route in solution.routes:
+        for route in solution.routes():
             if (not self.route_is_feasible(route)):
                 return False
 

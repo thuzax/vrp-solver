@@ -9,7 +9,7 @@ from src.route_classes.Route import Route
 from src.solution_methods.SolutionMethod import SolutionMethod
 
 
-class BasicGreedy(SolutionMethod):
+class BasicGreedyLimitedFleet(SolutionMethod):
     
     def __init__(self):
         super().__init__("Basic Greedy Heuristic")
@@ -17,6 +17,7 @@ class BasicGreedy(SolutionMethod):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.insertion_heuristic_code = None
+        self.fleet_size = None
 
 
     def get_insertion_heuristic(self):
@@ -42,27 +43,17 @@ class BasicGreedy(SolutionMethod):
             solution = insertion_heuristic.solve(solution, parameters)
             insertion_requests -= solution.requests()
         
-        solution.add_route(Route())
-
         
-        while (inserted and len(insertion_requests) > 0):
-            last_size = len(insertion_requests)
-
-            parameters = {}
-
-            parameters["requests_set"] = insertion_requests
-            parameters["k"] = 1
-            solution = insertion_heuristic.solve(solution, parameters)
-            insertion_requests -= solution.requests()
-            if (last_size == len(insertion_requests)):
-                solution.remove_route(-1)
-                inserted = False
-            
+        number_of_routes_to_add = self.fleet_size - len(solution.routes())
+        for i in range(number_of_routes_to_add):
             solution.add_route(Route())
+
         
-        for i, route in enumerate(solution.routes()):
-            if (route.empty()):
-                solution.remove_route(i)
+        parameters["requests_set"] = insertion_requests
+        parameters["k"] = 1
+        solution = insertion_heuristic.solve(solution, parameters)
+        insertion_requests -= solution.requests()
+            
 
         exec_time = time.time() - start
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
@@ -105,5 +96,7 @@ class BasicGreedy(SolutionMethod):
     
 
     def get_attr_relation_reader_heuristic(self):
-        return {}
+        return {
+            "fleet_size" : "fleet_size"
+        }
 

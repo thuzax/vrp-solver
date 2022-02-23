@@ -1,6 +1,6 @@
 def calculate_requests_total_cost(solution, obj_func):
     obj_requests_cost = 0
-    for route in solution.routes:
+    for route in solution.routes():
         for request in route.requests():
             obj_requests_cost += (
                 obj_func.get_request_cost_in_route(
@@ -15,7 +15,7 @@ def calculate_requests_total_cost(solution, obj_func):
 
 def calculate_routes_total_cost(solution, obj_func):
     routes_obj_value = 0
-    for route in solution.routes:
+    for route in solution.routes():
         routes_obj_value += obj_func.get_route_cost(route) 
     return routes_obj_value
 
@@ -77,7 +77,7 @@ def get_solution_check_complete_data(solution, constraints, obj_func):
             text += constraint.name + " OK" + "\n"
         else:
             text += constraint.name + " NOT OK FOR THESE ROUTES" + "\n"
-            for route in solution.routes:
+            for route in solution.routes():
                 if (not constraint.route_is_feasible(route)):
                     text += str(route) + "\n"
 

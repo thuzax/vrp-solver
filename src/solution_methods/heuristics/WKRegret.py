@@ -35,7 +35,7 @@ class WKRegret(SolutionMethod):
 
     def solve(self, solution, parameters):
         new_solution = solution.copy()
-        routes = new_solution.routes
+        routes = new_solution.routes()
         requests = parameters["requests_set"]
         self.k = parameters["k"]
         

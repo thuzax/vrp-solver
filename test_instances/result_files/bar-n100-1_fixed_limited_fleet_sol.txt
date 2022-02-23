@@ -1,0 +1,11 @@
+Instance name : bar-n100-1_fixed_limited_fleet
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 31 40 17 67 12 21 81 62 41 71 91 46 9 59 48 98 90 96 
+Route 2 : 20 28 49 70 78 27 77 99 6 36 56 86 
+Route 3 : 23 1 73 4 54 51 
+Route 4 : 5 55 13 39 63 14 64 89 10 60 16 66 50 38 100 88 
+Route 5 : 26 76 3 22 72 7 57 8 53 58 
+Route 6 : 47 97 2 30 33 80 32 82 34 52 84 83 18 25 68 75 37 87 

@@ -105,7 +105,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
-            self.best_solution.routes
+            self.best_solution.routes()
         )
 
         self.best_solution.set_objective_value(obj_value)
@@ -118,7 +118,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
                 metaheuristic_solution
             )
             meta_routes_cost = self.obj_func.get_routes_sum_cost(
-                metaheuristic_solution.routes
+                metaheuristic_solution.routes()
             )
 
             metaheuristic_solution.set_objective_value(meta_obj_value)
@@ -136,6 +136,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
                 self.best_solution
             )
         )
+
         if (meta_is_better):
             self.best_solution = metaheuristic_solution
 

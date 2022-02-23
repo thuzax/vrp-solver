@@ -1,7 +1,5 @@
 import time
 import copy
-import random
-from pprint import pprint
 
 from src.solution_methods import *
 from src.route_classes import *
@@ -85,7 +83,7 @@ class SolverDPDPTW(SolverPDPTW):
         
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
         
-        self.print_solution_verification(solution, 0)
+        # self.print_solution_verification(solution, 0)
         return solution
 
 
@@ -95,16 +93,20 @@ class SolverDPDPTW(SolverPDPTW):
         solution = Solution()
         
         solution = self.insert_fixed(solution)
-        parameters["requests_set"] -= solution.requests()
+        
+        params_greedy = copy.deepcopy(parameters)
+        params_greedy["requests_set"] = (
+            parameters["requests_set"] - solution.requests()
+        )
         
 
-        solution = self.construction.solve(solution, parameters)
+        solution = self.construction.solve(solution, params_greedy)
 
         file_log.add_info_log("Finished construction")
 
         obj_value = self.obj_func.get_solution_cost(solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
-            solution.routes
+            solution.routes()
         )
 
         solution.set_objective_value(obj_value)
@@ -125,6 +127,10 @@ class SolverDPDPTW(SolverPDPTW):
         # Log
         message = "Solution after " + self.construction_name + "\n"
         file_log.add_solution_log(self.best_solution, message)
+
+        self.best_solution.routes().append(Route())
+        self.best_solution.routes().append(Route())
+        self.best_solution.routes().append(Route())
 
         return self.best_solution
         
@@ -157,7 +163,7 @@ class SolverDPDPTW(SolverPDPTW):
 
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
-            self.best_solution.routes
+            self.best_solution.routes()
         )
 
         self.best_solution.set_objective_value(obj_value)

@@ -1,0 +1,8 @@
+Instance name : br-mg-bh-10_input_new_fixed_limted_fleet
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 1 6 4 9 
+Route 2 : 2 7 
+Route 3 : 5 10 3 8 

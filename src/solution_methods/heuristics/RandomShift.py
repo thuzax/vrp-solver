@@ -40,7 +40,7 @@ class RandomShift(SolutionMethod):
 
             # remove request
             new_route = RemovalOperator().try_to_remove(
-                new_solution.routes[route_pos],
+                new_solution.routes()[route_pos],
                 request_to_move,
                 self.obj_func,
                 self.constraints
@@ -59,8 +59,8 @@ class RandomShift(SolutionMethod):
             )
 
             routes_to_insert = [
-                new_solution.routes[i]
-                for i in range(len(new_solution.routes))
+                new_solution.routes()[i]
+                for i in range(len(new_solution.routes()))
                 if i != route_pos
             ]
 

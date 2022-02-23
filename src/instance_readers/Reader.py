@@ -6,9 +6,6 @@ from src.instance_readers.Reader import *
 from src import exceptions
 from src.GenericClass import GenericClass
 
-from pprint import pprint
-
-
 class Reader(GenericClass, metaclass=ABCMeta):
 
 

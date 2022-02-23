@@ -5,6 +5,8 @@ from .basic_operators.RemovalOperator import RemovalOperator
 from .basic_operators.RemovalOperatorPDPTW import RemovalOperatorPDPTW
 
 from .construction_heuristics.BasicGreedy import BasicGreedy
+from .construction_heuristics.BasicGreedyLimitedFleet \
+     import BasicGreedyLimitedFleet
 
 from .heuristics.KRegret import KRegret
 from .heuristics.WKRegret import WKRegret
@@ -50,6 +52,7 @@ __all__ = [
     "RemovalOperatorPDPTW",
     
     "BasicGreedy",
+    "BasicGreedyLimitedFleet",
 
     "KRegret",
     "WKRegret",

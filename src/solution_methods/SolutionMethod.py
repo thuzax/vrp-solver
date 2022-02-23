@@ -40,6 +40,9 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
         return True
 
     def solution_is_feasible(self, solution):
+        if (solution is None):
+            return False
+
         for constraint in self.constraints:
             if (not constraint.solution_is_feasible(solution)):
                 return False

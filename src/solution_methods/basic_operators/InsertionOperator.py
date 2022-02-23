@@ -130,7 +130,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         constraints
     ):
         feasible_insertions = []
-        for route in solution.routes:
+        for route in solution.routes():
             key = (request, route.get_id_value())
 
             if (key not in self.feasible_insertions_in_cache):

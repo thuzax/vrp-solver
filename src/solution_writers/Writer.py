@@ -8,8 +8,6 @@ from src import file_log
 from src import exceptions
 from src.GenericClass import GenericClass
 
-from pprint import pprint
-
 class Writer(GenericClass, metaclass=ABCMeta):
 
 

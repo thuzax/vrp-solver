@@ -1,7 +1,4 @@
 import time
-import copy
-import random
-from pprint import pprint
 
 from src.solution_methods import *
 from src.route_classes import *
@@ -37,7 +34,7 @@ class SolverPDPTW(SolverClass):
 
         obj_value = self.obj_func.get_solution_cost(solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
-            solution.routes
+            solution.routes()
         )
 
         solution.set_objective_value(obj_value)
@@ -87,7 +84,7 @@ class SolverPDPTW(SolverClass):
 
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
-            self.best_solution.routes
+            self.best_solution.routes()
         )
 
         self.best_solution.set_objective_value(obj_value)

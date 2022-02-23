@@ -16,7 +16,7 @@ class Solution(GenericClass):
 
 
     def initialize_class_attributes(self):
-        self.routes = []
+        self.routes_list = []
 
         self.requests_set = set()
         self.requests_cost_dict = {}
@@ -26,7 +26,7 @@ class Solution(GenericClass):
         
 
     def add_route(self, route):
-        self.routes.append(route)
+        self.routes_list.append(route)
         self.total_routes_cost += route.cost()
     
     
@@ -41,7 +41,7 @@ class Solution(GenericClass):
 
     
     def pop_route(self, route_position):
-        route = self.routes.pop(route_position)
+        route = self.routes_list.pop(route_position)
         
         for request in route.requests():
             self.remove_request(request)
@@ -56,9 +56,9 @@ class Solution(GenericClass):
 
 
     def set_route(self, route_pos, new_route):
-        self.total_routes_cost -= self.routes[route_pos].cost()
+        self.total_routes_cost -= self.routes_list[route_pos].cost()
         self.total_routes_cost += new_route.cost()
-        self.routes[route_pos] = new_route
+        self.routes_list[route_pos] = new_route
 
 
     def set_request_cost(self, request, cost):
@@ -74,8 +74,8 @@ class Solution(GenericClass):
 
 
     def find_route_position_by_identifying_value(self, route_id_value):
-        for i in range(len(self.routes)):
-            route_i_id_value = self.routes[i].get_id_value()
+        for i in range(len(self.routes_list)):
+            route_i_id_value = self.routes_list[i].get_id_value()
             if (route_i_id_value == route_id_value):
                 return i
         
@@ -86,7 +86,7 @@ class Solution(GenericClass):
         text = ""
         text += "******************************************************" + "\n"
         text += "************************ROUTES************************" + "\n"
-        for route in self.routes:
+        for route in self.routes_list:
             text += str(route) + "\n"
         text += "******************************************************" + "\n"
         text += "***********************REQUESTS***********************" + "\n"
@@ -107,7 +107,7 @@ class Solution(GenericClass):
             self.requests_cost_dict
         )
 
-        copy_solution.routes = [route.copy() for route in self.routes]
+        copy_solution.routes_list = [route.copy() for route in self.routes_list]
 
         copy_solution.total_routes_cost = self.total_routes_cost
 
@@ -128,19 +128,23 @@ class Solution(GenericClass):
         return self.requests_set
 
 
+    def routes(self):
+        return self.routes_list
+
+
     def requests_costs(self):
         return self.requests_cost_dict
 
 
     def get_request_route(self, request):
-        for route_pos, route in enumerate(self.routes):
+        for route_pos, route in enumerate(self.routes_list):
             if request in route:
                 return (route_pos, route)
             
         return None
 
     def number_of_routes(self):
-        return len(self.routes)
+        return len(self.routes_list)
 
 
     def get_costs_output_text(self):
@@ -152,7 +156,7 @@ class Solution(GenericClass):
 
     def get_routes_output_text(self):
         text = ""
-        for i, route in enumerate(self.routes):
+        for i, route in enumerate(self.routes_list):
             text += "Route " + str(i+1) + " : "
             for vertex_id in route.requests_order():
                 text += str(vertex_id) + " "
@@ -164,7 +168,7 @@ class Solution(GenericClass):
         sol_dict = {}
         sol_dict["routes"] = {}
         sol_dict["costs"] = {}
-        for i, route in enumerate(self.routes):
+        for i, route in enumerate(self.routes_list):
             sol_dict["routes"][i] = [
                 int(vertex_id) 
                 for vertex_id in route.requests_order()

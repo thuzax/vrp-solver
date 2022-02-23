@@ -67,10 +67,10 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
 
     def remove_from_route(self, route_pos, request, solution):
-        route = solution.routes[route_pos]
+        route = solution.routes()[route_pos]
         if (request in route):
             new_route = RemovalOperator().try_to_remove(
-                solution.routes[route_pos], 
+                solution.routes()[route_pos], 
                 request,
                 self.obj_func,
                 self.constraints

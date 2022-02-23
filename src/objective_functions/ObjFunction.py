@@ -88,6 +88,7 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
 
     @staticmethod
     def solution_is_better(s_1, s_2):
+
         if (s_1 is None):
             return False
         

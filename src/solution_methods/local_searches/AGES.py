@@ -1,8 +1,6 @@
 
 import random
-import math
 import time
-from pprint import pprint
 
 from src import file_log
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
@@ -49,7 +47,7 @@ class AGES(LocalSearch):
         while (not self.stop_criteria_fulfilled() and can_improve):
             new_solution = self.best_solution.copy()
             
-            route_pos = random.randint(0, len(new_solution.routes)-1)
+            route_pos = random.randint(0, len(new_solution.routes())-1)
             removed_route = new_solution.pop_route(route_pos)
             
             if (new_solution.number_of_routes() == 0):
@@ -105,7 +103,7 @@ class AGES(LocalSearch):
         while (len(requests_stack) > 0 and not self.stop_criteria_fulfilled()):
             request = requests_stack.pop()
 
-            routes = [route for route in new_solution.routes]
+            routes = [route for route in new_solution.routes()]
             
             feasible_position = self.get_random_feasible_insertion(
                 request, 

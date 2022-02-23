@@ -43,13 +43,20 @@ class SBMath(LocalSearch):
         obj_value = self.obj_func.get_solution_cost(new_solution)
         new_solution.set_objective_value(obj_value)
         
-        routes_costs = self.obj_func.get_routes_sum_cost(new_solution.routes)
+        routes_costs = self.obj_func.get_routes_sum_cost(new_solution.routes())
         new_solution.set_routes_cost(routes_costs)
 
+        current_best = (
+            self.local_operators[operator_name].get_current_best_solution()
+        )
+
         new_best_found = self.obj_func.solution_is_better(
-            self.local_operators[operator_name].get_current_best_solution(), 
+            current_best, 
             self.best_solution
         )
+
+        if (new_best_found):
+            self.best_solution = current_best
 
         return new_solution
 
@@ -93,8 +100,9 @@ class SBMath(LocalSearch):
             )
             if (is_better):
                 self.routes_pool_dict[key] = route
-
+        
         self.routes_pool = list(self.routes_pool_dict.values())
+        
 
         # print("Time adding in pool:", time.time() - start)
 
@@ -126,9 +134,17 @@ class SBMath(LocalSearch):
         self.routes_pool_dict = {}
         
         self.best_solution = solution
-        self.add_routes_to_pool(solution.routes)
+        self.add_routes_to_pool(solution.routes())
 
         while (not self.stop_criteria_fulfilled()):
+            print("+++++")
+            print("+++++")
+            print("+++++")
+            print("+++++")
+            print("+++++")
+            print(solution.cost())
+            print(len(solution.routes()))
+            
             self.iteration += 1
             # Incr
             self.iteration_without_imp += 1
@@ -144,6 +160,7 @@ class SBMath(LocalSearch):
                 "AGES", 
                 parameters
             )
+            
             end_op = time.time()
             exec_time = end_op - start_op
             # self.print_solution_pos_operator_status(
@@ -161,7 +178,7 @@ class SBMath(LocalSearch):
                 "LNS", 
                 parameters
             )
-
+            
             end_op = time.time()
             exec_time = end_op - start_op
             # self.print_solution_pos_operator_status(
@@ -170,9 +187,9 @@ class SBMath(LocalSearch):
             #     exec_time
             # )
 
-            self.add_routes_to_pool(solution.routes)
+            self.add_routes_to_pool(solution.routes())
             InsertionOperator().clean_feasible_insertions_cache_with_exception(
-                new_solution.routes
+                new_solution.routes()
             )
 
             parameters = {
@@ -185,7 +202,7 @@ class SBMath(LocalSearch):
                 "SetPartitionModel", 
                 parameters
             )
-
+            
             end_op = time.time()
             exec_time = end_op - start_op
             # self.print_solution_pos_operator_status(
@@ -229,12 +246,12 @@ class SBMath(LocalSearch):
             # )
             
             best = self.get_current_best_solution()
+            
             if (self.obj_func.solution_is_better(best, self.best_solution)):
                 self.best_solution = best
                 self.iteration_without_imp = 0
             
             self.time_last_it = time.time()
-
 
             message = ""
             message += "SBMath" + "\n"
@@ -251,14 +268,13 @@ class SBMath(LocalSearch):
 
 
     def get_current_best_solution(self):
-
         current_best = self.best_solution
         ages_best = self.local_operators["AGES"].get_current_best_solution()
         
         if (ages_best is not None):
             obj_value = self.obj_func.get_solution_cost(ages_best)
             ages_best.set_objective_value(obj_value)
-            routes_costs = self.obj_func.get_routes_sum_cost(ages_best.routes)
+            routes_costs = self.obj_func.get_routes_sum_cost(ages_best.routes())
             ages_best.set_routes_cost(routes_costs)        
         
         if (
@@ -271,7 +287,7 @@ class SBMath(LocalSearch):
         if (lns_best is not None):
             obj_value = self.obj_func.get_solution_cost(lns_best)
             lns_best.set_objective_value(obj_value)
-            routes_costs = self.obj_func.get_routes_sum_cost(lns_best.routes)
+            routes_costs = self.obj_func.get_routes_sum_cost(lns_best.routes())
             lns_best.set_routes_cost(routes_costs)        
 
         if (
@@ -282,11 +298,10 @@ class SBMath(LocalSearch):
         
         sp = self.local_operators["SetPartitionModel"]
         sp_best = sp.get_current_best_solution()
-
         if (sp_best is not None):
             obj_value = self.obj_func.get_solution_cost(sp_best)
             sp_best.set_objective_value(obj_value)
-            routes_costs = self.obj_func.get_routes_sum_cost(sp_best.routes)
+            routes_costs = self.obj_func.get_routes_sum_cost(sp_best.routes())
             sp_best.set_routes_cost(routes_costs)
 
         if (
@@ -296,13 +311,14 @@ class SBMath(LocalSearch):
             current_best = sp_best
 
         
-        perturb_best = sp.get_current_best_solution()
+        pb = self.local_operators["OriginalPerturbation"]
+        perturb_best = pb.get_current_best_solution()
 
         if (perturb_best is not None):
             obj_value = self.obj_func.get_solution_cost(perturb_best)
             perturb_best.set_objective_value(obj_value)
             routes_costs = self.obj_func.get_routes_sum_cost(
-                perturb_best.routes
+                perturb_best.routes()
             )
             perturb_best.set_routes_cost(routes_costs)
 
