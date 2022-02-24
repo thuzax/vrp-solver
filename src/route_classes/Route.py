@@ -16,7 +16,7 @@ class Route(GenericClass):
         if (cls.instance is None):
             cls.instance = super(Route, cls).__new__(cls)
         
-        route = cls.route_cls()
+        route = cls.route_cls(*args, **kwargs)
         cls.instance.set_params(route)
         
         return route

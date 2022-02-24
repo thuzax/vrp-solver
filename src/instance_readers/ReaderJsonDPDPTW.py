@@ -15,7 +15,7 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         # From input File
-        self.fixed = None
+        self.fixed_routes_dict = None
 
     def read_specific_input(self, file_name):        
         with open(file_name, "r") as input_file:
@@ -98,16 +98,3 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
                 self.vertices_dict[pick].make_fixed()
                 self.create_vertex(deli)
                 self.vertices_dict[deli].make_fixed()
-
-    # def make_vertex_fake(self, idx):
-
-    #     self.vertices_dict[idx].set_attribute("service_time", 0)
-    #     tw_null = (0, self.planning_horizon)
-    #     self.vertices_dict[idx].set_attribute("time_window", tw_null)
-        
-    #     for i in range(len(self.time_matrix)):
-    #         self.time_matrix[i][idx] = 0
-    #         self.distance_matrix[i][idx] = 0
-
-    #         self.time_matrix[idx][i] = 0
-    #         self.distance_matrix[idx][i] = 0

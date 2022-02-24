@@ -5,6 +5,7 @@ from .PickupDeliveryConstraint  import PickupDeliveryConstraint
 from .AttendAllRequests import AttendAllRequests
 from .FixedRequests import FixedRequests
 from .LimitedFleet import LimitedFleet
+from .HybridFleet import HybridFleet
 
 
 __all__ = [
@@ -14,5 +15,6 @@ __all__ = [
     "PickupDeliveryConstraint",
     "AttendAllRequests",
     "FixedRequests",
-    "LimitedFleet"
+    "LimitedFleet",
+    "HybridFleet"
 ]

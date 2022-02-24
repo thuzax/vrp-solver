@@ -6,6 +6,7 @@ import typing
 
 from src import exceptions
 from src.GenericClass import GenericClass
+from src.route_classes.RouteClass import RouteClass
 
 
 class Solution(GenericClass):
@@ -143,8 +144,13 @@ class Solution(GenericClass):
             
         return None
 
+
     def number_of_routes(self):
         return len(self.routes_list)
+
+
+    def number_of_requests(self):
+        return len(self.requests_set)
 
 
     def get_costs_output_text(self):
@@ -185,6 +191,24 @@ class Solution(GenericClass):
         }
     
     
+    def __contains__(self, item):
+        if (isinstance(item, RouteClass)):
+            item_id = item.get_id_value()
+            route_pos_in_sol = (
+                self.find_route_position_by_identifying_value(item_id)
+            )
+            if (route_pos_in_sol is not None):
+                return True
+        
+        if (isinstance(item, tuple) and len(item) == 2):
+            if (item in self.requests_set):
+                return True
+        
+        return False
+            
+            
+
+
     @staticmethod
     def clear():
         pass

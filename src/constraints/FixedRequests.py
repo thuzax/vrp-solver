@@ -11,8 +11,7 @@ class FixedRequests(Constraint):
         self.fixed_routes_dicts = None
 
     def route_is_feasible(self, route):
-        ## TODO O DE BAIXO
-
+        
         for fixed_route_dict in self.fixed_routes_dicts:
             fixed_requests = fixed_route_dict["requests"]
 

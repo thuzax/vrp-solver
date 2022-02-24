@@ -11,7 +11,7 @@ from src.GenericClass import GenericClass
 
 class RouteClass(GenericClass, metaclass=ABCMeta):
 
-    def __init__(self, route_class_name=None):
+    def __init__(self, route_class_name=None, *args, **kwargs):
         if (not hasattr(self, "name")):
             self.name = route_class_name
             self.vertices_order = []

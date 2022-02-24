@@ -208,7 +208,7 @@ def sb_math():
         "local_operators_names" : {
             "AGES" : "AGES",
             "LNS" : "LNS",
-            "SetPartitionModel" : "SetPartitionModel",
+            "ExactSolver" : "SetPartitionModel",
             "OriginalPerturbation" : "OriginalPerturbation"
         },
         "excluded_local_operators" : [

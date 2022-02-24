@@ -29,6 +29,7 @@ class SBMath(LocalSearch):
         self.number_of_perturb_moves = None
 
 
+
     def execute_operator(self, initial_solution, operator_name, parameters):
         if (operator_name in self.excluded_local_operators):
             file_log.add_info_log("EXCLUDED")
@@ -64,12 +65,16 @@ class SBMath(LocalSearch):
         start = time.time()
         if (len(self.routes_pool) == 0):
             for route in routes:
+                if (route.empty()):
+                    continue
                 key = route.get_id_value()
                 self.routes_pool_dict[key] = route.copy()
             
             self.routes_pool = list(self.routes_pool_dict.values())
 
         for route in routes:
+            if (route.empty()):
+                continue
             key = route.get_id_value()
             if (key in self.routes_pool_dict):
                 continue
@@ -84,6 +89,8 @@ class SBMath(LocalSearch):
         start = time.time()
         if (len(self.routes_pool) == 0):
             for route in routes:
+                if (route.empty()):
+                    continue
                 key = frozenset(route.requests())
                 self.routes_pool_dict[key] = route.copy()
             
@@ -92,6 +99,8 @@ class SBMath(LocalSearch):
         for route in routes:
             key = frozenset(route.requests())
             if (key not in self.routes_pool_dict):
+                if (route.empty()):
+                    continue
                 self.routes_pool_dict[key] = route.copy()
                 continue
             is_better = self.obj_func.route_is_better(
@@ -137,16 +146,12 @@ class SBMath(LocalSearch):
         self.add_routes_to_pool(solution.routes())
 
         while (not self.stop_criteria_fulfilled()):
-            print("+++++")
-            print("+++++")
-            print("+++++")
-            print("+++++")
-            print("+++++")
-            print(solution.cost())
-            print(len(solution.routes()))
-            
+            print("Solution")
+            print(get_solution_check_complete_data(solution, self.constraints, self.obj_func))
+            print("Best Solution")
+            print(get_solution_check_complete_data(self.best_solution, self.constraints, self.obj_func))
             self.iteration += 1
-            # Incr
+
             self.iteration_without_imp += 1
 
             it_start = time.time()
@@ -168,7 +173,8 @@ class SBMath(LocalSearch):
             #     "AGES", 
             #     exec_time
             # )
-
+            print("AGES Solution")
+            print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
             parameters = {
                 "remaining_requests" : remaining_req
             }
@@ -178,7 +184,8 @@ class SBMath(LocalSearch):
                 "LNS", 
                 parameters
             )
-            
+            print("LNS Solution")
+            print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
             end_op = time.time()
             exec_time = end_op - start_op
             # self.print_solution_pos_operator_status(
@@ -187,10 +194,10 @@ class SBMath(LocalSearch):
             #     exec_time
             # )
 
-            self.add_routes_to_pool(solution.routes())
-            InsertionOperator().clean_feasible_insertions_cache_with_exception(
-                new_solution.routes()
-            )
+            self.add_routes_to_pool(new_solution.routes())
+            # InsertionOperator().clean_feasible_insertions_cache_with_exception(
+            #     new_solution.routes()
+            # )
 
             parameters = {
                 "requests_set" : all_requests,
@@ -199,15 +206,16 @@ class SBMath(LocalSearch):
             start_op = time.time()
             sp_solution = self.execute_operator(
                 new_solution, 
-                "SetPartitionModel", 
+                "ExactSolver", 
                 parameters
             )
-            
+            print("MODELO Solution")
+            print(get_solution_check_complete_data(sp_solution, self.constraints, self.obj_func))
             end_op = time.time()
             exec_time = end_op - start_op
             # self.print_solution_pos_operator_status(
             #     new_solution, 
-            #     "SetPartitionModel", 
+            #     "ExactSolver", 
             #     exec_time
             # )
             
@@ -236,6 +244,8 @@ class SBMath(LocalSearch):
             message += "\n"
             file_log.add_solution_log(solution, message)
             
+            print("PERTURB Solution")
+            print(get_solution_check_complete_data(solution, self.constraints, self.obj_func))
 
             end_op = time.time()
             exec_time = end_op - start_op
@@ -263,6 +273,7 @@ class SBMath(LocalSearch):
             message += str(time.time() - self.begin_time) + "\n"
 
             file_log.add_solution_log(solution, message)
+            file_log.add_solution_log(self.best_solution, message)
 
         return self.best_solution
 
@@ -296,7 +307,7 @@ class SBMath(LocalSearch):
         ):
             current_best = lns_best
         
-        sp = self.local_operators["SetPartitionModel"]
+        sp = self.local_operators["ExactSolver"]
         sp_best = sp.get_current_best_solution()
         if (sp_best is not None):
             obj_value = self.obj_func.get_solution_cost(sp_best)

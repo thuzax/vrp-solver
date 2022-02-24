@@ -225,25 +225,12 @@ def meta_algs():
     algs_data = {
         "AGES" : params_meta.ages(),
         "LNS" : params_meta.lns(),
-        "SetPartitionModel" : params_meta.set_partitioning(),
+        "ExactSolver" : params_meta.set_partitioning(),
         "OriginalPerturbation" : params_meta.original_perturbation(),
         "SBMath" : params_meta.sb_math()
     }
     return algs_data
 
-
-# def meta_options():
-#     meta_choice = hyperopt.hp.choice(
-#         "metaheuristic",
-#         [
-#             "AGES"
-#             "LNS"
-#             "SetPartitionModel"
-#             "OriginalPerturbation"
-#             "SBMath"
-#         ]
-#     )
-#     return meta_choice
 
 
 def solvers_algs():

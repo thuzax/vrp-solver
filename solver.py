@@ -148,6 +148,7 @@ def write_solution():
     )
     
     log_message += "\n"
+    log_message += "Best Solution: \n"
     file_log.add_solution_log(
         solver_problem.get_best_solution(),
         log_message

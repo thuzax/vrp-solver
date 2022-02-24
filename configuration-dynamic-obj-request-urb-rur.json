@@ -18,7 +18,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ],
             "insertion_heuristic_code" : "kr"
         },
@@ -29,7 +30,8 @@
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "HybridFleet"
             ]
         },
         "WKRegret" : {
@@ -38,7 +40,8 @@
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "HybridFleet"
             ]
         },
         "RandomInsertion" : {
@@ -46,7 +49,8 @@
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
-                "FixedRequests"
+                "FixedRequests",
+                "HybridFleet"
             ]
         },
         "RandomRemoval" : {
@@ -78,7 +82,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ],
             "acceptance_algorithm_data" : {
                 "AcceptAll" : {}
@@ -97,7 +102,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ],
             "acceptance_algorithm_data" : {
                 "LAHC" : {
@@ -131,7 +137,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ],
             "solver_code" : "CBC",
             "opt_time_limit" : 30,
@@ -144,7 +151,8 @@
                 "TimeWindowsConstraint",
                 "PickupDeliveryConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ],
             "local_operators_names" : {
                 "AGES" : "AGES",
@@ -170,7 +178,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ]
         },
         "ModBiasedShift" : {
@@ -179,7 +188,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ],
             "mi" : 0.2
         },
@@ -189,7 +199,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ]
         },
         "OriginalPerturbation" : {
@@ -198,7 +209,8 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ],
             "acceptance_algorithm_data" : {
                 "AcceptAll" : {}
@@ -227,11 +239,12 @@
         "FixedRequests" : {
         },
         "LimitedFleet" : {
-
+        },
+        "HybridFleet" : {
         }
     },
     "solver" : {
-        "SolverDPDPTW" : {
+        "SolverDPDPTWHybridFleet" : {
             "output_type" : "json",
             "obj_func_name" : "ObjRequestsPDPTW",
             "construction_name" : "BasicGreedyLimitedFleet",
@@ -241,12 +254,13 @@
                 "TimeWindowsConstraint",
                 "PickupDeliveryConstraint",
                 "FixedRequests",
-                "LimitedFleet"
+                "LimitedFleet",
+                "HybridFleet"
             ]
         }
     },
     "reader": {
-        "ReaderJsonDPDPTWLimitedFleet" : {
+        "ReaderJsonDPDPTWLimitedHybridFleet" : {
             "input_type" : "json"
         }
     },
@@ -257,11 +271,11 @@
         }
     },
     "route_class" : {
-        "RoutePDPTW" : {
+        "RoutePDPTWHybridFleet" : {
         }
     },
     "vertex_class" : {
-        "VertexDPDPTW" : {
+        "VertexDPDPTWHybridFleet" : {
         }
     },
     "insertion_operator" : {

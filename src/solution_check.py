@@ -120,6 +120,12 @@ def get_solution_check_complete_data(solution, constraints, obj_func):
         text += "REQUESTS TOTAL COST NOT OK:" + "\n"
         text += str(obj_requests_cost) + "\n"
         text += str(requests_cost) + "\n"
+
+    text += "------------------------------------" + "\n"
+
+    text += "OBJECTIVE VALUE: " + str(solution.cost()) + "\n"
+    text += "ROUTES VALUE: " + str(solution.routes_cost()) + "\n"
+
     text += "------------------------------------" + "\n"
 
     return text

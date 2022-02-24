@@ -23,7 +23,9 @@ from .heuristics.RandomShift import RandomShift
 from .heuristics.ModBiasedShift import ModBiasedShift
 from .heuristics.RandomExchange import RandomExchange
 
+from .exact_methods.SBSolver import SBSolver
 from .exact_methods.SetPartitionModel import SetPartitionModel
+from .exact_methods.PartitionMaxRequests import PartitionMaxRequests
 
 from .local_searches.AGES import AGES
 from .local_searches.LNS import LNS
@@ -73,7 +75,9 @@ __all__ = [
     "LNS",
     "SBMath",
     
+    "SBSolver",
     "SetPartitionModel",
+    "PartitionMaxRequests",
     
     "AcceptanceHeuristic",
     "AcceptAll",

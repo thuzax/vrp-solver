@@ -4,7 +4,7 @@ class LimitedFleet(Constraint):
     
 
     def __init__(self):
-        super().__init__("Attend All Requests Constraint")
+        super().__init__("Limited Fleet Constraint")
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
