@@ -31,6 +31,7 @@ class SBMath(LocalSearch):
 
 
     def execute_operator(self, initial_solution, operator_name, parameters):
+        print(self.local_operators[operator_name])
         if (operator_name in self.excluded_local_operators):
             file_log.add_info_log("EXCLUDED")
 
@@ -162,7 +163,7 @@ class SBMath(LocalSearch):
             start_op = time.time()
             new_solution = self.execute_operator(
                 solution, 
-                "AGES", 
+                "FirstOperator", 
                 parameters
             )
             
@@ -181,7 +182,7 @@ class SBMath(LocalSearch):
             start_op = time.time()
             new_solution = self.execute_operator(
                 new_solution, 
-                "LNS", 
+                "SecondOperator", 
                 parameters
             )
             print("LNS Solution")
@@ -235,10 +236,10 @@ class SBMath(LocalSearch):
             start_op = time.time()
             solution = self.execute_operator(
                 new_solution, 
-                "OriginalPerturbation", 
+                "Perturbation", 
                 parameters
             )
-            message = "OriginalPerturbation"
+            message = self.local_operators["Perturbation"].name
             message += "\n"
             message += "Exec Time: " + str(time.time() - start_op)
             message += "\n"
@@ -280,7 +281,9 @@ class SBMath(LocalSearch):
 
     def get_current_best_solution(self):
         current_best = self.best_solution
-        ages_best = self.local_operators["AGES"].get_current_best_solution()
+        ages_best = (
+            self.local_operators["FirstOperator"].get_current_best_solution()
+        )
         
         if (ages_best is not None):
             obj_value = self.obj_func.get_solution_cost(ages_best)
@@ -294,7 +297,9 @@ class SBMath(LocalSearch):
         ):
             current_best = ages_best
 
-        lns_best = self.local_operators["LNS"].get_current_best_solution()
+        lns_best = (
+            self.local_operators["SecondOperator"].get_current_best_solution()
+        )
         if (lns_best is not None):
             obj_value = self.obj_func.get_solution_cost(lns_best)
             lns_best.set_objective_value(obj_value)
@@ -322,7 +327,7 @@ class SBMath(LocalSearch):
             current_best = sp_best
 
         
-        pb = self.local_operators["OriginalPerturbation"]
+        pb = self.local_operators["Perturbation"]
         perturb_best = pb.get_current_best_solution()
 
         if (perturb_best is not None):

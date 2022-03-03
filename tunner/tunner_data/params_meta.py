@@ -55,7 +55,7 @@ def ages():
                 "AcceptAll" : {}
             },
             "local_operators_names" : {
-                "OriginalPerturbation" : "OriginalPerturbation"
+                "Perturbation" : "OriginalPerturbation"
             },
             "max_ejections" : 2,
             "stop_criteria" : "max_perturbation",

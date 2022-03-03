@@ -350,7 +350,7 @@ class AGES(LocalSearch):
         
 
     def perturb(self, solution):
-        solution = self.local_operators["OriginalPerturbation"].solve(
+        solution = self.local_operators["Perturbation"].solve(
             solution,
             {"n_perturb" : self.number_of_perturb_moves}
         )

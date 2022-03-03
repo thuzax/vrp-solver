@@ -84,7 +84,7 @@
                 "AcceptAll" : {}
             },
             "local_operators_names" : {
-                "OriginalPerturbation" : "OriginalPerturbation"
+                "Perturbation" : "OriginalPerturbation"
             },
             "max_ejections" : 2,
             "stop_criteria" : "max_perturbation",
@@ -146,10 +146,10 @@
                 "AttendAllRequests"
             ],
             "local_operators_names" : {
-                "AGES" : "AGES",
-                "LNS" : "LNS",
+                "FirstOperator" : "AGES",
+                "SecondOperator" : "LNS",
                 "ExactSolver" : "SetPartitionModel",
-                "OriginalPerturbation" : "OriginalPerturbation"
+                "Perturbation" : "OriginalPerturbation"
             },
             "excluded_local_operators" : [
             ],

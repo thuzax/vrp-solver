@@ -223,8 +223,8 @@ def meta_algs():
     #         [i for i in range(1, 301)]
     # )
     algs_data = {
-        "AGES" : params_meta.ages(),
-        "LNS" : params_meta.lns(),
+        "FirstOperator" : params_meta.ages(),
+        "SecondOperator" : params_meta.lns(),
         "ExactSolver" : params_meta.set_partitioning(),
         "OriginalPerturbation" : params_meta.original_perturbation(),
         "SBMath" : params_meta.sb_math()
