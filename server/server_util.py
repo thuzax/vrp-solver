@@ -1,4 +1,5 @@
 import json
+import ijson
 import os
 import sys
 import subprocess
@@ -71,16 +72,32 @@ def call_solver(input_path, output_path, config_file, time_limit, seed):
 
     sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     exit_code = sp.wait()
-    print("exit status:", exit_code)
+    
+    return exit_code
 
 
 
+def read_solution(output_path, input_name):
+    input_without_type = input_name.split(".")[0]
+    solutions_file_name = input_without_type + "_sol_log.json"
+    
+    file_solutions = os.path.join(output_path, solutions_file_name)
+
+    with open(file_solutions, "r") as all_solutons_file:
+        
+        all_solutions = json.loads(all_solutons_file.read())
+        if (len(all_solutions) == 0):
+            return "No solution found. Timeout."
+        best_solution = all_solutions[-1]
+
+
+    return best_solution
 
 def run_solver(input_path, config_file, time_limit=300, seed=None):
     
     input_name = os.path.split(input_path)[-1]
     output_path = create_output_directory(input_name)
-    solution = call_solver(
+    exit_code = call_solver(
         input_path, 
         output_path,
         config_file,
@@ -88,4 +105,25 @@ def run_solver(input_path, config_file, time_limit=300, seed=None):
         seed
     )
 
+    if (exit_code != 0):
+        return None
+    
+    solution = read_solution(output_path, input_name)
+    
+    return solution
 
+def solve_problem(problem_code, data):
+    input_path = create_input_file(problem_code, data)    
+    config_file = get_config_file(problem_code)
+    
+    time_limit = None
+    if ("time_limit" in data.keys()):
+        time_limit = data["time_limit"]
+
+    seed = None
+    if ("seed" in data.keys()):
+        seed = data["seed"]
+
+    result = run_solver(input_path, config_file, time_limit, seed)
+
+    return result

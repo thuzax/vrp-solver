@@ -6,6 +6,7 @@ from src.objects_managers import *
 from src.solution_classes import *
 from src import file_log
 from src import execution_log
+from src import exceptions
 
 
 from src.solvers import SolverClass
@@ -74,7 +75,6 @@ class SolverPDPTW(SolverClass):
         }
 
         solution = self.construct(parameters)
-
 
         file_log.add_info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)

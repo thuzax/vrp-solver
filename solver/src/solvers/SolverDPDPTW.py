@@ -162,7 +162,6 @@ class SolverDPDPTW(SolverPDPTW):
             )
             self.best_solution = None
             return self.best_solution
-
         file_log.add_info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)
         self.best_solution = new_solution.copy()

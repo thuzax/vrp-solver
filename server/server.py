@@ -19,51 +19,67 @@ def index():
     home_link = get_home_link()
     print(home_link)
     return {
-        "st_min_vehicles" : os.path.join(
-            home_link, "vrp-static-min-vehicles-opt"
+        "pdptw-v" : os.path.join(
+            home_link, "pdptw-v"
         ),
-        "dy_min_vehicles" : os.path.join(
-            home_link, "vrp-dynamic-min-vehicles-opt"
+        "dpdptw-v" : os.path.join(
+            home_link, "dpdptw-v"
+        ),
+        "dpdptw-r" : os.path.join(
+            home_link, "dpdptw-r"
+        ),
+        "dpdptwhf-r" : os.path.join(
+            home_link, "dpdptwhf-r"
         )
-        
     }
 
 
-@app.route("/vrp-static-min-vehicles-opt", methods=["POST"])
-def static_min_vehicles():
-    print("------------------------------------------------")
+@app.route("/pdptw-v", methods=["POST"])
+def pdptw_v():
     func_code = "SPDPTW_V"
     data = json.loads(flask.request.json)
-    input_path = server_util.create_input_file(func_code, data)    
-    config_file = server_util.get_config_file(func_code)
+    solution_data = server_util.solve_problem(func_code, data)
+    if (solution_data is None):
+        return "No solution found. Probably an error ocurred."
     
-    time_limit = None
-    if ("time_limit" in data.keys()):
-        time_limit = data["time_limit"]
-
-    seed = None
-    if ("seed" in data.keys()):
-        seed = data["seed"]
+    return solution_data
 
 
-    data = server_util.run_solver(input_path, config_file, time_limit, seed)
-    print("------------------------------------------------")
-
-    return "Solve static"
-
-
-@app.route("/vrp-dynamic-min-vehicles-opt", methods=["POST"])
-def dynamic_min_vehicles():
-    print("++++++++++++++++++++++++++++++++++++++++++++++++")
+@app.route("/dpdptw-v", methods=["POST"])
+def dpdptw_v():
     func_code = "DPDPTW_V"
     data = json.loads(flask.request.json)
+    solution_data = server_util.solve_problem(func_code, data)
+    if (solution_data is None):
+        return "No solution found. Probably an error ocurred."
+    
+    return solution_data
 
-    server_util.create_input_file(func_code, data)
-    config_file = server_util.get_config_file(func_code)
 
-    print("++++++++++++++++++++++++++++++++++++++++++++++++")
+@app.route("/dpdptw-r", methods=["POST"])
+def dpdptw_r():
+    func_code = "DPDPTW_R"
+    data = json.loads(flask.request.json)
+    solution_data = server_util.solve_problem(func_code, data)
+    if (solution_data is None):
+        return "No solution found. Probably an error ocurred."
+    
+    return solution_data
 
-    return "Solve dynamic"
+
+@app.route("/dpdptwhf-r", methods=["POST"])
+def dpdptwhf_r():
+    func_code = "DPDPTWHF_R"
+    data = json.loads(flask.request.json)
+    solution_data = server_util.solve_problem(func_code, data)
+    if (solution_data is None):
+        return "No solution found. Probably an error ocurred."
+    
+    return solution_data
+
+
+
+
 
 if __name__ == '__main__':
     args = sys.argv[1:]

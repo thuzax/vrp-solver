@@ -1,599 +1,599 @@
---------------------------------------------------------------------------------(Solver execution current time: 4.5299530029296875e-06)
+--------------------------------------------------------------------------------(Solver execution current time: 0.00016379356384277344)
 [INFO] Input Seed : 0
---------------------------------------------------------------------------------(Solver execution current time: 1.9788742065429688e-05)
-[INFO] Input time limit : 30
---------------------------------------------------------------------------------(Solver execution current time: 2.574920654296875e-05)
+--------------------------------------------------------------------------------(Solver execution current time: 0.0001938343048095703)
+[INFO] Input time limit : 20
+--------------------------------------------------------------------------------(Solver execution current time: 0.00021648406982421875)
 [INFO] Command line arguments read with no errors.
---------------------------------------------------------------------------------(Solver execution current time: 0.0010247230529785156)
+--------------------------------------------------------------------------------(Solver execution current time: 0.001003265380859375)
 [INFO] Input file read with no errors.
---------------------------------------------------------------------------------(Solver execution current time: 0.0010383129119873047)
+--------------------------------------------------------------------------------(Solver execution current time: 0.0010557174682617188)
 [INFO] Starting solver.
---------------------------------------------------------------------------------(Solver execution current time: 0.0010428428649902344)
+--------------------------------------------------------------------------------(Solver execution current time: 0.0010859966278076172)
 [INFO] Starting construction
---------------------------------------------------------------------------------(Solver execution current time: 0.01089024543762207)
+--------------------------------------------------------------------------------(Solver execution current time: 0.010270118713378906)
 [INFO] Finished construction
---------------------------------------------------------------------------------(Solver execution current time: 0.01113128662109375)
+--------------------------------------------------------------------------------(Solver execution current time: 0.010554075241088867)
 [SOLUTION]
 Solution after BasicGreedy
 obj_value: 2; obj_routes: 145506
 Route 1 : 2 7 3 8 4 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.011160612106323242)
+--------------------------------------------------------------------------------(Solver execution current time: 0.01069188117980957)
 [INFO] Starting metaheuristic
---------------------------------------------------------------------------------(Solver execution current time: 0.043634653091430664)
+--------------------------------------------------------------------------------(Solver execution current time: 0.04351663589477539)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.03167724609375
+Exec Time: 0.03198695182800293
 obj_value: 2; obj_routes: 145506
 Route 1 : 2 7 3 8 4 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.08265304565429688)
+--------------------------------------------------------------------------------(Solver execution current time: 0.07956695556640625)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.03854513168334961
+Exec Time: 0.0354156494140625
 obj_value: 2; obj_routes: 145506
 Route 1 : 2 7 3 8 4 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.1771838665008545)
+--------------------------------------------------------------------------------(Solver execution current time: 0.1440281867980957)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.09416985511779785
+Exec Time: 0.06400227546691895
 obj_value: 2; obj_routes: 145506
 Route 1 : 2 7 3 8 4 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.2595853805541992)
+--------------------------------------------------------------------------------(Solver execution current time: 0.18439197540283203)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.0820608139038086
+Exec Time: 0.039920806884765625
 obj_value: 2; obj_routes: 122092
 Route 1 : 1 5 2 10 7 6 
 Route 2 : 3 4 8 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.259796142578125)
+--------------------------------------------------------------------------------(Solver execution current time: 0.18477416038513184)
 [SOLUTION]
 SBMath
 IT: 1
 ITs witout improving: 1
-IT time: 0.24821949005126953
-Time since begin: 0.2484443187713623
+IT time: 0.17356419563293457
+Time since begin: 0.17378926277160645
 obj_value: 2; obj_routes: 122092
 Route 1 : 1 5 2 10 7 6 
 Route 2 : 3 4 8 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.25981593132019043)
+--------------------------------------------------------------------------------(Solver execution current time: 0.1848766803741455)
 [SOLUTION]
 SBMath
 IT: 1
 ITs witout improving: 1
-IT time: 0.24821949005126953
-Time since begin: 0.2484443187713623
+IT time: 0.17356419563293457
+Time since begin: 0.17378926277160645
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.27937769889831543)
+--------------------------------------------------------------------------------(Solver execution current time: 0.20114636421203613)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.019092321395874023
+Exec Time: 0.015730857849121094
 obj_value: 2; obj_routes: 122092
 Route 1 : 1 5 2 10 7 6 
 Route 2 : 3 4 8 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.3290975093841553)
+--------------------------------------------------------------------------------(Solver execution current time: 0.23729801177978516)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.0492396354675293
+Exec Time: 0.03546571731567383
 Improved
 obj_value: 2; obj_routes: 118098
 Route 1 : 1 5 2 10 7 6 
 Route 2 : 3 8 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.331923246383667)
+--------------------------------------------------------------------------------(Solver execution current time: 0.24004721641540527)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.0024187564849853516
+Exec Time: 0.0021936893463134766
 obj_value: 2; obj_routes: 118098
 Route 1 : 1 5 2 10 7 6 
 Route 2 : 3 8 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.37831544876098633)
+--------------------------------------------------------------------------------(Solver execution current time: 0.26645660400390625)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.04620766639709473
+Exec Time: 0.026064395904541016
 obj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.3787071704864502)
+--------------------------------------------------------------------------------(Solver execution current time: 0.2668159008026123)
 [SOLUTION]
 SBMath
 IT: 2
 ITs witout improving: 2
-IT time: 0.11874723434448242
-Time since begin: 0.36734652519226074
+IT time: 0.08172845840454102
+Time since begin: 0.2558307647705078
 obj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.37874579429626465)
+--------------------------------------------------------------------------------(Solver execution current time: 0.26691746711730957)
 [SOLUTION]
 SBMath
 IT: 2
 ITs witout improving: 2
-IT time: 0.11874723434448242
-Time since begin: 0.36734652519226074
+IT time: 0.08172845840454102
+Time since begin: 0.2558307647705078
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.42110681533813477)
+--------------------------------------------------------------------------------(Solver execution current time: 0.28902244567871094)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.04146599769592285
+Exec Time: 0.021547555923461914
 obj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.4762246608734131)
+--------------------------------------------------------------------------------(Solver execution current time: 0.3232460021972656)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.05403947830200195
+Exec Time: 0.03358912467956543
 obj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.4813663959503174)
+--------------------------------------------------------------------------------(Solver execution current time: 0.32678985595703125)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.004336357116699219
+Exec Time: 0.002934694290161133
 obj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.5080790519714355)
+--------------------------------------------------------------------------------(Solver execution current time: 0.344221830368042)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.026440143585205078
+Exec Time: 0.017118453979492188
 obj_value: 2; obj_routes: 149500
 Route 1 : 2 7 3 4 8 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.5083000659942627)
+--------------------------------------------------------------------------------(Solver execution current time: 0.3445918560028076)
 [SOLUTION]
 SBMath
 IT: 3
 ITs witout improving: 3
-IT time: 0.1293318271636963
-Time since begin: 0.4969482421875
+IT time: 0.07745003700256348
+Time since begin: 0.3336067199707031
 obj_value: 2; obj_routes: 149500
 Route 1 : 2 7 3 4 8 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.5083198547363281)
+--------------------------------------------------------------------------------(Solver execution current time: 0.3446948528289795)
 [SOLUTION]
 SBMath
 IT: 3
 ITs witout improving: 3
-IT time: 0.1293318271636963
-Time since begin: 0.4969482421875
+IT time: 0.07745003700256348
+Time since begin: 0.3336067199707031
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.5260558128356934)
+--------------------------------------------------------------------------------(Solver execution current time: 0.35807085037231445)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.017238855361938477
+Exec Time: 0.01282048225402832
 obj_value: 2; obj_routes: 149500
 Route 1 : 2 7 3 4 8 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.5894925594329834)
+--------------------------------------------------------------------------------(Solver execution current time: 0.39203596115112305)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.062485694885253906
+Exec Time: 0.033330440521240234
 obj_value: 2; obj_routes: 149500
 Route 1 : 2 7 3 4 8 9 
 Route 2 : 1 5 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.5944604873657227)
+--------------------------------------------------------------------------------(Solver execution current time: 0.39534711837768555)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.004404306411743164
+Exec Time: 0.0028417110443115234
 Improvedobj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.6330182552337646)
+--------------------------------------------------------------------------------(Solver execution current time: 0.416365385055542)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.038289546966552734
+Exec Time: 0.02069687843322754
 obj_value: 2; obj_routes: 145506
 Route 1 : 1 5 10 6 
 Route 2 : 2 7 3 8 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.6334033012390137)
+--------------------------------------------------------------------------------(Solver execution current time: 0.41672277450561523)
 [SOLUTION]
 SBMath
 IT: 4
 ITs witout improving: 4
-IT time: 0.12495231628417969
-Time since begin: 0.6220500469207764
+IT time: 0.07180452346801758
+Time since begin: 0.40573763847351074
 obj_value: 2; obj_routes: 145506
 Route 1 : 1 5 10 6 
 Route 2 : 2 7 3 8 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.6334500312805176)
+--------------------------------------------------------------------------------(Solver execution current time: 0.416837215423584)
 [SOLUTION]
 SBMath
 IT: 4
 ITs witout improving: 4
-IT time: 0.12495231628417969
-Time since begin: 0.6220500469207764
+IT time: 0.07180452346801758
+Time since begin: 0.40573763847351074
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.666452169418335)
+--------------------------------------------------------------------------------(Solver execution current time: 0.4332096576690674)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.032108306884765625
+Exec Time: 0.01582026481628418
 obj_value: 2; obj_routes: 145506
 Route 1 : 1 5 10 6 
 Route 2 : 2 7 3 8 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.7284743785858154)
+--------------------------------------------------------------------------------(Solver execution current time: 0.4668135643005371)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.061101675033569336
+Exec Time: 0.032962799072265625
 obj_value: 2; obj_routes: 145506
 Route 1 : 1 5 10 6 
 Route 2 : 2 7 3 8 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.7335121631622314)
+--------------------------------------------------------------------------------(Solver execution current time: 0.4701416492462158)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.004460334777832031
+Exec Time: 0.002862215042114258
 Improvedobj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.7647933959960938)
+--------------------------------------------------------------------------------(Solver execution current time: 0.4870166778564453)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.031009197235107422
+Exec Time: 0.016562461853027344
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.7651727199554443)
+--------------------------------------------------------------------------------(Solver execution current time: 0.4873664379119873)
 [SOLUTION]
 SBMath
 IT: 5
 ITs witout improving: 5
-IT time: 0.13148069381713867
-Time since begin: 0.753819465637207
+IT time: 0.0703127384185791
+Time since begin: 0.476381778717041
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.7652060985565186)
+--------------------------------------------------------------------------------(Solver execution current time: 0.4874699115753174)
 [SOLUTION]
 SBMath
 IT: 5
 ITs witout improving: 5
-IT time: 0.13148069381713867
-Time since begin: 0.753819465637207
+IT time: 0.0703127384185791
+Time since begin: 0.476381778717041
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.7821011543273926)
+--------------------------------------------------------------------------------(Solver execution current time: 0.496675968170166)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.01605987548828125
+Exec Time: 0.008648395538330078
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.8333351612091064)
+--------------------------------------------------------------------------------(Solver execution current time: 0.5541725158691406)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.050340890884399414
+Exec Time: 0.0569000244140625
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.8381545543670654)
+--------------------------------------------------------------------------------(Solver execution current time: 0.5586085319519043)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.00426483154296875
+Exec Time: 0.003689289093017578
 obj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.8614816665649414)
+--------------------------------------------------------------------------------(Solver execution current time: 0.5739612579345703)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.023085832595825195
+Exec Time: 0.01501917839050293
 obj_value: 2; obj_routes: 120187
 Route 1 : 3 4 8 9 
 Route 2 : 1 5 2 7 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.8618488311767578)
+--------------------------------------------------------------------------------(Solver execution current time: 0.5743050575256348)
 [SOLUTION]
 SBMath
 IT: 6
 ITs witout improving: 6
-IT time: 0.09641695022583008
-Time since begin: 0.8504948616027832
+IT time: 0.08660531044006348
+Time since begin: 0.5633201599121094
 obj_value: 2; obj_routes: 120187
 Route 1 : 3 4 8 9 
 Route 2 : 1 5 2 7 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.8618838787078857)
+--------------------------------------------------------------------------------(Solver execution current time: 0.5744078159332275)
 [SOLUTION]
 SBMath
 IT: 6
 ITs witout improving: 6
-IT time: 0.09641695022583008
-Time since begin: 0.8504948616027832
+IT time: 0.08660531044006348
+Time since begin: 0.5633201599121094
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.8806254863739014)
+--------------------------------------------------------------------------------(Solver execution current time: 0.5884826183319092)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.017957448959350586
+Exec Time: 0.013529062271118164
 obj_value: 2; obj_routes: 120187
 Route 1 : 3 4 8 9 
 Route 2 : 1 5 2 7 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.924346923828125)
+--------------------------------------------------------------------------------(Solver execution current time: 0.6218924522399902)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.04312872886657715
+Exec Time: 0.03280925750732422
 obj_value: 2; obj_routes: 120187
 Route 1 : 3 4 8 9 
 Route 2 : 1 5 2 7 10 6 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.929412841796875)
+--------------------------------------------------------------------------------(Solver execution current time: 0.6252198219299316)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.004453182220458984
+Exec Time: 0.002863168716430664
 Improvedobj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.9628658294677734)
+--------------------------------------------------------------------------------(Solver execution current time: 0.6459038257598877)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.03319430351257324
+Exec Time: 0.02037644386291504
 obj_value: 2; obj_routes: 113068
 Route 1 : 1 5 2 10 7 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.9632589817047119)
+--------------------------------------------------------------------------------(Solver execution current time: 0.6462669372558594)
 [SOLUTION]
 SBMath
 IT: 7
 ITs witout improving: 7
-IT time: 0.10113644599914551
-Time since begin: 0.9519054889678955
+IT time: 0.0716395378112793
+Time since begin: 0.6352808475494385
 obj_value: 2; obj_routes: 113068
 Route 1 : 1 5 2 10 7 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.96329665184021)
+--------------------------------------------------------------------------------(Solver execution current time: 0.6463799476623535)
 [SOLUTION]
 SBMath
 IT: 7
 ITs witout improving: 7
-IT time: 0.10113644599914551
-Time since begin: 0.9519054889678955
+IT time: 0.0716395378112793
+Time since begin: 0.6352808475494385
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 0.990943431854248)
+--------------------------------------------------------------------------------(Solver execution current time: 0.665574312210083)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.026723384857177734
+Exec Time: 0.018657684326171875
 obj_value: 2; obj_routes: 113068
 Route 1 : 1 5 2 10 7 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.028200626373291)
+--------------------------------------------------------------------------------(Solver execution current time: 0.6989645957946777)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.03670907020568848
+Exec Time: 0.03271150588989258
 obj_value: 2; obj_routes: 113068
 Route 1 : 1 5 2 10 7 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.0312449932098389)
+--------------------------------------------------------------------------------(Solver execution current time: 0.702307939529419)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.0027353763580322266
+Exec Time: 0.0028731822967529297
 Improvedobj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.046236276626587)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7176034450531006)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.014771461486816406
+Exec Time: 0.014978647232055664
 obj_value: 2; obj_routes: 113068
 Route 1 : 3 8 
 Route 2 : 1 5 2 10 7 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.0464439392089844)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7179489135742188)
 [SOLUTION]
 SBMath
 IT: 8
 ITs witout improving: 8
-IT time: 0.08287835121154785
-Time since begin: 1.0350916385650635
+IT time: 0.07135605812072754
+Time since begin: 0.7069640159606934
 obj_value: 2; obj_routes: 113068
 Route 1 : 3 8 
 Route 2 : 1 5 2 10 7 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.0464646816253662)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7180619239807129)
 [SOLUTION]
 SBMath
 IT: 8
 ITs witout improving: 8
-IT time: 0.08287835121154785
-Time since begin: 1.0350916385650635
+IT time: 0.07135605812072754
+Time since begin: 0.7069640159606934
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.0553193092346191)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7273674011230469)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.008407115936279297
+Exec Time: 0.008640050888061523
 obj_value: 2; obj_routes: 113068
 Route 1 : 3 8 
 Route 2 : 1 5 2 10 7 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.0881156921386719)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7600793838500977)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.03232550621032715
+Exec Time: 0.03210639953613281
 obj_value: 2; obj_routes: 113068
 Route 1 : 3 8 
 Route 2 : 1 5 2 10 7 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.0911130905151367)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7633528709411621)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.0026946067810058594
+Exec Time: 0.002794981002807617
 Improvedobj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1063175201416016)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7776775360107422)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.015024662017822266
+Exec Time: 0.014019966125488281
 obj_value: 2; obj_routes: 151845
 Route 1 : 1 3 6 8 
 Route 2 : 5 2 7 10 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1065313816070557)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7780253887176514)
 [SOLUTION]
 SBMath
 IT: 9
 ITs witout improving: 9
-IT time: 0.05994081497192383
-Time since begin: 1.095179557800293
+IT time: 0.05962824821472168
+Time since begin: 0.7670402526855469
 obj_value: 2; obj_routes: 151845
 Route 1 : 1 3 6 8 
 Route 2 : 5 2 7 10 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1065537929534912)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7781391143798828)
 [SOLUTION]
 SBMath
 IT: 9
 ITs witout improving: 9
-IT time: 0.05994081497192383
-Time since begin: 1.095179557800293
+IT time: 0.05962824821472168
+Time since begin: 0.7670402526855469
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1169147491455078)
+--------------------------------------------------------------------------------(Solver execution current time: 0.7885603904724121)
 [SOLUTION]
 AGES
 IT: 1
-Exec Time: 0.0099029541015625
+Exec Time: 0.009875297546386719
 obj_value: 2; obj_routes: 151845
 Route 1 : 1 3 6 8 
 Route 2 : 5 2 7 10 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1509127616882324)
+--------------------------------------------------------------------------------(Solver execution current time: 0.8218650817871094)
 [SOLUTION]
 LNS
 IT: 40
-Exec Time: 0.033417701721191406
+Exec Time: 0.03270864486694336
 obj_value: 2; obj_routes: 151845
 Route 1 : 1 3 6 8 
 Route 2 : 5 2 7 10 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1540977954864502)
+--------------------------------------------------------------------------------(Solver execution current time: 0.8253204822540283)
 [SOLUTION]
 PartitionMaxRequests
-Exec Time: 0.0027930736541748047
+Exec Time: 0.002902507781982422
 Improvedobj_value: 2; obj_routes: 111163
 Route 1 : 3 8 
 Route 2 : 1 5 2 7 10 6 4 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.166072130203247)
+--------------------------------------------------------------------------------(Solver execution current time: 0.8373250961303711)
 [SOLUTION]
 Original Perturbation
-Exec Time: 0.011781692504882812
+Exec Time: 0.01170969009399414
 obj_value: 2; obj_routes: 149500
 Route 1 : 1 5 10 6 
 Route 2 : 2 7 3 4 8 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1662907600402832)
+--------------------------------------------------------------------------------(Solver execution current time: 0.837653636932373)
 [SOLUTION]
 SBMath
 IT: 10
 ITs witout improving: 10
-IT time: 0.059609174728393555
-Time since begin: 1.1549386978149414
+IT time: 0.05929827690124512
+Time since begin: 0.8266680240631104
 obj_value: 2; obj_routes: 149500
 Route 1 : 1 5 10 6 
 Route 2 : 2 7 3 4 8 9 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.166311502456665)
+--------------------------------------------------------------------------------(Solver execution current time: 0.8377633094787598)
 [SOLUTION]
 SBMath
 IT: 10
 ITs witout improving: 10
-IT time: 0.059609174728393555
-Time since begin: 1.1549386978149414
+IT time: 0.05929827690124512
+Time since begin: 0.8266680240631104
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1665146350860596)
+--------------------------------------------------------------------------------(Solver execution current time: 0.8380377292633057)
 [INFO] Finished metaheuristic
---------------------------------------------------------------------------------(Solver execution current time: 1.166529655456543)
+--------------------------------------------------------------------------------(Solver execution current time: 0.8380820751190186)
 [SOLUTION]
 Solution after SBMath
 obj_value: 2; obj_routes: 111163
 Route 1 : 1 5 2 7 10 6 4 9 
 Route 2 : 3 8 
 
---------------------------------------------------------------------------------(Solver execution current time: 1.1666193008422852)
-[INFO] Algorithm execution time : 1.1677374839782715
---------------------------------------------------------------------------------(Solver execution current time: 1.1670126914978027)
+--------------------------------------------------------------------------------(Solver execution current time: 0.8382341861724854)
+[INFO] Algorithm execution time : 0.8390603065490723
+--------------------------------------------------------------------------------(Solver execution current time: 0.838569164276123)
 [SOLUTION]
 Final Solution Verification
 ====================================

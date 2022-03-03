@@ -1,0 +1,29 @@
+--------------------------------------------------------------------------------(Solver execution current time: 0.00017523765563964844)
+[INFO] Input Seed : 0
+--------------------------------------------------------------------------------(Solver execution current time: 0.00021147727966308594)
+[INFO] Input time limit : 5
+--------------------------------------------------------------------------------(Solver execution current time: 0.0002357959747314453)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.016513824462890625)
+[INFO] Algorithm execution time : 0.017214059829711914
+--------------------------------------------------------------------------------(Solver execution current time: 0.017000436782836914)
+[ERROR]
+An error has ocurred
+Traceback (most recent call last):
+  File "../solver/solver.py", line 189, in execute
+    func_timeout(time_limit, run)
+  File "/home/thuza/.local/lib/python3.8/site-packages/func_timeout/dafunc.py", line 108, in func_timeout
+    raise_exception(exception)
+  File "/home/thuza/.local/lib/python3.8/site-packages/func_timeout/py3_raise.py", line 7, in raise_exception
+    raise exception[0] from None
+  File "../solver/solver.py", line 95, in run
+    read_input_file()
+  File "../solver/solver.py", line 78, in read_input_file
+    reader.read_input_file()
+  File "/home/thuza/Desktop/vrp-solver/solver/src/instance_readers/Reader.py", line 86, in read_input_file
+    self.read_specific_input(file_name)
+  File "/home/thuza/Desktop/vrp-solver/solver/src/instance_readers/ReaderJsonDPDPTW.py", line 37, in read_specific_input
+    fixed_requests = input_dict["fixed"]
+KeyError: 'fixed'
+
+--------------------------------------------------------------------------------

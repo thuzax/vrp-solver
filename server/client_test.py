@@ -11,18 +11,43 @@ def simple_test(file_path):
     
     file_name = file_path.split("/")[-1]
 
+    tl = 5
+    seed = 0
+
     json_input = json.dumps({
         "name" : file_name,
         "file" : input_data,
-        "time_limit" : 30,
-        "seed" : 0
+        "time_limit" : tl,
+        "seed" : seed
     })
 
-    r_static = requests.post(links["st_min_vehicles"], json=json_input)
+    r_static = requests.post(
+        links["pdptw-v"],
+        json=json_input, 
+        timeout=tl + 30
+    )
     print(r_static.text)
 
-    r_dynamic = requests.post(links["dy_min_vehicles"], json=json_input)
-    print(r_dynamic.text)
 
-simple_test("br-mg-bh-10_input.json")
+    r_dynamic_v = requests.post(
+        links["dpdptw-v"],
+        json=json_input, 
+        timeout=tl + 30
+    )
+    print(r_dynamic_v.text)
+
+    r_dynamic_r = requests.post(
+        links["dpdptw-r"],
+        json=json_input, 
+        timeout=tl + 30
+    )
+    print(r_dynamic_r.text)
+
+    r_dynamic_hf_r = requests.post(
+        links["dpdptwhf-r"],
+        json=json_input, 
+        timeout=tl + 30
+    )
+    print(r_dynamic_hf_r.text)
+
 simple_test("../test_instances/input_files/new_instances/br-mg-bh-200_input.json")

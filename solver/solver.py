@@ -227,7 +227,7 @@ def execute(arguments):
 
         solution_dict = make_solution_dict(total_time, arguments)
         
-        
+
         # Writer().write_log()
         execution_log.info_log("*Ending Program.*")
         clear()
