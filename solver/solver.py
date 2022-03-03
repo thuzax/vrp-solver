@@ -133,7 +133,7 @@ def write_error(exception):
         + ''.join(traceback_ex)
     )
     
-    Writer().write_log()
+    # Writer().write_log()
 
 
 def write_solution():
@@ -195,6 +195,7 @@ def execute(arguments):
         file_log.add_warning_log("Time Limit Exceeded")
         execution_log.warning_log("Time Limit Exceeded")
         solver_problem.update_and_get_best_after_timeout()
+        
     
     except Exception as ex:
         exception = ex
@@ -205,6 +206,7 @@ def execute(arguments):
         file_log.add_info_log(
             "Algorithm execution time : " + str(total_time)
         )
+        
 
         if (exception is not None):
             write_error(exception)
@@ -226,10 +228,9 @@ def execute(arguments):
         solution_dict = make_solution_dict(total_time, arguments)
         
         
-        Writer().write_log()
+        # Writer().write_log()
         execution_log.info_log("*Ending Program.*")
         clear()
-        
         return solution_dict
 
 

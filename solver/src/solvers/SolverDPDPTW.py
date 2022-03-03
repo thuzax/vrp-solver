@@ -8,6 +8,7 @@ from src.solution_classes import *
 from src import file_log
 from src import execution_log
 from src.objects_managers import ConstraintsObjects
+from src import exceptions
 
 
 from src.solvers import SolverPDPTW

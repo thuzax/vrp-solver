@@ -31,7 +31,6 @@ class SBMath(LocalSearch):
 
 
     def execute_operator(self, initial_solution, operator_name, parameters):
-        print(self.local_operators[operator_name])
         if (operator_name in self.excluded_local_operators):
             file_log.add_info_log("EXCLUDED")
 

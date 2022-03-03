@@ -1,7 +1,6 @@
 import time
 import json
 
-from numpy import e
 
 make_log = False
 solution_detailed = False
@@ -11,6 +10,7 @@ log_solutions_dicts = []
 
 output_path = ""
 output_name = ""
+
 
 def get_log_text():
     global log_data
@@ -43,6 +43,19 @@ def set_to_make_log(
     output_path = out_path
     global output_name
     output_name = out_name
+    
+    file_name = get_log_file_name()
+
+    with open(file_name, "w") as out:
+        pass
+
+    file_json_name = get_solutions_log_file_name()
+    
+    with open(file_json_name, 'w') as out_json:
+        json.dump([], out_json)
+
+
+    write_text_data(log_data)
 
 
 def do_file_log():
@@ -58,13 +71,23 @@ def detail_solution():
 def add_text_to_log_data(text):
     text += "\n"
     global log_data
-    log_data += text
+    
+    log_data = text
     log_data += "-" * 80
     
+    write_text_data(log_data)
+
     
 def add_dict_to_log_dicts(sol_dict):
-    global log_solutions_dicts
-    log_solutions_dicts.append(sol_dict)
+    file_name = get_solutions_log_file_name()
+    with open(file_name, 'r+') as out:
+        out.seek(0, 2)
+        position = out.tell() - 1
+        out.seek(position)
+        if (position <= 1):
+            out.write(json.dumps(sol_dict) + "]")
+            return
+        out.write("," + json.dumps(sol_dict) + "]")
 
 
 def get_time_text():
@@ -138,21 +161,36 @@ def get_log_file_name():
     if (output_path[-1] != "/"):
         output_path = output_path + "/"
 
-    output_name = output_name + "_log.txt"
-    
-    file_name = output_path + output_name
+
+    file_name = output_path + output_name + "_log.txt"
     
     return file_name
 
 
-def write_log(output_path, output_name):
+def get_solutions_log_file_name():
+    if (not do_file_log()):
+        return None
+
+    global output_path
+    global output_name
+    
+    if (output_path[-1] != "/"):
+        output_path = output_path + "/"
+
+
+    file_name = output_path + output_name + "_sol_log.json"
+    
+    return file_name
+
+
+
+def write_text_data(data):
     if (not do_file_log()):
         return
 
     file_name = get_log_file_name()
-
-    with open(file_name, "w+") as out_file:
-        out_file.write(log_data)
+    with open(file_name, "a") as out:
+        out.write(log_data)
 
 
 def write_sol_json_log(output_path, output_name):
