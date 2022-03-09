@@ -1,6 +1,6 @@
 {
     "SPDPTW_V" : "../solver/configuration-static.json",
     "DPDPTW_V" : "../solver/configuration-dynamic-obj-vehicle.json",
-    "DPDPTW_R" : "../solver/configuration-dynamic-obj-requests.json",
+    "DPDPTW_R" : "../solver/configuration-dynamic-obj-request.json",
     "DPDPTWHF_R" : "../solver/configuration-dynamic-obj-request-urb-rur.json"
 }

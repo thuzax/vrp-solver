@@ -1,7 +1,0 @@
-Instance name : SPDPTW_V_br-mg-bh-10_input
-Authors : 
-Date : 
-Reference 
-Solution
-Route 1 : 1 5 2 7 10 6 4 9 
-Route 2 : 3 8 
