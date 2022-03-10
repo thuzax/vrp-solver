@@ -16,7 +16,7 @@ def make_json_input_dict(file_path):
     file_name = file_path.split("/")[-1]
 
     # time limit for the solver
-    time_limit = 30
+    time_limit = 15
     # seed for the solver
     seed = 0
     # if True returns all solutions found with the solver
@@ -121,7 +121,7 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 simple_parallel_test(
     "par-pdptw-v", 
     "../test_instances/input_files/SB_json/bar-n100-1.json",
-    5
+    2
 )
 
 # # PARALLEL DPDPTW MIN VEHICLE

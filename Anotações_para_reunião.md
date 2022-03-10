@@ -15,9 +15,9 @@ Modificações Modelo
 - Restrição dos Veículos <= limite
 
 
-Testes
+Testes (Fazer com percentual da instância)
 - Variações da perturbação
-- Testes com modelo GRB/CBC
+- Testes com modelo GRB/CBC (Testar primeiro com GRB e depois algumas com CBC)
 - Pré-processamento
 - Perturbação: variação do numero de iterações x tempo
 - KRegret sem modificação x KRegret com modificação x WKRegret

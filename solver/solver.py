@@ -225,13 +225,14 @@ def execute(arguments):
             write_solution()
 
 
-        solution_dict = make_solution_dict(total_time, arguments)
+        solution_data_dict = make_solution_dict(total_time, arguments)
         
+        file_log.write_solution_data_dict_in_json(solution_data_dict)
 
         # Writer().write_log()
         execution_log.info_log("*Ending Program.*")
         clear()
-        return solution_dict
+        return solution_data_dict
 
 
 if __name__=="__main__":

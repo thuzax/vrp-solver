@@ -151,6 +151,7 @@ def add_solution_log(solution, extra_message=None):
     add_text_to_log_data(text)
     add_dict_to_log_dicts(solution.get_dict())
 
+
 def get_log_file_name():
     if (not do_file_log()):
         return None
@@ -165,6 +166,20 @@ def get_log_file_name():
     file_name = output_path + output_name + "_log.txt"
     
     return file_name
+
+
+def get_solution_data_file_name():
+    global output_path
+    global output_name
+    
+    if (output_path[-1] != "/"):
+        output_path = output_path + "/"
+
+
+    file_name = output_path + output_name + "_sol_data.json"
+    
+    return file_name
+
 
 
 def get_solutions_log_file_name():
@@ -202,3 +217,11 @@ def write_sol_json_log(output_path, output_name):
     with open(file_name, "w+") as out_file:
         out_file.write(json.dumps(log_solutions_dicts))
 
+def write_solution_data_dict_in_json(solution_data_dict):
+    file_name = get_solution_data_file_name()
+
+    with open(file_name, "w+") as out_file:
+        out_file.write(json.dumps(solution_data_dict))
+
+
+    

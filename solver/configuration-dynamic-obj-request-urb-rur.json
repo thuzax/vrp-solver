@@ -163,8 +163,8 @@
             "excluded_local_operators" : [
                 "FirstOperator"
             ],
-            "stop_criteria" : "iterations",
-            "max_time" : 10,
+            "stop_criteria" : "time",
+            "max_time" : 100000,
             "max_it" : 100,
             "max_it_without_improv" : 10,
             "acceptance_algorithm_data" : {
