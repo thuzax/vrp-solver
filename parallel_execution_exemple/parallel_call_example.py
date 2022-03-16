@@ -7,7 +7,7 @@ import random
 
 
 def run(i):
-    sp = subprocess.Popen("python3 ./solver.py --input ./test_instances/input_files/SB_json/bar-n100-1_fixed_limited_hybrid_fleet.json  --output ./test_parallel/t"+str(i)+".json --set-config-file ./configuration-dynamic-obj-request-urb-rur.json --make-log --detail-solution-log --set-seed 0 --set-time-limit 60", shell=True, stdout=subprocess.PIPE)
+    sp = subprocess.Popen("python3 ./solver.py --input ./test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json  --output ./test_parallel/t"+str(i)+".json --set-config-file ./configuration-dynamic-obj-request-urb-rur.json --make-log --detail-solution-log --set-seed 0 --set-time-limit 60", shell=True, stdout=subprocess.PIPE)
     exit_code = sp.wait()
     print("exit status:", exit_code)
 

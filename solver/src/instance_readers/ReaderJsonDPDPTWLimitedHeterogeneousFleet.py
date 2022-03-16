@@ -4,7 +4,7 @@ import json
 from src.instance_readers.ReaderJsonDPDPTW import ReaderJsonDPDPTW
 
 
-class ReaderJsonDPDPTWLimitedHybridFleet(ReaderJsonDPDPTW):
+class ReaderJsonDPDPTWLimitedHeterogeneousFleet(ReaderJsonDPDPTW):
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()

@@ -2,7 +2,7 @@ from .Vertex import Vertex
 from .VertexClass import VertexClass
 from .VertexPDPTW import VertexPDPTW
 from .VertexDPDPTW import VertexDPDPTW
-from .VertexDPDPTWHybridFleet import VertexDPDPTWHybridFleet
+from .VertexDPDPTWHeterogeneousFleet import VertexDPDPTWHeterogeneousFleet
 
 
 __all__ = [
@@ -10,5 +10,5 @@ __all__ = [
     "VertexClass",
     "VertexPDPTW",
     "VertexDPDPTW",
-    "VertexDPDPTWHybridFleet"
+    "VertexDPDPTWHeterogeneousFleet"
 ]

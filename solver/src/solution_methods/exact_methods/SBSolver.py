@@ -1,6 +1,7 @@
 import time
 from mip import *
 from abc import ABCMeta, abstractmethod
+from src.solution_classes import Solution
 
 from src import file_log
 
@@ -25,7 +26,7 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def make_model_obj_func(self, model, parameters):
+    def make_model_obj_func(self, model, solution, parameters):
         pass
 
 
@@ -37,24 +38,22 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
         )
 
 
-    def get_request_in_route_dict(self, parameters):
+    def get_routes_with_request_dict(self, parameters):
         requests = parameters["requests_set"]
         routes_pool = parameters["routes_pool"]
-        request_in_route = {}
+        routes_with_request = {}
         for request in requests:
-            request_in_route[request] = {}
+            routes_with_request[request] = []
             request_has_at_least_one_route = False
             for pos, route in enumerate(routes_pool):
                 if (request in route):
-                    request_in_route[request][pos] = 1
+                    routes_with_request[request].append(pos)
                     request_has_at_least_one_route = True
-                else:
-                    request_in_route[request][pos] = 0
             
             if (not request_has_at_least_one_route):
-                request_in_route.pop(request)
+                routes_with_request.pop(request)
 
-        return request_in_route
+        return routes_with_request
 
 
 
@@ -68,7 +67,7 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
 
     
     @abstractmethod
-    def make_constraints(self, model, solution, request_in_route, parameters):
+    def make_constraints(self, model, solution, routes_with_request, parameters):
         pass
     
 
@@ -78,8 +77,13 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
         
         if status == OptimizationStatus.OPTIMAL:
             found_feasible = True
+            print("OPT")
+            print("OPT")
+            print("OPT")
+            print("OPT")
         elif status == OptimizationStatus.FEASIBLE:
             found_feasible = True
+
         
         return found_feasible
 
@@ -106,16 +110,32 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
         
         self.create_variables(model, parameters)
 
-        request_in_route = self.get_request_in_route_dict(parameters)
-        self.make_constraints(model, solution, request_in_route, parameters)
+        routes_with_request = self.get_routes_with_request_dict(parameters)
+        self.make_constraints(model, solution, routes_with_request, parameters)
 
-        self.make_model_obj_func(model, parameters)
+        self.make_model_obj_func(model, solution, parameters)
         
         self.initialize_model(model, solution, parameters)
 
         return model
 
+    def construct_solution_from_model(self, model, parameters):
+        y = model.vars
+        routes_pool = parameters["routes_pool"]
+        new_soltuion = Solution()
+        for i in range(len(routes_pool)):
+            if (y[i].x):
+                new_soltuion.add_route(routes_pool[i])
+                for request in routes_pool[i].requests():
+                    new_soltuion.add_request(request)
+                    request_cost = self.obj_func.get_request_cost_in_route(
+                        routes_pool[i],
+                        routes_pool[i].index(request),
+                        request
+                    )
+                    new_soltuion.set_request_cost(request, request_cost)
 
+        return new_soltuion
 
     def solve(self, solution, parameters):
         self.best_solution = None
@@ -130,10 +150,19 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
                 model,
                 parameters
             )
+            new_soltuion.set_objective_value(
+                self.obj_func.get_solution_cost(new_soltuion)
+            )
+            new_soltuion.set_routes_cost(
+                self.obj_func.get_routes_sum_cost(new_soltuion.routes())
+            )
+            print("+++++++++++++")
+            print(new_soltuion.cost())
+            print(new_soltuion.routes_cost())
 
         if (new_soltuion is not None):
             self.best_solution = new_soltuion
-            message = "PartitionMaxRequests" + "\n"
+            message = self.name + "\n"
             message += "Exec Time: " + str(time.time() - start_time)
             message += "\n"
             if (self.obj_func.solution_is_better(new_soltuion, solution)):

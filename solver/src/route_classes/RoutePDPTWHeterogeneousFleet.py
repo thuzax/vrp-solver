@@ -2,7 +2,7 @@ import copy
 from src.route_classes.RoutePDPTW import RoutePDPTW
 
 
-class RoutePDPTWHybridFleet(RoutePDPTW):
+class RoutePDPTWHeterogeneousFleet(RoutePDPTW):
 
     def __init__(self, fleet_type=None, *args, **kwargs):
         super().__init__("Route PDPTWHybridFleet")

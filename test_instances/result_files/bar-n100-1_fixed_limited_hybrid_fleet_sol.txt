@@ -1,4 +1,4 @@
-Instance name : bar-n100-1_fixed_limited_hybrid_fleet
+Instance name : bar-n100-1_fixed_limited_heter_fleet
 Authors : 
 Date : 
 Reference 

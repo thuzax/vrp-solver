@@ -14,7 +14,7 @@ from src.solvers import SolverDPDPTW
 from src.solution_check import solution_check, get_solution_check_complete_data
 
 
-class SolverDPDPTWHybridFleet(SolverDPDPTW):
+class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
 
     def __init__(self):
         super().__init__()

@@ -1,10 +1,10 @@
 from src.constraints import Constraint
 
 
-class HybridFleet(Constraint):
+class HeterogeneousFleet(Constraint):
 
     def __init__(self):
-        super().__init__("Hybrid Fleet Constraint")
+        super().__init__("Heterogeneous Fleet Constraint")
 
     def initialize_class_attributes(self):
         super().initialize_class_attributes()

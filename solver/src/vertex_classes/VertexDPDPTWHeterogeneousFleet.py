@@ -3,7 +3,7 @@ import copy
 
 from src.vertex_classes import VertexDPDPTW
 
-class VertexDPDPTWHybridFleet(VertexDPDPTW):
+class VertexDPDPTWHeterogeneousFleet(VertexDPDPTW):
 
     def __init__(self):
         super().__init__()

@@ -35,6 +35,7 @@ def get_config_file(problem_code):
     config_list_path = os.path.join(".", "configuration_file_list.json")
     with open(config_list_path, "r") as config_files_list:
         config_files = json.loads(config_files_list.read())
+        print(config_files[problem_code])
         return config_files[problem_code]
 
 

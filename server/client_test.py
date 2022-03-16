@@ -16,7 +16,7 @@ def make_json_input_dict(file_path):
     file_name = file_path.split("/")[-1]
 
     # time limit for the solver
-    time_limit = 15
+    time_limit = 120
     # seed for the solver
     seed = 0
     # if True returns all solutions found with the solver
@@ -106,7 +106,7 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 
 
 # # PDPTW MIN VEHICLE
-# simple_test("pdptw-v", "../test_instances/input_files/SB_json/bar-n100-1.json")
+simple_test("pdptw-v", "../test_instances/input_files/SB_json/bar-n100-2.json")
 
 # # DPDPTW MIN VEHICLE
 # simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.json")
@@ -115,32 +115,32 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 # simple_test("dpdptw-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_fleet.json")
 
 # # DPDPTW MAX REQUESTS / LIMITED HYBRID FLEET
-# simple_test("dpdptwhf-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_hybrid_fleet.json")
+# simple_test("dpdptwhf-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json")
 
-# PARALLEL PDPTW MIN VEHICLE
-simple_parallel_test(
-    "par-pdptw-v", 
-    "../test_instances/input_files/SB_json/bar-n100-1.json",
-    2
-)
+# # PARALLEL PDPTW MIN VEHICLE
+# simple_parallel_test(
+#     "par-pdptw-v", 
+#     "../test_instances/input_files/SB_json/bar-n100-1.json",
+#     4
+# )
 
 # # PARALLEL DPDPTW MIN VEHICLE
 # simple_parallel_test(
 #     "par-dpdptw-v", 
 #     "../test_instances/input_files/SB_json/bar-n100-1_fixed.json",
-#     5
+#     4
 # )
 
 # # PARALLEL DPDPTW MAX REQUESTS/LIMITED FLEET
 # simple_parallel_test(
 #     "par-dpdptw-r", 
 #     "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_fleet.json",
-#     5
+#     4
 # )
 
 # # PARALLEL DPDPTW MAX REQUESTS / LIMITED HYBRID FLEET
 # simple_parallel_test(
 #     "par-dpdptwhf-r", 
-#     "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_hybrid_fleet.json",
-#     5
+#     "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json",
+#     4
 # )

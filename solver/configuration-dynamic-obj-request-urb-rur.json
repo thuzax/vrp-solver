@@ -19,7 +19,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ],
             "insertion_heuristic_code" : "kr"
         },
@@ -31,7 +31,7 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ]
         },
         "WKRegret" : {
@@ -41,7 +41,7 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ]
         },
         "RandomInsertion" : {
@@ -50,7 +50,7 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "FixedRequests",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ]
         },
         "RandomRemoval" : {
@@ -83,7 +83,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ],
             "acceptance_algorithm_data" : {
                 "AcceptAll" : {}
@@ -103,7 +103,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ],
             "acceptance_algorithm_data" : {
                 "LAHC" : {
@@ -138,7 +138,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ],
             "solver_code" : "CBC",
             "opt_time_limit" : 30,
@@ -152,7 +152,7 @@
                 "PickupDeliveryConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ],
             "local_operators_names" : {
                 "FirstOperator" : "AGES",
@@ -180,7 +180,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ]
         },
         "ModBiasedShift" : {
@@ -190,7 +190,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ],
             "mi" : 0.2
         },
@@ -201,7 +201,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ]
         },
         "OriginalPerturbation" : {
@@ -211,7 +211,7 @@
                 "TimeWindowsConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ],
             "acceptance_algorithm_data" : {
                 "AcceptAll" : {}
@@ -241,11 +241,11 @@
         },
         "LimitedFleet" : {
         },
-        "HybridFleet" : {
+        "HeterogeneousFleet" : {
         }
     },
     "solver" : {
-        "SolverDPDPTWHybridFleet" : {
+        "SolverDPDPTWHeterogeneousFleet" : {
             "output_type" : "json",
             "obj_func_name" : "ObjRequestsPDPTW",
             "construction_name" : "BasicGreedyLimitedFleet",
@@ -256,12 +256,12 @@
                 "PickupDeliveryConstraint",
                 "FixedRequests",
                 "LimitedFleet",
-                "HybridFleet"
+                "HeterogeneousFleet"
             ]
         }
     },
     "reader": {
-        "ReaderJsonDPDPTWLimitedHybridFleet" : {
+        "ReaderJsonDPDPTWLimitedHeterogeneousFleet" : {
             "input_type" : "json"
         }
     },
@@ -272,11 +272,11 @@
         }
     },
     "route_class" : {
-        "RoutePDPTWHybridFleet" : {
+        "RoutePDPTWHeterogeneousFleet" : {
         }
     },
     "vertex_class" : {
-        "VertexDPDPTWHybridFleet" : {
+        "VertexDPDPTWHeterogeneousFleet" : {
         }
     },
     "insertion_operator" : {

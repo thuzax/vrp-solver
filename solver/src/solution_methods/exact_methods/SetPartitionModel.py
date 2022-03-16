@@ -13,7 +13,7 @@ class SetPartitionModel(SBSolver):
             super().__init__("SetPartitionModel")
 
 
-    def make_model_obj_func(self, model, parameters):
+    def make_model_obj_func(self, model, solution, parameters):
         y = model.vars
         routes_pool = parameters["routes_pool"]
         model.objective = xsum(
@@ -52,37 +52,16 @@ class SetPartitionModel(SBSolver):
         
 
 
-    def make_constraints(self, model, solution, request_in_route, parameters):
+    def make_constraints(self, model, solution, routes_with_request, parameters):
         y = model.vars
         routes_pool = parameters["routes_pool"]
-        for request in request_in_route:
-            n_routes_sum = xsum(
-                request_in_route[request][i] * y[i] 
-                for i in range(len(routes_pool))
+        for request in routes_with_request:
+            n_req_in_routes_sum = xsum(
+                y[i] 
+                for i in routes_with_request[request]
             )
+            
             model.add_constr(
-                lin_expr=(n_routes_sum == 1), 
+                lin_expr=(n_req_in_routes_sum == 1), 
                 name="one_attendance_"+str(request)
             )
-        
-
-    def construct_solution_from_model(self, model, parameters):
-        y = model.vars
-        routes_pool = parameters["routes_pool"]
-        new_soltuion = Solution()
-        for i in range(len(routes_pool)):
-            if (y[i].x):
-                new_soltuion.add_route(routes_pool[i])
-                for request in routes_pool[i].requests():
-                    new_soltuion.add_request(request)
-                    request_cost = self.obj_func.get_request_cost_in_route(
-                        routes_pool[i],
-                        routes_pool[i].index(request),
-                        request
-                    )
-                    new_soltuion.set_request_cost(request, request_cost)
-                
-                new_soltuion.set_objective_value(
-                    self.obj_func.get_solution_cost(new_soltuion)
-                )
-        return new_soltuion
