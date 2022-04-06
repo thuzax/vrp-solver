@@ -106,10 +106,11 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 
 
 # # PDPTW MIN VEHICLE
-simple_test("pdptw-v", "../test_instances/input_files/SB_json/bar-n100-2.json")
+# simple_test("pdptw-v", "../test_instances/input_files/SB_json/bar-n100-2.json")
 
 # # DPDPTW MIN VEHICLE
 # simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.json")
+simple_test("dpdptw-v", "../test.json")
 
 # # DPDPTW MAX REQUESTS/LIMITED FLEET
 # simple_test("dpdptw-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_fleet.json")

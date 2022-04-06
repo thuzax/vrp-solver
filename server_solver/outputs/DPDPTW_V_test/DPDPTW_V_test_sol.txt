@@ -1,0 +1,19 @@
+Instance name : DPDPTW_V_test
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 15 44 
+Route 2 : 24 53 
+Route 3 : 7 36 6 35 
+Route 4 : 22 51 13 42 
+Route 5 : 4 33 23 52 
+Route 6 : 18 47 
+Route 7 : 12 2 41 31 
+Route 8 : 8 37 
+Route 9 : 19 48 
+Route 10 : 20 16 49 45 
+Route 11 : 5 34 
+Route 12 : 9 38 
+Route 13 : 26 55 
+Route 14 : 3 32 

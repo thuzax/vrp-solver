@@ -9,6 +9,9 @@ class FixedRequests(Constraint):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.fixed_routes_dicts = None
+        self.parcial_requests = None
+        self.completed_requests = None
+
 
     def route_is_feasible(self, route):
         
@@ -29,23 +32,34 @@ class FixedRequests(Constraint):
                 return False
 
             fixed_route = fixed_route_dict["route"]
-            non_fixed_start = fixed_route_dict["start"]
+            start_pos = fixed_route_dict["start"]
             if (has_a_fixed_request):
                 vertices_order = route.requests_order()
 
-                for i in range(non_fixed_start):
+                for i in range(start_pos+1):
                     if (vertices_order[i] != fixed_route[i]):
                         return False
 
         return True
 
 
-    def solution_is_feasible(self, solution):
-        for fixed_route_dict in self.fixed_routes_dicts:
-            for request in fixed_route_dict["requests"]:
-                if (request not in solution.requests()):
-                    return False
 
+    def started_requests_are_in_solution(self, solution):
+        for request in self.parcial_requests:
+            if (request not in solution.requests()):
+                return False
+        
+        for request in self.completed_requests:
+            if (request not in solution.requests()):
+                return False
+        
+        return True
+
+
+    def solution_is_feasible(self, solution):
+        if (not self.started_requests_are_in_solution(solution)):
+            return False
+        
         for route in solution.routes():
             if (not self.route_is_feasible(route)):
                 return False
@@ -57,5 +71,7 @@ class FixedRequests(Constraint):
     def get_attr_relation_solver_constr():
         attr_relation = {
             "fixed_routes_dict" : "fixed_routes_dicts",
+            "parcial_requests" : "parcial_requests",
+            "completed_requests" : "completed_requests"
         }
         return attr_relation

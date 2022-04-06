@@ -77,9 +77,12 @@ def call_solver(input_path, output_path, config_file, time_limit, seed):
     command += "--detail-solution-log" + " "
     print(command)
 
+
     sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
-    exit_code = sp.wait()
-    
+    output = sp.communicate(timeout=time_limit+5)[0]
+    exit_code = sp.returncode
+    # print(output)
+    # print(exit_code)
     return exit_code
 
 
@@ -174,7 +177,7 @@ def solve_problem(
     
 
     if (result is None):
-        return "No solution found. Timeout."
+        return "No solution found. Error or Timeout."
     
     return result
 
@@ -212,3 +215,4 @@ def solve_problems_parallel(problem_code, all_inputs_data):
     print("total time: ", end_time - start_time)
 
     return list(result_storage_arr)
+

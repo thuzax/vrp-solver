@@ -15,6 +15,7 @@ class VertexPDPTW(VertexClass):
         self.service_time = None
         self.time_window = None
         self.demand = None
+        self.pair_id = None
 
     @staticmethod
     def get_attr_relation_reader_vertex():

@@ -1,6 +1,7 @@
 
 from gc import freeze
 import json
+from tracemalloc import start
 from src.vertex_classes import Vertex
 import numpy
 import math
@@ -16,6 +17,8 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
         super().initialize_class_attributes()
         # From input File
         self.fixed_routes_dict = None
+        self.parcial_requests = None
+        self.completed_requests = None
 
     def read_specific_input(self, file_name):        
         with open(file_name, "r") as input_file:
@@ -61,17 +64,31 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
         pairs = []
         picks = []
         delis = []
+        
+        parcials = set()
+        completed = set()
+        
         for route_dict in fixed_requests:
             fix_req.append(route_dict)
             fix_req[-1]["requests"] = set()
             route_fixed = route_dict["route"]
-            for vertex_id in route_fixed:
+            start_pos = route_dict["start"]
+            for (pos, vertex_id) in enumerate(route_fixed):
                 pair = (vertex_id, vertex_id + int(len(self.points)/2))
+                inverted_pair = (vertex_id - int(len(self.points)/2), vertex_id)
+                # If the vertex_id is from delivery
                 if (pair[1] < len(self.points)):
                     fix_req[-1]["requests"].add(pair)
                     pairs.append(pair)
                     delis.append(pair[1])
                     picks.append(pair[0])
+
+                    if (pos < start_pos):
+                        parcials.add(pair)
+
+                elif (pos < start_pos+1):
+                    completed.add(inverted_pair)
+                    parcials.remove(inverted_pair)    
         
         self.requests = tuple(list(self.requests) + pairs)
         self.pickups = list(self.pickups) + picks
@@ -84,7 +101,11 @@ class ReaderJsonDPDPTW(ReaderJsonPDPTW):
         self.deliveries = set(self.deliveries)
 
         self.number_of_requests = len(self.requests)
+        
+        self.parcial_requests = parcials
+        self.completed_requests = completed
 
+        
         return fix_req
 
 

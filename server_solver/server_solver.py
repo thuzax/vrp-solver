@@ -5,11 +5,11 @@ import sys
 import json
 import flask
 
-import server_util
+import server_solver_util
 
 app = flask.Flask(__name__)
 host_ip = "127.0.0.1"
-host_port = 5151
+host_port = 6464
 
 def get_home_link():
     return "http://" + host_ip + ":" + str(host_port)
@@ -53,7 +53,7 @@ def index():
 def pdptw_v():
     func_code = "SPDPTW_V"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problem(func_code, data)
+    solution_data = server_solver_util.solve_problem(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -64,7 +64,7 @@ def pdptw_v():
 def dpdptw_v():
     func_code = "DPDPTW_V"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problem(func_code, data)
+    solution_data = server_solver_util.solve_problem(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -75,7 +75,7 @@ def dpdptw_v():
 def dpdptw_r():
     func_code = "DPDPTW_R"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problem(func_code, data)
+    solution_data = server_solver_util.solve_problem(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -86,7 +86,7 @@ def dpdptw_r():
 def dpdptwhf_r():
     func_code = "DPDPTWHF_R"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problem(func_code, data)
+    solution_data = server_solver_util.solve_problem(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -96,7 +96,7 @@ def dpdptwhf_r():
 def par_pdptw_v():
     func_code = "SPDPTW_V"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problems_parallel(func_code, data)
+    solution_data = server_solver_util.solve_problems_parallel(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -107,7 +107,7 @@ def par_pdptw_v():
 def par_dpdptw_v():
     func_code = "DPDPTW_V"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problems_parallel(func_code, data)
+    solution_data = server_solver_util.solve_problems_parallel(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -118,7 +118,7 @@ def par_dpdptw_v():
 def par_dpdptw_r():
     func_code = "DPDPTW_R"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problems_parallel(func_code, data)
+    solution_data = server_solver_util.solve_problems_parallel(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -129,7 +129,7 @@ def par_dpdptw_r():
 def par_dpdptwhf_r():
     func_code = "DPDPTWHF_R"
     data = json.loads(flask.request.json)
-    solution_data = server_util.solve_problems_parallel(func_code, data)
+    solution_data = server_solver_util.solve_problems_parallel(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
     
@@ -143,7 +143,7 @@ if __name__ == '__main__':
     if (len(args) > 0):
         host_ip = args[0]
 
-    host_port = 5151
+    host_port = 6464
     if (len(args) > 1):
         host_port = int(args[1])
     

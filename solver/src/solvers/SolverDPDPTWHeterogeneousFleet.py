@@ -36,7 +36,7 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
     def insert_fixed(self, solution):
         routes = self.create_routes()
         for route in routes:
-            print(route)
+            # print(route)
             solution.add_route(route)
         
         for route_pos, route_fixed_dict in enumerate(self.fixed_requests):
