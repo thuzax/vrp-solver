@@ -1,3 +1,4 @@
+
 from .basic_operators.InsertionOperator import InsertionOperator
 from .basic_operators.InsertionOperatorPDPTW import InsertionOperatorPDPTW
 
@@ -6,7 +7,9 @@ from .basic_operators.RemovalOperatorPDPTW import RemovalOperatorPDPTW
 
 from .construction_heuristics.BasicGreedy import BasicGreedy
 from .construction_heuristics.BasicGreedyLimitedFleet \
-     import BasicGreedyLimitedFleet
+    import BasicGreedyLimitedFleet
+from .construction_heuristics.BasicGreedyLimitedHeterogeneousFleet \
+    import BasicGreedyLimitedHeterogeneousFleet
 
 from .heuristics.KRegret import KRegret
 from .heuristics.WKRegret import WKRegret
@@ -26,6 +29,7 @@ from .heuristics.RandomExchange import RandomExchange
 from .exact_methods.SBSolver import SBSolver
 from .exact_methods.SetPartitionModel import SetPartitionModel
 from .exact_methods.PartitionMaxRequests import PartitionMaxRequests
+from .exact_methods.PartitionMaxRequestsHF import PartitionMaxRequestsHF
 
 from .local_searches.AGES import AGES
 from .local_searches.LNS import LNS
@@ -55,6 +59,7 @@ __all__ = [
     
     "BasicGreedy",
     "BasicGreedyLimitedFleet",
+    "BasicGreedyLimitedHeterogeneousFleet",
 
     "KRegret",
     "WKRegret",
@@ -78,6 +83,7 @@ __all__ = [
     "SBSolver",
     "SetPartitionModel",
     "PartitionMaxRequests",
+    "PartitionMaxRequestsHF",
     
     "AcceptanceHeuristic",
     "AcceptAll",

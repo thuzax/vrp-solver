@@ -81,8 +81,10 @@ def call_solver(input_path, output_path, config_file, time_limit, seed):
     sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     output = sp.communicate(timeout=time_limit+5)[0]
     exit_code = sp.returncode
-    # print(output)
+    for line in output.splitlines():
+        print(line.decode("utf-8"))
     # print(exit_code)
+
     return exit_code
 
 
@@ -110,8 +112,6 @@ def read_all_solutions(output_path, input_name):
             return None
 
         return all_solutions
-
-    return None
     
 
 
@@ -180,6 +180,7 @@ def solve_problem(
         return "No solution found. Error or Timeout."
     
     return result
+
 
 def solve_problems_parallel(problem_code, all_inputs_data):
     print("number of processors:", multiprocessing.cpu_count())

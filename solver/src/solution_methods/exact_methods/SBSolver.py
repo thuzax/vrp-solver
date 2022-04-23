@@ -77,19 +77,15 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
         
         if status == OptimizationStatus.OPTIMAL:
             found_feasible = True
-            print("OPT")
-            print("OPT")
-            print("OPT")
-            print("OPT")
         elif status == OptimizationStatus.FEASIBLE:
             found_feasible = True
+        else:
+            print("INFEASIBLE")
+            print("INFEASIBLE")
+            print("INFEASIBLE")
+            print("INFEASIBLE")
 
-        
         return found_feasible
-
-    @abstractmethod
-    def construct_solution_from_model(self, model, parameters):
-        pass
 
 
     def construct_model(self, solution, parameters):
@@ -119,9 +115,18 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
 
         return model
 
+    @abstractmethod
     def construct_solution_from_model(self, model, parameters):
         y = model.vars
         routes_pool = parameters["routes_pool"]
+        new_soltuion = self.construct_solution_from_chosen_routes(
+            y, 
+            routes_pool
+        )
+        return new_soltuion
+
+
+    def construct_solution_from_chosen_routes(self, y, routes_pool):
         new_soltuion = Solution()
         for i in range(len(routes_pool)):
             if (y[i].x):
@@ -137,10 +142,12 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
 
         return new_soltuion
 
+
     def solve(self, solution, parameters):
         self.best_solution = None
 
         start_time = time.time()
+
         model = self.construct_model(solution, parameters)
         found_feasible = self.run_model(model)
 
@@ -156,9 +163,9 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
             new_soltuion.set_routes_cost(
                 self.obj_func.get_routes_sum_cost(new_soltuion.routes())
             )
-            print("+++++++++++++")
-            print(new_soltuion.cost())
-            print(new_soltuion.routes_cost())
+            # print("+++++++++++++")
+            # print(new_soltuion.cost())
+            # print(new_soltuion.routes_cost())
 
         if (new_soltuion is not None):
             self.best_solution = new_soltuion

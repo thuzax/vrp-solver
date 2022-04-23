@@ -14,8 +14,11 @@ class RoutePDPTWHeterogeneousFleet(RoutePDPTW):
         self.fleet_type_set = None
 
     def can_attend(self, attendance_type):
+        # print(self.fleet_type_set)
         return (attendance_type in self.fleet_type_set)
 
+    def get_attendance_types(self):
+        return self.fleet_type_set
 
     def copy_route_to(self, route_copy):
         super().copy_route_to(route_copy)

@@ -200,7 +200,6 @@ class SBMath(LocalSearch):
             # InsertionOperator().clean_feasible_insertions_cache_with_exception(
             #     new_solution.routes()
             # )
-            print(self.routes_pool)
             parameters = {
                 "requests_set" : all_requests,
                 "routes_pool" : self.routes_pool

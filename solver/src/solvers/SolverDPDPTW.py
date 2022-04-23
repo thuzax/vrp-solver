@@ -71,7 +71,7 @@ class SolverDPDPTW(SolverPDPTW):
             )
 
             if (new_route is None):
-                return new_route
+                return None
 
             InsertionOperator().insert_request_in_solution(
                 solution,
@@ -116,7 +116,6 @@ class SolverDPDPTW(SolverPDPTW):
 
         solution = self.construction.solve(solution, params_greedy)
 
-        file_log.add_info_log("Finished construction")
 
         obj_value = self.obj_func.get_solution_cost(solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
@@ -127,6 +126,12 @@ class SolverDPDPTW(SolverPDPTW):
         solution.set_routes_cost(routes_cost)
 
         self.best_solution = solution.copy()
+
+        message = self.construction.name + "\n"
+        message += "Exec Time: " + str(time.time() - start_time)
+        message += "\n"
+        file_log.add_info_log("Finished construction")
+        file_log.add_solution_log(self.best_solution, message)
 
         if (
             not solution_check(
@@ -155,6 +160,9 @@ class SolverDPDPTW(SolverPDPTW):
 
         solution = self.construct(parameters, heuristic_start)
 
+        print(solution)
+        self.print_solution_verification(solution, 0)
+        # exit(0)
         if (solution is None):
             file_log.add_warning_log("Could not construct feasible solution")
             execution_log.warning_log(

@@ -3,6 +3,11 @@ import json
 
 
 if __name__=="__main__":
+
+    if (len(sys.argv) < 3):
+        print("Needs input file and output location")
+        exit(0)
+
     file_name = sys.argv[1]
     out_path = "./"
     if (len(sys.argv) == 3):

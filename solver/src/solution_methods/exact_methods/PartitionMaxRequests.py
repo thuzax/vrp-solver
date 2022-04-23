@@ -1,6 +1,6 @@
-from pdb import line_prefix
 import time
 from mip import *
+from src.route_classes import Route
 
 from src.solution_classes import Solution
 from src.solution_methods.exact_methods.SBSolver import SBSolver
@@ -16,8 +16,8 @@ class PartitionMaxRequests(SBSolver):
         super().initialize_class_attributes()
         self.max_routes_cost_increment = None
         
-        self.fleet_size = None
-        self.fixed_routes_dict =None
+        self.fleet = None
+        self.fixed_routes_dict = None
 
         self.cost_reduction_factor = None
 
@@ -52,7 +52,6 @@ class PartitionMaxRequests(SBSolver):
             for i in range(len(routes_pool))
         )
 
-
         # Consider solution cost
         model.objective = (
             - xsum(
@@ -60,7 +59,7 @@ class PartitionMaxRequests(SBSolver):
                 for request in non_fixed_requests
             )
             +
-            self.cost_reduction_factor (sol_cost/solution.routes_cost())
+            self.cost_reduction_factor * (sol_cost/solution.routes_cost())
         )
     
 
@@ -82,10 +81,11 @@ class PartitionMaxRequests(SBSolver):
             )
             for request in requests
         ]
+
         return model.vars
 
 
-    def initialize_model(self, model, solution, parameters):
+    def get_variables_start_value(self, model, solution, parameters):
         routes_pool = parameters["routes_pool"]
         
         initial_routes_pos = set()
@@ -111,26 +111,34 @@ class PartitionMaxRequests(SBSolver):
             )
             for request in requests
         ]
+        return (y_start + x_start)
 
-        model.start = y_start + x_start
+
+    def initialize_model(self, model, solution, parameters):
+
+        model.start = self.get_variables_start_value(
+            model, 
+            solution, 
+            parameters
+        )
 
 
-    def request_chosen_and_cannot_repeat_constr(
+    def request_chosen(
         self, 
         model, 
-        y, 
+        routes_pool, 
         routes_with_request 
     ):
+        y = [
+            model.var_by_name("y_"+str(i))
+            for i in range(len(routes_pool))
+        ]
+
         for request in routes_with_request:
             n_req_in_routes_sum = xsum(
                 y[i] 
                 for i in routes_with_request[request]
             )
-            
-            # model.add_constr(
-            #     lin_expr=(n_req_in_routes_sum <= 1), 
-            #     name="one_attendance_"+str(request)
-            # )
 
             req_var = model.var_by_name("x_"+str(request))
             model.add_constr(
@@ -139,19 +147,29 @@ class PartitionMaxRequests(SBSolver):
             )
 
 
-    def limited_fleet_constr(self, model, y, routes_pool):
+    def limited_fleet_constr(self, model, routes_pool):
+        y = [
+            model.var_by_name("y_"+str(i))
+            for i in range(len(routes_pool))
+        ]
+
         n_routes_sum = xsum(
             y[i]
             for i in range(len(routes_pool))
         )
 
         model.add_constr(
-            lin_expr=(n_routes_sum <= self.fleet_size),
+            lin_expr=(n_routes_sum <= self.fleet),
             name="limited_fleet"
         )
 
 
-    def routes_max_cost_constr(self, model, y, solution, routes_pool):
+    def routes_max_cost_constr(self, model, solution, routes_pool):
+        y = [
+            model.var_by_name("y_"+str(i))
+            for i in range(len(routes_pool))
+        ]
+        
         max_cost = (
             (1 + self.max_routes_cost_increment) 
             * solution.routes_cost()
@@ -181,24 +199,19 @@ class PartitionMaxRequests(SBSolver):
 
     def make_constraints(self, model, solution, routes_with_request, parameters):
         routes_pool = parameters["routes_pool"]
-        y = [
-            model.var_by_name("y_"+str(i))
-            for i in range(len(routes_pool))
-        ]
 
         # Request cannot repeat
-        self.request_chosen_and_cannot_repeat_constr(
+        self.request_chosen(
             model, 
-            y, 
-            routes_with_request, 
-            routes_pool
+            routes_pool,
+            routes_with_request 
         )
         
         # Limited Fleet
-        self.limited_fleet_constr(model, y, routes_pool)
+        self.limited_fleet_constr(model, routes_pool)
 
         # Routes Cost cannot be worser than a maximum percentage
-        # self.routes_max_cost_constr(model, y, solution, routes_pool)
+        # self.routes_max_cost_constr(model, solution, routes_pool)
 
         # Fixed requests must be present
         self.fixed_requests_must_be_in_solution_cosntr(model)
@@ -206,10 +219,37 @@ class PartitionMaxRequests(SBSolver):
         # for cons in model.constrs:
         #     print(cons)
 
+    def all_vehicles_in_solution(self, new_solution):
+        if (new_solution.number_of_routes() < self.fleet):
+            return False
+        return True
+
+    
+    def complete_number_of_vehicles(self, new_solution):
+        while (new_solution.number_of_routes() < self.fleet):
+            new_solution.add_route(Route())
+
+
+    def construct_solution_from_model(self, model, parameters):
+        routes_pool = parameters["routes_pool"]
+        y = [
+            model.var_by_name("y_"+str(i))
+            for i in range(len(routes_pool))
+        ]
+        new_soltuion = self.construct_solution_from_chosen_routes(
+            y, 
+            routes_pool
+        )
+
+        if (not self.all_vehicles_in_solution(new_soltuion)):
+            self.complete_number_of_vehicles(new_soltuion)
+
+        return new_soltuion
+
 
 
     def get_attr_relation_reader_heuristic(self):
         return {
-            "fleet_size" : "fleet_size",
+            "fleet_size" : "fleet",
             "fixed_routes_dict" : "fixed_routes_dict"
         }

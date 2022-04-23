@@ -60,6 +60,7 @@ class KRegret(SolutionMethod):
                 )
 
             requests_feasible_insertions[request] = feasible_insertions
+
         
         return requests_feasible_insertions
 
@@ -131,11 +132,13 @@ class KRegret(SolutionMethod):
         new_solution = solution.copy()
 
         could_insert = True
+        i = 0
         while (could_insert and len(requests) > 0):
             feasible_insertions = self.get_requests_best_feasible_insertions(
                 requests,
                 new_solution
             )
+            
             insertions_and_regret_values = self.get_insertions_and_regret_value(
                 requests, 
                 feasible_insertions

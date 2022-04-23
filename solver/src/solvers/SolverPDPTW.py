@@ -26,7 +26,7 @@ class SolverPDPTW(SolverClass):
         self.requests = None
 
 
-    def construct(self, parameters):
+    def construct(self, parameters, start_time):
         file_log.add_info_log("Starting construction")
         solution = Solution()
         solution = self.construction.solve(solution, parameters)
@@ -42,6 +42,12 @@ class SolverPDPTW(SolverClass):
         solution.set_routes_cost(routes_cost)
 
         self.best_solution = solution.copy()
+
+        message = self.construction.name + "\n"
+        message += "Exec Time: " + str(time.time() - start_time)
+        message += "\n"
+        file_log.add_info_log("Finished construction")
+        file_log.add_solution_log(self.best_solution, message)
         
         if (
             not solution_check(
@@ -74,7 +80,7 @@ class SolverPDPTW(SolverClass):
             "requests_set" : requests_set
         }
 
-        solution = self.construct(parameters)
+        solution = self.construct(parameters, heuristic_start)
 
         file_log.add_info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)

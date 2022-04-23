@@ -135,7 +135,7 @@
             ],
             "solver_code" : "CBC",
             "opt_time_limit" : 30,
-            "max_routes_cost_increment" : 0.8,
+            "max_routes_cost_increment" : 0.2,
             "cost_reduction_factor" : 0.00001
         },
         "SBMath" : {

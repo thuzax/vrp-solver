@@ -80,7 +80,9 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         obj_func, 
         constraints
     ):
+
         key = (request, route.get_id_value())
+
         if (key in self.feasible_insertions_in_cache):
             return self.feasible_insertions_cache[key]
 
@@ -91,8 +93,9 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             constraints
         )
 
-        self.feasible_insertions_in_cache.add(key)
-        self.feasible_insertions_cache[key] = feasible_insertions
+        if (not route.empty()):
+            self.feasible_insertions_in_cache.add(key)
+            self.feasible_insertions_cache[key] = feasible_insertions
 
         return feasible_insertions
 
@@ -109,15 +112,19 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         for route in routes:
             key = (request, route.get_id_value())
 
+            feasible_insertion = []
             if (key not in self.feasible_insertions_in_cache):
-                self.get_route_feasible_insertions(
+                feasible_insertion = self.get_route_feasible_insertions(
                     route, 
                     request, 
                     obj_func, 
                     constraints
                 )
 
-            feasible_insertions += self.feasible_insertions_cache[key]
+            else:
+                feasible_insertion = self.feasible_insertions_cache[key]
+
+            feasible_insertions += feasible_insertion
 
         return feasible_insertions
 
@@ -133,15 +140,19 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         for route in solution.routes():
             key = (request, route.get_id_value())
 
+            feasible_insertion = []
             if (key not in self.feasible_insertions_in_cache):
-                self.get_route_feasible_insertions(
+                feasible_insertion = self.get_route_feasible_insertions(
                     route, 
                     request, 
                     obj_func, 
                     constraints
                 )
 
-            feasible_insertions += self.feasible_insertions_cache[key]
+            else:
+                feasible_insertion = self.feasible_insertions_cache[key]
+
+            feasible_insertions += feasible_insertion
 
         return feasible_insertions
 
@@ -154,6 +165,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         obj_func, 
         constraints
     ):
+            
         feasible_positions = self.get_route_feasible_insertions(
             route, 
             request,

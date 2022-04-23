@@ -58,13 +58,12 @@ class ReaderJsonDPDPTWLimitedHeterogeneousFleet(ReaderJsonDPDPTW):
         fleet_data = {}
         total_fleet_size = 0
         for i, fleet_element in enumerate(fleet):
-            print(fleet_element)
             fleet_data[i] = {}
             fleet_data[i]["size"] = fleet_element[0]
             fleet_data[i]["types"] = set(fleet_element[1])
             total_fleet_size += fleet_data[i]["size"]
-        print(fleet_data)
         return (fleet_data, total_fleet_size)
+
 
     def read_attendance_type(self, attendance_type):
         att_type = {}

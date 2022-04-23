@@ -1,0 +1,100 @@
+--------------------------------------------------------------------------------(Solver execution current time: 0.00015997886657714844)
+[INFO] Input Seed : 0
+--------------------------------------------------------------------------------(Solver execution current time: 0.0001895427703857422)
+[INFO] Input time limit : 20
+--------------------------------------------------------------------------------(Solver execution current time: 0.00021576881408691406)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.01545262336730957)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.015558719635009766)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 0.015610933303833008)
+[INFO] Starting construction
+--------------------------------------------------------------------------------(Solver execution current time: 4.778356075286865)
+[INFO] Finished construction
+--------------------------------------------------------------------------------(Solver execution current time: 4.778474569320679)
+[SOLUTION]
+Basic Greedy Heuristic
+Exec Time: 4.762744426727295
+obj_value: -49; obj_routes: 958
+Route 1 : 31 14 64 40 17 67 12 21 81 62 8 71 45 90 95 58 
+Route 2 : 20 2 34 52 84 38 28 10 60 49 70 88 78 18 99 25 68 75 
+Route 3 : 23 37 48 98 87 1 73 51 
+Route 4 : 5 55 42 13 63 35 44 92 85 19 94 69 4 54 
+Route 5 : 26 27 76 24 74 3 22 72 77 53 50 100 
+Route 6 : 29 30 33 80 47 79 11 61 97 83 9 59 36 6 56 86 
+Route 7 : 32 82 39 15 43 65 89 41 93 91 7 57 46 96 
+
+--------------------------------------------------------------------------------(Solver execution current time: 4.779494285583496)
+[INFO] Starting metaheuristic
+--------------------------------------------------------------------------------(Solver execution current time: 4.782494306564331)
+[INFO] AGES EXCLUDED
+--------------------------------------------------------------------------------(Solver execution current time: 13.307705402374268)
+[SOLUTION]
+LNS
+IT: 40
+Exec Time: 8.522486686706543
+obj_value: -49; obj_routes: 958
+Route 1 : 31 14 64 40 17 67 12 21 81 62 8 71 45 90 95 58 
+Route 2 : 20 2 34 52 84 38 28 10 60 49 70 88 78 18 99 25 68 75 
+Route 3 : 23 37 48 98 87 1 73 51 
+Route 4 : 5 55 42 13 63 35 44 92 85 19 94 69 4 54 
+Route 5 : 26 27 76 24 74 3 22 72 77 53 50 100 
+Route 6 : 29 30 33 80 47 79 11 61 97 83 9 59 36 6 56 86 
+Route 7 : 32 82 39 15 43 65 89 41 93 91 7 57 46 96 
+
+--------------------------------------------------------------------------------(Solver execution current time: 13.388158798217773)
+[SOLUTION]
+PartitionMaxRequests
+Exec Time: 0.07847714424133301
+obj_value: -49; obj_routes: 958
+Route 1 : 31 14 64 40 17 67 12 21 81 62 8 71 45 90 95 58 
+Route 2 : 20 2 34 52 84 38 28 10 60 49 70 88 78 18 99 25 68 75 
+Route 3 : 23 37 48 98 87 1 73 51 
+Route 4 : 5 55 42 13 63 35 44 92 85 19 94 69 4 54 
+Route 5 : 26 27 76 24 74 3 22 72 77 53 50 100 
+Route 6 : 29 30 33 80 47 79 11 61 97 83 9 59 36 6 56 86 
+Route 7 : 32 82 39 15 43 65 89 41 93 91 7 57 46 96 
+
+--------------------------------------------------------------------------------(Solver execution current time: 20.01029396057129)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 20.010440587997437)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 20.0116069316864)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 20.012887716293335)
+[INFO] Algorithm execution time : 20.013636589050293
+--------------------------------------------------------------------------------(Solver execution current time: 20.01418924331665)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Fixed Requests Constraint OK
+Limited Fleet Constraint OK
+Heterogeneous Fleet Constraint NOT OK FOR THESE ROUTES
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+OBJECTIVE VALUE: -49
+ROUTES VALUE: 958
+------------------------------------
+
+Best Solution: 
+obj_value: -49; obj_routes: 958
+Route 1 : 31 14 64 40 17 67 12 21 81 62 8 71 45 90 95 58 
+Route 2 : 20 2 34 52 84 38 28 10 60 49 70 88 78 18 99 25 68 75 
+Route 3 : 23 37 48 98 87 1 73 51 
+Route 4 : 5 55 42 13 63 35 44 92 85 19 94 69 4 54 
+Route 5 : 26 27 76 24 74 3 22 72 77 53 50 100 
+Route 6 : 29 30 33 80 47 79 11 61 97 83 9 59 36 6 56 86 
+Route 7 : 32 82 39 15 43 65 89 41 93 91 7 57 46 96 
+
+--------------------------------------------------------------------------------

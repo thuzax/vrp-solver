@@ -46,7 +46,7 @@ class ReaderJsonDPDPTWLimitedFleet(ReaderJsonDPDPTW):
         self.distance_matrix = self.read_matrix(dist_mat)
         self.time_matrix = self.read_matrix(time_mat)
         
-        self.fleet_size = self.read_fleet_size(fleet_size)
+        self.fleet_size = self.read_fleet(fleet_size)
 
         self.read_pickups_and_deliveries(pds)
         self.fixed_routes_dict = self.read_fixed(fixed_requests)
@@ -56,5 +56,5 @@ class ReaderJsonDPDPTWLimitedFleet(ReaderJsonDPDPTW):
         self.read_time_windows(tws)
 
 
-    def read_fleet_size(self, fleet_size):
+    def read_fleet(self, fleet_size):
         return int(fleet_size)

@@ -1,0 +1,12 @@
+Instance name : DPDPTWHF_R_bar-n100-1_fixed_limited_heter_fleet
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 31 14 64 40 17 67 12 21 81 62 8 71 45 90 95 58 
+Route 2 : 20 2 34 52 84 38 28 10 60 49 70 88 78 18 99 25 68 75 
+Route 3 : 23 37 48 98 87 1 73 51 
+Route 4 : 5 55 42 13 63 35 44 92 85 19 94 69 4 54 
+Route 5 : 26 27 76 24 74 3 22 72 77 53 50 100 
+Route 6 : 29 30 33 80 47 79 11 61 97 83 9 59 36 6 56 86 
+Route 7 : 32 82 39 15 43 65 89 41 93 91 7 57 46 96 

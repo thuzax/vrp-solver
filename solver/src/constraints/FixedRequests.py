@@ -14,22 +14,16 @@ class FixedRequests(Constraint):
 
 
     def route_is_feasible(self, route):
-        
+            
         for fixed_route_dict in self.fixed_routes_dicts:
             fixed_requests = fixed_route_dict["requests"]
-
-
+                    
             has_a_fixed_request = False
-            does_not_have_one_fixed_request = False
             
             for request in fixed_requests:
                 if (request in route):
                     has_a_fixed_request = True
-                else:
-                    does_not_have_one_fixed_request = True
-
-            if (has_a_fixed_request and does_not_have_one_fixed_request):
-                return False
+                    break
 
             fixed_route = fixed_route_dict["route"]
             start_pos = fixed_route_dict["start"]

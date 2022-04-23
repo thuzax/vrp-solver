@@ -9,6 +9,7 @@ class HeterogeneousFleet(Constraint):
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
         self.vertices = None
+        self.fleet = None
 
     def route_is_feasible(self, route):
         for request in route.requests():
@@ -29,11 +30,27 @@ class HeterogeneousFleet(Constraint):
         return True
 
     def solution_is_feasible(self, solution):
+        for fleet_data in self.fleet.values():
+            n_fleet = fleet_data["size"]
+            type_fleet = fleet_data["types"]
+
+            for route in solution.routes():
+                if (route.get_attendance_types() == type_fleet):
+                    n_fleet -= 1
+            
+            if (n_fleet != 0):
+                return False
+
+
+        for route in solution.routes():
+            if (not self.route_is_feasible(route)):
+                return False
         return True
 
     @staticmethod
     def get_attr_relation_solver_constr():
         attr_relation = {
-            "vertices": "vertices"
+            "vertices": "vertices",
+            "fleet" : "fleet"
         }
         return attr_relation

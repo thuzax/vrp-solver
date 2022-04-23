@@ -23,6 +23,18 @@
             ],
             "insertion_heuristic_code" : "kr"
         },
+        "BasicGreedyLimitedHeterogeneousFleet" : {
+            "obj_func_name" : "ObjRequestsPDPTW",
+            "constraints_names" : [
+                "PickupDeliveryConstraint",
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "LimitedFleet",
+                "HeterogeneousFleet"
+            ],
+            "insertion_heuristic_code" : "kr"
+        },
         "KRegret" : {
             "non_insertion_cost" : 9999999999999,
             "use_modification" : false,
@@ -142,7 +154,22 @@
             ],
             "solver_code" : "CBC",
             "opt_time_limit" : 30,
-            "max_routes_cost_increment" : 0.8
+            "max_routes_cost_increment" : 0.2,
+            "cost_reduction_factor" : 0.00001
+        },
+        "PartitionMaxRequestsHF" : {
+            "obj_func_name" : "ObjRequestsPDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "LimitedFleet",
+                "HeterogeneousFleet"
+            ],
+            "solver_code" : "CBC",
+            "opt_time_limit" : 30,
+            "max_routes_cost_increment" : 0.2,
+            "cost_reduction_factor" : 0.00001
         },
         "SBMath" : {
             "obj_func_name" : "ObjRequestsPDPTW",
@@ -157,7 +184,7 @@
             "local_operators_names" : {
                 "FirstOperator" : "AGES",
                 "SecondOperator" : "LNS",
-                "ExactSolver" : "PartitionMaxRequests",
+                "ExactSolver" : "PartitionMaxRequestsHF",
                 "Perturbation" : "OriginalPerturbation"
             },
             "excluded_local_operators" : [
@@ -248,7 +275,7 @@
         "SolverDPDPTWHeterogeneousFleet" : {
             "output_type" : "json",
             "obj_func_name" : "ObjRequestsPDPTW",
-            "construction_name" : "BasicGreedyLimitedFleet",
+            "construction_name" : "BasicGreedyLimitedHeterogeneousFleet",
             "metaheuristic_name" : "SBMath",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",

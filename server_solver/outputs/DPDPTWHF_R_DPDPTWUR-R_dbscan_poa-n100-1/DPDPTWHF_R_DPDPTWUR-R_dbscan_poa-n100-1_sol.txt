@@ -1,0 +1,19 @@
+Instance name : DPDPTWHF_R_DPDPTWUR-R_dbscan_poa-n100-1
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 45 21 95 71 3 31 53 81 
+Route 2 : 23 7 73 57 33 44 83 94 
+Route 3 : 12 25 75 62 16 37 66 87 
+Route 4 : 34 22 43 72 93 84 
+Route 5 : 17 67 9 1 51 59 
+Route 6 : 38 88 11 39 61 26 89 76 
+Route 7 : 47 97 40 41 90 91 36 86 
+Route 8 : 49 99 2 15 52 65 
+Route 9 : 20 5 30 70 80 24 55 74 
+Route 10 : 46 42 96 35 10 60 92 85 
+Route 11 : 8 32 82 58 19 29 79 69 
+Route 12 : 13 27 63 77 
+Route 13 : 6 56 48 98 18 68 
+Route 14 : 4 14 64 54 

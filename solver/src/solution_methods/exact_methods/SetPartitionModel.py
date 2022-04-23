@@ -52,7 +52,13 @@ class SetPartitionModel(SBSolver):
         
 
 
-    def make_constraints(self, model, solution, routes_with_request, parameters):
+    def make_constraints(
+        self, 
+        model, 
+        solution, 
+        routes_with_request, 
+        parameters
+    ):
         y = model.vars
         routes_pool = parameters["routes_pool"]
         for request in routes_with_request:
@@ -65,3 +71,6 @@ class SetPartitionModel(SBSolver):
                 lin_expr=(n_req_in_routes_sum == 1), 
                 name="one_attendance_"+str(request)
             )
+
+    def construct_solution_from_model(self, model, parameters):
+        return super().construct_solution_from_model(model, parameters)

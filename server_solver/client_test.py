@@ -16,7 +16,7 @@ def make_json_input_dict(file_path):
     file_name = file_path.split("/")[-1]
 
     # time limit for the solver
-    time_limit = 120
+    time_limit = 20
     # seed for the solver
     seed = 0
     # if True returns all solutions found with the solver
@@ -110,13 +110,15 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 
 # # DPDPTW MIN VEHICLE
 # simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.json")
-simple_test("dpdptw-v", "../test.json")
+# # simple_test("dpdptw-v", "../test.json")
 
 # # DPDPTW MAX REQUESTS/LIMITED FLEET
 # simple_test("dpdptw-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_fleet.json")
+# simple_test("dpdptw-r", "../instances_mod/poa-n100-1_DPDPTW-R/DPDPTW-R_poa-n100-1.json")
 
-# # DPDPTW MAX REQUESTS / LIMITED HYBRID FLEET
+# # DPDPTW MAX REQUESTS / LIMITED HETEROGENEOUS FLEET
 # simple_test("dpdptwhf-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json")
+simple_test("dpdptwhf-r", "../instances_mod/poa-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_poa-n100-1.json")
 
 # # PARALLEL PDPTW MIN VEHICLE
 # simple_parallel_test(
@@ -124,6 +126,7 @@ simple_test("dpdptw-v", "../test.json")
 #     "../test_instances/input_files/SB_json/bar-n100-1.json",
 #     4
 # )
+
 
 # # PARALLEL DPDPTW MIN VEHICLE
 # simple_parallel_test(
@@ -139,7 +142,7 @@ simple_test("dpdptw-v", "../test.json")
 #     4
 # )
 
-# # PARALLEL DPDPTW MAX REQUESTS / LIMITED HYBRID FLEET
+# # PARALLEL DPDPTW MAX REQUESTS / LIMITED HETEROGENEOUS FLEET
 # simple_parallel_test(
 #     "par-dpdptwhf-r", 
 #     "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json",
