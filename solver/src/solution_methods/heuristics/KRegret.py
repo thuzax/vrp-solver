@@ -1,7 +1,6 @@
 
 import copy
 import random
-from numpy.lib.function_base import insert
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 import numpy
 from src.solution_methods.SolutionMethod import SolutionMethod
@@ -133,6 +132,7 @@ class KRegret(SolutionMethod):
 
         could_insert = True
         i = 0
+
         while (could_insert and len(requests) > 0):
             feasible_insertions = self.get_requests_best_feasible_insertions(
                 requests,
@@ -176,6 +176,8 @@ class KRegret(SolutionMethod):
                 old_route_pos,
                 self.obj_func
             )
+
+
 
             requests.discard(request)
 

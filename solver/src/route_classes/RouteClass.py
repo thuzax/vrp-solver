@@ -20,7 +20,6 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
             self.id_value = ()
             self.initialize_class_attributes()
 
-
     def get_previous_vertex_of_position(self, position):
         if (position <= 0):
             return None

@@ -92,6 +92,16 @@ if __name__ == "__main__":
 
     problem = sys.argv[2]
 
+    if (problem == "DPDPTW"):
+        data["fixed"] = {}
+
+        directory_name = get_destiny_folder(input_file_name, problem)
+        out_name = get_out_file_name(input_file_name, problem)
+        out_path = os.path.join(directory_name, out_name)
+
+        with open(out_path, "w") as out_file:
+            out_file.write(json.dumps(data))
+
     if (problem == "DPDPTW-R"):
         if (len(sys.argv) < 4):
             text = "Needs fleet size of classic problem solution and a"

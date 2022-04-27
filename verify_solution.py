@@ -5,11 +5,11 @@ import json
 from scipy.sparse.csgraph import maximum_bipartite_matching
 from scipy.sparse import csr_matrix
 
-def read_solution(solution_file_name, all):
+def read_solution(solution_file_name, all_sol):
         with open(solution_file_name, "r") as sol_file:
             data = json.loads(sol_file.read())
         
-        if (not all):
+        if (not all_sol):
             solution = [data["solution"]]
             return solution
         
@@ -205,6 +205,7 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
                 is_pickup = (point_id <= n_requests)
                 if (is_pickup and (point_id in fixed_route_set)):
                     if ((point_id + n_requests) not in fixed_route_set):
+                        print("FIXED REQUESTS")
                         return False
                     found_fixed.add(point_id)
                     found_fixed.add(point_id + n_requests)
@@ -218,6 +219,7 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
 
     for point in all_fixed:
         if (point not in found_fixed):
+            print("FIXED REQUESTS")
             return False
 
     return True
@@ -285,16 +287,17 @@ def solution_is_feasible(solution, input_data, problem):
 if __name__=="__main__":
     if (len(sys.argv) < 4):
         print("Needs json input file, json solution file and problem")
+        exit(0)
     
-    all = False
+    all_sol = False
     if (len(sys.argv) > 4):
-        all = True if sys.argv[4] == "-a" else False
+        all_sol = True if sys.argv[4] == "-a" else False
 
     input_file_name = sys.argv[1]
     solution_file_name = sys.argv[2]
     problem = sys.argv[3]
 
-    solutions = read_solution(solution_file_name, all)
+    solutions = read_solution(solution_file_name, all_sol)
     if (solutions == None):
         print("NO SOLUTION FOUND")
 

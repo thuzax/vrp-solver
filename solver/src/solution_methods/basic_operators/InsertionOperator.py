@@ -80,12 +80,9 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         obj_func, 
         constraints
     ):
-
         key = (request, route.get_id_value())
-
         if (key in self.feasible_insertions_in_cache):
             return self.feasible_insertions_cache[key]
-
         feasible_insertions = self.get_child_class_route_feasible_insertions(
             route, 
             request, 
@@ -108,8 +105,10 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         obj_func,
         constraints
     ):
+
         feasible_insertions = []
         for route in routes:
+
             key = (request, route.get_id_value())
 
             feasible_insertion = []
@@ -219,6 +218,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         old_route_pos,
         obj_func
     ):
+
         solution.set_route(old_route_pos, new_route)
         solution.add_request(request)
         self.update_solution_requests_costs_after_insertion(

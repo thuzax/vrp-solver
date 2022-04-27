@@ -114,6 +114,7 @@ class SolverDPDPTW(SolverPDPTW):
             parameters["requests_set"] - solution.requests()
         )
 
+
         solution = self.construction.solve(solution, params_greedy)
 
 
