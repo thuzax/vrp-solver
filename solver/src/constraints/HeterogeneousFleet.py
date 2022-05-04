@@ -35,10 +35,12 @@ class HeterogeneousFleet(Constraint):
             type_fleet = fleet_data["types"]
 
             for route in solution.routes():
-                if (route.get_attendance_types() == type_fleet):
+                if (route.get_attendance_type() == type_fleet):
                     n_fleet -= 1
             
             if (n_fleet != 0):
+                print(solution)
+                exit(0)
                 return False
 
 

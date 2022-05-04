@@ -215,8 +215,6 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
         for fixed_request in fixed_requests
     ])
 
-    print(found_fixed - all_fixed)
-
     for point in all_fixed:
         if (point not in found_fixed):
             print("FIXED REQUESTS")
@@ -298,7 +296,7 @@ if __name__=="__main__":
     problem = sys.argv[3]
 
     solutions = read_solution(solution_file_name, all_sol)
-    if (solutions == None):
+    if (solutions == None or len(solutions) == 0):
         print("NO SOLUTION FOUND")
 
     input_data = read_input(input_file_name)

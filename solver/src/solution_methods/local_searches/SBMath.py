@@ -148,10 +148,10 @@ class SBMath(LocalSearch):
         self.add_routes_to_pool(solution.routes())
 
         while (not self.stop_criteria_fulfilled()):
-            print("Solution")
-            print(get_solution_check_complete_data(solution, self.constraints, self.obj_func))
-            print("Best Solution")
-            print(get_solution_check_complete_data(self.best_solution, self.constraints, self.obj_func))
+            # print("Solution")
+            # print(get_solution_check_complete_data(solution, self.constraints, self.obj_func))
+            # print("Best Solution")
+            # print(get_solution_check_complete_data(self.best_solution, self.constraints, self.obj_func))
             self.iteration += 1
 
             self.iteration_without_imp += 1
@@ -175,8 +175,8 @@ class SBMath(LocalSearch):
             #     "AGES", 
             #     exec_time
             # )
-            print("AGES Solution")
-            print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
+            # print("AGES Solution")
+            # print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
             parameters = {
                 "remaining_requests" : remaining_req
             }
@@ -186,8 +186,8 @@ class SBMath(LocalSearch):
                 "SecondOperator", 
                 parameters
             )
-            print("LNS Solution")
-            print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
+            # print("LNS Solution")
+            # print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
             end_op = time.time()
             exec_time = end_op - start_op
             # self.print_solution_pos_operator_status(
@@ -210,8 +210,8 @@ class SBMath(LocalSearch):
                 "ExactSolver", 
                 parameters
             )
-            print("MODELO Solution")
-            print(get_solution_check_complete_data(sp_solution, self.constraints, self.obj_func))
+            # print("MODELO Solution")
+            # print(get_solution_check_complete_data(sp_solution, self.constraints, self.obj_func))
             end_op = time.time()
             exec_time = end_op - start_op
             # self.print_solution_pos_operator_status(
@@ -245,8 +245,8 @@ class SBMath(LocalSearch):
             message += "\n"
             file_log.add_solution_log(solution, message)
             
-            print("PERTURB Solution")
-            print(get_solution_check_complete_data(solution, self.constraints, self.obj_func))
+            # print("PERTURB Solution")
+            # print(get_solution_check_complete_data(solution, self.constraints, self.obj_func))
 
             end_op = time.time()
             exec_time = end_op - start_op

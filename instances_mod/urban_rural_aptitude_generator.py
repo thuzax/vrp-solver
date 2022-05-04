@@ -308,22 +308,30 @@ def generate_aptitude_by_center_seeds(points, number_of_seeds):
 
 
 def classify_using_distances_to_center(points, distances_to_center, method):
+    distances = scipy.spatial.distance.cdist(
+        points, 
+        points,
+        metric="euclidean"
+    )
+
+    space_max_size = distances.max()
+    abs_max_urban_distance = (space_max_size * max_urban_distance)/2
     points_min_distance = numpy.amin(distances_to_center, axis=1)
 
     urb_rur_points = []
 
     for i in range(len(points)):
+        # print(points_min_distance[i], abs_max_urban_distance)
         if (points_min_distance[i] == 0 
             and method == "clustering"):
             urb_rur_points.append(1)
             continue
         
-        if (points_min_distance[i] > max_urban_distance):
+        if (points_min_distance[i] > abs_max_urban_distance):
             urb_rur_points.append(1)
             continue
 
         urb_rur_points.append(0)
-
     return urb_rur_points
 
 

@@ -36,7 +36,6 @@ class BasicGreedyLimitedHeterogeneousFleet(SolutionMethod):
         last_size = len(insertion_requests)
         inserted = True
         if (len(solution.routes()) > 0):
-            print("AAAAAAAAAAAAAAAAAAAAAAAa")
             parameters = {}
             parameters["requests_set"] = insertion_requests
             parameters["k"] = 1

@@ -1,10 +1,10 @@
 {
     "density_per_min" : 0.1,
     "ratio_urban_centers" : 0.1,
-    "max_urban_distance" : 0.1,
+    "max_urban_distance" : 0.8,
     "save_figure" : true,
     "show_figure" : false,
-    "density_clustering_per_distance" : 0.1,
+    "density_clustering_per_distance" : 0.085,
     "correction_value": 1.05
 
 }

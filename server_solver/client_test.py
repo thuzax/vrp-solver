@@ -9,14 +9,15 @@ def get_links():
 
     return links
 
-def make_json_input_dict(file_path):
+def make_json_input_dict(file_path, time_limit=None):
     with open(file_path, "r") as input_file:
         input_data = json.loads(input_file.read())
     
     file_name = file_path.split("/")[-1]
 
     # time limit for the solver
-    time_limit = 60
+    if (time_limit is None):
+        time_limit = 30
     # seed for the solver
     seed = 0
     # if True returns all solutions found with the solver
@@ -34,9 +35,9 @@ def make_json_input_dict(file_path):
     return json_input
 
 
-def simple_test(problem_link_id, file_path):
+def simple_test(problem_link_id, file_path, time=None):
 
-    json_input = make_json_input_dict(file_path)
+    json_input = make_json_input_dict(file_path, time)
 
     links = get_links()
 
@@ -119,10 +120,14 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 # simple_test("dpdptw-r", "../instances_mod/SB_nyc-n100-1_DPDPTW-R/DPDPTW-R_SB_nyc-n100-1.json")
 
 # # DPDPTW MAX REQUESTS / LIMITED HETEROGENEOUS FLEET
-simple_test("dpdptwhf-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json")
-simple_test("dpdptwhf-r", "../instances_mod/poa-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_poa-n100-1.json")
-simple_test("dpdptwhf-r", "../instances_mod/SB_nyc-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_nyc-n100-1.json")
-simple_test("dpdptwhf-r", "../instances_mod/SB_ber-n100-1_DPDPTWUR-R/DPDPTWUR-R_optics_SB_ber-n100-1.json")
+# simple_test("dpdptwhf-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json")
+# simple_test("dpdptwhf-r", "../instances_mod/bar-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_bar-n100-1.json", 120)
+# simple_test("dpdptwhf-r", "../instances_mod/poa-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_poa-n100-1.json", 120)
+simple_test("dpdptwhf-r", "../instances_mod/SB_bar-n1000-2_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_bar-n1000-2.json", 3600)
+# simple_test("dpdptwhf-r", "../instances_mod/SB_ber-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_ber-n100-1.json", 120)
+simple_test("dpdptwhf-r", "../instances_mod/SB_ber-n1000-3_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_ber-n1000-3.json", 3600)
+# simple_test("dpdptwhf-r", "../instances_mod/SB_nyc-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_nyc-n100-1.json", 120)
+# simple_test("dpdptwhf-r", "../instances_mod/SB_poa-n600-6_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_poa-n600-6.json", 300)
 
 
 

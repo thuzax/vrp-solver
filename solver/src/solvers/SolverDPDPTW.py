@@ -161,8 +161,8 @@ class SolverDPDPTW(SolverPDPTW):
 
         solution = self.construct(parameters, heuristic_start)
 
-        print(solution)
-        self.print_solution_verification(solution, 0)
+        # print(solution)
+        # self.print_solution_verification(solution, 0)
         # exit(0)
         if (solution is None):
             file_log.add_warning_log("Could not construct feasible solution")
@@ -192,7 +192,7 @@ class SolverDPDPTW(SolverPDPTW):
         exec_time = heuristic_end - heuristic_start
 
         # self.print_best_solution()
-        self.print_solution_verification(self.best_solution, exec_time)
+        # self.print_solution_verification(self.best_solution, exec_time)
 
         return self.best_solution
 

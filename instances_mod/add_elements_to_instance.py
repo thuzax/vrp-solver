@@ -161,13 +161,12 @@ if __name__ == "__main__":
             orig_fleet, 
             urb_rural_apt
         )
-        print(urb_rural_apt)
+        print("u:", len([i for i in urb_rural_apt if i == 0]))
+        print("r:", len([i for i in urb_rural_apt if i == 1]))
         print(fleet)
         data["fleet"] = []
         
         for key, value in fleet.items():
-            print(key)
-            print(value)
             data["fleet"]. append([value, list(key)])
         
         data["attendance_type"] = {

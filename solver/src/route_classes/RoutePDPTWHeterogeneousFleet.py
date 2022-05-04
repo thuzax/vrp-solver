@@ -26,7 +26,7 @@ class RoutePDPTWHeterogeneousFleet(RoutePDPTW):
 
 
 
-    def get_attendance_types(self):
+    def get_attendance_type(self):
         return self.fleet_type_set
 
     def copy_route_to(self, route_copy):

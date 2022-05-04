@@ -1,0 +1,13 @@
+Instance name : DPDPTWHF_R_DPDPTWUR-R_dbscan_bar-n100-1
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 17 67 31 49 12 21 81 62 10 99 71 60 6 56 
+Route 2 : 14 64 30 80 39 13 63 2 52 89 18 46 68 25 96 75 37 87 
+Route 3 : 32 82 7 57 9 59 5 55 16 66 50 23 36 27 77 100 86 73 1 51 
+Route 4 : 26 76 34 84 
+Route 5 : 
+Route 6 : 
+Route 7 : 15 35 85 43 65 47 22 3 97 72 93 38 28 88 78 53 
+Route 8 : 33 19 48 83 40 98 90 41 91 44 94 69 8 58 

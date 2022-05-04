@@ -141,12 +141,12 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             self.best_solution = metaheuristic_solution
 
         file_log.add_warning_log("Current best solution found.")
-        self.print_best_solution()
-        print(
-            get_solution_check_complete_data(
-                self.best_solution, self.constraints, self.obj_func
-            )
-        )
+        # self.print_best_solution()
+        # print(
+        #     get_solution_check_complete_data(
+        #         self.best_solution, self.constraints, self.obj_func
+        #     )
+        # )
         return self.best_solution
 
 

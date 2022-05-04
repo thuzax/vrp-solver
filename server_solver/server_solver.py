@@ -148,4 +148,5 @@ if __name__ == '__main__':
         host_port = int(args[1])
     
     home_link = get_home_link()
-    app.run(host=host_ip, port=host_port, debug=True, threaded=True)
+    # app.run(host=host_ip, port=host_port, debug=True, threaded=True)
+    app.run(host=host_ip, port=host_port, threaded=True)

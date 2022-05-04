@@ -45,7 +45,7 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
             
             i = 0
             while (route_returned is None):
-                route_attendance_type = routes[i].get_attendance_types()
+                route_attendance_type = routes[i].get_attendance_type()
                 if (route_attendance_type != vehic_type_needed):
                     i += 1
                     continue
