@@ -81,8 +81,8 @@ def call_solver(input_path, output_path, config_file, time_limit, seed):
     sp = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     output = sp.communicate(timeout=time_limit+5)[0]
     exit_code = sp.returncode
-    for line in output.splitlines():
-        print(line.decode("utf-8"))
+    # for line in output.splitlines():
+    #     print(line.decode("utf-8"))
     # print(exit_code)
 
     return exit_code

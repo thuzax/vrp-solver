@@ -43,6 +43,16 @@ class LNS(LocalSearch):
         return super().get_current_best_solution()
 
 
+    def get_n_b_max(self, n_requests):
+        n_b_max = int(
+            self.b_max * n_requests
+        )
+
+        if (n_b_max < self.b_min):
+            n_b_max = self.b_min
+        
+        return n_b_max
+
     def solve(self, solution, parameters):
         copy_solution = solution.copy()
         copy_solution.set_objective_value(
@@ -70,11 +80,7 @@ class LNS(LocalSearch):
             new_solution = copy_solution.copy()
 
             # Removal 
-            n_b_max = int(
-                self.b_max * len(all_requests)
-            )
-            if (n_b_max < self.b_min):
-                n_b_max = self.b_min
+            n_b_max = self.get_n_b_max(len(all_requests))
             
             b = random.randint(self.b_min, n_b_max)
             new_solution = self.remove_from_solution(

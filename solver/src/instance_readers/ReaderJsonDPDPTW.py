@@ -1,7 +1,5 @@
 
-from gc import freeze
 import json
-from tracemalloc import start
 from src.vertex_classes import Vertex
 import numpy
 import math

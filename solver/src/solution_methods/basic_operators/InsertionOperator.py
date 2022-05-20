@@ -270,15 +270,13 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             len(request_inserted)
         except:
             request_inserted = (request_inserted)
-        
-        req_set = set(request_inserted)
-        
-        old_route_identifying = tuple([
-            i
-            for i in route.get_id_value()
-            if i not in req_set
-        ])
-
+        old_route_identifying = route.get_id_value_without_request(
+            request_inserted
+        )
+        if (request_inserted == (1, 51)):
+            print(route.get_id_value())
+            print(old_route_identifying)
+            print("---------------")
         return old_route_identifying
     
     

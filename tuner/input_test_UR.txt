@@ -1,0 +1,5 @@
+./instances_mod/bar-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_bar-n100-1.json
+./instances_mod/poa-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_poa-n100-1.json
+./instances_mod/SB_ber-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_ber-n100-1.json
+./instances_mod/SB_nyc-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_nyc-n100-1.json
+./test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json

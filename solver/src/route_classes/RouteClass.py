@@ -94,6 +94,19 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
         return self.id_value
 
 
+    def get_id_value_without_request(self, request):
+        request = set(request)
+        id_without_request = tuple([
+            i
+            for i in self.get_id_value()
+            if i not in request
+        ])
+
+        return id_without_request
+
+
+
+
     def __contains__(self, key):
         if (key in self.requests_set):
             return True

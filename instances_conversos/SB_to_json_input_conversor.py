@@ -99,3 +99,4 @@ if __name__=="__main__":
         with open(out_path + json_file_name, "w+") as output_file:
             output_file.write(json.dumps(file_dict))
             # output_file.write(json.dumps(file_dict, indent=2))
+        print(out_path + json_file_name)

@@ -1,0 +1,6 @@
+./test_instances/input_files/SB_json/bar-n100-1.json
+./test_instances/input_files/SB_json/SB_ber-n100-1.json
+./test_instances/input_files/SB_json/poa-n100-1.json
+./test_instances/input_files/SB_json/SB_nyc-n100-1.json
+./test_instances/input_files/SB_json/bar-n100-2.json
+

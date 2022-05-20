@@ -167,7 +167,7 @@ class KRegret(SolutionMethod):
                     old_route_identifying
                 )
             )
-
+            
             InsertionOperator().insert_request_in_solution(
                 new_solution,
                 request,

@@ -25,6 +25,29 @@ class RoutePDPTWHeterogeneousFleet(RoutePDPTW):
         self.id_value = tuple(list_types + [-1] + self.vertices_order)
 
 
+    def get_id_value_without_request(self, request):
+        request = set(request)
+
+        sep_pos = 0
+        route_id = self.get_id_value()
+        while (route_id[sep_pos] >= 0):
+            sep_pos += 1
+        
+        id_without_request = tuple([
+            route_id[i]
+            for i in range(len(route_id))
+            if (route_id[i] not in request) or (i <= sep_pos)
+        ])
+
+        # if (len(route_id)-len(request) > len(id_without_request)):
+        #     for i in range(len(route_id)):
+        #         print(route_id[i] not in request)
+        #         print(i <= sep_pos)
+        #         if (route_id[i] not in request) or (i <= sep_pos):
+        #             print(route_id[i])
+        #     print(request)
+        return id_without_request
+
 
     def get_attendance_type(self):
         return self.fleet_type_set

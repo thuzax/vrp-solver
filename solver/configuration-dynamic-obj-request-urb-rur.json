@@ -89,7 +89,7 @@
             "psi" : 2
         },
         "AGES" : {
-            "obj_func_name" : "ObjDistancePDPTW",
+            "obj_func_name" : "ObjRequestsPDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",

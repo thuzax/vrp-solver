@@ -236,28 +236,11 @@ class PartitionMaxRequests(SBSolver):
             model.var_by_name("y_"+str(i))
             for i in range(len(routes_pool))
         ]
-        # print("X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y")
-        # for var in y:
-        #     print(var.name, var.x)
-        # print()
-        # print(sum([var.x for var in y]))
-        # print()
-
-        # print("X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y,X,Y")
         
         new_soltuion = self.construct_solution_from_chosen_routes(
             y, 
             routes_pool
         )
-        # print(new_soltuion.number_of_routes())
-        urb = 0
-        rur = 0
-        for route in new_soltuion.routes():
-            if (route.get_attendance_type() == set({0,1})):
-                rur += 1
-            if (route.get_attendance_type() == set({0})):
-                urb += 1
-        # print(urb, rur)
             
 
         if (not self.all_vehicles_in_solution(new_soltuion)):

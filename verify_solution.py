@@ -43,7 +43,7 @@ def problem_has_limited_fleet(problem):
 
 def problem_is_dynamic(problem):
     if (
-        problem == "DPDTW-R" 
+        problem == "DPDPTW-R" 
         or problem == "DPDPTWUR-R" 
         or problem == "DPDPTW"
     ):
@@ -199,8 +199,12 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
         fixed_route_set = set(copy.deepcopy(fixed_route))
 
         for route in solution["routes"].values():
-
+            found_fixed_in_route = False
             for i in range(start+1):
+                if (i >= len(route)):
+                    if (found_fixed_in_route):
+                        return False
+                    continue
                 point_id = route[i]
                 is_pickup = (point_id <= n_requests)
                 if (is_pickup and (point_id in fixed_route_set)):
@@ -209,7 +213,8 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
                         return False
                     found_fixed.add(point_id)
                     found_fixed.add(point_id + n_requests)
-        
+                    found_fixed_in_route = True
+            
     all_fixed = set().union(*[
         frozenset(fixed_request["route"][:fixed_request["start"]+1])
         for fixed_request in fixed_requests
