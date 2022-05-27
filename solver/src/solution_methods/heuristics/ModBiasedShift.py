@@ -101,7 +101,7 @@ class ModBiasedShift(SolutionMethod):
         insertion_costs = []
 
         for position, route_after, insert_cost in feasible_positions_and_routes:
-            cost = self.obj_func.route_additional_route_cost_after_insertion(
+            cost = self.obj_func.additional_route_cost_after_insertion(
                 route_after,
                 position,
                 route_after.get_request_by_position(position)

@@ -79,7 +79,6 @@ class Solution(GenericClass):
             route_i_id_value = self.routes_list[i].get_id_value()
             if (route_i_id_value == route_id_value):
                 return i
-        
         return None
 
 

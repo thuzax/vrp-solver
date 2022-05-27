@@ -20,7 +20,16 @@
                 "FixedRequests",
                 "AttendAllRequests"
             ],
-            "insertion_heuristic_code" : "kr"
+            "insertion_heuristic_code" : "fi"
+        },
+        "FirstInsertion" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint",
+                "FixedRequests"
+
+            ]
         },
         "KRegret" : {
             "non_insertion_cost" : 9999999999999,
@@ -253,7 +262,7 @@
         }
     },
     "route_class" : {
-        "RoutePDPTW" : {
+        "RouteDPDPTW" : {
         }
     },
     "vertex_class" : {
@@ -261,11 +270,11 @@
         }
     },
     "insertion_operator" : {
-        "InsertionOperatorPDPTW" : {
+        "InsertionOperatorDPDPTW" : {
         }
     },
     "removal_operator" : {
-        "RemovalOperatorPDPTW" : {
+        "RemovalOperatorDPDPTW" : {
         }
     }
 

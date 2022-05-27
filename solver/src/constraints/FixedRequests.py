@@ -13,7 +13,7 @@ class FixedRequests(Constraint):
         self.completed_requests = None
 
 
-    def route_is_feasible(self, route):
+    def route_is_feasible(self, route, start_pos=0, end_pos=-1):
             
         for fixed_route_dict in self.fixed_routes_dicts:
             fixed_requests = fixed_route_dict["requests"]
@@ -26,11 +26,11 @@ class FixedRequests(Constraint):
                     break
 
             fixed_route = fixed_route_dict["route"]
-            start_pos = fixed_route_dict["start"]
+            st_pos = fixed_route_dict["start"]
             if (has_a_fixed_request):
                 vertices_order = route.requests_order()
 
-                for i in range(start_pos+1):
+                for i in range(st_pos+1):
                     if (vertices_order[i] != fixed_route[i]):
                         return False
 

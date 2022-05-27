@@ -18,7 +18,7 @@ def route_data(params, problem):
         }
     if (problem == "DPDPTWLHF-R"):
         r_data = {
-            "RoutePDPTWHeterogeneousFleet" : route_dpdptwlhf()
+            "RouteDPDPTWHeterogeneousFleet" : route_dpdptwlhf()
         }
 
     return r_data

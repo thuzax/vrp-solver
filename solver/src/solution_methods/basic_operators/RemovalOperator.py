@@ -7,7 +7,7 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
     instance = None
 
     def __new__(cls, *args, **kwargs):
-        for subcls in cls.__subclasses__():
+        for subcls in GenericClass.get_all_subclasses(cls):
             if (subcls.instance is not None):
                 return subcls.instance
         
@@ -15,7 +15,6 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
             cls.instance = super(RemovalOperator, cls).__new__(
                 cls, *args, **kwargs
             )
-        
         return cls.instance
 
     def __init__(self, insert_op_class_name=None):
@@ -23,6 +22,14 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
             self.name = insert_op_class_name
             self.initialize_class_attributes()
 
+
+
+    def check_feasibility(self, route, constraints):
+        for constraint in constraints:
+            if (not constraint.route_is_feasible(route)):
+                return False
+            
+        return True
 
 
     @abstractmethod
@@ -41,9 +48,9 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
             )
         )
 
-        for constraint in constraints:
-            if (not constraint.route_is_feasible(copy_route)):
-                return None
+        feasible = self.check_feasibility(copy_route, constraints)
+        if (not feasible):
+            return None
         
         return copy_route
 

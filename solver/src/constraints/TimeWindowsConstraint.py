@@ -29,13 +29,16 @@ class TimeWindowsConstraint(Constraint):
         if (end_pos < 0):
             end_pos = len(route_order) + end_pos
 
+        arr = []
         for i in range(start_pos, end_pos+1):
             vertex_arrival_time = route.arrival_times[i]
             
             vertex_id = route_order[i]
             end_tw = self.time_windows[vertex_id][1]
-            if (vertex_arrival_time > end_tw):
-                return False
+            arr.append(vertex_arrival_time > end_tw)
+
+        if (any(arr)):
+            return False
         
         if (end_pos < route.size()-1):
             return True
@@ -52,7 +55,6 @@ class TimeWindowsConstraint(Constraint):
         end_tw_depot = self.time_windows[self.depot][1]
         if (arrival_on_depot > end_tw_depot):
             return False
-
 
         return True
 

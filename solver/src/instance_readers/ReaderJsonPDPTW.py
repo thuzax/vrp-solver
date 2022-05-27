@@ -84,7 +84,8 @@ class ReaderJsonPDPTW(Reader):
 
         for i in range(start_index, self.number_of_points):
             for j in range(start_index, self.number_of_points):
-                matrix[i][j] = int(matrix_dict[str(i)][str(j)])
+                # matrix[i][j] = int(matrix_dict[str(i)][str(j)])
+                matrix[i][j] = float(matrix_dict[str(i)][str(j)])
 
         # matrix = tuple(map(tuple, matrix))
         matrix = numpy.array(matrix)

@@ -13,7 +13,6 @@
             "constraints_names" : [
                 "AttendAllRequests",
                 "PickupDeliveryConstraint",
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
             "insertion_heuristic_code" : "fi"
@@ -21,7 +20,6 @@
         "FirstInsertion" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
@@ -30,7 +28,6 @@
             "use_modification" : false,
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
@@ -38,14 +35,12 @@
             "non_insertion_cost" : 9999999999999,
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
         "RandomInsertion" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
@@ -73,7 +68,6 @@
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "AttendAllRequests",
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
             "acceptance_algorithm_data" : {
@@ -90,7 +84,6 @@
         "LNS" : {
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "AttendAllRequests"
             ],
@@ -124,16 +117,14 @@
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
                 "AttendAllRequests",
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "solver_code" : "GRB",
+            "solver_code" : "CBC",
             "opt_time_limit" : 30
         },
         "SBMath" : {
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "PickupDeliveryConstraint",
                 "AttendAllRequests"
@@ -159,14 +150,12 @@
         "RandomShift" : {
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
         "ModBiasedShift" : {
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
             "mi" : 0.2
@@ -174,14 +163,12 @@
         "RandomExchange" : {
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ]
         },
         "OriginalPerturbation" : {
             "obj_func_name" : "ObjVehiclePDPTW",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
             "acceptance_algorithm_data" : {
@@ -216,7 +203,6 @@
             "construction_name" : "BasicGreedy",
             "metaheuristic_name" : "SBMath",
             "constraints_names" : [
-                "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint",
                 "PickupDeliveryConstraint",
                 "AttendAllRequests"

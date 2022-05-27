@@ -1,5 +1,5 @@
 def basic_greedy(params):
-    ins_opt = ["kr", "wkr"]
+    ins_opt = ["fi", "kr", "wkr"]
     data = {
         "obj_func_name" : "ObjVehiclePDPTW",
         "constraints_names" : [

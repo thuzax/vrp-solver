@@ -104,12 +104,14 @@ def time_is_respected(solution, tws, services, horizon, time_matrix, depot):
             if (arrival < tws[str(point_id)][0]):
                 arrival = tws[str(point_id)][0]
             if (arrival > tws[str(point_id)][1]):
+                print("TW")
                 return False
             before = point_id
             arrival += services[str(before)]
     
         arrival += time_matrix[str(before)][str(depot)]
         if (arrival > horizon):
+            print("HORIZON")
             return False
     
     return True
@@ -290,6 +292,7 @@ def solution_is_feasible(solution, input_data, problem):
 if __name__=="__main__":
     if (len(sys.argv) < 4):
         print("Needs json input file, json solution file and problem")
+        print("Problems: PDPTW ; DPDPTW ; DPDTW-R ; DPDPTWUR-R")
         exit(0)
     
     all_sol = False

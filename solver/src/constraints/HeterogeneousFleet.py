@@ -11,7 +11,7 @@ class HeterogeneousFleet(Constraint):
         self.vertices = None
         self.fleet = None
 
-    def route_is_feasible(self, route):
+    def route_is_feasible(self, route, start_pos=0, end_pos=-1):
         for request in route.requests():
             pick_vertex_id, deli_vertex_id = request
             pick_vertex = self.vertices[pick_vertex_id]

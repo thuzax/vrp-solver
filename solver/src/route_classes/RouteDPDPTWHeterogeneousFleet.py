@@ -1,12 +1,12 @@
 import copy
 
-from src.route_classes.RoutePDPTW import RoutePDPTW
+from src.route_classes.RouteDPDPTW import RouteDPDPTW
 
 
-class RoutePDPTWHeterogeneousFleet(RoutePDPTW):
+class RouteDPDPTWHeterogeneousFleet(RouteDPDPTW):
 
     def __init__(self, fleet_type=None, *args, **kwargs):
-        super().__init__("Route PDPTWHybridFleet")
+        super().__init__("Route DPDPTWHeterogeneousFleet")
         if (self.fleet_type_set is None):
             self.fleet_type_set = fleet_type
         if (self.fleet_type_set is not None):

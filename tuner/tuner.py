@@ -449,7 +449,7 @@ def route_data(problem):
         }
     if (problem == "DPDPTWLHF-R"):
         r_data = {
-            "RoutePDPTWHeterogeneousFleet" : params_routes.route_dpdptwlhf()
+            "RouteDPDPTWHeterogeneousFleet" : params_routes.route_dpdptwlhf()
         }
 
     return r_data
@@ -755,6 +755,7 @@ if __name__ == "__main__":
     command_input_data = read_command_line_inputs()
 
     # problem = "PDPTW"
+    # problem = "NCDPDPTW"
     # problem = "DPDPTW"
     problem = "DPDPTWLF-R"
     # problem = "DPDPTWLHF-R"

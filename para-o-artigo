@@ -1,2 +1,3 @@
 Implementação da chamada do solver de Sartori e Buriol
 Testar com clusterização hierárquica x Testar com instâncias até 500 pts
+Analise do impacto da solução incial (heuristica boba, kregret, wkregret)

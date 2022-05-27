@@ -1,6 +1,7 @@
 
 import copy
 import time
+from src.solution_methods.heuristics.FirstInsertion import FirstInsertion
 
 from src.solution_check import get_solution_check_complete_data, solution_check
 from src.solution_methods.heuristics.WKRegret import WKRegret
@@ -11,8 +12,11 @@ from src.solution_methods.SolutionMethod import SolutionMethod
 
 class BasicGreedy(SolutionMethod):
     
-    def __init__(self):
-        super().__init__("Basic Greedy Heuristic")
+    def __init__(self, *args, **kwargs):
+        if (len(args) > 0):
+            super().__init__(args[0])
+        else:
+            super().__init__("Basic Greedy Heuristic")
     
     def initialize_class_attributes(self):
         super().initialize_class_attributes()
@@ -26,12 +30,15 @@ class BasicGreedy(SolutionMethod):
         if (self.insertion_heuristic_code == "kr"):
             return KRegret()
 
+        if (self.insertion_heuristic_code == "fi"):
+            return FirstInsertion()
 
-    def solve(self, solution, parameters):
+
+    def solve(self, solution, parameters_inp):
         
         insertion_heuristic = self.get_insertion_heuristic()
         start = time.time()
-        insertion_requests = copy.deepcopy(parameters["requests_set"])
+        insertion_requests = copy.deepcopy(parameters_inp["requests_set"])
         last_size = len(insertion_requests)
         inserted = True
 
@@ -46,12 +53,14 @@ class BasicGreedy(SolutionMethod):
 
         
         while (inserted and len(insertion_requests) > 0):
+            # print(len(insertion_requests))
             last_size = len(insertion_requests)
 
             parameters = {}
 
             parameters["requests_set"] = insertion_requests
             parameters["k"] = 1
+            parameters["route"] = solution.number_of_routes()-1
             solution = insertion_heuristic.solve(solution, parameters)
             insertion_requests -= solution.requests()
             if (last_size == len(insertion_requests)):
@@ -59,17 +68,17 @@ class BasicGreedy(SolutionMethod):
                 inserted = False
             
             solution.add_route(Route())
+        # print(insertion_requests)
         
         for i, route in enumerate(solution.routes()):
             if (route.empty()):
                 solution.remove_route(i)
-
         exec_time = time.time() - start
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
         solution.set_routes_cost(
             self.obj_func.get_routes_sum_cost(solution.routes())
         )
-
+        
         return solution
 
 

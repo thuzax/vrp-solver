@@ -22,7 +22,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def route_is_feasible(self, route):
+    def route_is_feasible(self, route, start_pos=0, end_pos=-1):
         pass
     
 

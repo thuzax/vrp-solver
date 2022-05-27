@@ -2,7 +2,7 @@ from src.solution_methods.basic_operators.InsertionOperator import InsertionOper
 
 
 class InsertionOperatorPDPTW(InsertionOperator):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__("Insertion Operator for PDPTW")
 
 
@@ -73,6 +73,52 @@ class InsertionOperatorPDPTW(InsertionOperator):
         
         return feasible_positions
 
+
+    def get_child_first_feasible_insertion(
+        self,
+        route, 
+        request, 
+        obj_func, 
+        constraints
+    ):
+        if (route.empty()):
+            new_route = self.try_to_insert(
+                route,
+                (0, 1), 
+                request,
+                obj_func,
+                constraints 
+            )
+            if (new_route is None):
+                return (None, None, None)
+            
+            return (
+                (0, 1),
+                new_route,
+                new_route.cost() - route.cost()
+            )
+
+        feasible_insertion = (None, None, None)
+        for i in range(route.size()+1):
+            for j in range(i+1, route.size()+2):
+                new_route = self.try_to_insert(
+                    route, 
+                    (i, j), 
+                    request,
+                    obj_func, 
+                    constraints
+                )
+                
+                if (new_route is None):
+                    continue
+
+                feasible_insertion = (
+                    (i, j),
+                    new_route,
+                    new_route.cost() - route.cost()
+                )
+        
+        return feasible_insertion
 
     def update_solution_requests_costs_after_insertion(
         self, 

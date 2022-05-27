@@ -49,6 +49,7 @@ class SolverPDPTW(SolverClass):
         file_log.add_info_log("Finished construction")
         file_log.add_solution_log(self.best_solution, message)
         
+        print(solution)
         if (
             not solution_check(
                 self.best_solution, 
@@ -59,6 +60,13 @@ class SolverPDPTW(SolverClass):
             file_log.add_warning_log("Could not construct feasible solution")
             execution_log.warning_log(
                 "Could not construct feasible solution"
+            )
+            file_log.add_info_log(
+                get_solution_check_complete_data(
+                    self.best_solution, 
+                    self.constraints, 
+                    self.obj_func
+                )
             )
             self.best_solution = None
             return self.best_solution
@@ -81,7 +89,8 @@ class SolverPDPTW(SolverClass):
         }
 
         solution = self.construct(parameters, heuristic_start)
-
+        if (solution is None):
+            return None
         file_log.add_info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)
         self.best_solution = new_solution.copy()

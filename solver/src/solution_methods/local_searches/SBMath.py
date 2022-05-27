@@ -197,9 +197,6 @@ class SBMath(LocalSearch):
             # )
 
             self.add_routes_to_pool(new_solution.routes())
-            # InsertionOperator().clean_feasible_insertions_cache_with_exception(
-            #     new_solution.routes()
-            # )
             parameters = {
                 "requests_set" : all_requests,
                 "routes_pool" : self.routes_pool

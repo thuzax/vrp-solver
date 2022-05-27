@@ -21,7 +21,16 @@
                 "LimitedFleet",
                 "HeterogeneousFleet"
             ],
-            "insertion_heuristic_code" : "kr"
+            "insertion_heuristic_code" : "fi"
+        },
+        "FirstInsertion" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "HeterogeneousFleet"
+            ]
         },
         "BasicGreedyLimitedHeterogeneousFleet" : {
             "obj_func_name" : "ObjRequestsPDPTW",
@@ -299,7 +308,7 @@
         }
     },
     "route_class" : {
-        "RoutePDPTWHeterogeneousFleet" : {
+        "RouteDPDPTWHeterogeneousFleet" : {
         }
     },
     "vertex_class" : {
@@ -307,11 +316,11 @@
         }
     },
     "insertion_operator" : {
-        "InsertionOperatorPDPTW" : {
+        "InsertionOperatorDPDPTW" : {
         }
     },
     "removal_operator" : {
-        "RemovalOperatorPDPTW" : {
+        "RemovalOperatorDPDPTW" : {
         }
     }
 

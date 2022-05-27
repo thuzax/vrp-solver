@@ -4,7 +4,7 @@ from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 class RemovalOperatorPDPTW(RemovalOperator):
 
     
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__("Removal Operator for PDPTW")
 
 

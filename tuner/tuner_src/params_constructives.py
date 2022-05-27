@@ -9,8 +9,6 @@ def get_params_dict():
     return constructive_params
 
 
-
-
 def basic_greedy():
     data = {
         "obj_func_name" : "ObjVehiclePDPTW",
@@ -23,7 +21,8 @@ def basic_greedy():
         "insertion_heuristic_code" : (
             hyperopt.hp.choice(
                 "insertion_heuristic_greedy_heuristic",
-                ["kr", "wkr"]
+                # ["fi", "kr", "wkr"]
+                ["fi"]
             )
         )
     }
@@ -38,9 +37,8 @@ def basic_greedy_dynamic():
         "FixedRequests",
         "AttendAllRequests"
     ]
-    
-
     return data
+
 
 def basic_greedy_limited_fleet():
     data = basic_greedy()

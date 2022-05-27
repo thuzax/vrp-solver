@@ -69,7 +69,6 @@ class SolverDPDPTW(SolverPDPTW):
                 self.obj_func,
                 cons
             )
-
             if (new_route is None):
                 return None
 
@@ -97,6 +96,8 @@ class SolverDPDPTW(SolverPDPTW):
                 route_order,
                 route_requests
             )
+            route.set_start_position(route_fixed_dict["start"])
+
 
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
 

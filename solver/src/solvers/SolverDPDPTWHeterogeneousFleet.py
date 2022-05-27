@@ -33,7 +33,6 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
 
     def insert_fixed(self, solution):
         routes = self.create_routes()
-        
         for route_pos, route_fixed_dict in enumerate(self.fixed_requests):
             route_requests = route_fixed_dict["requests"]
             route_order = route_fixed_dict["route"]
@@ -49,7 +48,6 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
                 if (route_attendance_type != vehic_type_needed):
                     i += 1
                     continue
-                
                 solution.add_route(routes[i])
                 route_returned = self.insert_fixed_route_in_solution(
                     routes[i],
@@ -61,6 +59,7 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
                 routes.pop(i)
                 
                 i += 1
+            route_returned.set_start_position(route_fixed_dict["start"])
         
         for route in routes:
             solution.add_route(route)

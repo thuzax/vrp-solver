@@ -180,5 +180,45 @@ def random_insertion_dlhf():
         ]
     }
     return data
+
+
+def first_insertion():
+    data = {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        }
+    return data
+
+
+def first_insertion_dynamic():
+    data = first_insertion()
+    data["constraints_name"] = [
+        "HomogeneousCapacityConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests"
+    ]
+    return data
+
+def first_insertion_dlf():
+    data = first_insertion_dynamic()
+    data["constraints_name"] = [
+        "HomogeneousCapacityConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests"
+    ]
+
+    return data
     
-    
+def first_insertion_dlhf():
+    data = first_insertion_dynamic()
+    data["constraints_name"] = [
+        "HomogeneousCapacityConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "HeterogeneousFleet"
+    ]
+
+    return data

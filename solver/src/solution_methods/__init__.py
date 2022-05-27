@@ -1,9 +1,11 @@
 
 from .basic_operators.InsertionOperator import InsertionOperator
 from .basic_operators.InsertionOperatorPDPTW import InsertionOperatorPDPTW
+from .basic_operators.InsertionOperatorDPDPTW import InsertionOperatorDPDPTW
 
 from .basic_operators.RemovalOperator import RemovalOperator
 from .basic_operators.RemovalOperatorPDPTW import RemovalOperatorPDPTW
+from .basic_operators.RemovalOperatorDPDPTW import RemovalOperatorDPDPTW
 
 from .construction_heuristics.BasicGreedy import BasicGreedy
 from .construction_heuristics.BasicGreedyLimitedFleet \
@@ -14,6 +16,7 @@ from .construction_heuristics.BasicGreedyLimitedHeterogeneousFleet \
 from .heuristics.KRegret import KRegret
 from .heuristics.WKRegret import WKRegret
 from .heuristics.RandomInsertion import RandomInsertion
+from .heuristics.FirstInsertion import FirstInsertion
 
 from .heuristics.RandomRemoval import RandomRemoval
 from .heuristics.WorstRemoval import WorstRemoval
@@ -52,10 +55,12 @@ from .acceptance_heuristics.LAHC \
 
 __all__ = [
     "InsertionOperator",
+    "InsertionOperatorDPDPTW",
     "InsertionOperatorPDPTW",
 
     "RemovalOperator",
     "RemovalOperatorPDPTW",
+    "RemovalOperatorDPDPTW",
     
     "BasicGreedy",
     "BasicGreedyLimitedFleet",
@@ -64,6 +69,7 @@ __all__ = [
     "KRegret",
     "WKRegret",
     "RandomInsertion",
+    "FirstInsertion",
     
     "RandomRemoval",
     "WorstRemoval",

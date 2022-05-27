@@ -33,15 +33,22 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             self.feasible_insertions_cache = {}
             self.initialize_class_attributes()
 
+    def check_feasibility(self, route, constraints):
+        for constraint in constraints:
+            if (not constraint.route_is_feasible(route)):
+                return False
+            
+        return True
 
 
     @abstractmethod
     def try_to_insert(self, route, position, request, obj_func, constraints):
         copy_route = route.copy()
+        
         copy_route.insert(position, request)
 
         self.update_route_values(copy_route, position, request)
-        additional_cost = obj_func.route_additional_route_cost_after_insertion(
+        additional_cost = obj_func.additional_route_cost_after_insertion(
             copy_route,
             position, 
             request
@@ -51,11 +58,50 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             additional_cost
         )
 
-        for constraint in constraints:
-            if (not constraint.route_is_feasible(copy_route)):
-                return None
+        feasible = self.check_feasibility(copy_route, constraints)
+        if (not feasible):
+            if (route.empty()):
+                for constraint in constraints:
+                    if (not constraint.route_is_feasible(copy_route)):
+                        pass
+            return None
         
         return copy_route
+
+
+    @abstractmethod
+    def get_child_first_feasible_insertion(
+        self,
+        route, 
+        request, 
+        obj_func, 
+        constraints
+    ):
+        pass
+
+
+    def get_first_feasible_insertion(
+        self,
+        routes, 
+        request, 
+        obj_func, 
+        constraints
+    ):
+
+        for route in routes:
+            insertion = self.get_child_first_feasible_insertion(
+                route,
+                request,
+                obj_func,
+                constraints
+            )
+            if (not all(insertion)):
+                continue
+            
+            return insertion
+
+        return (None, None, None)
+
 
 
     @abstractmethod
@@ -273,10 +319,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
         old_route_identifying = route.get_id_value_without_request(
             request_inserted
         )
-        if (request_inserted == (1, 51)):
-            print(route.get_id_value())
-            print(old_route_identifying)
-            print("---------------")
+
         return old_route_identifying
     
     

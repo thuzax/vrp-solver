@@ -42,7 +42,7 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def route_additional_route_cost_after_insertion(
+    def additional_route_cost_after_insertion(
         self, 
         route, 
         position, 

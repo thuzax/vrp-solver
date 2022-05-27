@@ -36,9 +36,9 @@ class KRegret(SolutionMethod):
         return best_routes
 
 
-    def get_requests_best_feasible_insertions(self, requests, solution):
+    def get_requests_best_feasible_insertions(self, requests, routes_sol):
         requests_feasible_insertions = {}
-        routes = self.get_m_best_routes(solution.routes())
+        routes = self.get_m_best_routes(routes_sol)
         for request in requests:
             feasible_insertions = []
             for route in routes:
@@ -127,6 +127,11 @@ class KRegret(SolutionMethod):
 
     def solve(self, solution, parameters):
         self.k = parameters["k"]
+        try:
+            only_route_pos = parameters["route"]
+        except:
+            only_route_pos = None
+        
         requests = copy.deepcopy(parameters["requests_set"])
         new_solution = solution.copy()
 
@@ -134,9 +139,14 @@ class KRegret(SolutionMethod):
         i = 0
 
         while (could_insert and len(requests) > 0):
+            if (only_route_pos is not None):
+                routes = [new_solution.routes()[only_route_pos]]
+            else:
+                routes = new_solution.routes()
+
             feasible_insertions = self.get_requests_best_feasible_insertions(
                 requests,
-                new_solution
+                routes
             )
             
             insertions_and_regret_values = self.get_insertions_and_regret_value(

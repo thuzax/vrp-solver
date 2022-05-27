@@ -25,7 +25,7 @@ class ObjFunctionPDPTW(ObjFunction, metaclass=ABCMeta):
 
 
     # Use the route distance as second criteria
-    def route_additional_route_cost_after_insertion(
+    def additional_route_cost_after_insertion(
         self, 
         route, 
         position, 
