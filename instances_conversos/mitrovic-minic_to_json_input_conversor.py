@@ -11,8 +11,7 @@ def euclidian(p1, p2):
 
     # result = round(result, 1)
     # Distancia em hectometros
-    result = int(round(result))
-
+    result = int(result)
 
     return result
 

@@ -1,0 +1,11 @@
+/usr/bin/python3 ./solver/solver.py --input ./simple_test/inputs/DPDPTW_R_bar-n100-1_fixed_limited_fleet.json --output-path ./simple_test --set-config-file ./solver/configuration-dynamic-obj-request.json --set-time-limit 30 --set-seed 0 --make-log --detail-solution-log 
+
+python3 verify_solution.py ./simple_test/inputs/DPDPTW_R_bar-n100-1_fixed_limited_fleet.json simple_test/DPDPTW_R_bar-n100-1_fixed_limited_fleet_sol_log.json DPDPTW-R -a
+
+/usr/bin/python3 ./solver/solver.py --input ./simple_test/inputs/DPDPTWHF_R_bar-n100-1_fixed_limited_heter_fleet.json --output-path ./simple_test --set-config-file ./solver/configuration-dynamic-obj-request-urb-rur.json --set-time-limit 30 --set-seed 0 --make-log --detail-solution-log 
+
+python3 verify_solution.py ./simple_test/inputs/DPDPTWHF_R_bar-n100-1_fixed_limited_heter_fleet.json ./simple_test/DPDPTWHF_R_bar-n100-1_fixed_limited_heter_fleet_sol_log.json DPDPTWUR-R -a
+
+/usr/bin/python3 ./solver/solver.py --input ./simple_test/inputs/DPDPTW_V_bar-n100-1_fixed.json --output-path ./simple_test --set-config-file ./solver/configuration-dynamic-obj-vehicle.json --set-time-limit 30 --set-seed 0 --make-log --detail-solution-log 
+
+python3 verify_solution.py ./simple_test/inputs/DPDPTW_V_bar-n100-1_fixed.json ./simple_test/DPDPTW_V_bar-n100-1_fixed_sol_log.json DPDPTW -a

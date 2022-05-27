@@ -13,6 +13,13 @@ def route_pdptw():
     return r_data
 
 
+def route_dpdptw():
+    r_data = {
+    }
+
+    return r_data
+
+
 def route_dpdptwlhf():
     r_data = {
     }
@@ -45,8 +52,22 @@ def insertion_operator_pdptw():
 
     return insert_data
 
+def insertion_operator_dpdptw():
+    insert_data = {
+    }
+
+    return insert_data
+
+
 
 def removal_operator_pdptw():
+    remov_data = {
+    }
+
+    return remov_data
+
+
+def removal_operator_dpdptw():
     remov_data = {
     }
 

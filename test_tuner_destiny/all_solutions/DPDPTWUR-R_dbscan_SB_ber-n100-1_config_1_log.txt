@@ -1,0 +1,29 @@
+--------------------------------------------------------------------------------(Solver execution current time: 0.00018215179443359375)
+[INFO] Input Seed : 679215
+--------------------------------------------------------------------------------(Solver execution current time: 0.00025010108947753906)
+[INFO] Input time limit : 10
+--------------------------------------------------------------------------------(Solver execution current time: 0.0002980232238769531)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.0007219314575195312)
+[INFO] Algorithm execution time : 0.0013437271118164062
+--------------------------------------------------------------------------------(Solver execution current time: 0.0010592937469482422)
+[ERROR]
+An error has ocurred
+Traceback (most recent call last):
+  File "./solver/solver.py", line 189, in execute
+    func_timeout(time_limit, run)
+  File "/home/loop/.local/lib/python3.8/site-packages/func_timeout/dafunc.py", line 108, in func_timeout
+    raise_exception(exception)
+  File "/home/loop/.local/lib/python3.8/site-packages/func_timeout/py3_raise.py", line 7, in raise_exception
+    raise exception[0] from None
+  File "./solver/solver.py", line 95, in run
+    read_input_file()
+  File "./solver/solver.py", line 78, in read_input_file
+    reader.read_input_file()
+  File "/home/loop/Desktop/vrp-solver/solver/src/instance_readers/Reader.py", line 86, in read_input_file
+    self.read_specific_input(file_name)
+  File "/home/loop/Desktop/vrp-solver/solver/src/instance_readers/ReaderJsonDPDPTWLimitedHeterogeneousFleet.py", line 15, in read_specific_input
+    with open(file_name, "r") as input_file:
+FileNotFoundError: [Errno 2] No such file or directory: './instances_mod/SB_ber-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_ber-n100-1.json'
+
+--------------------------------------------------------------------------------

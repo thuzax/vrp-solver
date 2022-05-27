@@ -195,7 +195,7 @@ def first_insertion():
 
 def first_insertion_dynamic():
     data = first_insertion()
-    data["constraints_name"] = [
+    data["constraints_names"] = [
         "HomogeneousCapacityConstraint",
         "TimeWindowsConstraint",
         "FixedRequests"
@@ -204,7 +204,7 @@ def first_insertion_dynamic():
 
 def first_insertion_dlf():
     data = first_insertion_dynamic()
-    data["constraints_name"] = [
+    data["constraints_names"] = [
         "HomogeneousCapacityConstraint",
         "TimeWindowsConstraint",
         "FixedRequests"
@@ -214,7 +214,7 @@ def first_insertion_dlf():
     
 def first_insertion_dlhf():
     data = first_insertion_dynamic()
-    data["constraints_name"] = [
+    data["constraints_names"] = [
         "HomogeneousCapacityConstraint",
         "TimeWindowsConstraint",
         "FixedRequests",

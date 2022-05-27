@@ -154,6 +154,48 @@ def random_insertion_dlhf(params):
     return data
 
 
+def first_insertion(params):
+    data = {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        }
+    return data
+
+
+def first_insertion_dynamic(params):
+    data = first_insertion(params)
+    data["constraints_names"] = [
+        "HomogeneousCapacityConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests"
+    ]
+    return data
+
+def first_insertion_dlf(params):
+    data = first_insertion_dynamic(params)
+    data["constraints_names"] = [
+        "HomogeneousCapacityConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests"
+    ]
+
+    return data
+    
+def first_insertion_dlhf(params):
+    data = first_insertion_dynamic(params)
+    data["constraints_names"] = [
+        "HomogeneousCapacityConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "HeterogeneousFleet"
+    ]
+
+    return data
+
+
 def reinsertion_data(params, problem):
     k_regret_name = "KRegret"
     k_regret = None
@@ -161,27 +203,34 @@ def reinsertion_data(params, problem):
     wk_regret = None
     random_insertion_name = "RandomInsertion"
     random_insertion = None
+    first_insertion_name = "FirstInsertion"
+    first_insertion = None
 
     if (problem == "PDPTW"):
         k_regret = k_regret(params)
         wk_regret = w_k_regret(params)
         random_insertion = random_insertion(params)
+        first_insertion = first_insertion(params)
     if (problem == "DPDPTW"):
         k_regret = k_regret_dynamic(params)
         wk_regret = w_k_regret_dynamic(params)
         random_insertion = random_insertion_dynamic(params)
+        first_insertion = first_insertion_dynamic(params)
     if (problem == "DPDPTWLF-R"):
         k_regret = k_regret_dlf(params)
         wk_regret = w_k_regret_dlf(params)
         random_insertion = random_insertion_dlf(params)
+        first_insertion = first_insertion_dlf(params)
     if (problem == "DPDPTWLHF-R"):
         k_regret = k_regret_dlhf(params)
         wk_regret = w_k_regret_dlhf(params)
         random_insertion = random_insertion_dlhf(params)
+        first_insertion = first_insertion_dlhf(params)
 
     algs_data = {
         k_regret_name : k_regret,
         wk_regret_name : wk_regret,
-        random_insertion_name : random_insertion
+        random_insertion_name : random_insertion,
+        first_insertion_name : first_insertion
     }
     return algs_data

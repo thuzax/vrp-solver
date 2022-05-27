@@ -1,0 +1,106 @@
+--------------------------------------------------------------------------------(Solver execution current time: 0.0001780986785888672)
+[INFO] Input Seed : 6463343
+--------------------------------------------------------------------------------(Solver execution current time: 0.00021123886108398438)
+[INFO] Input time limit : 10
+--------------------------------------------------------------------------------(Solver execution current time: 0.000232696533203125)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.013761520385742188)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.013821125030517578)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 0.013853073120117188)
+[INFO] Starting construction
+--------------------------------------------------------------------------------(Solver execution current time: 0.7902812957763672)
+[INFO] Finished construction
+--------------------------------------------------------------------------------(Solver execution current time: 0.7903473377227783)
+[SOLUTION]
+Basic Greedy Heuristic
+Exec Time: 0.776425838470459
+obj_value: -43; obj_routes: 2091.0
+Route 1 : 12 62 21 71 18 68 3 53 
+Route 2 : 42 22 72 26 76 92 
+Route 3 : 49 40 99 90 36 86 
+Route 4 : 8 58 17 13 63 67 
+Route 5 : 50 32 27 82 100 77 
+Route 6 : 4 41 91 54 44 94 
+Route 7 : 46 96 14 64 24 5 74 55 
+Route 8 : 23 73 1 19 51 69 
+Route 9 : 28 6 78 56 37 87 
+Route 10 : 47 97 10 60 33 83 
+Route 11 : 20 70 15 65 29 79 
+Route 12 : 38 88 48 98 39 89 
+Route 13 : 11 61 2 34 52 84 
+Route 14 : 45 95 31 81 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.7909176349639893)
+[SOLUTION]
+Solution after BasicGreedyLimitedHeterogeneousFleet
+obj_value: -43; obj_routes: 2091.0
+Route 1 : 12 62 21 71 18 68 3 53 
+Route 2 : 42 22 72 26 76 92 
+Route 3 : 49 40 99 90 36 86 
+Route 4 : 8 58 17 13 63 67 
+Route 5 : 50 32 27 82 100 77 
+Route 6 : 4 41 91 54 44 94 
+Route 7 : 46 96 14 64 24 5 74 55 
+Route 8 : 23 73 1 19 51 69 
+Route 9 : 28 6 78 56 37 87 
+Route 10 : 47 97 10 60 33 83 
+Route 11 : 20 70 15 65 29 79 
+Route 12 : 38 88 48 98 39 89 
+Route 13 : 11 61 2 34 52 84 
+Route 14 : 45 95 31 81 
+
+--------------------------------------------------------------------------------(Solver execution current time: 0.7911112308502197)
+[INFO] Starting metaheuristic
+--------------------------------------------------------------------------------(Solver execution current time: 0.7930972576141357)
+[INFO] AGES EXCLUDED
+--------------------------------------------------------------------------------(Solver execution current time: 10.016292810440063)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 10.01636528968811)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 10.01685357093811)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 10.016899108886719)
+[INFO] Algorithm execution time : 10.017534971237183
+--------------------------------------------------------------------------------(Solver execution current time: 10.017453908920288)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Fixed Requests Constraint OK
+Limited Fleet Constraint OK
+Heterogeneous Fleet Constraint OK
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+OBJECTIVE VALUE: -48
+ROUTES VALUE: 1652.0
+------------------------------------
+
+Best Solution: 
+obj_value: -48; obj_routes: 1652.0
+Route 1 : 21 4 17 71 10 67 54 60 
+Route 2 : 50 2 100 26 52 76 
+Route 3 : 7 25 57 75 33 44 83 94 
+Route 4 : 28 6 78 56 29 18 68 79 
+Route 5 : 38 88 11 61 39 27 89 77 
+Route 6 : 46 49 96 99 14 64 
+Route 7 : 47 97 24 5 74 55 
+Route 8 : 8 58 1 35 85 51 
+Route 9 : 3 53 40 41 91 90 
+Route 10 : 42 92 30 48 98 15 80 65 
+Route 11 : 32 23 82 73 19 36 69 86 
+Route 12 : 34 22 37 72 87 84 
+Route 13 : 45 13 95 31 63 81 
+Route 14 : 20 12 70 62 16 66 
+
+--------------------------------------------------------------------------------

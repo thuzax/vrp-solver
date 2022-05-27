@@ -1,0 +1,18 @@
+Instance name : DPDPTW-R_poa-n100-1
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 21 14 64 71 29 79 
+Route 2 : 28 50 78 100 24 31 74 81 
+Route 3 : 8 58 1 35 85 51 
+Route 4 : 20 40 70 33 90 83 
+Route 5 : 42 92 25 26 75 43 76 93 
+Route 6 : 32 82 48 30 98 15 80 65 44 94 
+Route 7 : 45 4 13 95 54 63 
+Route 8 : 46 96 34 22 37 72 84 87 
+Route 9 : 17 38 88 67 18 27 68 77 
+Route 10 : 47 97 41 91 19 10 69 60 
+Route 11 : 6 49 99 56 36 86 
+Route 12 : 11 12 61 39 62 16 89 66 
+Route 13 : 23 73 7 57 2 5 55 52 3 53 

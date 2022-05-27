@@ -190,8 +190,8 @@ def set_partitioning(params):
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint"
         ],
-        "solver_code" : "CBC",
-        "opt_time_limit" : int(60)
+        "solver_code" : "GRB",
+        "opt_time_limit" : int(120)
     }
     
     return data
@@ -217,8 +217,8 @@ def partitioning_max_requests(params):
             "FixedRequests",
             "LimitedFleet"
         ],
-        "solver_code" : "CBC",
-        "opt_time_limit" : int(60),
+        "solver_code" : "GRB",
+        "opt_time_limit" : int(120),
         "max_routes_cost_increment" : params["mrc_incr"],
         "cost_reduction_factor" : float(0.000001)
     }

@@ -119,7 +119,7 @@
                 "AttendAllRequests",
                 "TimeWindowsConstraint"
             ],
-            "solver_code" : "CBC",
+            "solver_code" : "GRB",
             "opt_time_limit" : 30
         },
         "SBMath" : {

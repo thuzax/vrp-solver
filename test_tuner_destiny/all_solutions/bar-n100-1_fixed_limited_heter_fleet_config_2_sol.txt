@@ -1,0 +1,12 @@
+Instance name : bar-n100-1_fixed_limited_heter_fleet
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 31 40 12 21 81 62 71 32 82 16 90 66 36 86 18 68 
+Route 2 : 20 28 49 70 78 99 7 57 37 87 
+Route 3 : 23 1 73 51 50 100 
+Route 4 : 5 55 17 67 42 13 63 8 92 45 58 4 54 95 
+Route 5 : 26 76 30 80 9 59 34 84 29 79 22 3 53 72 25 75 
+Route 6 : 14 39 15 64 43 65 47 97 44 89 94 46 6 56 93 96 
+Route 7 : 33 48 98 41 2 10 91 52 27 77 38 83 60 24 74 88 

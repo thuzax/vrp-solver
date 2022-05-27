@@ -110,7 +110,7 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 # simple_test("pdptw-v", "../test_instances/input_files/SB_json/bar-n100-2.json")
 
 # # DPDPTW MIN VEHICLE
-# simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.json")
+simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.json")
 # simple_test("dpdptw-v", "../instances_mod/poa-n100-1_DPDPTW/DPDPTW_poa-n100-1.json")
 
 
@@ -123,9 +123,9 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 # simple_test("dpdptwhf-r", "../test_instances/input_files/SB_json/bar-n100-1_fixed_limited_heter_fleet.json")
 # simple_test("dpdptwhf-r", "../instances_mod/bar-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_bar-n100-1.json", 120)
 # simple_test("dpdptwhf-r", "../instances_mod/poa-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_poa-n100-1.json", 120)
-simple_test("dpdptwhf-r", "../instances_mod/SB_bar-n1000-2_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_bar-n1000-2.json", 3600)
+# simple_test("dpdptwhf-r", "../instances_mod/SB_bar-n1000-2_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_bar-n1000-2.json", 3600)
 # simple_test("dpdptwhf-r", "../instances_mod/SB_ber-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_ber-n100-1.json", 120)
-simple_test("dpdptwhf-r", "../instances_mod/SB_ber-n1000-3_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_ber-n1000-3.json", 3600)
+# simple_test("dpdptwhf-r", "../instances_mod/SB_ber-n1000-3_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_ber-n1000-3.json", 3600)
 # simple_test("dpdptwhf-r", "../instances_mod/SB_nyc-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_nyc-n100-1.json", 120)
 # simple_test("dpdptwhf-r", "../instances_mod/SB_poa-n600-6_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_poa-n600-6.json", 300)
 

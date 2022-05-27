@@ -1,0 +1,85 @@
+--------------------------------------------------------------------------------(Solver execution current time: 0.00014853477478027344)
+[INFO] Input Seed : 8152513
+--------------------------------------------------------------------------------(Solver execution current time: 0.00017786026000976562)
+[INFO] Input time limit : 20
+--------------------------------------------------------------------------------(Solver execution current time: 0.00019860267639160156)
+[INFO] Command line arguments read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.013866901397705078)
+[INFO] Input file read with no errors.
+--------------------------------------------------------------------------------(Solver execution current time: 0.013966798782348633)
+[INFO] Starting solver.
+--------------------------------------------------------------------------------(Solver execution current time: 0.014038562774658203)
+[INFO] Starting construction
+--------------------------------------------------------------------------------(Solver execution current time: 1.511387825012207)
+[INFO] Finished construction
+--------------------------------------------------------------------------------(Solver execution current time: 1.5114555358886719)
+[SOLUTION]
+Basic Greedy Heuristic
+Exec Time: 1.4973487854003906
+obj_value: -41; obj_routes: 980.0
+Route 1 : 31 40 12 21 81 62 71 90 8 58 45 95 
+Route 2 : 20 28 49 70 78 99 27 77 18 36 68 86 
+Route 3 : 23 1 73 51 50 100 
+Route 4 : 5 55 17 67 35 13 63 32 82 85 4 46 54 96 
+Route 5 : 26 76 41 9 59 14 64 3 22 91 72 53 37 87 
+Route 6 : 30 80 19 69 47 33 97 83 43 6 56 93 
+Route 7 : 2 10 60 15 42 52 92 65 24 74 38 88 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.511998176574707)
+[SOLUTION]
+Solution after BasicGreedyLimitedHeterogeneousFleet
+obj_value: -41; obj_routes: 980.0
+Route 1 : 31 40 12 21 81 62 71 90 8 58 45 95 
+Route 2 : 20 28 49 70 78 99 27 77 18 36 68 86 
+Route 3 : 23 1 73 51 50 100 
+Route 4 : 5 55 17 67 35 13 63 32 82 85 4 46 54 96 
+Route 5 : 26 76 41 9 59 14 64 3 22 91 72 53 37 87 
+Route 6 : 30 80 19 69 47 33 97 83 43 6 56 93 
+Route 7 : 2 10 60 15 42 52 92 65 24 74 38 88 
+
+--------------------------------------------------------------------------------(Solver execution current time: 1.5121870040893555)
+[INFO] Starting metaheuristic
+--------------------------------------------------------------------------------(Solver execution current time: 1.513697624206543)
+[INFO] AGES EXCLUDED
+--------------------------------------------------------------------------------(Solver execution current time: 20.011244773864746)
+[WARNING] Time Limit Exceeded
+--------------------------------------------------------------------------------(Solver execution current time: 20.011432647705078)
+[WARNING] Searching current best solution.
+--------------------------------------------------------------------------------(Solver execution current time: 20.01186966896057)
+[WARNING] Current best solution found.
+--------------------------------------------------------------------------------(Solver execution current time: 20.011908292770386)
+[INFO] Algorithm execution time : 20.012585878372192
+--------------------------------------------------------------------------------(Solver execution current time: 20.01251482963562)
+[SOLUTION]
+Final Solution Verification
+====================================
+Constraints verification: 
+Homogenous Capacity Constraint OK
+Time Windwos Constraint OK
+Pickup and Delivery Constraint OK
+Fixed Requests Constraint OK
+Limited Fleet Constraint OK
+Heterogeneous Fleet Constraint OK
+====================================
+Obj Func verification: 
+SOLUTION COST OK
+------------------------------------
+ROUTES TOTAL COST OK
+------------------------------------
+REQUESTS TOTAL COST OK
+------------------------------------
+OBJECTIVE VALUE: -47
+ROUTES VALUE: 909.0
+------------------------------------
+
+Best Solution: 
+obj_value: -47; obj_routes: 909.0
+Route 1 : 31 40 12 21 81 62 71 32 82 16 90 66 36 86 18 68 
+Route 2 : 20 28 49 70 78 99 7 57 37 87 
+Route 3 : 23 1 73 51 50 100 
+Route 4 : 5 55 17 67 42 13 63 8 92 45 58 4 54 95 
+Route 5 : 26 76 30 80 9 59 34 84 29 79 22 3 53 72 25 75 
+Route 6 : 14 39 15 64 43 65 47 97 44 89 94 46 6 56 93 96 
+Route 7 : 33 48 98 41 2 10 91 52 27 77 38 83 60 24 74 88 
+
+--------------------------------------------------------------------------------

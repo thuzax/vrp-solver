@@ -95,8 +95,11 @@ def read_command_line_inputs():
     if (data["output_path"][-1] != "/"):
         data["output_path"] = data["output_path"] + "/"
     
+    if (not os.path.exists(data["output_path"])):
+        os.mkdir(data["output_path"])
+
     suffix = data["best_config_file_name"].split(".")
-    if (len(suffix) < 2 or suffix != "json"):
+    if (len(suffix) < 2 or suffix[-1] != "json"):
         data["best_config_file_name"] = data["best_config_file_name"] + ".json"
     
     data["n_evals"] = 50
@@ -150,28 +153,35 @@ def reinsertion_algs(problem):
     wk_regret = None
     random_insertion_name = "RandomInsertion"
     random_insertion = None
+    first_insertion_name = "FirstInsertion"
+    first_insertion = None
 
     if (problem == "PDPTW"):
         k_regret = params_insertions.k_regret()
         wk_regret = params_insertions.w_k_regret()
         random_insertion = params_insertions.random_insertion()
+        first_insertion = params_insertions.first_insertion()
     if (problem == "DPDPTW"):
         k_regret = params_insertions.k_regret_dynamic()
         wk_regret = params_insertions.w_k_regret_dynamic()
         random_insertion = params_insertions.random_insertion_dynamic()
+        first_insertion = params_insertions.first_insertion_dynamic()
     if (problem == "DPDPTWLF-R"):
         k_regret = params_insertions.k_regret_dlf()
         wk_regret = params_insertions.w_k_regret_dlf()
         random_insertion = params_insertions.random_insertion_dlf()
+        first_insertion = params_insertions.first_insertion_dlf()
     if (problem == "DPDPTWLHF-R"):
         k_regret = params_insertions.k_regret_dlhf()
         wk_regret = params_insertions.w_k_regret_dlhf()
         random_insertion = params_insertions.random_insertion_dlhf()
+        first_insertion = params_insertions.first_insertion_dlhf()
 
     algs_data = {
         k_regret_name : k_regret,
         wk_regret_name : wk_regret,
-        random_insertion_name : random_insertion
+        random_insertion_name : random_insertion,
+        first_insertion_name : first_insertion
     }
     return algs_data
 
@@ -443,9 +453,13 @@ def writer_data():
 
 
 def route_data(problem):
-    if (problem == "PDPTW" or problem == "DPDPTW" or problem == "DPDPTWLF-R"):
+    if (problem == "PDPTW"):
         r_data = {
             "RoutePDPTW" : params_routes.route_pdptw(),
+        }
+    if (problem == "DPDPTW" or problem == "DPDPTWLF-R"):
+        r_data = {
+            "RouteDPDPTW" : params_routes.route_dpdptw(),
         }
     if (problem == "DPDPTWLHF-R"):
         r_data = {
@@ -475,18 +489,26 @@ def vertex_data(problem):
 
 
 def insertion_operator_data():
-    insert_data = {
-        "InsertionOperatorPDPTW" : params_routes.insertion_operator_pdptw()
-    }
-
+    if (problem == "PDPTW"):
+        insert_data = {
+            "InsertionOperatorPDPTW" : params_routes.insertion_operator_pdptw()
+        }
+    if (problem == "DPDPTW" or problem == "DPDPTWLF-R" or problem == "DPDPTWLHF-R"):
+        insert_data = {
+            "InsertionOperatorDPDPTW" : params_routes.insertion_operator_dpdptw()
+        }
     return insert_data
 
 
 def removal_operator_data():
-    remov_data = {
-        "RemovalOperatorPDPTW" : params_routes.removal_operator_pdptw()
-    }
-
+    if (problem == "PDPTW"):
+        remov_data = {
+            "RemovalOperatorPDPTW" : params_routes.removal_operator_pdptw()
+        }
+    if (problem == "DPDPTW" or problem == "DPDPTWLF-R" or problem == "DPDPTWLHF-R"):
+        remov_data = {
+            "RemovalOperatorPDPTW" : params_routes.removal_operator_dpdptw()
+        }
     return remov_data
 
 
@@ -755,10 +777,9 @@ if __name__ == "__main__":
     command_input_data = read_command_line_inputs()
 
     # problem = "PDPTW"
-    # problem = "NCDPDPTW"
     # problem = "DPDPTW"
-    problem = "DPDPTWLF-R"
-    # problem = "DPDPTWLHF-R"
+    # problem = "DPDPTWLF-R"
+    problem = "DPDPTWLHF-R"
 
     random.seed(0)
     print("STARTING SEED", 0)
@@ -784,8 +805,8 @@ if __name__ == "__main__":
         "route" : route_data(problem),
         "vertex" : vertex_data(problem),
 
-        # "time" : hyperopt.hp.choice("time_limit_sb", [300, 480, 600])
-        "time" : hyperopt.hp.choice("time_limit_sb", [10, 20, 30])
+        "time" : hyperopt.hp.choice("time_limit_sb", [300, 480, 600])
+        # "time" : hyperopt.hp.choice("time_limit_sb", [10, 20, 30])
     }
 
     inputs = command_input_data["inputs"]

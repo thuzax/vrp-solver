@@ -227,8 +227,8 @@ def set_partitioning():
             "HomogeneousCapacityConstraint",
             "TimeWindowsConstraint"
         ],
-        "solver_code" : "CBC",
-        "opt_time_limit" : 60
+        "solver_code" : "GRB",
+        "opt_time_limit" : 120
     }
     
     return data
@@ -254,8 +254,8 @@ def partitioning_max_requests():
             "FixedRequests",
             "LimitedFleet"
         ],
-        "solver_code" : "CBC",
-        "opt_time_limit" : 60,
+        "solver_code" : "GRB",
+        "opt_time_limit" : 120,
         "max_routes_cost_increment" : hyperopt.hp.uniform("mrc_incr", 0, 1),
         "cost_reduction_factor" : 0.000001
     }
