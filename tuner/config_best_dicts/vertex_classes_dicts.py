@@ -22,7 +22,11 @@ def vertex_data(params, problem):
         v_data = {
             "VertexPDPTW" : vertex_pdptw(),
         }
-    if (problem == "DPDPTW" or problem == "DPDPTWLF-R"):
+    if (
+        problem == "DPDPTW" 
+        or problem == "DPDPTWLF-R" 
+        or problem == "DPDPTWNoC-D"
+    ):
         v_data = {
             "VertexDPDPTW" : vertex_dpdptw(),
         }

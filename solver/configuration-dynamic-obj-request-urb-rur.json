@@ -42,7 +42,7 @@
                 "LimitedFleet",
                 "HeterogeneousFleet"
             ],
-            "insertion_heuristic_code" : "kr"
+            "insertion_heuristic_code" : "fi"
         },
         "KRegret" : {
             "non_insertion_cost" : 9999999999999,

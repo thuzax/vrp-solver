@@ -24,7 +24,11 @@ def route_data(params, problem):
         r_data = {
             "RoutePDPTW" : route_pdptw(),
         }
-    if (problem == "DPDPTW" or problem == "DPDPTWLF-R"):
+    if (
+        problem == "DPDPTW" 
+        or problem == "DPDPTWLF-R" 
+        or problem == "DPDPTWNoC-D"
+    ):
         r_data = {
             "RouteDPDPTW" : route_dpdptw(),
         }

@@ -24,7 +24,19 @@ def basic_greedy_dynamic(params):
         "AttendAllRequests"
     ]
     
+    return data
 
+def basic_greedy_dynamic_no_cap(params):
+    data = basic_greedy_limited_fleet(params)
+    data["constraints_names"] =  [
+        "PickupDeliveryConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+    
     return data
 
 def basic_greedy_limited_fleet(params):
@@ -61,6 +73,10 @@ def constructive_data(params, problem):
     if (problem == "DPDPTW"):
         algs_data = {
             "BasicGreedy" : basic_greedy_dynamic(params)
+        }
+    if (problem == "DPDPTWNoC-D"):
+        algs_data = {
+            "BasicGreedyLimitedFleet" : basic_greedy_dynamic_no_cap(params)
         }
     if (problem == "DPDPTWLF-R"):
         algs_data = {

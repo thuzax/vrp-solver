@@ -1,6 +1,3 @@
-
-
-
 from src.solution_methods.SolutionMethod import SolutionMethod
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 
@@ -24,7 +21,6 @@ class FirstInsertion(SolutionMethod):
         new_solution = solution.copy()
 
         inserted_requests = set()
-        
 
         for request in requests:
             # print(request)

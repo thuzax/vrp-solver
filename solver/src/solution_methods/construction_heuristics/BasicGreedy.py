@@ -53,7 +53,7 @@ class BasicGreedy(SolutionMethod):
 
         
         while (inserted and len(insertion_requests) > 0):
-            # print(len(insertion_requests))
+            print(len(insertion_requests))
             last_size = len(insertion_requests)
 
             parameters = {}

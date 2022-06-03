@@ -1,10 +1,14 @@
 
 from .basic_operators.InsertionOperator import InsertionOperator
 from .basic_operators.InsertionOperatorPDPTW import InsertionOperatorPDPTW
+from .basic_operators.InsertionOperatorDPDPTWNoCap \
+    import InsertionOperatorDPDPTWNoCap
 from .basic_operators.InsertionOperatorDPDPTW import InsertionOperatorDPDPTW
 
 from .basic_operators.RemovalOperator import RemovalOperator
 from .basic_operators.RemovalOperatorPDPTW import RemovalOperatorPDPTW
+from .basic_operators.RemovalOperatorDPDPTWNoCap \
+    import RemovalOperatorDPDPTWNoCap
 from .basic_operators.RemovalOperatorDPDPTW import RemovalOperatorDPDPTW
 
 from .construction_heuristics.BasicGreedy import BasicGreedy
@@ -55,11 +59,13 @@ from .acceptance_heuristics.LAHC \
 
 __all__ = [
     "InsertionOperator",
-    "InsertionOperatorDPDPTW",
     "InsertionOperatorPDPTW",
+    "InsertionOperatorDPDPTWNoCap",
+    "InsertionOperatorDPDPTW",
 
     "RemovalOperator",
     "RemovalOperatorPDPTW",
+    "RemovalOperatorDPDPTWNoCap",
     "RemovalOperatorDPDPTW",
     
     "BasicGreedy",

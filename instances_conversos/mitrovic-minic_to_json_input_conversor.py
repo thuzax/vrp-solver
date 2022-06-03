@@ -86,7 +86,8 @@ if __name__=="__main__":
                 continue
 
             pick = i+1
-            
+
+
             # Transformando km em hectometro para excluir vírgulas
             # points[pick] = [float(line[3]), float(line[4])]
             points[pick] = [int(float(line[3])*10), int(float(line[4])*10)]
@@ -107,7 +108,7 @@ if __name__=="__main__":
             tws[deli] = [int(line[10]), int(line[11])]
             services_times[deli] = int(line[7])
             
-            requests_times_in[(pick, deli)] = int(line[1])
+            requests_times_in[pick] = int(line[1])
 
             # print(
             #     i,
@@ -159,6 +160,9 @@ if __name__=="__main__":
 
         file_dict["planning_horizon"] = plan_horizon
         file_dict["time_windows_size"] = tws_size
+
+        file_dict["times_in"] = requests_times_in
+        print(file_dict["times_in"])
 
         print("ouput: ", out_path + json_file_name)
         with open(out_path + json_file_name, "w+") as output_file:

@@ -73,8 +73,21 @@ def constraints_data(params, problem):
 
             "LimitedFleet" : limited_fleet()    
         }
-    
-    if (problem == "DPDPTWLHF-R"):
+    if (problem == "DPDPTWNoC-D"):
+        constr_data = {
+            "TimeWindowsConstraint" : (
+                time_windows_constraint()
+            ),
+            "PickupDeliveryConstraint": (
+                pickup_delivery_constraint()
+            ),
+            "AttendAllRequests" : attend_all_requests(),
+
+            "FixedRequests" : fixed_requests(),
+
+            "LimitedFleet" : limited_fleet()    
+        }
+    if (problem == "DPDPTWUR-R"):
 
         constr_data = {
             "TimeWindowsConstraint" : (

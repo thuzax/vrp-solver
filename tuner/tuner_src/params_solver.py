@@ -31,6 +31,14 @@ def solvers_options(problem):
                 "SolverDPDPTWHeterogeneousFleet"
             ]
         )
+
+    if (problem == "DPDPTWNoC-D"):
+        choice = hyperopt.hp.choice(
+            "solver_choice",
+            [
+                "SolverDPDPTW"
+            ]
+        )
     
     solver_params["solver_choice"] = choice
     
@@ -66,6 +74,24 @@ def solver_dpdptw():
             "PickupDeliveryConstraint",
             "FixedRequests",
             "AttendAllRequests"
+        ]
+    }
+    
+    return data
+
+
+def solver_dpdptw_no_cap():
+    data  = {
+        "output_type" : "json",
+        "obj_func_name" : "ObjDistancePDPTW",
+        "construction_name" : "BasicGreedyLimitedFleet",
+        "metaheuristic_name" : "SBMath",
+        "constraints_names" : [
+            "TimeWindowsConstraint",
+            "PickupDeliveryConstraint",
+            "FixedRequests",
+            "AttendAllRequests",
+            "LimitedFleet"
         ]
     }
     

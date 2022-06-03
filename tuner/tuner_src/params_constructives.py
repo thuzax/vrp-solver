@@ -39,6 +39,20 @@ def basic_greedy_dynamic():
     ]
     return data
 
+def basic_greedy_dynamic_no_cap():
+    data = basic_greedy_limited_fleet()
+    data["constraints_names"] =  [
+        "PickupDeliveryConstraint",
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+    
 
 def basic_greedy_limited_fleet():
     data = basic_greedy()

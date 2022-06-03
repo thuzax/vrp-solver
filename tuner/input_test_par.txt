@@ -1,0 +1,7 @@
+./test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd6_10h_100_000.json
+./test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd8_10h_100_000.json
+./test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd8_10h_100_001.json
+./test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd8_10h_100_002.json
+./test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd9_10h_100_000.json
+./test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd9_10h_100_001.json
+./test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd9_10h_100_002.json

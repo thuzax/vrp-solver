@@ -58,6 +58,12 @@ def insertion_operator_dpdptw():
 
     return insert_data
 
+def insertion_operator_dpdptw_no_cap():
+    insert_data = {
+    }
+
+    return insert_data
+
 
 
 def removal_operator_pdptw():
@@ -68,6 +74,12 @@ def removal_operator_pdptw():
 
 
 def removal_operator_dpdptw():
+    remov_data = {
+    }
+
+    return remov_data
+
+def removal_operator_dpdptw_no_cap():
     remov_data = {
     }
 

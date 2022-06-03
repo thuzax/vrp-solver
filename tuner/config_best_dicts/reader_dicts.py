@@ -39,7 +39,7 @@ def reader_data(params, problem):
         reader_classes_data = {
             "ReaderJsonDPDPTW" : reader_json_DPDPTW(),
         }
-    if (problem == "DPDPTWLF-R"):
+    if (problem == "DPDPTWLF-R" or problem == "DPDPTWNoC-D"):
         reader_classes_data = {
             "ReaderJsonDPDPTWLimitedFleet" : (
                 reader_json_DPDPTWLF()

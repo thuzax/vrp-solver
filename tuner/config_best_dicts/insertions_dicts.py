@@ -28,6 +28,19 @@ def k_regret_dynamic(params):
     }
     return data
 
+def k_regret_dynamic_no_cap(params):
+    data = {
+        "non_insertion_cost" : 9999999999999,
+        "use_modification" : False,
+        "obj_func_name" : "ObjDistancePDPTW",
+        "constraints_names" : [
+            "TimeWindowsConstraint",
+            "FixedRequests"
+        ]
+    }
+    return data
+
+
 def k_regret_dlf(params):
     data = {
         "non_insertion_cost" : 9999999999999,
@@ -79,6 +92,19 @@ def w_k_regret_dynamic(params):
     }
     return data
 
+def w_k_regret_dynamic_no_cap(params):
+    data = {
+        "non_insertion_cost" : 9999999999999,
+        "obj_func_name" : "ObjDistancePDPTW",
+        "constraints_names" : [
+            "TimeWindowsConstraint",
+            "FixedRequests"
+        ]
+    }
+    return data
+
+
+
 def w_k_regret_dlf(params):
     data = {
         "non_insertion_cost" : 9999999999999,
@@ -123,6 +149,16 @@ def random_insertion_dynamic(params):
         "obj_func_name" : "ObjDistancePDPTW",
         "constraints_names" : [
             "HomogeneousCapacityConstraint",
+            "TimeWindowsConstraint",
+            "FixedRequests"
+        ]
+    }
+    return data
+
+def random_insertion_dynamic_no_cap(params):
+    data = {
+        "obj_func_name" : "ObjDistancePDPTW",
+        "constraints_names" : [
             "TimeWindowsConstraint",
             "FixedRequests"
         ]
@@ -174,6 +210,15 @@ def first_insertion_dynamic(params):
     ]
     return data
 
+def first_insertion_dynamic_no_cap(params):
+    data = first_insertion_dynamic(params)
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests"
+    ]
+    return data
+
+
 def first_insertion_dlf(params):
     data = first_insertion_dynamic(params)
     data["constraints_names"] = [
@@ -216,6 +261,11 @@ def reinsertion_data(params, problem):
         wk_regret = w_k_regret_dynamic(params)
         random_insertion = random_insertion_dynamic(params)
         first_insertion = first_insertion_dynamic(params)
+    if (problem == "DPDPTWNoC-D"):
+        k_regret = k_regret_dynamic_no_cap(params)
+        wk_regret = w_k_regret_dynamic_no_cap(params)
+        random_insertion = random_insertion_dynamic_no_cap(params)
+        first_insertion = first_insertion_dynamic_no_cap(params)
     if (problem == "DPDPTWLF-R"):
         k_regret = k_regret_dlf(params)
         wk_regret = w_k_regret_dlf(params)

@@ -45,6 +45,17 @@ def random_shift_dynamic():
     
     return data
 
+def random_shift_dynamic_no_cap():
+    data = random_shift_dynamic()
+    data["obj_func_name"] = "ObjDistancePDPTW"
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "LimitedFleet"
+    ]
+    
+    return data
+
 def random_shift_dlf():
     data = {
         "obj_func_name" : "ObjRequestsPDPTW",
@@ -100,6 +111,19 @@ def mod_biased_shift_dynamic():
         
     return data
 
+def mod_biased_shift_dynamic_no_cap():
+    data = mod_biased_shift()
+    data["obj_func_name"] = "ObjDistancePDPTW"
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "LimitedFleet"
+    ]
+        
+    return data
+
+
+
 def mod_biased_shift_dlf():
     data = mod_biased_shift_dynamic()
     
@@ -149,6 +173,17 @@ def random_exchange_dynamic():
         ]
     }
     
+    return data
+
+def random_exchange_dynamic_no_cap():
+    data = random_exchange_dynamic()
+    data["obj_func_name"] = "ObjDistancePDPTW"
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "LimitedFleet"
+    ]
+        
     return data
 
 def random_exchange_dlf():

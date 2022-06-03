@@ -117,6 +117,8 @@ class InsertionOperatorPDPTW(InsertionOperator):
                     new_route,
                     new_route.cost() - route.cost()
                 )
+
+                return feasible_insertion
         
         return feasible_insertion
 

@@ -92,6 +92,8 @@ class PartitionMaxRequestsHF(PartitionMaxRequests):
 
 
         for fleet_type in self.fleet.values():
+            if (fleet_type["size"] == 0):
+                continue
             fleet_type_key = list(fleet_type["types"])
             fleet_type_key.sort()
             fleet_type_key = tuple(fleet_type_key)

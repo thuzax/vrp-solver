@@ -231,11 +231,11 @@
         }
     },
     "insertion_operator" : {
-        "InsertionOperatorPDPTW" : {
+        "InsertionOperatorDPDPTWNoCap" : {
         }
     },
     "removal_operator" : {
-        "RemovalOperatorPDPTW" : {
+        "RemovalOperatorDPDPTWNoCap" : {
         }
     }
 

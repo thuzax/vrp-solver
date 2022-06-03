@@ -18,7 +18,7 @@ from config_best_dicts import solver_dicts
 
 
 
-def get_configuration_dict(best_params, problem):
+def get_configuration_dict(best_params, problem, exclude_fop):
     out_data = {}
     out_data["objective"] = objectives_dicts.objectives_data(
         best_params, 
@@ -109,7 +109,7 @@ def get_configuration_dict(best_params, problem):
         out_data["solution_methods"][name] = value
 
 
-    meta_algs = meta_dicts.meta_algs_data(best_params, problem)
+    meta_algs = meta_dicts.meta_algs_data(best_params, problem, exclude_fop)
     for name, value in meta_algs.items():
         out_data["solution_methods"][name] = value
 

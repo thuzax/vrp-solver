@@ -122,7 +122,7 @@ def removal_data(params, problem):
     if (
         problem == "DPDPTW" or 
         problem == "DPDPTWLF-R" or 
-        problem == "DPDPTWLHF-R"
+        problem == "DPDPTWNoC-D"
     ):
         rr_name = "RandomRemoval"
         rr = random_removal_dynamic(params)

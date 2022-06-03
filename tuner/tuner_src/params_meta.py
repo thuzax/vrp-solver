@@ -72,6 +72,20 @@ def ages_dynamic():
     return data
 
 
+def ages_dynamic_no_cap():
+    data = ages_dynamic()
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
+
+
 def ages_dlf():
     data = ages()
     data["constraints_names"] =  [
@@ -191,6 +205,19 @@ def lns_dynamic():
 
     return data
 
+def lns_dynamic_no_cap():
+    data = lns_dynamic()
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
+
 
 def lns_dlf():
     data = lns_dynamic()
@@ -242,6 +269,18 @@ def set_partitioning_dynamic():
         "FixedRequests",
         "AttendAllRequests"
     ]
+
+    return data
+
+def set_partitioning_dynamic_no_cap():
+    data = set_partitioning()
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
 
     return data
 
@@ -322,6 +361,18 @@ def original_perturbation_dynamic():
 
     return data
 
+def original_perturbation_dynamic_no_cap():
+    data = original_perturbation_dynamic()
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
 def original_perturbation_dlf():
     data = original_perturbation()
     data["constraints_names"] = [
@@ -393,6 +444,19 @@ def sb_math_dynamic():
         "FixedRequests",
         "AttendAllRequests"
     ]
+
+    return data
+
+def sb_math_dynamic_no_cap(): 
+    data = sb_math_dynamic()
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "PickupDeliveryConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
 
     return data
 

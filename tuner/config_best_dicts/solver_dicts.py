@@ -54,6 +54,23 @@ def solver_dpdptw(params):
     return data
 
 
+def solver_dpdptw_no_cap(params):
+    data  = {
+        "output_type" : "json",
+        "obj_func_name" : "ObjDistancePDPTW",
+        "construction_name" : "BasicGreedyLimitedFleet",
+        "metaheuristic_name" : "SBMath",
+        "constraints_names" : [
+            "TimeWindowsConstraint",
+            "PickupDeliveryConstraint",
+            "FixedRequests",
+            "AttendAllRequests",
+            "LimitedFleet"
+        ]
+    }
+    
+    return data
+
 
 def solver_pdptwlfr(params):
     data  = {
@@ -104,6 +121,11 @@ def solvers_data(params, problem):
     if (problem == "DPDPTWLF-R"):
         sol_algs = {
             "SolverDPDPTW" : solver_pdptwlfr(params)
+        }
+    
+    if (problem == "DPDPTWNoC-D"):
+        sol_algs = {
+            "SolverDPDPTW" : solver_dpdptw_no_cap(params)
         }
 
     if (problem == "DPDPTWLHF-R"):

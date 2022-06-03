@@ -52,6 +52,18 @@ def ages_dynamic(params):
 
     return data
 
+def ages_dynamic_no_cap(params):
+    data = ages_dynamic(params)
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
 
 def ages_dlf(params):
     data = ages(params)
@@ -155,6 +167,19 @@ def lns_dynamic(params):
     return data
 
 
+def lns_dynamic_no_cap(params):
+    data = lns_dynamic(params)
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
+
 def lns_dlf(params):
     data = lns_dynamic(params)
     data["constraints_names"] =  [
@@ -207,6 +232,19 @@ def set_partitioning_dynamic(params):
     ]
 
     return data
+
+def set_partitioning_dynamic_no_cap(params):
+    data = set_partitioning_dynamic(params)
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
 
 def partitioning_max_requests(params):
     data = {
@@ -285,6 +323,22 @@ def original_perturbation_dynamic(params):
 
     return data
 
+
+def original_perturbation_dynamic_no_cap(params):
+    data = original_perturbation_dynamic(params)
+    data["constraints_names"] =  [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
+
+
+
 def original_perturbation_dlf(params):
     data = original_perturbation(params)
     data["constraints_names"] = [
@@ -356,6 +410,21 @@ def sb_math_dynamic(params):
 
     return data
 
+def sb_math_dynamic_no_cap(params): 
+    data = sb_math_dynamic(params)
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "PickupDeliveryConstraint",
+        "FixedRequests",
+        "AttendAllRequests",
+        "LimitedFleet"
+    ]
+    data["obj_func_name"] = "ObjDistancePDPTW"
+
+    return data
+
+
+
 
 def sb_math_dlf(params): 
     data = sb_math(params)
@@ -389,7 +458,7 @@ def sb_math_dlhf(params):
 
     return data
 
-def meta_algs_data(params, problem):
+def meta_algs_data(params, problem, exclude_fop=False):
 
     fop_name = "AGES"
     fop = None
@@ -416,6 +485,13 @@ def meta_algs_data(params, problem):
         exact = set_partitioning_dynamic(params)
         perturb = original_perturbation_dynamic(params)
         sb = sb_math_dynamic(params)
+    if (problem == "DPDPTWNoC-D"):
+        fop = ages_dynamic_no_cap(params)
+        sop = lns_dynamic_no_cap(params)
+        exact_name = "SetPartitionModel"
+        exact = set_partitioning_dynamic_no_cap(params)
+        perturb = original_perturbation_dynamic_no_cap(params)
+        sb = sb_math_dynamic_no_cap(params)
     if (problem == "DPDPTWLF-R"):
         fop = ages_dlf(params)
         sop = lns_dlf(params)
@@ -430,6 +506,9 @@ def meta_algs_data(params, problem):
         exact = partition_max_requests_hf(params)
         perturb = original_perturbation_dlhf(params)
         sb = sb_math_dlhf(params)
+
+    if (exclude_fop):
+        sb["excluded_local_operators"] = ["FirstOperator"]
 
 
     algs_data = {

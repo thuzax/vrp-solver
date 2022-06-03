@@ -25,17 +25,25 @@ def read_input(input_file_name):
     return data
 
 
+def problem_has_capacity_constraint(problem):
+    if (problem == "DPDPTWNoC-D"):
+        return False
+    return True
+
+
 def problem_needs_to_attend_all_requests(problem):
     if (
         problem == "PDPTW" 
         or problem == "DPDPTW"
+        or problem == "DPDPTWNoC-D"
     ):
         return True
     return False
 
 def problem_has_limited_fleet(problem):
     if (
-        problem == "DPDTW-R" 
+        problem == "DPDPTW-R" 
+        or problem == "DPDPTWNoC-D" 
         or problem == "DPDPTWUR-R"
     ):
         return True
@@ -44,6 +52,7 @@ def problem_has_limited_fleet(problem):
 def problem_is_dynamic(problem):
     if (
         problem == "DPDPTW-R" 
+        or problem == "DPDPTWNoC-D" 
         or problem == "DPDPTWUR-R" 
         or problem == "DPDPTW"
     ):
@@ -182,10 +191,10 @@ def fleet_size_respected(solution, input_data, problem):
             print("FLEET CAN'T ATTEND ALL ROUTES")
             return False
 
-    if (problem == "DPDPTW-R"):
+    if (problem == "DPDPTW-R" or problem == "DPDPTWNoC-D"):
         fleet_size = input_data["fleet_size"]
         n_routes = len(solution["routes"])
-        if (fleet_size > n_routes):
+        if (fleet_size < n_routes):
             print("FLEET SIZE TOO SMALL")
             return False
     return True
@@ -238,11 +247,12 @@ def solution_is_feasible(solution, input_data, problem):
         print("PICK -> DELI")
         return False
     
-    demands = input_data["demands"]
-    capacity = input_data["capacity"]
-    if (not capacity_and_demands_respected(solution, capacity, demands)):
-        print("CAPACITY OR DEMANDS")
-        return False
+    if (problem_has_capacity_constraint(problem)):
+        demands = input_data["demands"]
+        capacity = input_data["capacity"]
+        if (not capacity_and_demands_respected(solution, capacity, demands)):
+            print("CAPACITY OR DEMANDS")
+            return False
 
     time_windows = input_data["time_windows_pd"]
     services = input_data["services_times"]
@@ -292,7 +302,7 @@ def solution_is_feasible(solution, input_data, problem):
 if __name__=="__main__":
     if (len(sys.argv) < 4):
         print("Needs json input file, json solution file and problem")
-        print("Problems: PDPTW ; DPDPTW ; DPDTW-R ; DPDPTWUR-R")
+        print("Problems: PDPTW ; DPDPTW ; DPDPTWNoC-D ;  DPDTW-R ; DPDPTWUR-R")
         exit(0)
     
     all_sol = False

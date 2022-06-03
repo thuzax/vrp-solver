@@ -39,6 +39,8 @@ results_configs = {}
 
 params_dict = {}
 
+log_file_name = None
+
 
 def make_hyperopt_params_dict():
     importeds = [
@@ -70,6 +72,7 @@ def add_to_param_dict(param_label, param):
 
 def read_command_line_inputs():
     arguments = sys.argv[1:]
+    print(len(arguments))
     if (len(arguments) < 4):
         text = "\n"
         text += "COMMAND LINE ARGUMENTS:\n\n"
@@ -96,7 +99,7 @@ def read_command_line_inputs():
         data["output_path"] = data["output_path"] + "/"
     
     if (not os.path.exists(data["output_path"])):
-        os.mkdir(data["output_path"])
+        os.makedirs(data["output_path"])
 
     suffix = data["best_config_file_name"].split(".")
     if (len(suffix) < 2 or suffix[-1] != "json"):
@@ -110,15 +113,21 @@ def read_command_line_inputs():
         data["output_path"] 
         + str("all_solutions/")
     )
-    
+
     data["best_params_file_name"] = "best_params.json"
 
     if (not os.path.exists(all_solutions_path)):
         os.mkdir(all_solutions_path)
     
+    global log_file_name
+    log_file_name = os.path.join(data["output_path"], "log_file")
+    
     return data
 
 
+def write_log(text):
+    with open(log_file_name, "a") as out:
+        out.write(text)
 
 
 def constructive_algs(problem):
@@ -129,6 +138,12 @@ def constructive_algs(problem):
     if (problem == "DPDPTW"):
         algs_data = {
             "BasicGreedy" : params_constructives.basic_greedy_dynamic()
+        }
+    if (problem == "DPDPTWNoC-D"):
+        algs_data = {
+            "BasicGreedyLimitedFleet" : (
+                params_constructives.basic_greedy_dynamic_no_cap()
+            )
         }
     if (problem == "DPDPTWLF-R"):
         algs_data = {
@@ -166,6 +181,11 @@ def reinsertion_algs(problem):
         wk_regret = params_insertions.w_k_regret_dynamic()
         random_insertion = params_insertions.random_insertion_dynamic()
         first_insertion = params_insertions.first_insertion_dynamic()
+    if (problem == "DPDPTWNoC-D"):
+        k_regret = params_insertions.k_regret_dynamic_no_cap()
+        wk_regret = params_insertions.w_k_regret_dynamic_no_cap()
+        random_insertion = params_insertions.random_insertion_dynamic_no_cap()
+        first_insertion = params_insertions.first_insertion_dynamic_no_cap()
     if (problem == "DPDPTWLF-R"):
         k_regret = params_insertions.k_regret_dlf()
         wk_regret = params_insertions.w_k_regret_dlf()
@@ -203,9 +223,10 @@ def removal_algs(problem):
         sr_name = "ShawRemovalPDPTW"
         sr = params_removals.shaw_removal_PDPTW()
     if (
-        problem == "DPDPTW" or 
-        problem == "DPDPTWLF-R" or 
-        problem == "DPDPTWLHF-R"
+        problem == "DPDPTW" 
+        or problem == "DPDPTWLF-R"
+        or problem == "DPDPTWLHF-R"
+        or problem == "DPDPTWNoC-D"
     ):
         rr_name = "RandomRemoval"
         rr = params_removals.random_removal_dynamic()
@@ -213,7 +234,7 @@ def removal_algs(problem):
         wr = params_removals.worst_removal_dynamic()
         sr_name = "ShawRemovalDPDPTW"
         sr = params_removals.shaw_removal_DPDPTW()
-
+        
 
     algs_data = {
         rr_name : rr,
@@ -247,6 +268,10 @@ def perturb_algs(problem):
         rs = params_perturb.random_shift_dlhf()
         mbs = params_perturb.mod_biased_shift_dlhf()
         re = params_perturb.random_exchange_dlhf()
+    if (problem == "DPDPTWNoC-D"):
+        rs = params_perturb.random_shift_dynamic_no_cap()
+        mbs = params_perturb.mod_biased_shift_dynamic_no_cap()
+        re = params_perturb.random_exchange_dynamic_no_cap()
 
 
 
@@ -259,7 +284,7 @@ def perturb_algs(problem):
     return algs_data
 
 
-def meta_algs(problem):
+def meta_algs(problem, exclude_fop=False):
 
     fop_name = "AGES"
     fop = None
@@ -300,6 +325,16 @@ def meta_algs(problem):
         exact = params_meta.partition_max_requests_hf()
         perturb = params_meta.original_perturbation_dlhf()
         sb = params_meta.sb_math_dlhf()
+    if (problem == "DPDPTWNoC-D"):
+        fop = params_meta.ages_dynamic_no_cap()
+        sop = params_meta.lns_dynamic_no_cap()
+        exact_name = "SetPartitionModel"
+        exact = params_meta.set_partitioning_dynamic_no_cap()
+        perturb = params_meta.original_perturbation_dynamic_no_cap()
+        sb = params_meta.sb_math_dynamic_no_cap()
+
+    if (exclude_fop):
+        sb["excluded_local_operators"] = ["FirstOperator"]
 
 
     algs_data = {
@@ -324,7 +359,10 @@ def solvers_algs(problem):
         sol_algs = {
             "SolverDPDPTW" : params_solver.solver_dpdptw()
         }
-
+    if (problem == "DPDPTWNoC-D"):
+        sol_algs = {
+            "SolverDPDPTW" : params_solver.solver_dpdptw_no_cap()
+        }
     if (problem == "DPDPTWLF-R"):
         sol_algs = {
             "SolverDPDPTW" : params_solver.solver_pdptwlfr()
@@ -367,6 +405,20 @@ def constraints_data(problem):
             "AttendAllRequests" : params_constraints.attend_all_requests(),
 
             "FixedRequests" : params_constraints.fixed_requests()
+        }
+    if (problem == "DPDPTWNoC-D"):
+        constr_data = {
+            "TimeWindowsConstraint" : (
+                params_constraints.time_windows_constraint()
+            ),
+            "PickupDeliveryConstraint": (
+                params_constraints.pickup_delivery_constraint()
+            ),
+            "AttendAllRequests" : params_constraints.attend_all_requests(),
+
+            "FixedRequests" : params_constraints.fixed_requests(),
+
+            "LimitedFleet" : params_constraints.limited_fleet()    
         }
     if (problem == "DPDPTWLF-R"):
         constr_data = {
@@ -428,7 +480,7 @@ def reader_data(problem):
         reader_classes_data = {
             "ReaderJsonDPDPTW" : params_files_manager.reader_json_DPDPTW(),
         }
-    if (problem == "DPDPTWLF-R"):
+    if (problem == "DPDPTWLF-R" or problem == "DPDPTWNoC-D"):
         reader_classes_data = {
             "ReaderJsonDPDPTWLimitedFleet" : (
                 params_files_manager.reader_json_DPDPTWLF()
@@ -457,7 +509,12 @@ def route_data(problem):
         r_data = {
             "RoutePDPTW" : params_routes.route_pdptw(),
         }
-    if (problem == "DPDPTW" or problem == "DPDPTWLF-R"):
+    if (
+        problem == "DPDPTW" 
+        or problem == "DPDPTWLF-R" 
+        or problem == "DPDPTWNoC-D"
+    ):
+
         r_data = {
             "RouteDPDPTW" : params_routes.route_dpdptw(),
         }
@@ -474,7 +531,11 @@ def vertex_data(problem):
         v_data = {
             "VertexPDPTW" : params_routes.vertex_pdptw(),
         }
-    if (problem == "DPDPTW" or problem == "DPDPTWLF-R"):
+    if (
+        problem == "DPDPTW" 
+        or problem == "DPDPTWLF-R" 
+        or problem == "DPDPTWNoC-D"
+    ):
         v_data = {
             "VertexDPDPTW" : params_routes.vertex_dpdptw(),
         }
@@ -493,9 +554,21 @@ def insertion_operator_data():
         insert_data = {
             "InsertionOperatorPDPTW" : params_routes.insertion_operator_pdptw()
         }
-    if (problem == "DPDPTW" or problem == "DPDPTWLF-R" or problem == "DPDPTWLHF-R"):
+    if (
+        problem == "DPDPTW" 
+        or problem == "DPDPTWLF-R" 
+        or problem == "DPDPTWLHF-R"
+    ):
         insert_data = {
-            "InsertionOperatorDPDPTW" : params_routes.insertion_operator_dpdptw()
+            "InsertionOperatorDPDPTW" : (
+                params_routes.insertion_operator_dpdptw()
+            )
+        }
+    if (problem == "DPDPTWNoC-D"):
+        insert_data = {
+            "InsertionOperatorDPDPTWNoCap" : (
+                params_routes.insertion_operator_dpdptw_no_cap()
+            )
         }
     return insert_data
 
@@ -505,9 +578,19 @@ def removal_operator_data():
         remov_data = {
             "RemovalOperatorPDPTW" : params_routes.removal_operator_pdptw()
         }
-    if (problem == "DPDPTW" or problem == "DPDPTWLF-R" or problem == "DPDPTWLHF-R"):
+    if (
+        problem == "DPDPTW" 
+        or problem == "DPDPTWLF-R" 
+        or problem == "DPDPTWLHF-R"
+    ):
         remov_data = {
             "RemovalOperatorPDPTW" : params_routes.removal_operator_dpdptw()
+        }
+    if (problem == "DPDPTWNoC-D"):
+        remov_data = {
+            "RemovalOperatorDPDPTWNoCap" : (
+                params_routes.removal_operator_dpdptw_no_cap()
+            )
         }
     return remov_data
 
@@ -659,7 +742,7 @@ def solve_inputs(inputs, output_path, time_limit, config_file):
         process_list.append(p)
         p.start()
         i += 1
-
+        
         if (len(process_list) >= chunk_size):
             for p in process_list:
                 p.join()
@@ -779,7 +862,9 @@ if __name__ == "__main__":
     # problem = "PDPTW"
     # problem = "DPDPTW"
     # problem = "DPDPTWLF-R"
-    problem = "DPDPTWLHF-R"
+    # problem = "DPDPTWLHF-R"
+    problem = "DPDPTWNoC-D"
+    exclude_fop = True
 
     random.seed(0)
     print("STARTING SEED", 0)
@@ -791,7 +876,7 @@ if __name__ == "__main__":
         "reinsertion_algs" : reinsertion_algs(problem),
         "removal_algs" : removal_algs(problem),
         "perturb_algs" : perturb_algs(problem),
-        "meta_algs" : meta_algs(problem),
+        "meta_algs" : meta_algs(problem, exclude_fop),
 
         "constraints" : constraints_data(problem),
         "objectives" : objectives_data(),
@@ -847,7 +932,8 @@ if __name__ == "__main__":
     
     out_data = best_configuration_maker.get_configuration_dict(
         params_converted, 
-        problem
+        problem,
+        exclude_fop
     )
 
 

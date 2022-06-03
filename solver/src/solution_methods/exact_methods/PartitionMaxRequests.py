@@ -67,7 +67,9 @@ class PartitionMaxRequests(SBSolver):
         routes_pool = parameters["routes_pool"]
         y = [
             model.add_var(
-                var_type=BINARY, 
+                var_type=INTEGER,
+                ub = 1,
+                lb = 0, 
                 name="y_"+str(i)
             )
             for i in range(len(routes_pool))
@@ -76,7 +78,9 @@ class PartitionMaxRequests(SBSolver):
         requests = parameters["requests_set"]
         x = [
             model.add_var(
-                var_type=BINARY, 
+                var_type=INTEGER, 
+                ub = 1,
+                lb = 0,
                 name="x_"+str(request)
             )
             for request in requests

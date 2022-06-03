@@ -44,6 +44,19 @@ def k_regret_dynamic():
     }
     return data
 
+def k_regret_dynamic_no_cap():
+    data = {
+        "non_insertion_cost" : 9999999999999,
+        "use_modification" : False,
+        "obj_func_name" : "ObjDistancePDPTW",
+        "constraints_names" : [
+            "TimeWindowsConstraint",
+            "FixedRequests"
+        ]
+    }
+    return data
+
+
 def k_regret_dlf():
     data = {
         "non_insertion_cost" : 9999999999999,
@@ -73,9 +86,6 @@ def k_regret_dlhf():
 
 
 def w_k_regret():
-    constraints_list = [
-
-    ]
     data = {
         "non_insertion_cost" : 9999999999999,
         "obj_func_name" : "ObjDistancePDPTW",
@@ -87,9 +97,6 @@ def w_k_regret():
     return data
 
 def w_k_regret_dynamic():
-    constraints_list = [
-
-    ]
     data = {
         "non_insertion_cost" : 9999999999999,
         "obj_func_name" : "ObjDistancePDPTW",
@@ -101,10 +108,19 @@ def w_k_regret_dynamic():
     }
     return data
 
-def w_k_regret_dlf():
-    constraints_list = [
+def w_k_regret_dynamic_no_cap():
+    data = {
+        "non_insertion_cost" : 9999999999999,
+        "obj_func_name" : "ObjDistancePDPTW",
+        "constraints_names" : [
+            "TimeWindowsConstraint",
+            "FixedRequests"
+        ]
+    }
+    return data
 
-    ]
+
+def w_k_regret_dlf():
     data = {
         "non_insertion_cost" : 9999999999999,
         "obj_func_name" : "ObjDistancePDPTW",
@@ -118,9 +134,6 @@ def w_k_regret_dlf():
 
 
 def w_k_regret_dlhf():
-    constraints_list = [
-
-    ]
     data = {
         "non_insertion_cost" : 9999999999999,
         "obj_func_name" : "ObjDistancePDPTW",
@@ -156,6 +169,18 @@ def random_insertion_dynamic():
         ]
     }
     return data
+
+
+def random_insertion_dynamic_no_cap():
+    data = {
+        "obj_func_name" : "ObjDistancePDPTW",
+        "constraints_names" : [
+            "TimeWindowsConstraint",
+            "FixedRequests"
+        ]
+    }
+    return data
+
 
 def random_insertion_dlf():
     data = {
@@ -202,12 +227,21 @@ def first_insertion_dynamic():
     ]
     return data
 
+def first_insertion_dynamic_no_cap():
+    data = first_insertion()
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests"
+    ]
+    return data
+
+
 def first_insertion_dlf():
     data = first_insertion_dynamic()
     data["constraints_names"] = [
         "HomogeneousCapacityConstraint",
         "TimeWindowsConstraint",
-        "FixedRequests"
+        "FixedRequests",
     ]
 
     return data

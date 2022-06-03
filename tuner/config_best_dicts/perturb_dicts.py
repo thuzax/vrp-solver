@@ -30,6 +30,18 @@ def random_shift_dynamic(params):
     
     return data
 
+def random_shift_dynamic_no_cap(params):
+    data = random_shift_dynamic(params)
+    data["obj_func_name"] = "ObjDistancePDPTW"
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "LimitedFleet"
+    ]
+    
+    return data
+
+
 def random_shift_dlf(params):
     data = {
         "obj_func_name" : "ObjRequestsPDPTW",
@@ -85,6 +97,19 @@ def mod_biased_shift_dynamic(params):
         
     return data
 
+def mod_biased_shift_dynamic_no_cap(params):
+    data = mod_biased_shift_dynamic(params)
+    data["obj_func_name"] = "ObjDistancePDPTW"
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "LimitedFleet"
+    ]
+        
+    return data
+
+
+
 def mod_biased_shift_dlf(params):
     data = mod_biased_shift_dynamic(params)
     
@@ -136,6 +161,20 @@ def random_exchange_dynamic(params):
     
     return data
 
+
+def random_exchange_dynamic_no_cap(params):
+    data = random_exchange_dynamic(params)
+    data["obj_func_name"] = "ObjDistancePDPTW"
+    data["constraints_names"] = [
+        "TimeWindowsConstraint",
+        "FixedRequests",
+        "LimitedFleet"
+    ]
+        
+    return data
+
+
+
 def random_exchange_dlf(params):
     data = {
         "obj_func_name" : "ObjRequestsPDPTW",
@@ -180,6 +219,10 @@ def perturb_data(params, problem):
         rs = random_shift_dynamic(params)
         mbs = mod_biased_shift_dynamic(params)
         re = random_exchange_dynamic(params)
+    if (problem == "DPDPTWNoC-D"):
+        rs = random_shift_dynamic_no_cap(params)
+        mbs = mod_biased_shift_dynamic_no_cap(params)
+        re = random_exchange_dynamic_no_cap(params)
     if (problem == "DPDPTWLF-R"):
         rs = random_shift_dlf(params)
         mbs = mod_biased_shift_dlf(params)

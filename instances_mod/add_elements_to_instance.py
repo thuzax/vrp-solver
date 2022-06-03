@@ -80,22 +80,26 @@ def get_out_file_name(input_file, problem):
 
 if __name__ == "__main__":
 
-    if (len(sys.argv) < 3):
-        print("Needs json input file and problem type")
-        exit(0)
+    if (len(sys.argv) < 4):
+        print("Needs json input file, output path and problem type")
+        exit(0)        
 
     read_constants()
 
     input_file_name = sys.argv[1]
+    output_file_path = sys.argv[2]
+
+    if (not os.path.exists(output_file_path)):
+        os.makedirs(output_file_path)
 
     data = read_file(input_file_name)
 
-    problem = sys.argv[2]
+    problem = sys.argv[3]
 
     if (problem == "DPDPTW"):
         data["fixed"] = {}
 
-        directory_name = get_destiny_folder(input_file_name, problem)
+        directory_name = output_file_path
         out_name = get_out_file_name(input_file_name, problem)
         out_path = os.path.join(directory_name, out_name)
 
@@ -103,13 +107,12 @@ if __name__ == "__main__":
             out_file.write(json.dumps(data))
 
     if (problem == "DPDPTW-R"):
-        if (len(sys.argv) < 4):
-            text = "Needs fleet size of classic problem solution and a"
-            text += "correction value to increase or decrease the fleet size"
+        if (len(sys.argv) < 5):
+            text = "Needs fleet size of classic problem solution"
             print(text)
             exit(0)
 
-        orig_fleet = int(sys.argv[3])
+        orig_fleet = int(sys.argv[4])
 
         fleet = fleet_generator.generate_fleet_size(orig_fleet)
         print(fleet)
@@ -118,7 +121,7 @@ if __name__ == "__main__":
         data["fixed"] = {}
         
         print(input_file_name)
-        directory_name = get_destiny_folder(input_file_name, problem)
+        directory_name = output_file_path
         out_name = get_out_file_name(input_file_name, problem)
 
         out_path = os.path.join(directory_name, out_name)
@@ -128,7 +131,7 @@ if __name__ == "__main__":
 
     if (problem == "DPDPTWUR-R"):
 
-        if (len(sys.argv) < 5):
+        if (len(sys.argv) < 6):
             text = "Needs \n(1) fleet size of classic problem solution, \n(2)"
             text += " the method for urban and rural division being: \n"
             text += "  CL - clustering\n  CS - center_seeds\n  "
@@ -136,8 +139,8 @@ if __name__ == "__main__":
             print(text)
             exit(0)
 
-        orig_fleet = int(sys.argv[3])
-        method_code = sys.argv[4]
+        orig_fleet = int(sys.argv[4])
+        method_code = sys.argv[5]
 
         method = get_urb_rural_division_method(method_code)
         points = [0 for i in range(len(data["points"]))]
@@ -145,7 +148,7 @@ if __name__ == "__main__":
             points[int(key)] = tuple(value)
         
 
-        figure_path = get_destiny_folder(input_file_name, problem)
+        figure_path = output_file_path
         figure_name = get_out_file_name(input_file_name, problem)
 
 
@@ -177,7 +180,7 @@ if __name__ == "__main__":
         data["fixed"] = {}
 
 
-        directory_name = get_destiny_folder(input_file_name, problem)
+        directory_name = output_file_path
         out_name = get_out_file_name(input_file_name, problem+"_"+method)
         out_path = os.path.join(directory_name, out_name)
         with open(out_path, "w") as out_file:
