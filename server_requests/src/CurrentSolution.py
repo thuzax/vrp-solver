@@ -15,9 +15,26 @@ class CurrentSolution:
 
     def initialize_attrs(self):
         self.routes = {}
-        # self.routes = {}
+        self.routes_costs = {}
+        self.cost = 0
         self.vehicles_positions = {}
         self.predicted_positions = {}
+
+        for i in range(InstanceData().fleet_size):
+            self.routes[i] = []
+            self.routes_costs[i] = 0
+
+
+    def set_route(self, route_id, route):
+        self.routes[route_id] = route
+
+    def set_route_cost(self, route_id, cost):
+        self.routes_costs[route_id] = cost
+
+    def set_cost(self, solution_cost):
+        self.cost = solution_cost
+
+
 
     def get_vehicles_positions(self):
         return self.vehicles_positions
@@ -36,7 +53,7 @@ class CurrentSolution:
                 print(i, i+1, travel_time, total_time)
                 total_time -= travel_time
                 i += 1
-            predicted_pos = i + 1
+            predicted_pos = i
             self.predicted_positions[vehicle] = predicted_pos
         
 

@@ -38,7 +38,7 @@ def make_json_input_dict(file_path, time_limit=None):
     return json_input
 
 
-def send_request(problem_link_id, file_path, time=None):
+def send_request(problem_link_id, file_path, time=None, shutdown_link=None):
 
     json_input = make_json_input_dict(file_path, time)
 
@@ -63,5 +63,14 @@ def send_request(problem_link_id, file_path, time=None):
         timeout=time_limit + 30
     )
 
-    print("Returned")
-    # print(r.text)
+    if (r.text == "No solution found. Probably an error ocurred."):
+        print("ERROR ON SOLVER SERVER")
+        if (shutdown_link is not None):
+            requests.get(shutdown_link)
+    try:
+        result = json.loads(r.text)
+        return result
+    except Exception as ex:
+        print("Could not load solution json")
+        raise ex
+        

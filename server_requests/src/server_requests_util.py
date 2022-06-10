@@ -18,6 +18,7 @@ from src import send_request_to_solver
 semaphore = multiprocessing.BoundedSemaphore(value=1)
 
 base_path = None
+shutdown_link = None
 
 def get_log_inputs_path():
     global base_path
@@ -268,7 +269,6 @@ def make_requests_data_dict(all_requests, orig_to_mapped, non_attended_ids):
     services_times = {}
     time_windows_pd = {}
     pickups_and_deliveries = []
-
     for orig, mapped in orig_to_mapped.items():
         request = all_requests[orig]
         
@@ -407,6 +407,17 @@ def make_current_routes_data(
     return current_routes_data
 
 
+def divede_pds_mapped_ids(mapping):
+    pickups_mapping = {}
+    deliveries_mapping = {}
+    
+    for unmapped, mapped in mapping.items():
+        pickups_mapping[unmapped[0]] = mapped[0]
+        deliveries_mapping[unmapped[1]] = mapped[1]    
+
+    return (pickups_mapping, deliveries_mapping)
+
+
 def make_input_dict(
     all_requests, 
     routes, 
@@ -415,18 +426,25 @@ def make_input_dict(
 ):
     all_requests_ids = set(all_requests.keys())
     orig_to_mapped, mapped_to_orig = make_mapping_dicts(all_requests_ids)
-    orig_to_mapped_pickups = {}
-    orig_to_mapped_deliveries = {}
     
-    for orig, mapped in orig_to_mapped.items():
-        orig_to_mapped_pickups[orig[0]] = mapped[0]
-        orig_to_mapped_deliveries[orig[1]] = mapped[1]
+    orig_to_mapped_pickups, orig_to_mapped_deliveries = divede_pds_mapped_ids(
+        orig_to_mapped
+    )
+    mapped_to_orig_pickups, mapped_to_orig_deliveries = divede_pds_mapped_ids(
+        mapped_to_orig
+    )
     
-    mapped_to_orig_pickups = {}
-    mapped_to_orig_deliveries = {}
-    for mapped, orig in mapped_to_orig.items():
-        mapped_to_orig_pickups[mapped[0]] = orig[0]
-        mapped_to_orig_deliveries[mapped[1]] = orig[1]
+    # orig_to_mapped_pickups = {}
+    # orig_to_mapped_deliveries = {}
+    # for orig, mapped in orig_to_mapped.items():
+    #     orig_to_mapped_pickups[orig[0]] = mapped[0]
+    #     orig_to_mapped_deliveries[orig[1]] = mapped[1]
+    
+    # mapped_to_orig_pickups = {}
+    # mapped_to_orig_deliveries = {}
+    # for mapped, orig in mapped_to_orig.items():
+    #     mapped_to_orig_pickups[mapped[0]] = orig[0]
+    #     mapped_to_orig_deliveries[mapped[1]] = orig[1]
 
 
     instance_data = make_instance_data_dict()
@@ -451,7 +469,9 @@ def make_input_dict(
     for key, value in current_routes_data.items():
         instance_data[key] = value
 
-    return instance_data
+    print(orig_to_mapped)
+    print(mapped_to_orig)
+    return (orig_to_mapped, mapped_to_orig, instance_data)
 
 
 def write_input_dict(instance_data, current_slice_id):
@@ -471,7 +491,40 @@ def write_input_dict(instance_data, current_slice_id):
 
 def send_request(input_file_path, time_limit):
     problem = "dpdptwlf-d"
-    send_request_to_solver.send_request(problem, input_file_path, time_limit)
+    global shutdown_link
+    result = send_request_to_solver.send_request(
+        problem, 
+        input_file_path, 
+        time_limit,
+        shutdown_link
+    )
+
+    return result
+
+
+def store_new_solution(new_solution, mapping):
+    routes = {}
+    costs = {}
+    
+    mapping_picks, mapping_delis = divede_pds_mapped_ids(mapping)
+
+    vertices_mapping = {**mapping_picks, **mapping_delis}
+    print(vertices_mapping)
+    for route_id, route in new_solution["routes"].items():
+        routes[int(route_id)] = [
+            vertices_mapping[vertex]
+            for vertex in route
+        ]
+        costs[int(route_id)] = new_solution["costs"][route_id]
+
+    semaphore.acquire()
+    for route_id, route in routes.items():
+        CurrentSolution().set_route(route_id, routes[route_id])
+        CurrentSolution().set_route_cost(route_id, costs[route_id])
+    CurrentSolution().set_cost(new_solution["solution_cost"])
+    semaphore.release()
+
+
 
 def solve_time_slice(
     ts_size, 
@@ -487,7 +540,7 @@ def solve_time_slice(
 
     if (len(all_requests) < 1):
         time.sleep(ts_size)
-        print("No requests to attend")
+        print("No new requests to attend")
         return
 
     all_requests_ids = set(all_requests.keys())
@@ -514,7 +567,7 @@ def solve_time_slice(
         routes
     )
 
-    input_dict = make_input_dict(
+    orig_to_mapped, mapped_to_orig, input_dict = make_input_dict(
         all_requests, 
         routes, 
         non_attended_ids, 
@@ -523,7 +576,10 @@ def solve_time_slice(
 
     input_file_path = write_input_dict(input_dict, current_ts_id)
     
-    send_request(input_file_path, time_limit)
+    new_solution = send_request(input_file_path, time_limit)
+    print(new_solution)
+    
+    store_new_solution(new_solution, mapped_to_orig)
 
 
 def solve_time_slices_problems(
@@ -531,8 +587,10 @@ def solve_time_slices_problems(
     current_time_slice_id, 
     time_limit,
     log_dir_name = None,
-    shutdown_link=None
+    shtdn_link=None
 ):
+    global shutdown_link
+    shutdown_link = shtdn_link
     time_slices_size = time_slices[0][1] - time_slices[0][0]
     
     # time_slices_size = 5
@@ -542,6 +600,7 @@ def solve_time_slices_problems(
     # print(len(time_slices))
     
     while (current_time_slice_id < len(time_slices)):
+        print("TIME SLICE " + str(current_time_slice_id))
         time.sleep(time_slices_size-time_limit)
         
         global semaphore
