@@ -1,16 +1,59 @@
+import os
 import collections
 import json
 import multiprocessing
+import shutil
 import time
 import copy
+import requests
+
 
 from .CurrentSolution import CurrentSolution
 
 from src import InstanceData
 from src import RequestsStorage
+from src import send_request_to_solver
 
 
 semaphore = multiprocessing.BoundedSemaphore(value=1)
+
+base_path = None
+
+def get_log_inputs_path():
+    global base_path
+    return os.path.join(base_path, "inputs")
+
+def get_log_outputs_path():
+    global base_path
+    return os.path.join(base_path, "outputs")
+
+
+def create_directory_log_path(log_dir_name):
+    global base_path
+    if (log_dir_name == None):
+        i = 1
+        while (os.path.exists(os.path.join(".", "log_" + str(i)))):
+            i += 1
+        base_path = os.path.join(".", "tests", "log_" + str(i))
+    else:
+        base_path = os.path.join(".", "tests", log_dir_name)
+    
+    inputs_path = get_log_inputs_path()
+    outputs_path = get_log_outputs_path()
+
+    if (os.path.exists(base_path)):
+        for old_run_data in os.listdir(inputs_path):
+            file_name = os.path.join(inputs_path, old_run_data)
+            os.remove(file_name)
+        for old_run_data in os.listdir(outputs_path):
+            file_name = os.path.join(outputs_path, old_run_data)
+            os.remove(file_name)
+    else:
+        os.makedirs(base_path)
+        os.makedirs(inputs_path)
+        os.makedirs(outputs_path)
+    
+
 
 def create_time_slices(time_slice_size, horizon):
     number_of_time_slices = int(horizon / time_slice_size)
@@ -31,7 +74,7 @@ def can_attend_request(request_dict, start_time, horizon):
     global semaphore
     semaphore.acquire()
     
-    print("T3 critical")
+    # print("T3 critical")
 
     depot_to_pick = InstanceData().get_travel_time(
         0, 
@@ -49,7 +92,7 @@ def can_attend_request(request_dict, start_time, horizon):
         0
     )
     deli_to_depot *= 60
-    print("T3 critical end")
+    # print("T3 critical end")
 
     semaphore.release()
 
@@ -112,17 +155,17 @@ def add_request(request_dict, time_slices, current_time_slice_id):
         horizon
     )
 
-    if (not can_attend):
-        return "Request cannot be attended: " + message
+    # if (not can_attend):
+    #     return "Request cannot be attended: " + message
 
     global semaphore
     semaphore.acquire()
-    print("T2 critical")
+    # print("T2 critical")
     RequestsStorage().store_new_request(
         tuple(request_dict["request"]), 
         request_dict
     )
-    print("T2 critical end")
+    # print("T2 critical end")
     semaphore.release()
     time.sleep(1)
 
@@ -180,7 +223,7 @@ def get_non_attended_requests(all_requests, routes, vehicles_position):
         if (parcial_attended):
             parcials.add(pair)
 
-    print(parcials, completed)
+    # print(parcials, completed)
     non_attended = all_requests - parcials - completed
     return (non_attended, parcials, completed)
 
@@ -323,6 +366,7 @@ def make_instance_data_dict():
     depot = InstanceData().depot
     planning_horizon = InstanceData().horizon
     time_windows_size = InstanceData().tw_size
+    fleet_size = InstanceData().fleet_size
     
     semaphore.release()
 
@@ -332,6 +376,7 @@ def make_instance_data_dict():
     instance_data["depot"] = depot
     instance_data["planning_horizon"] = planning_horizon
     instance_data["time_windows_size"] = time_windows_size
+    instance_data["fleet_size"] = fleet_size
 
     return instance_data
 
@@ -362,7 +407,7 @@ def make_current_routes_data(
     return current_routes_data
 
 
-def make_input_json(
+def make_input_dict(
     all_requests, 
     routes, 
     non_attended_ids, 
@@ -372,6 +417,7 @@ def make_input_json(
     orig_to_mapped, mapped_to_orig = make_mapping_dicts(all_requests_ids)
     orig_to_mapped_pickups = {}
     orig_to_mapped_deliveries = {}
+    
     for orig, mapped in orig_to_mapped.items():
         orig_to_mapped_pickups[orig[0]] = mapped[0]
         orig_to_mapped_deliveries[orig[1]] = mapped[1]
@@ -404,15 +450,35 @@ def make_input_json(
     )
     for key, value in current_routes_data.items():
         instance_data[key] = value
-    try:
-        open("../test.json", "r")
-    except:
-        with open("../test.json", "w") as slice_instance_file:
-            slice_instance_file.write(json.dumps(instance_data, indent=2))
+
+    return instance_data
 
 
+def write_input_dict(instance_data, current_slice_id):
+    input_dir_path = get_log_inputs_path()
 
-def solve_time_slice(ts_size, current_ts_id, data):
+    global base_path
+    instance_dir = os.path.basename(base_path)
+
+    file_name = str(instance_dir) + "_slice_" + str(current_slice_id) + ".json"
+    file_path = os.path.join(input_dir_path, file_name)
+    
+    with open(file_path, "w") as slice_instance_file:
+        slice_instance_file.write(json.dumps(instance_data))
+
+    return file_path
+
+
+def send_request(input_file_path, time_limit):
+    problem = "dpdptwlf-d"
+    send_request_to_solver.send_request(problem, input_file_path, time_limit)
+
+def solve_time_slice(
+    ts_size, 
+    time_limit, 
+    current_ts_id, 
+    data
+):
     
     all_requests = data[0]
     new_requests = data[1]
@@ -448,35 +514,54 @@ def solve_time_slice(ts_size, current_ts_id, data):
         routes
     )
 
-    make_input_json(
+    input_dict = make_input_dict(
         all_requests, 
         routes, 
         non_attended_ids, 
         predicted_positions
     )
 
+    input_file_path = write_input_dict(input_dict, current_ts_id)
+    
+    send_request(input_file_path, time_limit)
 
 
-def solve_time_slices_problems(time_slices, current_time_slice_id):
+def solve_time_slices_problems(
+    time_slices, 
+    current_time_slice_id, 
+    time_limit,
+    log_dir_name = None,
+    shutdown_link=None
+):
     time_slices_size = time_slices[0][1] - time_slices[0][0]
     
-    time_slices_size = 5
+    # time_slices_size = 5
+    # time_limit = 2
     time_slices = time_slices[:3]
-    
-    # time.sleep(time_slices_size)
-    time.sleep(30)
-    
 
+    # print(len(time_slices))
+    
     while (current_time_slice_id < len(time_slices)):
+        time.sleep(time_slices_size-time_limit)
+        
         global semaphore
         semaphore.acquire()
-        print("T1 crictical")
+        # print("T1 crictical")
         data = make_copies()
-        print("T1 critical end")
+        # print("T1 critical end")
         semaphore.release()
-
-        solve_time_slice(time_slices_size, current_time_slice_id, data)
-        time.sleep(5)
+        # print(data)
+        solve_time_slice(
+            time_slices_size, 
+            time_limit, 
+            current_time_slice_id, 
+            data
+        )
+        
         current_time_slice_id += 1
 
+
+    if (shutdown_link is not None):
+        requests.get(shutdown_link)
+    
     

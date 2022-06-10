@@ -110,7 +110,7 @@ def simple_parallel_test(problem_link_id, file_path, number_of_rep):
 # simple_test("pdptw-v", "../test_instances/input_files/SB_json/bar-n100-2.json")
 
 # # DPDPTW MIN VEHICLE
-simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.json")
+# simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.json")
 # simple_test("dpdptw-v", "../instances_mod/poa-n100-1_DPDPTW/DPDPTW_poa-n100-1.json")
 
 
@@ -129,6 +129,10 @@ simple_test("dpdptw-v", "../test_instances/input_files/SB_json/bar-n100-1_fixed.
 # simple_test("dpdptwhf-r", "../instances_mod/SB_nyc-n100-1_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_nyc-n100-1.json", 120)
 # simple_test("dpdptwhf-r", "../instances_mod/SB_poa-n600-6_DPDPTWUR-R/DPDPTWUR-R_dbscan_SB_poa-n600-6.json", 300)
 
+
+# DPDPTWNoC-D
+
+simple_test("dpdptwlf-d", "../test_instances/parametrization_instances/dynamic_lf_json/DPDPTW-R_mitrovic-minic_Rnd6_10h_100_000.json")
 
 
 # # PARALLEL PDPTW MIN VEHICLE

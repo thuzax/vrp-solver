@@ -30,7 +30,7 @@ def parse_command_line_arguments():
     parser.add_argument(
         "--time-slice",
         dest="time_slice_size",
-        help="Size of each time slice (in minutes).",
+        help="Size of each time slice (in seconds).",
         action="store",
         default=600,
         type=int,
@@ -40,9 +40,9 @@ def parse_command_line_arguments():
     parser.add_argument(
         "--horizon",
         dest="horizon",
-        help="Planning horizon time (in minutes).",
+        help="Planning horizon time (in seconds).",
         action="store",
-        default=3000,
+        default=None,
         type=int,
         required=False
     )
@@ -65,6 +65,16 @@ def parse_command_line_arguments():
         default=None,
         required=False
     )
+
+    parser.add_argument(
+        "--time-limit",
+        dest="time_limit",
+        help="Time limit (in seconds) for optimization in each of the time slices",
+        action="store",
+        type=int,
+        default=600,
+        required=False
+    )
     
     args = parser.parse_args()
 
@@ -77,7 +87,7 @@ def parse_command_line_arguments():
         if (not os.path.exists(arguments["test_instance_path"])):
             raise Exception("Test instance does not exists")
 
-    arguments["time_slice_size"] *= 60
-    arguments["horizon"] *= 60
+    # arguments["time_slice_size"] *= 60
+    # arguments["horizon"] *= 60
 
     return arguments

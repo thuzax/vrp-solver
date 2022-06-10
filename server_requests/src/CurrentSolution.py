@@ -14,7 +14,7 @@ class CurrentSolution:
         return cls.instance
 
     def initialize_attrs(self):
-        self.routes = {"0": [1,51,3,53], "1" : [4,2,54,52]}
+        self.routes = {}
         # self.routes = {}
         self.vehicles_positions = {}
         self.predicted_positions = {}

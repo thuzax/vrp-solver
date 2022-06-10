@@ -184,7 +184,6 @@ def execute(arguments):
     exception = None
 
     try:
-
         if (time_limit is not None):
             func_timeout(time_limit, run)
         else:

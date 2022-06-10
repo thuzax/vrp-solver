@@ -39,6 +39,13 @@ def index():
         "par-dpdptw-r" : os.path.join(
             home_link, "par/dpdptw-r"
         ),
+
+        "dpdptwlf-d" : os.path.join(
+            home_link, "dpdptwlf-d"
+        ),
+        "par-dpdptwlf-d" : os.path.join(
+            home_link, "par/dpdptwlf-d"
+        ),
         
         "dpdptwhf-r" : os.path.join(
             home_link, "dpdptwhf-r"
@@ -74,6 +81,17 @@ def dpdptw_v():
 @app.route("/dpdptw-r", methods=["POST"])
 def dpdptw_r():
     func_code = "DPDPTW_R"
+    data = json.loads(flask.request.json)
+    solution_data = server_solver_util.solve_problem(func_code, data)
+    if (solution_data is None):
+        return "No solution found. Probably an error ocurred."
+    
+    return json.dumps(solution_data)
+
+
+@app.route("/dpdptwlf-d", methods=["POST"])
+def dpdptwlf_d():
+    func_code = "DPDPTWNoC_D"
     data = json.loads(flask.request.json)
     solution_data = server_solver_util.solve_problem(func_code, data)
     if (solution_data is None):

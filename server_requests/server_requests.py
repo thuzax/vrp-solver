@@ -4,6 +4,8 @@ import sys
 import threading
 import flask
 import json
+import os
+import signal
 
 import server_arguments_handler
 from src.RequestsStorage import RequestsStorage
@@ -11,13 +13,20 @@ from src import InstanceData
 from src import server_requests_util
 
 app = flask.Flask(__name__)
-args = None
+arguments = None
 
 time_slices = None
 current_time_slice_id = None
 
 def get_home_link():
-    return "http://" + args["host_ip"] + ":" + str(args["host_port"])
+    return "http://" + arguments["host_ip"] + ":" + str(arguments["host_port"])
+
+
+def get_shutdown_link():
+    return (
+        "http://" + arguments["host_ip"] + ":" + str(arguments["host_port"])
+        + "/shutdown"
+    )
 
 @app.route('/')
 def index():
@@ -58,21 +67,41 @@ def add_request():
     return result
 
 
+@app.get('/shutdown')
+def shutdown():
+    os.kill(os.getpid(), signal.SIGINT)
+    return "OK"
+
+
 if __name__ == '__main__':
-    args = server_arguments_handler.parse_command_line_arguments()
+    arguments = server_arguments_handler.parse_command_line_arguments()
 
-    if (args["is_test"]):
+    if (arguments["is_test"]):
         server_requests_util.initialize_instance(
-            args["test_instance_path"]
+            arguments["test_instance_path"]
         )
-        args["horizon"] = InstanceData().horizon * 60
 
-    print(args)
+        log_dir_name = (
+            os.path.basename(arguments["test_instance_path"]).split(".")[-2]
+        )
+
+        server_requests_util.create_directory_log_path(log_dir_name)
+
+
+        if (arguments["horizon"] is None):
+            arguments["horizon"] = InstanceData().horizon * 60
+
+    if (arguments["horizon"] is None):
+        arguments["horizon"] = 600
+
+    print(arguments)
 
     time_slices = server_requests_util.create_time_slices(
-        args["time_slice_size"], 
-        args["horizon"]
+        arguments["time_slice_size"], 
+        arguments["horizon"]
     )
+
+    time_limit = arguments["time_limit"]
 
     current_time_slice_id = 0
 
@@ -82,22 +111,34 @@ if __name__ == '__main__':
     print(len(time_slices))
     
     sema = threading.Semaphore(1)
-    t = threading.Thread(
+    shutdown_link = get_shutdown_link()
+    
+    t1 = threading.Thread(
         target=server_requests_util.solve_time_slices_problems,
         args=(
             time_slices, 
             current_time_slice_id,
+            time_limit,
+            log_dir_name,
+            shutdown_link
         )
     )
-    t.start()
-
+    t1.setDaemon(True)
+    t1.start()
+    
     home_link = get_home_link()
+    
     app.run(
-        host=args["host_ip"], 
-        port=args["host_port"], 
+        host=arguments["host_ip"], 
+        port=arguments["host_port"], 
         debug=True, 
         threaded=True
     )
 
-    t.join()
+    try:
+        t1.join()
+    except KeyboardInterrupt as kbi:
+        t1.join()
+
+    print("ENDING")
 

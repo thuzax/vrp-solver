@@ -26,6 +26,7 @@ class InstanceData:
         self.horizon = None
         self.tw_size = None
         self.depot = None
+        self.fleet_size = None
 
 
     def read_matrix(self, matrix_dict):
@@ -57,6 +58,7 @@ class InstanceData:
         self.capacity = data_dict["capacity"]
         self.horizon = data_dict["planning_horizon"]
         self.tw_size = data_dict["time_windows_size"]
+        self.fleet_size = data_dict["fleet_size"]
 
     
     def get_travel_time(self, i, j):

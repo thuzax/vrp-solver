@@ -10,9 +10,7 @@ def get_input_file_path(func_code, file_name):
     inputs_directory_path = os.path.join(".", "inputs")
     if not os.path.exists(inputs_directory_path):
         os.mkdir(inputs_directory_path)
-    file_complete_path = os.path.join(
-        inputs_directory_path, str(func_code) + "_" + str(file_name)
-    )
+    file_complete_path = os.path.join(inputs_directory_path, str(file_name))
 
     return file_complete_path
 
@@ -28,6 +26,7 @@ def create_input_file(func_code, data):
 
     file_complete_path = get_input_file_path(func_code, input_name)
     write_input_file(file_complete_path, input_data)
+    print(file_complete_path)
 
     return file_complete_path
 
@@ -149,7 +148,7 @@ def solve_problem(
     result_storage_arr=None, 
     position_storage=None
 ):
-    input_path = create_input_file(problem_code, data)    
+    input_path = create_input_file(problem_code, data)
     config_file = get_config_file(problem_code)
     
     time_limit = None
