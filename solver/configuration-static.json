@@ -16,9 +16,16 @@
                 "HomogeneousCapacityConstraint",
                 "TimeWindowsConstraint"
             ],
-            "insertion_heuristic_code" : "fi"
+            "insertion_heuristic_code" : "fiuf"
         },
         "FirstInsertion" : {
+            "obj_func_name" : "ObjDistancePDPTW",
+            "constraints_names" : [
+                "HomogeneousCapacityConstraint",
+                "TimeWindowsConstraint"
+            ]
+        },
+        "FirstInsertionUnlimitedFleet" : {
             "obj_func_name" : "ObjDistancePDPTW",
             "constraints_names" : [
                 "HomogeneousCapacityConstraint",

@@ -1,6 +1,7 @@
 import time
 from mip import *
 from abc import ABCMeta, abstractmethod
+from src import execution_log
 from src.solution_classes import Solution
 
 from src import file_log
@@ -179,6 +180,7 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
         
         message = self.__class__.__name__ + "did not find a feasible solution."
         file_log.add_warning_log(message)
+        execution_log.warning_log(message)
         return solution
 
 

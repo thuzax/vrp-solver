@@ -23,11 +23,9 @@ class FirstInsertion(SolutionMethod):
         inserted_requests = set()
 
         for request in requests:
-            # print(request)
             routes = None
             if (only_route_pos is not None):
                 routes = [new_solution.routes()[only_route_pos]]
-                # print(routes[0].size())
             else:
                 routes = new_solution.routes()
             
@@ -67,7 +65,6 @@ class FirstInsertion(SolutionMethod):
                 self.obj_func
             )
 
-        # print(requests - inserted_requests)
         return new_solution
 
     def update_route_values(self, route, position, request):

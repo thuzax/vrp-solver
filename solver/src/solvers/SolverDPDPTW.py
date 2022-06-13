@@ -101,11 +101,11 @@ class SolverDPDPTW(SolverPDPTW):
 
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
 
-        # self.print_solution_verification(solution, 0)
         return solution
 
     def construct(self, parameters, start_time):
         file_log.add_info_log("Starting construction")
+        execution_log.info_log("Starting construction")
         solution = Solution()
 
         solution = self.insert_fixed(solution)
@@ -133,6 +133,7 @@ class SolverDPDPTW(SolverPDPTW):
         message += "Exec Time: " + str(time.time() - start_time)
         message += "\n"
         file_log.add_info_log("Finished construction")
+        execution_log.info_log("Finished construction")
         file_log.add_solution_log(self.best_solution, message)
 
         if (
@@ -153,6 +154,7 @@ class SolverDPDPTW(SolverPDPTW):
 
     def solve(self):
         file_log.add_info_log("Starting solver.")
+        execution_log.info_log("Starting solver.")
         heuristic_start = time.time()
 
         requests_set = set(self.requests)
@@ -162,9 +164,6 @@ class SolverDPDPTW(SolverPDPTW):
 
         solution = self.construct(parameters, heuristic_start)
 
-        # print(solution)
-        # self.print_solution_verification(solution, 0)
-        # exit(0)
         if (solution is None):
             file_log.add_warning_log("Could not construct feasible solution")
             execution_log.warning_log(
@@ -173,9 +172,11 @@ class SolverDPDPTW(SolverPDPTW):
             self.best_solution = None
             return self.best_solution
         file_log.add_info_log("Starting metaheuristic")
+        execution_log.info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)
         self.best_solution = new_solution.copy()
         file_log.add_info_log("Finished metaheuristic")
+        execution_log.info_log("Finished metaheuristic")
 
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
@@ -191,9 +192,6 @@ class SolverDPDPTW(SolverPDPTW):
 
         heuristic_end = time.time()
         exec_time = heuristic_end - heuristic_start
-
-        # self.print_best_solution()
-        # self.print_solution_verification(self.best_solution, exec_time)
 
         return self.best_solution
 

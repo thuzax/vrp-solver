@@ -99,8 +99,10 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
     def update_and_get_best_after_timeout(self):
         file_log.add_warning_log("Searching current best solution.")
+        execution_log.warning_log("Searching current best solution.")
         if (self.best_solution is None):
             file_log.add_warning_log("Could not create any solution.")
+            execution_log.warning_log("Could not create any solution.")
             return None
         
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
@@ -128,6 +130,9 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
             file_log.add_warning_log(
                 "Metaheuristic could not find any solution."
             )
+            execution_log.warning_log(
+                "Metaheuristic could not find any solution."
+            )
         meta_is_better = (
             self.solution_is_feasible(metaheuristic_solution)
             and 
@@ -140,7 +145,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
         if (meta_is_better):
             self.best_solution = metaheuristic_solution
 
-        file_log.add_warning_log("Current best solution found.")
+        execution_log.warning_log("Current best solution found.")
         # self.print_best_solution()
         # print(
         #     get_solution_check_complete_data(

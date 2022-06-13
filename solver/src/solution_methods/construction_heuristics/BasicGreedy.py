@@ -1,6 +1,7 @@
 
 import copy
 import time
+from src.solution_methods.heuristics.FirstInsertionUnlimitedFleet import FirstInsertionUnlimitedFleet
 from src.solution_methods.heuristics.FirstInsertion import FirstInsertion
 
 from src.solution_check import get_solution_check_complete_data, solution_check
@@ -32,6 +33,23 @@ class BasicGreedy(SolutionMethod):
 
         if (self.insertion_heuristic_code == "fi"):
             return FirstInsertion()
+        
+        if (self.insertion_heuristic_code == "fiuf"):
+            return FirstInsertionUnlimitedFleet()
+
+
+    def insert_only_in_last_route(self):
+        if (self.insertion_heuristic_code == "wkr"):
+            return True
+        
+        if (self.insertion_heuristic_code == "kr"):
+            return True
+
+        if (self.insertion_heuristic_code == "fi"):
+            return True
+        
+        if (self.insertion_heuristic_code == "fiuf"):
+            return True
 
 
     def solve(self, solution, parameters_inp):
@@ -53,14 +71,16 @@ class BasicGreedy(SolutionMethod):
 
         
         while (inserted and len(insertion_requests) > 0):
-            print(len(insertion_requests))
+
             last_size = len(insertion_requests)
 
             parameters = {}
 
             parameters["requests_set"] = insertion_requests
             parameters["k"] = 1
-            parameters["route"] = solution.number_of_routes()-1
+            parameters["route"] = None
+            if (self.insert_only_in_last_route()):
+                parameters["route"] = solution.number_of_routes()-1
             solution = insertion_heuristic.solve(solution, parameters)
             insertion_requests -= solution.requests()
             if (last_size == len(insertion_requests)):
@@ -68,7 +88,6 @@ class BasicGreedy(SolutionMethod):
                 inserted = False
             
             solution.add_route(Route())
-        # print(insertion_requests)
         
         for i, route in enumerate(solution.routes()):
             if (route.empty()):

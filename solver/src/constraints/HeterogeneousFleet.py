@@ -39,8 +39,6 @@ class HeterogeneousFleet(Constraint):
                     n_fleet -= 1
             
             if (n_fleet != 0):
-                print(solution)
-                exit(0)
                 return False
 
 

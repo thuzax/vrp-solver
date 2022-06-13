@@ -21,6 +21,8 @@ from .heuristics.KRegret import KRegret
 from .heuristics.WKRegret import WKRegret
 from .heuristics.RandomInsertion import RandomInsertion
 from .heuristics.FirstInsertion import FirstInsertion
+from .heuristics.FirstInsertionUnlimitedFleet import \
+    FirstInsertionUnlimitedFleet
 
 from .heuristics.RandomRemoval import RandomRemoval
 from .heuristics.WorstRemoval import WorstRemoval
@@ -76,6 +78,7 @@ __all__ = [
     "WKRegret",
     "RandomInsertion",
     "FirstInsertion",
+    "FirstInsertionUnlimitedFleet",
     
     "RandomRemoval",
     "WorstRemoval",

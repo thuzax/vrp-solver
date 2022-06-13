@@ -65,8 +65,7 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
             solution.add_route(route)
         
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
-        # print(solution)
-        # self.print_solution_verification(solution, 0)
+
         return solution
 
 

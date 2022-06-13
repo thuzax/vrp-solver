@@ -28,10 +28,12 @@ class SolverPDPTW(SolverClass):
 
     def construct(self, parameters, start_time):
         file_log.add_info_log("Starting construction")
+        execution_log.info_log("Starting construction")
         solution = Solution()
         solution = self.construction.solve(solution, parameters)
         
         file_log.add_info_log("Finished construction")
+        execution_log.info_log("Finished construction")
 
         obj_value = self.obj_func.get_solution_cost(solution)
         routes_cost = self.obj_func.get_routes_sum_cost(
@@ -46,10 +48,8 @@ class SolverPDPTW(SolverClass):
         message = self.construction.name + "\n"
         message += "Exec Time: " + str(time.time() - start_time)
         message += "\n"
-        file_log.add_info_log("Finished construction")
         file_log.add_solution_log(self.best_solution, message)
         
-        print(solution)
         if (
             not solution_check(
                 self.best_solution, 
@@ -81,6 +81,7 @@ class SolverPDPTW(SolverClass):
 
     def solve(self):
         file_log.add_info_log("Starting solver.")
+        execution_log.info_log("Starting solver.")
         heuristic_start = time.time()
 
         requests_set = set(self.requests)
@@ -92,9 +93,11 @@ class SolverPDPTW(SolverClass):
         if (solution is None):
             return None
         file_log.add_info_log("Starting metaheuristic")
+        execution_log.info_log("Starting metaheuristic")
         new_solution = self.metaheuristic.solve(solution, parameters)
         self.best_solution = new_solution.copy()
         file_log.add_info_log("Finished metaheuristic")
+        execution_log.info_log("Finished metaheuristic")
         
 
         obj_value = self.obj_func.get_solution_cost(self.best_solution)
@@ -112,9 +115,6 @@ class SolverPDPTW(SolverClass):
         heuristic_end = time.time()
         exec_time = heuristic_end - heuristic_start
         
-        # self.print_best_solution()
-        # self.print_solution_verification(self.best_solution, exec_time)
-
         return self.best_solution
 
 
