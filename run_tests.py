@@ -92,12 +92,12 @@ if __name__=="__main__":
 
     files_names = [files_names[2]]
     
-    n_runs = 1
+    n_runs = 5
 
-    time_limit = 180
+    time_limit = 600
 
-    time_slice = 200
-    number_of_slices = 3
+    time_slice = 60
+    number_of_slices = 10
 
     for i in range(n_runs):
         for file_name in files_names:

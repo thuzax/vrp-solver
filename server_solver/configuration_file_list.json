@@ -3,5 +3,5 @@
     "DPDPTW_V" : "../solver/configuration-dynamic-obj-vehicle.json",
     "DPDPTW_R" : "../solver/configuration-dynamic-obj-request.json",
     "DPDPTWHF_R" : "../solver/configuration-dynamic-obj-request-urb-rur.json",
-    "DPDPTWNoC_D" : "./configurations/dpdptw_no_cap.json"
+    "DPDPTWNoC_D" : "./configurations/config_dpdptw_no_cap_no_ages.json"
 }
