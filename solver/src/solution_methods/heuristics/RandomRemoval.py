@@ -22,6 +22,7 @@ class RandomRemoval(SolutionMethod):
 
         empty_routes = []
         for i in range(number_of_removals):
+
             route_pos = random.randint(0, len(routes)-1)
             
             if (routes[route_pos].empty()):

@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractclassmethod, abstractmethod
 
 import random
+from src import file_log
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
 from src.exceptions import CouldNotRemoveWithShawRemoval
 
@@ -22,34 +23,45 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
         randomization_parameter = self.p
 
         request = self.choose_one_random_request_to_remove(
-            new_solution.requests()
+            new_solution.requests(),
+            new_solution
         )
+
+        if (request is None):
+            return new_solution
+        
         requests_to_remove = {request}
-        while (len(requests_to_remove) < number_of_removals):
+        can_remove = True
+        while (
+            len(requests_to_remove) < number_of_removals
+            and can_remove
+        ):
             request = self.choose_one_random_request_to_remove(
-                new_solution.requests()
+                new_solution.requests(),
+                new_solution
             )
 
             candidates = (
                 new_solution.requests() 
                 - requests_to_remove
-                - set(self.get_exception_requests())
+                - set(self.get_exception_requests(new_solution))
             )
+
             related_measure = self.calculate_requests_relatedness_measure(
                 new_solution, 
                 candidates, 
                 request
             )
 
+            if (len(candidates) == 0):
+                can_remove = False
+                continue
+
             random_multiplier = random.uniform(0, 0.9999999999)
             position = int(
                 (random_multiplier**randomization_parameter) 
                 * len(candidates)
             )
-
-
-            if (position == 0):
-                continue
             
             request_to_remove = self.get_request_to_remove(
                 candidates, 
@@ -90,7 +102,7 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
                 )
 
 
-    def choose_one_random_request_to_remove(self, requests):
+    def choose_one_random_request_to_remove(self, requests, solution):
         request = random.choice(list(requests))
         return request
 
@@ -113,7 +125,7 @@ class ShawRemoval(SolutionMethod, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def get_exception_requests(self):
+    def get_exception_requests(self, solution):
         return []
 
 

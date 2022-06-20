@@ -210,7 +210,6 @@ def read_configuration(arguments):
         file_name = arguments["output"]
 
         splitted_name = file_name.split("/")
-        print(splitted_name)
         output_path = "/".join(splitted_name[:-1]) + "/"
         output_name = splitted_name[-1].split(".")[0]
         output_type = splitted_name[-1].split(".")[1]

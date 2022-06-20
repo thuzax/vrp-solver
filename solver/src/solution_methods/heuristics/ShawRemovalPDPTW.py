@@ -71,5 +71,5 @@ class ShawRemovalPDPTW(ShawRemoval):
         return super().update_route_values(route, position, request)
 
 
-    def get_exception_requests(self):
-        return super().get_exception_requests()
+    def get_exception_requests(self, solution):
+        return super().get_exception_requests(solution)

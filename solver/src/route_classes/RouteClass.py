@@ -106,7 +106,6 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
 
 
 
-
     def __contains__(self, key):
         if (key in self.requests_set):
             return True

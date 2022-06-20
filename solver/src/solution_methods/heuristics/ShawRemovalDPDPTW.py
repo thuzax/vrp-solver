@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 import random
+
 from src.solution_methods.heuristics.ShawRemovalPDPTW import ShawRemovalPDPTW
 
 class ShawRemovalDPDPTW(ShawRemovalPDPTW):
@@ -28,17 +29,25 @@ class ShawRemovalDPDPTW(ShawRemovalPDPTW):
         return super().update_route_values(route, position, request)
 
 
-    def choose_one_random_request_to_remove(self, requests):
-        possible_requests = set(requests) - set(self.get_exception_requests())
+    def choose_one_random_request_to_remove(self, requests, solution):
+        possible_requests = (
+            set(requests) - set(self.get_exception_requests(solution))
+        )
+        if (len(possible_requests) == 0):
+            return None
         request = random.choice(list(possible_requests))
         return request
 
 
-    def get_exception_requests(self):
+    def get_exception_requests(self, solution):
         exception_requests = []
         for fixed_route_dict in self.fixed_routes_dict:
             for request in fixed_route_dict["requests"]:
-                exception_requests.append(request)
+                req_route_pos, req_route = solution.get_request_route(request)
+                position_request = req_route.index(request)
+                if (position_request[0] <= fixed_route_dict["start"]):
+                    exception_requests.append(request)
+                # exception_requests.append(request)
 
         return exception_requests
 

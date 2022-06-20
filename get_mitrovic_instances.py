@@ -3,23 +3,25 @@ import sys
 import requests
 
 links = [
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_000.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_001.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_002.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_003.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_004.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_005.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_006.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_007.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_008.txt",
-    # "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_009.txt",
-    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_000.txt",
-    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd9_1h-2h-4h-6h-8h-Req/Rnd9_10h_100_000.txt",
-    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd9_1h-2h-4h-6h-8h-Req/Rnd9_10h_100_001.txt",
-    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd9_1h-2h-4h-6h-8h-Req/Rnd9_10h_100_002.txt",
-    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd8_1h-2h-4h-Req/Rnd8_10h_100_000.txt",
-    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd8_1h-2h-4h-Req/Rnd8_10h_100_001.txt",
-    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd8_1h-2h-4h-Req/Rnd8_10h_100_002.txt"
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_001.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_002.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_003.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_004.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_005.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_006.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_007.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_008.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_100_009.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_000.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_001.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_002.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_003.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_004.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_005.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_006.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_007.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_008.txt",
+    "http://www.sfu.ca/~snezanam/personal/PDPTW/TestInstances/Rnd6_1h-2h-4h-6h-7h-Req/Rnd6_10h_300_009.txt"
 ]
 
 for link in links:

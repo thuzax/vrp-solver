@@ -6,12 +6,18 @@ import multiprocessing
 import time
 
 
-def get_input_file_path(func_code, file_name):
-    inputs_directory_path = os.path.join(".", "inputs")
+def get_input_file_path(func_code, file_name, data):
+    output_path = "."
+    if ("output_path" in data):
+        output_path = data["output_path"]
+
+    if (not os.path.exists(output_path)):
+        os.makedirs(output_path)
+
+    inputs_directory_path = os.path.join(output_path, "inputs")
     if not os.path.exists(inputs_directory_path):
         os.mkdir(inputs_directory_path)
     file_complete_path = os.path.join(inputs_directory_path, str(file_name))
-
     return file_complete_path
 
 
@@ -24,9 +30,8 @@ def create_input_file(func_code, data):
     input_name = data["name"]
     input_data = data["file"]
 
-    file_complete_path = get_input_file_path(func_code, input_name)
+    file_complete_path = get_input_file_path(func_code, input_name, data)
     write_input_file(file_complete_path, input_data)
-    print(file_complete_path)
 
     return file_complete_path
 
@@ -34,12 +39,14 @@ def get_config_file(problem_code):
     config_list_path = os.path.join(".", "configuration_file_list.json")
     with open(config_list_path, "r") as config_files_list:
         config_files = json.loads(config_files_list.read())
-        print(config_files[problem_code])
         return config_files[problem_code]
 
 
-def create_output_directory(input_name):
-    directory_name = os.path.join(".", "outputs")
+def create_output_directory(input_name, output_path):
+    if (not os.path.exists(output_path)):
+        os.makedirs(output_path)
+
+    directory_name = os.path.join(output_path, "outputs")
     if (not os.path.isdir(directory_name)):
         os.mkdir(directory_name)
     print("*****************************")
@@ -56,7 +63,6 @@ def create_output_directory(input_name):
     else:
         for old_output_result in os.listdir(results_directory_path):
             os.remove(os.path.join(results_directory_path, old_output_result))
-
     return results_directory_path
 
 
@@ -119,11 +125,16 @@ def run_solver(
     config_file, 
     time_limit=300, 
     seed=None, 
-    saved_solutions=False
+    saved_solutions=False,
+    data=None
 ):
     
+    output_path = "."
+    if ("output_path" in data):
+        output_path = data["output_path"]
+
     input_name = os.path.split(input_path)[-1]
-    output_path = create_output_directory(input_name)
+    output_path = create_output_directory(input_name, output_path)
     exit_code = call_solver(
         input_path, 
         output_path,
@@ -168,7 +179,8 @@ def solve_problem(
         config_file, 
         time_limit, 
         seed, 
-        saved_solutions
+        saved_solutions,
+        data=data
     )
 
     if (result_storage_arr is not None):

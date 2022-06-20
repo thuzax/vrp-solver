@@ -1,4 +1,6 @@
+from src import file_log
 from src.constraints import Constraint
+
 
 class TimeWindowsConstraint(Constraint):
     

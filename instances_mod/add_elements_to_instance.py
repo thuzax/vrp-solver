@@ -78,23 +78,22 @@ def get_out_file_name(input_file, problem):
     return input_name
 
 
-if __name__ == "__main__":
-
+def add_elements(args):
     if (len(sys.argv) < 4):
         print("Needs json input file, output path and problem type")
-        exit(0)        
+        exit(0)   
 
     read_constants()
 
-    input_file_name = sys.argv[1]
-    output_file_path = sys.argv[2]
+    input_file_name = args[0]
+    output_file_path = args[1]
 
     if (not os.path.exists(output_file_path)):
         os.makedirs(output_file_path)
 
     data = read_file(input_file_name)
 
-    problem = sys.argv[3]
+    problem = args[2]
 
     if (problem == "DPDPTW"):
         data["fixed"] = {}
@@ -107,12 +106,12 @@ if __name__ == "__main__":
             out_file.write(json.dumps(data))
 
     if (problem == "DPDPTW-R"):
-        if (len(sys.argv) < 5):
+        if (len(args) < 4):
             text = "Needs fleet size of classic problem solution"
             print(text)
             exit(0)
 
-        orig_fleet = int(sys.argv[4])
+        orig_fleet = int(args[3])
 
         fleet = fleet_generator.generate_fleet_size(orig_fleet)
         print(fleet)
@@ -131,7 +130,7 @@ if __name__ == "__main__":
 
     if (problem == "DPDPTWUR-R"):
 
-        if (len(sys.argv) < 6):
+        if (len(args) < 5):
             text = "Needs \n(1) fleet size of classic problem solution, \n(2)"
             text += " the method for urban and rural division being: \n"
             text += "  CL - clustering\n  CS - center_seeds\n  "
@@ -139,8 +138,8 @@ if __name__ == "__main__":
             print(text)
             exit(0)
 
-        orig_fleet = int(sys.argv[4])
-        method_code = sys.argv[5]
+        orig_fleet = int(args[3])
+        method_code = args[4]
 
         method = get_urb_rural_division_method(method_code)
         points = [0 for i in range(len(data["points"]))]
@@ -187,3 +186,12 @@ if __name__ == "__main__":
             out_file.write(json.dumps(data))
 
         
+
+
+if __name__ == "__main__":
+
+    if (len(sys.argv) < 4):
+        print("Needs json input file, output path and problem type")
+        exit(0)        
+
+    

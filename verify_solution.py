@@ -5,6 +5,8 @@ import json
 from scipy.sparse.csgraph import maximum_bipartite_matching
 from scipy.sparse import csr_matrix
 
+text = ""
+
 def read_solution(solution_file_name, all_sol):
         with open(solution_file_name, "r") as sol_file:
             data = json.loads(sol_file.read())
@@ -61,6 +63,7 @@ def problem_is_dynamic(problem):
 
 
 def pick_and_deli_feasible(solution, n_requests):
+    global text
     found_pickup = [False for i in range(n_requests)]
     pickup_route = [-1 for i in range(n_requests)]
     for route_id, route in solution["routes"].items():
@@ -71,6 +74,7 @@ def pick_and_deli_feasible(solution, n_requests):
                 pickup_route[point_id-1] = route_id
             
             elif (not found_pickup[point_id-n_requests-1]):
+                text += str(point_id)
                 return False
             
             elif (pickup_route[point_id-n_requests-1] != route_id):
@@ -80,6 +84,7 @@ def pick_and_deli_feasible(solution, n_requests):
 
 
 def attend_all_requests_once(solution, n_requets):
+    global text
     found_point = [False for i in range(n_requets*2)]
     for route in solution["routes"].values():
         for point_id in route:
@@ -92,6 +97,7 @@ def attend_all_requests_once(solution, n_requets):
 
 
 def capacity_and_demands_respected(solution, max_capacity, demands):
+    global text
     for route in solution["routes"].values():
         sum_capacity = 0
         for point_id in route:
@@ -104,6 +110,7 @@ def capacity_and_demands_respected(solution, max_capacity, demands):
 
 
 def time_is_respected(solution, tws, services, horizon, time_matrix, depot):
+    global text
     for route in solution["routes"].values():
         arrival = 0
         before = depot
@@ -113,20 +120,21 @@ def time_is_respected(solution, tws, services, horizon, time_matrix, depot):
             if (arrival < tws[str(point_id)][0]):
                 arrival = tws[str(point_id)][0]
             if (arrival > tws[str(point_id)][1]):
-                print("TW")
+                text += "TW" + "\n"
                 return False
             before = point_id
             arrival += services[str(before)]
     
         arrival += time_matrix[str(before)][str(depot)]
         if (arrival > horizon):
-            print("HORIZON")
+            text += "HORIZON" + "\n"
             return False
     
     return True
 
 
 def fleet_size_respected(solution, input_data, problem):
+    global text
     if (problem == "DPDPTWUR-R"):
         fleets = input_data["fleet"]
         total_fleet = 0
@@ -136,7 +144,7 @@ def fleet_size_respected(solution, input_data, problem):
         n_routes = len(solution["routes"])
 
         if (total_fleet < n_routes):
-            print("FLEET SIZE TOO SMALL")
+            text += "FLEET SIZE TOO SMALL" + "\n"
             return False
 
 
@@ -188,19 +196,20 @@ def fleet_size_respected(solution, input_data, problem):
         )
         
         if (-1 in matching):
-            print("FLEET CAN'T ATTEND ALL ROUTES")
+            text += "FLEET CAN'T ATTEND ALL ROUTES" + "\n"
             return False
 
     if (problem == "DPDPTW-R" or problem == "DPDPTWNoC-D"):
         fleet_size = input_data["fleet_size"]
         n_routes = len(solution["routes"])
         if (fleet_size < n_routes):
-            print("FLEET SIZE TOO SMALL")
+            text += "FLEET SIZE TOO SMALL" + "\n"
             return False
     return True
 
 
 def fixed_requests_are_respected(solution, fixed_requests, n_requests):
+    global text
     found_fixed = set()
     
     for fixed_request in fixed_requests:
@@ -220,7 +229,7 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
                 is_pickup = (point_id <= n_requests)
                 if (is_pickup and (point_id in fixed_route_set)):
                     if ((point_id + n_requests) not in fixed_route_set):
-                        print("FIXED REQUESTS")
+                        text += "FIXED REQUESTS" + "\n"
                         return False
                     found_fixed.add(point_id)
                     found_fixed.add(point_id + n_requests)
@@ -233,7 +242,7 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
 
     for point in all_fixed:
         if (point not in found_fixed):
-            print("FIXED REQUESTS")
+            text += "FIXED REQUESTS" + "\n"
             return False
 
     return True
@@ -242,16 +251,17 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
 
 
 def solution_is_feasible(solution, input_data, problem):
+    global text
     n_requests = int(input_data["number_of_points"]/2)
     if (not pick_and_deli_feasible(solution, n_requests)):
-        print("PICK -> DELI")
+        text += "PICK -> DELI" + "\n"
         return False
     
     if (problem_has_capacity_constraint(problem)):
         demands = input_data["demands"]
         capacity = input_data["capacity"]
         if (not capacity_and_demands_respected(solution, capacity, demands)):
-            print("CAPACITY OR DEMANDS")
+            text += "CAPACITY OR DEMANDS" + "\n"
             return False
 
     time_windows = input_data["time_windows_pd"]
@@ -269,18 +279,18 @@ def solution_is_feasible(solution, input_data, problem):
             depot
         )
     ):
-        print("TIME")
+        text += "TIME" + "\n"
         return False
 
 
     if (problem_needs_to_attend_all_requests(problem)):
         if (not attend_all_requests_once(solution, n_requests)):
-            print("ALL REQUESTS")
+            text += "ALL REQUESTS" + "\n"
             return False
 
     if (problem_has_limited_fleet(problem)):
         if (not fleet_size_respected(solution, input_data, problem)):
-            print("FLEET SIZE")
+            text += "FLEET SIZE" + "\n"
             return False
 
     if (problem_is_dynamic(problem)):
@@ -291,44 +301,50 @@ def solution_is_feasible(solution, input_data, problem):
                 n_requests
             )
         ):
-            print("DYNAMIC")
+            text += "DYNAMIC" + "\n"
             return False
         
 
     return True
 
+def verify(args):
+    global text
+    text = ""
+    all_sol = False
+    # print(args)
+    if (len(args) > 3):
+        all_sol = True if args[3] == "-a" else False
 
+    input_file_name = args[0]
+    solution_file_name = args[1]
+    problem = args[2]
+
+    solutions = read_solution(solution_file_name, all_sol)
+    if (solutions == None or len(solutions) == 0):
+        text += "NO SOLUTION FOUND" + "\n"
+
+    input_data = read_input(input_file_name)
+
+    for i, solution in enumerate(solutions):
+        if (not solution_is_feasible(solution, input_data, problem)):
+            if (all_sol):
+                text += "solution " + str(i) + " not feasible" + "\n"
+            else:
+                text += "solution not feasible" + "\n"
+            continue
+        
+        if (all_sol):
+            text += ("solution " + str(i) + " feasible") + "\n"
+        else:
+            text += "solution feasible" + "\n"
+        
+
+    return text
 
 if __name__=="__main__":
     if (len(sys.argv) < 4):
         print("Needs json input file, json solution file and problem")
         print("Problems: PDPTW ; DPDPTW ; DPDPTWNoC-D ;  DPDTW-R ; DPDPTWUR-R")
         exit(0)
+    print(verify(sys.argv[1:]))
     
-    all_sol = False
-    if (len(sys.argv) > 4):
-        all_sol = True if sys.argv[4] == "-a" else False
-
-    input_file_name = sys.argv[1]
-    solution_file_name = sys.argv[2]
-    problem = sys.argv[3]
-
-    solutions = read_solution(solution_file_name, all_sol)
-    if (solutions == None or len(solutions) == 0):
-        print("NO SOLUTION FOUND")
-
-    input_data = read_input(input_file_name)
-
-    for i, solution in enumerate(solutions):
-        if (not solution_is_feasible(solution, input_data, problem)):
-            if (all):
-                print("solution", i, "not feasible")
-            else:
-                print("solution not feasible")
-            continue
-        
-        if (all):
-                print("solution", i, "feasible")
-        else:
-            print("solution not feasible")
-        

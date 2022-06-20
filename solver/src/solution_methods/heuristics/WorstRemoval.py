@@ -41,6 +41,9 @@ class WorstRemoval(SolutionMethod):
             if (request_sort_position >= len(sorted_requests)):
                 request_sort_position -= 1
             
+            if (len(sorted_requests) == 0):
+                return new_solution
+
             request = sorted_requests[request_sort_position]
             route_pos, route = new_solution.get_request_route(request)
             request_pos = route.index(request)

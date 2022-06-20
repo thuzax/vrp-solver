@@ -41,6 +41,9 @@ class SBMath(LocalSearch):
         copy_solution = initial_solution.copy()
 
         operator = self.local_operators[operator_name]
+        file_log.add_info_log(
+            "Starting " + self.local_operators_names[operator_name]
+        )
         new_solution = operator.solve(copy_solution, parameters)
 
         obj_value = self.obj_func.get_solution_cost(new_solution)

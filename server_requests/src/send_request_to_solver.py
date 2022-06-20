@@ -38,9 +38,17 @@ def make_json_input_dict(file_path, time_limit=None):
     return json_input
 
 
-def send_request(problem_link_id, file_path, time=None, shutdown_link=None):
+def send_request(
+    problem_link_id, 
+    file_path, 
+    time=None, 
+    shutdown_link=None,
+    output_path=None    
+):
 
     json_input = make_json_input_dict(file_path, time)
+    if (output_path is not None):
+        json_input["output_path"] = output_path
 
     links = get_links()
 
@@ -50,27 +58,28 @@ def send_request(problem_link_id, file_path, time=None, shutdown_link=None):
 
     json_input = json.dumps(json_input)
 
-    print("Sending to", links[problem_link_id])
-    print("FILE:", file_name)
-    print("TIME:", time_limit)
-    print("RETURN ALL?", "YES" if all_solutions else "NO")
+    # print("Sending to", links[problem_link_id])
+    # print("FILE:", file_name)
+    # print("TIME:", time_limit)
+    # print("RETURN ALL?", "YES" if all_solutions else "NO")
 
-    print(links[problem_link_id])
+    # print(links[problem_link_id])
 
     r = requests.post(
         links[problem_link_id],
         json=json_input, 
-        timeout=time_limit + 30
+        timeout=time_limit + 60
     )
 
     if (r.text == "No solution found. Probably an error ocurred."):
-        print("ERROR ON SOLVER SERVER")
+        # print("ERROR ON SOLVER SERVER")
         if (shutdown_link is not None):
             requests.get(shutdown_link)
+        raise(Exception(r.text))
     try:
         result = json.loads(r.text)
         return result
     except Exception as ex:
-        print("Could not load solution json")
+        # print("Could not load solution json")
         raise ex
         

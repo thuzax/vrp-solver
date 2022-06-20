@@ -31,7 +31,6 @@ def get_shutdown_link():
 @app.route('/')
 def index():
     home_link = get_home_link()
-    print(home_link)
     return {
         "SERVER ON"
     }
@@ -62,8 +61,8 @@ def add_request():
     # if (change_time_slice):
     #     current_time_slice_id += 1
     
-    print(result)
-    print(len(RequestsStorage().get_all_requests()))
+    # print(result)
+    # print(len(RequestsStorage().get_all_requests()))
     return result
 
 
@@ -73,29 +72,7 @@ def shutdown():
     return "OK"
 
 
-if __name__ == '__main__':
-    arguments = server_arguments_handler.parse_command_line_arguments()
-
-    if (arguments["is_test"]):
-        server_requests_util.initialize_instance(
-            arguments["test_instance_path"]
-        )
-
-        log_dir_name = (
-            os.path.basename(arguments["test_instance_path"]).split(".")[-2]
-        )
-
-        server_requests_util.create_directory_log_path(log_dir_name)
-
-
-        if (arguments["horizon"] is None):
-            arguments["horizon"] = InstanceData().horizon * 60
-
-    if (arguments["horizon"] is None):
-        arguments["horizon"] = 600
-
-    print(arguments)
-
+def run(run_server):
     time_slices = server_requests_util.create_time_slices(
         arguments["time_slice_size"], 
         arguments["horizon"]
@@ -105,40 +82,100 @@ if __name__ == '__main__':
 
     current_time_slice_id = 0
 
-    # print("TIME SLICES:")
-    # print(time_slices)
+    output_path = arguments["output_path"]
+    
     print("TIME SLICES SIZE:")
     print(len(time_slices))
-    
-    sema = threading.Semaphore(1)
-    shutdown_link = get_shutdown_link()
-    
-    t1 = threading.Thread(
-        target=server_requests_util.solve_time_slices_problems,
-        args=(
-            time_slices, 
-            current_time_slice_id,
-            time_limit,
-            log_dir_name,
-            shutdown_link
-        )
-    )
-    t1.setDaemon(True)
-    t1.start()
-    
-    home_link = get_home_link()
-    
-    app.run(
-        host=arguments["host_ip"], 
-        port=arguments["host_port"], 
-        debug=True, 
-        threaded=True
+
+    server_requests_util.write_on_log(
+        "NUMBER TIME SLICES: " 
+        + str(len(time_slices))
     )
 
+    if (run_server):
+        sema = threading.Semaphore(1)
+        shutdown_link = get_shutdown_link()
+        t1 = threading.Thread(
+            target=server_requests_util.solve_time_slices_problems,
+            args=(
+                time_slices, 
+                current_time_slice_id,
+                time_limit,
+                log_dir_name,
+                shutdown_link,
+                output_path
+            )
+        )
+        t1.setDaemon(True)
+        t1.start()
+        
+        home_link = get_home_link()
+        app.run(
+            host=arguments["host_ip"], 
+            port=arguments["host_port"], 
+            debug=True, 
+            threaded=True
+        )
+        try:
+            t1.join()
+        except KeyboardInterrupt as kbi:
+            t1.join()
+    else:
+        server_requests_util.solve_from_instance(
+            time_slices, 
+            time_limit,
+            log_dir_name,
+            output_path
+        )
+
+
+if __name__ == '__main__':
+    arguments = server_arguments_handler.parse_command_line_arguments()
+
+    run_server = True
+    if (arguments["is_test"]):
+        server_requests_util.initialize_instance(
+            arguments["test_instance_path"]
+        )
+
+        log_dir_name = (
+            os.path.basename(arguments["test_instance_path"]).split(".")[-2]
+        )
+
+        if ("output_path" in arguments):
+            server_requests_util.create_directory_log_path(
+                log_dir_name, 
+                arguments["output_path"]
+            )
+        else:
+            server_requests_util.create_directory_log_path(log_dir_name)
+
+
+        if (arguments["horizon"] is None):
+            arguments["horizon"] = InstanceData().horizon
+
+        if (arguments["test_directly_from_instance"]):
+            run_server = False
+
+    if (arguments["horizon"] is None):
+        arguments["horizon"] = 600
+
+    # print(arguments)
+
+    
+
+    # print("TIME SLICES:")
+    # print(time_slices)
+
+    
     try:
-        t1.join()
-    except KeyboardInterrupt as kbi:
-        t1.join()
+        run(run_server)
+    except Exception as ex:
+        server_requests_util.write_on_log(str(ex))
+        raise ex
+    
+    
+
 
     print("ENDING")
 

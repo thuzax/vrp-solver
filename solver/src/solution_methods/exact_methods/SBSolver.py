@@ -82,9 +82,9 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
             found_feasible = True
         else:
             print("INFEASIBLE")
-            print("INFEASIBLE")
-            print("INFEASIBLE")
-            print("INFEASIBLE")
+            # print("INFEASIBLE")
+            # print("INFEASIBLE")
+            # print("INFEASIBLE")
 
         return found_feasible
 

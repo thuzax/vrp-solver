@@ -5,9 +5,9 @@ import time
 from abc import ABCMeta, abstractmethod
 
 from src import exceptions
+from src import file_log
 from src.GenericClass import GenericClass
 from src.constraints.Constraint import Constraint
-
 
 class InsertionOperator(GenericClass, metaclass=ABCMeta):
 
@@ -60,10 +60,8 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
 
         feasible = self.check_feasibility(copy_route, constraints)
         if (not feasible):
-            if (route.empty()):
-                for constraint in constraints:
-                    if (not constraint.route_is_feasible(copy_route)):
-                        pass
+            # for constraint in constraints:
+            #     if (not constraint.route_is_feasible(copy_route)):
             return None
         
         return copy_route

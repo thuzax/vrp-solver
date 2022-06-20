@@ -1,3 +1,5 @@
+
+from src import file_log
 from src.constraints import Constraint
 
 class FixedRequests(Constraint):
@@ -27,7 +29,11 @@ class FixedRequests(Constraint):
 
             fixed_route = fixed_route_dict["route"]
             st_pos = fixed_route_dict["start"]
+
             if (has_a_fixed_request):
+                if (route.size() <= st_pos):
+                    return False
+
                 vertices_order = route.requests_order()
 
                 for i in range(st_pos+1):

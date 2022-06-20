@@ -3,6 +3,7 @@ import copy
 import time
 from src.solution_methods.construction_heuristics.BasicGreedy import BasicGreedy
 
+from src import file_log
 from src.solution_check import get_solution_check_complete_data, solution_check
 from src.solution_methods.heuristics.WKRegret import WKRegret
 from src.solution_methods.heuristics.KRegret import KRegret
@@ -29,7 +30,7 @@ class BasicGreedyLimitedFleet(BasicGreedy):
         start = time.time()
         insertion_requests = copy.deepcopy(parameters["requests_set"])
         last_size = len(insertion_requests)
-        inserted = True
+        inserted = True        
 
         if (len(solution.routes()) > 0):
             parameters = {}
@@ -46,9 +47,11 @@ class BasicGreedyLimitedFleet(BasicGreedy):
         
         parameters["requests_set"] = insertion_requests
         parameters["k"] = 1
+
+
+
         solution = insertion_heuristic.solve(solution, parameters)
         insertion_requests -= solution.requests()
-            
 
         exec_time = time.time() - start
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))

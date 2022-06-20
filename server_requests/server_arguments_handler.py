@@ -30,7 +30,7 @@ def parse_command_line_arguments():
     parser.add_argument(
         "--time-slice",
         dest="time_slice_size",
-        help="Size of each time slice (in seconds).",
+        help="Size of each time slice (in minutes).",
         action="store",
         default=600,
         type=int,
@@ -40,7 +40,7 @@ def parse_command_line_arguments():
     parser.add_argument(
         "--horizon",
         dest="horizon",
-        help="Planning horizon time (in seconds).",
+        help="Planning horizon time (in minutes).",
         action="store",
         default=None,
         type=int,
@@ -67,6 +67,18 @@ def parse_command_line_arguments():
     )
 
     parser.add_argument(
+        "--output-location",
+        dest="output_path",
+        help="directory where results will be stored.",
+        action="store",
+        type=str,
+        default=None,
+        required=False
+    )
+
+
+
+    parser.add_argument(
         "--time-limit",
         dest="time_limit",
         help="Time limit (in seconds) for optimization in each of the time slices",
@@ -74,6 +86,24 @@ def parse_command_line_arguments():
         type=int,
         default=600,
         required=False
+    )
+
+    parser.add_argument(
+        "--test-directly",
+        dest="test_directly_from_instance",
+        help="Do not run server for receaving requests. Use the instance instead",
+        action="store_true",
+        default=False,
+        required=False
+    )
+
+    parser.add_argument(
+        "--problem",
+        dest="problem",
+        help="Type of vrp problem",
+        action="store",
+        default="DPDPTWNoC-D",
+        required=True
     )
     
     args = parser.parse_args()

@@ -1,5 +1,5 @@
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
-
+from src import file_log
 
 class InsertionOperatorPDPTW(InsertionOperator):
     def __init__(self, *args, **kwargs):
@@ -193,7 +193,6 @@ class InsertionOperatorPDPTW(InsertionOperator):
             ])
         )
         pairs.discard((-1, -1))
-
         dict_costs = {}
         for pair in pairs:
             pos_pair = route.index(pair)

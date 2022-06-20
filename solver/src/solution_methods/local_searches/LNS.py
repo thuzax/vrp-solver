@@ -77,6 +77,7 @@ class LNS(LocalSearch):
         improved = False
 
         while (not self.stop_criteria_fulfilled()):
+            
             new_solution = copy_solution.copy()
 
             # Removal 
@@ -92,7 +93,7 @@ class LNS(LocalSearch):
             new_solution.set_objective_value(
                 self.obj_func.get_solution_cost(new_solution)
             )
-
+            
             # Reinsertion
             extra_requests = extra_requests.union(removed_requests)
             if (self.k_min > self.k_max):
@@ -110,6 +111,7 @@ class LNS(LocalSearch):
                 self.obj_func.get_solution_cost(new_solution)
             )
 
+            
             # Acceptance
             self.stop_parameters["it"] += 1
             self.stop_parameters["time_last_it"] = time.time()
@@ -183,7 +185,9 @@ class LNS(LocalSearch):
         
         parameters = {}
         parameters["b"] = b
+
         new_solution = operator.solve(solution, parameters)
+
         return new_solution
 
 

@@ -37,10 +37,11 @@ class SolverDPDPTW(SolverPDPTW):
             for position, vertex_id in enumerate(route_order)
         }
         for pair in route_requests:
-            cons = list(
-                set(self.constraints)
-                - {ConstraintsObjects().get_by_name("FixedRequests")}
-            )
+            # cons = list(
+            #     set(self.constraints)
+            #     - {ConstraintsObjects().get_by_name("FixedRequests")}
+            # )
+            cons = []
 
             pick, deli = pair
 
@@ -85,10 +86,13 @@ class SolverDPDPTW(SolverPDPTW):
 
     def insert_fixed(self, solution):
         for route_pos, route_fixed_dict in enumerate(self.fixed_requests):
+
             route_requests = route_fixed_dict["requests"]
             route_order = route_fixed_dict["route"]
+
             route = Route()
             solution.add_route(route)
+
             self.insert_fixed_route_in_solution(
                 route,
                 solution,
@@ -97,7 +101,6 @@ class SolverDPDPTW(SolverPDPTW):
                 route_requests
             )
             route.set_start_position(route_fixed_dict["start"])
-
 
         solution.set_objective_value(self.obj_func.get_solution_cost(solution))
 

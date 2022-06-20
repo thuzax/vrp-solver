@@ -1,5 +1,6 @@
 from src.solution_methods.SolutionMethod import SolutionMethod
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
+from src import file_log
 
 
 class FirstInsertion(SolutionMethod):
@@ -28,7 +29,7 @@ class FirstInsertion(SolutionMethod):
                 routes = [new_solution.routes()[only_route_pos]]
             else:
                 routes = new_solution.routes()
-            
+
             insertion = InsertionOperator().get_first_feasible_insertion(
                 routes,
                 request,
