@@ -161,9 +161,9 @@ def add_request(request_dict, time_slices, current_time_slice_id):
     horizon = len(time_slices) * ts_size
 
     # print(request_dict)
-    start_time = 0
-    for i in range(current_time_slice_id):
-        start_time += ts_size
+    # start_time = 0
+    # for i in range(current_time_slice_id):
+    #     start_time += ts_size
 
     # can_attend, message = can_attend_request(
     #     request_dict, 
@@ -177,6 +177,11 @@ def add_request(request_dict, time_slices, current_time_slice_id):
     global semaphore
     # semaphore.acquire()
     # print("T2 critical")
+    if (request_dict["request"] in RequestsStorage().new_requests):
+        write_on_log("IN NEW REQUESTS " + str(request_dict["request"]))
+    if (request_dict["request"] in RequestsStorage().all_requests):
+        write_on_log("IN ALL REQUESTS " + str(request_dict["request"]))
+    
     RequestsStorage().store_new_request(
         tuple(request_dict["request"]), 
         request_dict
@@ -193,6 +198,8 @@ def initialize_instance(instance_path):
 
 
 def make_copies():
+    semaphore.acquire()
+    
     all_requests = copy.deepcopy(RequestsStorage().get_all_requests())
     new_requests = copy.deepcopy(RequestsStorage().get_new_requests())
 
@@ -204,6 +211,9 @@ def make_copies():
     )
 
     routes = copy.deepcopy(CurrentSolution().get_routes())
+
+    semaphore.release()
+
 
     return (
         all_requests,
@@ -605,7 +615,7 @@ def solve_time_slice(
         return
 
     all_requests_ids = set(all_requests.keys())
-    new_requests_ids = set(new_requests.keys())
+    # new_requests_ids = set(new_requests.keys())
     
     # semaphore.acquire()
     CurrentSolution().calculate_end_exec_predicted_positions(
@@ -722,7 +732,6 @@ def solve_from_instance(time_slices,  time_limit, log_dir_name, output_path):
 
     position_in_sorted = 0
 
-
     for i in range(len(time_slices)):
         current_time_slice = i+1
         write_on_log(
@@ -741,15 +750,21 @@ def solve_from_instance(time_slices,  time_limit, log_dir_name, output_path):
         last_ts_solver_start = last_ts_end - time_limit_in_minutes
         # last_ts__solver_start = last_ts_end
 
+        added_requests = []
+
         if (position_in_sorted < len(time_sorted_requests)):
             request = time_sorted_requests[position_in_sorted]
             while (
                 request["time_in"] <= starting_solver_time
                 and position_in_sorted < len(time_sorted_requests)
             ):
+                added_requests.append(request["request"])
                 add_request(request, time_slices, current_time_slice)
-                request = time_sorted_requests[position_in_sorted]
                 position_in_sorted += 1
+                if (position_in_sorted < len(time_sorted_requests)):
+                    request = time_sorted_requests[position_in_sorted]
+
+        write_on_log("REQUESTS ADDED: " + str(added_requests))
 
         # for request in current_requets_dicts:
         #     if (
@@ -780,14 +795,17 @@ def solve_from_instance(time_slices,  time_limit, log_dir_name, output_path):
             + str(current_requets_dicts)
         )
         
+
+        data = make_copies()
+        
+        write_on_log("COPIES: " + str(data))
+        
         write_on_log(
             "CALLING SOLVER "
             + "(time: " 
             + str(time.time() - start_time)
             + ")"
         )
-
-        data = make_copies()
         solve_time_slice(
             time_slice_size, 
             time_limit, 

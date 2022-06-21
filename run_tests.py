@@ -90,7 +90,7 @@ if __name__=="__main__":
     # print(tests_dir)
     # print(files_names)
 
-    files_names = [files_names[2]]
+    # files_names = [files_names[2]]
     
     n_runs = 5
 

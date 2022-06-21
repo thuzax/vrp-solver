@@ -86,7 +86,9 @@ def pick_and_deli_feasible(solution, n_requests):
 def attend_all_requests_once(solution, n_requets):
     global text
     found_point = [False for i in range(n_requets*2)]
+    total = 0
     for route in solution["routes"].values():
+        total += len(route)
         for point_id in route:
             point_id = int(point_id)
             if (found_point[point_id-1]):
