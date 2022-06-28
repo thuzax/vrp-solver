@@ -1,0 +1,260 @@
+{
+    "objective": {
+        "ObjDistancePDPTW": {},
+        "ObjVehiclePDPTW": {},
+        "ObjRequestsPDPTW": {}
+    },
+    "constraints": {
+        "TimeWindowsConstraint": {},
+        "PickupDeliveryConstraint": {},
+        "AttendAllRequests": {},
+        "FixedRequests": {},
+        "LimitedFleet": {}
+    },
+    "reader": {
+        "ReaderJsonDPDPTWLimitedFleet": {
+            "input_path": "",
+            "input_name": "",
+            "input_type": "json"
+        }
+    },
+    "writer": {
+        "WriterLiLimPDPTW": {
+            "output_path": "",
+            "output_type": ""
+        }
+    },
+    "route_class": {
+        "RouteDPDPTW": {}
+    },
+    "vertex_class": {
+        "VertexDPDPTW": {}
+    },
+    "insertion_operator": {
+        "InsertionOperatorDPDPTWNoCap": {}
+    },
+    "removal_operator": {
+        "RemovalOperatorDPDPTWNoCap": {}
+    },
+    "solution_methods": {
+        "BasicGreedyLimitedFleet": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "PickupDeliveryConstraint",
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "AttendAllRequests",
+                "LimitedFleet"
+            ],
+            "insertion_heuristic_code": "kr"
+        },
+        "KRegret": {
+            "non_insertion_cost": 9999999999999,
+            "use_modification": false,
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests"
+            ]
+        },
+        "WKRegret": {
+            "non_insertion_cost": 9999999999999,
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests"
+            ]
+        },
+        "RandomInsertion": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests"
+            ]
+        },
+        "FirstInsertion": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests"
+            ]
+        },
+        "RandomRemoval": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "FixedRequests"
+            ]
+        },
+        "WorstRemoval": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "FixedRequests"
+            ],
+            "p": 8
+        },
+        "ShawRemovalDPDPTW": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "FixedRequests"
+            ],
+            "p": 6,
+            "phi": 10,
+            "qui": 3,
+            "psi": 6
+        },
+        "RandomShift": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "LimitedFleet"
+            ]
+        },
+        "ModBiasedShift": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "LimitedFleet"
+            ],
+            "mi": 7.305251959596813
+        },
+        "RandomExchange": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "LimitedFleet"
+            ]
+        },
+        "AGES": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "AttendAllRequests",
+                "LimitedFleet"
+            ],
+            "acceptance_algorithm_data": {
+                "AcceptAll": {}
+            },
+            "local_operators_names": {
+                "Perturbation": "OriginalPerturbation"
+            },
+            "max_ejections": 2,
+            "stop_criteria": "max_perturbation",
+            "max_number_of_perturbations": 41,
+            "number_of_perturb_moves": 4
+        },
+        "LNS": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "AttendAllRequests",
+                "LimitedFleet"
+            ],
+            "acceptance_algorithm_data": {
+                "LAHC": {
+                    "list_size": 33
+                }
+            },
+            "local_operators_names": {
+                "KRegret": "WKRegret",
+                "RandomRemoval": "RandomRemoval",
+                "WorstRemoval": "WorstRemoval",
+                "ShawRemoval": "ShawRemovalDPDPTW"
+            },
+            "stop_criteria": "iterations",
+            "max_time": null,
+            "max_time_without_improv": null,
+            "max_it": 242,
+            "max_it_without_improv": 105,
+            "k_min": 4,
+            "k_max": 2,
+            "b_min": 2,
+            "b_max": 0.3022804347153136,
+            "removals_probabilities": {
+                "RandomRemoval": 6.358464863392713,
+                "WorstRemoval": 7.825235580324873,
+                "ShawRemoval": 6.672516348777146
+            }
+        },
+        "SetPartitionModel": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "AttendAllRequests",
+                "LimitedFleet"
+            ],
+            "solver_code": "GRB",
+            "opt_time_limit": 120
+        },
+        "OriginalPerturbation": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "FixedRequests",
+                "AttendAllRequests",
+                "LimitedFleet"
+            ],
+            "acceptance_algorithm_data": {
+                "AcceptAll": {}
+            },
+            "local_operators_names": {
+                "RandomShift": "RandomShift",
+                "ModBiasedShift": "ModBiasedShift",
+                "RandomExchange": "RandomExchange"
+            },
+            "perturb_probabilities": {
+                "RandomShift": 2.5860639946969632,
+                "RandomExchange": 3.9821438055396547,
+                "ModBiasedShift": 7.693599299560331
+            }
+        },
+        "SBMath": {
+            "obj_func_name": "ObjDistancePDPTW",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "PickupDeliveryConstraint",
+                "FixedRequests",
+                "AttendAllRequests",
+                "LimitedFleet"
+            ],
+            "local_operators_names": {
+                "FirstOperator": "AGES",
+                "SecondOperator": "LNS",
+                "ExactSolver": "SetPartitionModel",
+                "Perturbation": "OriginalPerturbation"
+            },
+            "excluded_local_operators": [
+                "FirstOperator"
+            ],
+            "stop_criteria": "time",
+            "max_time": 10000000000,
+            "max_it": 10000000,
+            "max_it_without_improv": 300000,
+            "acceptance_algorithm_data": {
+                "AcceptBetterOrWithProbability": {}
+            },
+            "routes_diff_method": "set",
+            "number_of_perturb_moves": 26
+        }
+    },
+    "solver": {
+        "SolverDPDPTW": {
+            "output_type": "json",
+            "obj_func_name": "ObjDistancePDPTW",
+            "construction_name": "BasicGreedyLimitedFleet",
+            "metaheuristic_name": "SBMath",
+            "constraints_names": [
+                "TimeWindowsConstraint",
+                "PickupDeliveryConstraint",
+                "FixedRequests",
+                "AttendAllRequests",
+                "LimitedFleet"
+            ]
+        }
+    }
+}
