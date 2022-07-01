@@ -1,6 +1,7 @@
 
 import copy
 import random
+from src import file_log
 from src.solution_methods.basic_operators.InsertionOperator import InsertionOperator
 import numpy
 from src.solution_methods.SolutionMethod import SolutionMethod
@@ -66,6 +67,7 @@ class KRegret(SolutionMethod):
     def get_insertions_and_regret_value(self, requests, feasible_insertions):
         insertions_and_regret_values = {}
         for request in requests:
+
             request_feasible_insertions = feasible_insertions[request]
             insert_costs_arr = numpy.array(
                 [
@@ -88,8 +90,8 @@ class KRegret(SolutionMethod):
                 k_feasible_insertions = request_feasible_insertions
             
             min_insertion_pos = numpy.argmin(insert_costs_arr)
-            
-            if (not all(request_feasible_insertions[min_insertion_pos])):
+                
+            if (None in request_feasible_insertions[min_insertion_pos]):
                 continue
             
             if (min_insertion_pos not in k_best_insertions_pos):
@@ -121,7 +123,7 @@ class KRegret(SolutionMethod):
                 request_feasible_insertions[min_insertion_pos],
                 regret_value
             )
-        
+            
         return insertions_and_regret_values
 
 
@@ -131,6 +133,7 @@ class KRegret(SolutionMethod):
             only_route_pos = parameters["route"]
         except:
             only_route_pos = None
+        
         
         requests = copy.deepcopy(parameters["requests_set"])
         new_solution = solution.copy()
@@ -154,14 +157,17 @@ class KRegret(SolutionMethod):
                 feasible_insertions
             )
             
+            
             if (len(insertions_and_regret_values) == 0):
                 could_insert = False
                 continue
+            
             
             request, items = max(
                 insertions_and_regret_values.items(), 
                 key=lambda x : x[1][1]
             )
+
 
             insertion, regret_value = insertions_and_regret_values[request]
             position, new_route, insert_cost = insertion
@@ -177,7 +183,7 @@ class KRegret(SolutionMethod):
                     old_route_identifying
                 )
             )
-            
+
             InsertionOperator().insert_request_in_solution(
                 new_solution,
                 request,
@@ -187,9 +193,8 @@ class KRegret(SolutionMethod):
                 self.obj_func
             )
 
-
-
             requests.discard(request)
+
 
         return new_solution
 
