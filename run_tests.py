@@ -92,16 +92,18 @@ if __name__=="__main__":
     print(files_names)
 
     # files_names = [files_names[2]]
-    files_names = files_names[:5]
+    # files_names = files_names[:5]
     
-    n_runs = 1
+    n_runs = 5
 
-    time_limit = 30
+    time_limit = 600
 
     time_slice = 60
     number_of_slices = 10
 
     for i in range(n_runs):
+        if (i == 0):
+            continue
         for file_name in files_names:
             print("=" * 80)
             run_name = file_name.split(".")[0] + "_run_" + str(i+1)
