@@ -1,6 +1,8 @@
 
 import json
 
+from src import file_log
+
 from src.instance_readers.ReaderJsonDPDPTW import ReaderJsonDPDPTW
 
 
@@ -52,6 +54,7 @@ class ReaderJsonDPDPTWLimitedHeterogeneousFleet(ReaderJsonDPDPTW):
         self.read_demands(dem)
         self.read_services_times(serv_times)
         self.read_time_windows(tws)
+
         
 
     def read_fleet(self, fleet):

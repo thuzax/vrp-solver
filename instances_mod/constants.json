@@ -4,7 +4,7 @@
     "max_urban_distance" : 0.8,
     "save_figure" : true,
     "show_figure" : false,
-    "density_clustering_per_distance" : 0.085,
+    "density_clustering_per_distance" : 0.00045,
     "correction_value": 1.0
 
 }

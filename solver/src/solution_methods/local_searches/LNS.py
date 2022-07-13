@@ -77,7 +77,7 @@ class LNS(LocalSearch):
         improved = False
 
         while (not self.stop_criteria_fulfilled()):
-            
+
             new_solution = copy_solution.copy()
 
             # Removal 
@@ -187,7 +187,7 @@ class LNS(LocalSearch):
         parameters["b"] = b
 
         new_solution = operator.solve(solution, parameters)
-
+        
         return new_solution
 
 

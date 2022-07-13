@@ -28,7 +28,7 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
         for fleet_item in self.fleet.values():
             for i in range(fleet_item["size"]):
                 routes.append(Route(fleet_item["types"]))
-    
+        
         return routes
 
     def insert_fixed(self, solution):
@@ -37,7 +37,6 @@ class SolverDPDPTWHeterogeneousFleet(SolverDPDPTW):
             route_requests = route_fixed_dict["requests"]
             route_order = route_fixed_dict["route"]
             route_returned = None
-            
             
             fleet_type_data = self.fleet[route_fixed_dict["fleet_type"]]
             vehic_type_needed = fleet_type_data["types"]

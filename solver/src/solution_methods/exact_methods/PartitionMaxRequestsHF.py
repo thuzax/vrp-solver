@@ -1,4 +1,5 @@
 from mip import *
+from src import file_log
 from src.route_classes import Route
 from src.solution_classes import Solution
 from src.solution_methods import PartitionMaxRequests
@@ -92,21 +93,24 @@ class PartitionMaxRequestsHF(PartitionMaxRequests):
 
 
         for fleet_type in self.fleet.values():
-            if (fleet_type["size"] == 0):
-                continue
             fleet_type_key = list(fleet_type["types"])
             fleet_type_key.sort()
             fleet_type_key = tuple(fleet_type_key)
-            count_fleet_type = sum([
-                y[i] if routes_types_keys[i] == fleet_type_key else 0
-                for i in range(len(routes_pool))
-            ])
+            routes_of_fleet_type = [
+                y[i] 
+                for i in range(len(routes_pool)) 
+                if routes_types_keys[i] == fleet_type_key
+            ]
+
+            if (len(routes_of_fleet_type) == 0):
+                continue
+
+            count_fleet_type = sum(routes_of_fleet_type)
 
             c = model.add_constr(
                 lin_expr=(count_fleet_type <= fleet_type["size"]),
                 name="limited_fleet_"+str(fleet_type_key)
             )
-
 
 
     def route_was_chosen(self, model, routes_pool):

@@ -150,6 +150,7 @@ def add_elements(args):
         figure_path = output_file_path
         figure_name = get_out_file_name(input_file_name, problem)
 
+        print(method_code, method)
 
         urb_rural_apt = urban_rural_aptitude_generator.get_urb_rural_division(
             points,
@@ -163,6 +164,7 @@ def add_elements(args):
             orig_fleet, 
             urb_rural_apt
         )
+
         print("u:", len([i for i in urb_rural_apt if i == 0]))
         print("r:", len([i for i in urb_rural_apt if i == 1]))
         print(fleet)

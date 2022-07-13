@@ -51,6 +51,6 @@ if __name__ == "__main__":
         if (orig_fleet is not None):
             args.append(orig_fleet)
             if (method_code is not None):
-                args.append(orig_fleet)
+                args.append(method_code)
 
         add_elements_to_instance.add_elements(args)

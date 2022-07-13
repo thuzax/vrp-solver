@@ -1,7 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
 import random
+from src.constraints.FixedRequests import FixedRequests
 from src.solution_methods.basic_operators.RemovalOperator import RemovalOperator
+from src import file_log
 
 from src.solution_methods.SolutionMethod import SolutionMethod
 

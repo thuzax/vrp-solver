@@ -8,6 +8,7 @@ import os
 import signal
 
 import server_arguments_handler
+from src.CurrentSolution import CurrentSolution
 from src.RequestsStorage import RequestsStorage
 from src import InstanceData
 from src import server_requests_util
@@ -92,6 +93,7 @@ def run(run_server):
         + str(len(time_slices))
     )
 
+
     if (run_server):
         sema = threading.Semaphore(1)
         shutdown_link = get_shutdown_link()
@@ -101,6 +103,7 @@ def run(run_server):
                 time_slices, 
                 current_time_slice_id,
                 time_limit,
+                arguments["problem"],
                 log_dir_name,
                 shutdown_link,
                 output_path
@@ -124,6 +127,7 @@ def run(run_server):
         server_requests_util.solve_from_instance(
             time_slices, 
             time_limit,
+            arguments["problem"],
             log_dir_name,
             output_path
         )
@@ -135,7 +139,8 @@ if __name__ == '__main__':
     run_server = True
     if (arguments["is_test"]):
         server_requests_util.initialize_instance(
-            arguments["test_instance_path"]
+            arguments["test_instance_path"],
+            arguments["problem"]
         )
 
         log_dir_name = (

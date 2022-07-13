@@ -8,9 +8,12 @@ import copy
 import requests
 import math
 
+
 from .CurrentSolution import CurrentSolution
+from .CurrentSolutionUR import CurrentSolutionUR
 
 from src import InstanceData
+from src import InstanceDataUR
 from src import RequestsStorage
 from src import send_request_to_solver
 from src.make_requests_dict import make_requests_dicts
@@ -191,9 +194,15 @@ def add_request(request_dict, time_slices, current_time_slice_id):
 
     return "Request Accepted"
 
-def initialize_instance(instance_path):
-    InstanceData(test_instance=instance_path)
-    InstanceData().read_data_from_instance()
+def initialize_instance(instance_path, problem):
+    if (problem.upper() == "DPDPTWNOC-D"):
+        InstanceData(test_instance=instance_path)
+        InstanceData().read_data_from_instance()
+        CurrentSolution()
+    if (problem.upper() == "DPDPTWUR-R"):
+        InstanceDataUR(test_instance=instance_path)
+        InstanceData().read_data_from_instance()
+        CurrentSolutionUR()
 
 
 
@@ -288,57 +297,12 @@ def make_mapping_dicts(all_requests_ids):
 
 
 def make_requests_data_dict(all_requests, orig_to_mapped, non_attended_ids):
-    points = {}
-    
-    # semaphore.acquire()
-    points[0] = InstanceData().get_depot_point()
-    # semaphore.release()
-    
-    demands = {}
-    services_times = {}
-    time_windows_pd = {}
-    pickups_and_deliveries = []
-    for orig, mapped in orig_to_mapped.items():
-        request = all_requests[orig]
-        
-        points[mapped[0]] = request["points"][0]
-        points[mapped[1]] = request["points"][1]
 
-        
-        if (orig in non_attended_ids):
-            pickups_and_deliveries.append(mapped)
-        
-        demands[mapped[0]] = request["demands"][0]
-        demands[mapped[1]] = request["demands"][1]
-
-        services_times[mapped[0]] = request["services_times"][0]
-        services_times[mapped[1]] = request["services_times"][1]
-
-        time_windows_pd[mapped[0]] = request["time_windows"][0]
-        time_windows_pd[mapped[1]] = request["time_windows"][1]
-
-    requests_data_dict = {}
-    
-    requests_data_dict["number_of_points"] = len(points)
-
-    points = dict(collections.OrderedDict(sorted(points.items())))
-    requests_data_dict["points"] = points
-
-    demands = dict(collections.OrderedDict(sorted(demands.items())))
-    requests_data_dict["demands"] = demands
-
-    services_times = dict(
-        collections.OrderedDict(sorted(services_times.items()))
+    requests_data_dict = InstanceData().make_requests_data_dict(
+        all_requests, 
+        orig_to_mapped, 
+        non_attended_ids
     )
-    requests_data_dict["services_times"] = services_times
-    
-    time_windows_pd = dict(
-        collections.OrderedDict(sorted(time_windows_pd.items()))
-    )
-    requests_data_dict["time_windows_pd"] = time_windows_pd
-    
-    requests_data_dict["pickups_and_deliveries"] = pickups_and_deliveries
-
 
     return requests_data_dict
 
@@ -433,21 +397,23 @@ def make_matrices_data_dict(all_requests, mapped_to_orig):
 def make_instance_data_dict():
     # semaphore.acquire()
 
-    capacity = InstanceData().capacity
-    depot = InstanceData().depot
-    planning_horizon = InstanceData().horizon
-    time_windows_size = InstanceData().tw_size
-    fleet_size = InstanceData().fleet_size
+    instance_data = InstanceData().make_instance_data_dict()
+
+    # capacity = InstanceData().capacity
+    # depot = InstanceData().depot
+    # planning_horizon = InstanceData().horizon
+    # time_windows_size = InstanceData().tw_size
+    # fleet_size = InstanceData().fleet_size
     
     # semaphore.release()
 
-    instance_data = {}
+    # instance_data = {}
 
-    instance_data["capacity"] = capacity
-    instance_data["depot"] = depot
-    instance_data["planning_horizon"] = planning_horizon
-    instance_data["time_windows_size"] = time_windows_size
-    instance_data["fleet_size"] = fleet_size
+    # instance_data["capacity"] = capacity
+    # instance_data["depot"] = depot
+    # instance_data["planning_horizon"] = planning_horizon
+    # instance_data["time_windows_size"] = time_windows_size
+    # instance_data["fleet_size"] = fleet_size
 
     return instance_data
 
@@ -457,25 +423,14 @@ def make_current_routes_data(
     orig_to_mapped_pick, 
     orig_to_mapped_deli
 ):
-    fixed = []
-    for vehicle, route in routes.items():
-        predicted_position = predicted_positions[vehicle]
-        route_mapped = []
-        for vertex_id in route:
-            if (vertex_id in orig_to_mapped_pick):
-                route_mapped.append(orig_to_mapped_pick[vertex_id])
-            elif (vertex_id in orig_to_mapped_deli):
-                route_mapped.append(orig_to_mapped_deli[vertex_id])
-        
-        fixed.append({
-            "route" : route_mapped,
-            "start" : predicted_position
-        })
+    data = CurrentSolution().make_current_routes_data(
+        routes, 
+        predicted_positions, 
+        orig_to_mapped_pick, 
+        orig_to_mapped_deli
+    )
 
-    current_routes_data = {}
-    current_routes_data["fixed"] = fixed
-    
-    return current_routes_data
+    return data
 
 
 def divide_pds_mapped_ids(mapping):
@@ -524,6 +479,7 @@ def make_input_dict(
         orig_to_mapped, 
         non_attended_ids
     )
+    
     for key, value in requests_data.items():
         instance_data[key] = value
 
@@ -560,9 +516,14 @@ def write_input_dict(instance_data, current_slice_id):
     return file_path
 
 
-def send_request(input_file_path, time_limit, output_path):
-    problem = "dpdptwlf-d"
+def send_request(input_file_path, time_limit, output_path, problem):
     global shutdown_link
+
+    if (problem.upper() == "DPDPTWUR-R"):
+        problem = "dpdptwhf-r"
+    if (problem.upper() == "DPDPTWNOC-D"):
+        problem = "dpdptwlf-d"
+    
     result = send_request_to_solver.send_request(
         problem, 
         input_file_path, 
@@ -589,10 +550,7 @@ def store_new_solution(new_solution, mapping):
         costs[int(route_id)] = new_solution["costs"][route_id]
 
     # semaphore.acquire()
-    for route_id, route in routes.items():
-        new_id = CurrentSolution().set_next_route(route)
-        CurrentSolution().set_route_cost(new_id, costs[route_id])
-    CurrentSolution().set_cost(new_solution["solution_cost"])
+    CurrentSolution().reset_routes(routes, costs, new_solution)
     # semaphore.release()
 
 
@@ -602,7 +560,8 @@ def solve_time_slice(
     time_limit, 
     current_ts_id, 
     data,
-    output_path
+    output_path,
+    problem
 ):
     
     all_requests = data[0]
@@ -647,7 +606,12 @@ def solve_time_slice(
 
     input_file_path = write_input_dict(input_dict, current_ts_id)
     
-    new_solution = send_request(input_file_path, time_limit, output_path)
+    new_solution = send_request(
+        input_file_path, 
+        time_limit, 
+        output_path, 
+        problem
+    )
     # print(new_solution)
     
     store_new_solution(new_solution, mapped_to_orig)
@@ -670,6 +634,7 @@ def solve_time_slices_problems(
     time_slices, 
     current_time_slice_id, 
     time_limit,
+    problem,
     log_dir_name=None,
     shtdn_link=None,
     output_path=None
@@ -701,7 +666,8 @@ def solve_time_slices_problems(
             time_limit, 
             current_time_slice_id, 
             data,
-            output_path
+            output_path,
+            problem
         )
         
         current_time_slice_id += 1
@@ -711,12 +677,18 @@ def solve_time_slices_problems(
         requests.get(shutdown_link)
     
     
-def solve_from_instance(time_slices,  time_limit, log_dir_name, output_path):
+def solve_from_instance(
+    time_slices, 
+    time_limit, 
+    problem,
+    log_dir_name, 
+    output_path
+):
     start_time = time.time()
     
     time_slice_size = time_slices[0][1] - time_slices[0][0]
 
-    requests_dicts = make_requests_dicts(InstanceData().test_instance)
+    requests_dicts = make_requests_dicts(InstanceData().test_instance, problem)
     current_requets_dicts = requests_dicts
     next_requets_dicts = []
 
@@ -811,7 +783,8 @@ def solve_from_instance(time_slices,  time_limit, log_dir_name, output_path):
             time_limit, 
             current_time_slice, 
             data,
-            output_path
+            output_path, 
+            problem
         )
 
         write_on_log(

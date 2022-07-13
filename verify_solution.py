@@ -5,6 +5,9 @@ import json
 from scipy.sparse.csgraph import maximum_bipartite_matching
 from scipy.sparse import csr_matrix
 
+import numpy
+import collections
+
 text = ""
 
 def read_solution(solution_file_name, all_sol):
@@ -196,8 +199,12 @@ def fleet_size_respected(solution, input_data, problem):
             csr_matrix(bpmatrix), 
             perm_type="column"
         )
+
+        counted_dict = dict(collections.Counter(list(matching)))
+        if (-1 in counted_dict):
+            no_matched = counted_dict[-1]
         
-        if (-1 in matching):
+        if (total_fleet - n_routes < no_matched):
             text += "FLEET CAN'T ATTEND ALL ROUTES" + "\n"
             return False
 
@@ -248,8 +255,6 @@ def fixed_requests_are_respected(solution, fixed_requests, n_requests):
             return False
 
     return True
-
-
 
 
 def solution_is_feasible(solution, input_data, problem):

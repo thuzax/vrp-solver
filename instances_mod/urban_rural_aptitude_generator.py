@@ -390,5 +390,6 @@ def get_urb_rural_division(
         fig_file_name = os.path.join(figure_path, fig_name)
         print(fig_file_name)
         matplotlib.pyplot.savefig(fig_file_name)
+        matplotlib.pyplot.clf()
 
     return urban_rural_aptitude

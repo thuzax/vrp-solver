@@ -104,7 +104,7 @@ def add_info_log(message):
     text = ""
     text += get_time_text()
     text += "[INFO] "
-    text += message
+    text += str(message)
     
     add_text_to_log_data(text)
 
@@ -116,7 +116,7 @@ def add_warning_log(message):
     text = ""
     text += get_time_text()
     text += "[WARNING] "
-    text += message
+    text += str(message)
 
     add_text_to_log_data(text)
 
@@ -128,7 +128,7 @@ def add_error_log(message):
     text = ""
     text += get_time_text()
     text += "[ERROR]" + "\n"
-    text += message
+    text += str(message)
 
     add_text_to_log_data(text)
 

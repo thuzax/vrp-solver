@@ -4,7 +4,7 @@ import random
 import json
 
 
-def make_requests_dicts(input_file):
+def make_requests_dicts(input_file, problem):
     with open(input_file, "r") as inp_f:
         data = inp_f.read()
         data = json.loads(data)
@@ -40,6 +40,12 @@ def make_requests_dicts(input_file):
         
         if ("times_in" in data):
             request_dict["time_in"] = data["times_in"][str(i+1)]
+
+        if (problem.upper() == "DPDPTWUR-R"):
+            request_dict["attendance_type"] = (
+                data["attendance_type"][str(pickup)],
+                data["attendance_type"][str(delivery)]
+            )
 
         requests_dicts.append(request_dict)
         

@@ -3,6 +3,7 @@ from abc import ABCMeta, abstractmethod
 import random
 
 from src.solution_methods.heuristics.ShawRemovalPDPTW import ShawRemovalPDPTW
+from src import file_log
 
 class ShawRemovalDPDPTW(ShawRemovalPDPTW):
 
@@ -43,6 +44,8 @@ class ShawRemovalDPDPTW(ShawRemovalPDPTW):
         exception_requests = []
         for fixed_route_dict in self.fixed_routes_dict:
             for request in fixed_route_dict["requests"]:
+                if (solution.get_request_route(request) is None):
+                    continue
                 req_route_pos, req_route = solution.get_request_route(request)
                 position_request = req_route.index(request)
                 if (position_request[0] <= fixed_route_dict["start"]):

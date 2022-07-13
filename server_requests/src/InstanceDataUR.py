@@ -1,24 +1,10 @@
 import json
 import collections
-
+from src.InstanceData import InstanceData
 
 from src.get_subclasses import get_all_subclasses
 
-class InstanceData:
-    instance = None
-    def __new__(cls, test_instance=None, *args, **kwargs):
-        for subcls in get_all_subclasses(cls):
-            if (subcls.instance is not None):
-                return subcls.instance
-        
-        if (cls.instance is None):
-            cls.instance = super(InstanceData, cls).__new__(
-                cls, *args, **kwargs
-            )
-            cls.instance.initialize_attrs(test_instance)
-        
-        return cls.instance
-        
+class InstanceDataUR(InstanceData):
 
     def initialize_attrs(self, test_instance):
         self.test_instance = test_instance
@@ -28,23 +14,9 @@ class InstanceData:
         self.horizon = None
         self.tw_size = None
         self.depot = None
+        self.fleet = None
+        self.attendance_type = None
         self.fleet_size = None
-
-
-    def read_matrix(self, matrix_dict):
-        matrix = [
-            [
-                0
-                for i in range(len(matrix_dict))
-            ]
-            for i in range(len(matrix_dict))
-        ]
-        
-        for i in range(len(matrix_dict)):
-            for j in range(len(matrix_dict)):
-                matrix[i][j] = int(matrix_dict[str(i)][str(j)])
-
-        return matrix
 
 
     def read_data_from_instance(self):
@@ -60,25 +32,10 @@ class InstanceData:
         self.capacity = data_dict["capacity"]
         self.horizon = data_dict["planning_horizon"]
         self.tw_size = data_dict["time_windows_size"]
-        self.fleet_size = data_dict["fleet_size"]
+        self.fleet = data_dict["fleet"]
+        self.fleet_size = sum([fleet_item[0] for fleet_item in self.fleet])
+        self.attendance_type = data_dict["attendance_type"]
 
-
-    def make_instance_data_dict(self):
-        capacity = self.capacity
-        depot = self.depot
-        planning_horizon = self.horizon
-        time_windows_size = self.tw_size
-        fleet_size = self.fleet_size
-        
-        instance_data = {}
-
-        instance_data["capacity"] = capacity
-        instance_data["depot"] = depot
-        instance_data["planning_horizon"] = planning_horizon
-        instance_data["time_windows_size"] = time_windows_size
-        instance_data["fleet_size"] = fleet_size
-
-        return instance_data
 
     def make_requests_data_dict(
         self, 
@@ -95,6 +52,7 @@ class InstanceData:
         demands = {}
         services_times = {}
         time_windows_pd = {}
+        attendance_type = {}
         pickups_and_deliveries = []
         for orig, mapped in orig_to_mapped.items():
             request = all_requests[orig]
@@ -114,6 +72,9 @@ class InstanceData:
 
             time_windows_pd[mapped[0]] = request["time_windows"][0]
             time_windows_pd[mapped[1]] = request["time_windows"][1]
+
+            attendance_type[mapped[0]] = request["attendance_type"][0]
+            attendance_type[mapped[1]] = request["attendance_type"][1]
 
         requests_data_dict = {}
         
@@ -137,15 +98,34 @@ class InstanceData:
         
         requests_data_dict["pickups_and_deliveries"] = pickups_and_deliveries
 
+
+        requests_data_dict["attendance_type"] = dict(
+            collections.OrderedDict(sorted(attendance_type.items()))
+        )
+        # raise Exception(str(attendance_type))
+
         return requests_data_dict
 
 
-    
-    def get_travel_time(self, i, j):
-        return self.time_matrix[i][j]
 
-    def get_travel_cost(self, i, j):
-        return self.cost_matrix[i][j]
+    def make_instance_data_dict(self):
+        capacity = self.capacity
+        depot = self.depot
+        planning_horizon = self.horizon
+        time_windows_size = self.tw_size
+        fleet = self.fleet
+        attendance_type = self.attendance_type
 
-    def get_depot_point(self):
-        return self.depot_point
+        instance_data = {}
+
+        instance_data["capacity"] = capacity
+        instance_data["depot"] = depot
+        instance_data["planning_horizon"] = planning_horizon
+        instance_data["time_windows_size"] = time_windows_size
+        instance_data["fleet"] = fleet
+        instance_data["attendance_type"] = attendance_type
+
+        return instance_data
+
+    def get_attendance_type(self, point):
+        return self.attendance_type[point]

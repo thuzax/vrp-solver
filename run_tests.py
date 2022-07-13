@@ -86,15 +86,17 @@ if __name__=="__main__":
         
 
     files_names = os.listdir(tests_dir)
+    files_names = [item for item in files_names if item[-5:] == ".json"]
 
     # print(tests_dir)
-    # print(files_names)
+    print(files_names)
 
     # files_names = [files_names[2]]
+    files_names = files_names[:5]
     
-    n_runs = 5
+    n_runs = 1
 
-    time_limit = 600
+    time_limit = 30
 
     time_slice = 60
     number_of_slices = 10

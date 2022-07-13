@@ -1,11 +1,17 @@
 import os
 import json
+
+from .get_subclasses import get_all_subclasses
 from .InstanceData import InstanceData
 
 
 class CurrentSolution:
     instance = None
     def __new__(cls, *args, **kwargs):
+        for subcls in get_all_subclasses(cls):
+            if (subcls.instance is not None):
+                return subcls.instance
+        
         if (cls.instance is None):
             cls.instance = super(CurrentSolution, cls).__new__(
                 cls, *args, **kwargs
@@ -26,31 +32,51 @@ class CurrentSolution:
             self.routes_costs[i] = 0
 
 
-    def set_next_route(self, route):
-        for r_pos, r in self.routes.items():
-            predicted_pos = self.predicted_positions[r_pos]
+    def reset_routes(self, routes, costs, new_solution):
+        for route_id, route in routes.items():
+            new_id = self.set_next_route(route)
+            if (new_id == None):
+                new_id = self.set_in_new_route(route)
+            self.set_route_cost(new_id, costs[route_id])
+        self.set_cost(new_solution["solution_cost"])
 
-            if (predicted_pos == -1):
-                continue
-            if (predicted_pos >= len(route)):
-                continue
-            
-            found_different = False
-            i = 0
-            while (not found_different and i < predicted_pos):
-                found_different = (r[i] != route[i])
-                i += 1
-                        
-            if (found_different):
-                continue
-            
-            self.routes[r_pos] = route
-            return r_pos
 
+    def set_in_new_route(self, route):
         for r_pos in range(len(self.routes)):
             if (len(self.routes[r_pos]) == 0):
                 self.routes[r_pos] = route
                 return r_pos
+        
+        return None
+
+
+    def routes_are_equivalent(self, route, r, r_pos):
+        predicted_pos = self.predicted_positions[r_pos]
+
+        if (predicted_pos == -1):
+            return False
+        if (predicted_pos >= len(route)):
+            return False
+        
+        found_different = False
+        i = 0
+        while (not found_different and i < predicted_pos):
+            found_different = (r[i] != route[i])
+            i += 1
+        
+        if (found_different):
+            return False
+        
+        return True
+        
+
+
+    def set_next_route(self, route):
+        for r_pos, r in self.routes.items():
+            if (not self.routes_are_equivalent(route, r, r_pos)):
+                continue
+            self.routes[r_pos] = route
+            return r_pos
         
         return None
 
@@ -98,8 +124,6 @@ class CurrentSolution:
             predicted_pos = i
             self.predicted_positions[vehicle] = predicted_pos
 
-        
-
     def get_predicted_positions(self):
         return self.predicted_positions
             
@@ -129,3 +153,31 @@ class CurrentSolution:
 
         # print("SOLUTION WIRTTEN IN")
         # print(out_file_name)
+
+
+    def make_current_routes_data(
+        self,
+        routes, 
+        predicted_positions, 
+        orig_to_mapped_pick, 
+        orig_to_mapped_deli
+    ):
+        fixed = []
+        for vehicle, route in routes.items():
+            predicted_position = predicted_positions[vehicle]
+            route_mapped = []
+            for vertex_id in route:
+                if (vertex_id in orig_to_mapped_pick):
+                    route_mapped.append(orig_to_mapped_pick[vertex_id])
+                elif (vertex_id in orig_to_mapped_deli):
+                    route_mapped.append(orig_to_mapped_deli[vertex_id])
+            
+            fixed.append({
+                "route" : route_mapped,
+                "start" : predicted_position
+            })
+
+        current_routes_data = {}
+        current_routes_data["fixed"] = fixed
+        
+        return current_routes_data
