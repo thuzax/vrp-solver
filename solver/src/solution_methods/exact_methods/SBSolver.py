@@ -130,7 +130,16 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
     def construct_solution_from_chosen_routes(self, y, routes_pool):
         new_soltuion = Solution()
         for i in range(len(routes_pool)):
-            if (y[i].x):
+            if (round(y[i].x)):
+                if (y[i].x == 0):
+                    print(y)
+                    print("AAAAAAAAAAAAAAAAAAaa")
+                    print("AAAAAAAAAAAAAAAAAAaa")
+                    print("AAAAAAAAAAAAAAAAAAaa")
+                    print("AAAAAAAAAAAAAAAAAAaa")
+                    print("AAAAAAAAAAAAAAAAAAaa")
+                    print("AAAAAAAAAAAAAAAAAAaa")
+                    print("AAAAAAAAAAAAAAAAAAaa")
                 new_soltuion.add_route(routes_pool[i])
                 for request in routes_pool[i].requests():
                     new_soltuion.add_request(request)

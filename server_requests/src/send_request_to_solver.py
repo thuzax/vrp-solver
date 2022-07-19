@@ -23,7 +23,7 @@ def make_json_input_dict(file_path, time_limit=None):
     if (time_limit is None):
         time_limit = 30
     # seed for the solver
-    seed = random.randint(1,1000000000000000000)
+    seed = random.randint(1,10000000)
     # if True returns all solutions found with the solver
     all_solutions = False
 
