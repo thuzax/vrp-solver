@@ -49,13 +49,6 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
 
         return True
 
-    def accept(self, new_solution, parameters=None):
-        return self.acceptance_algorithm.accept(
-            new_solution, 
-            self.obj_func, 
-            parameters
-        )
-
 
     @abstractmethod
     def get_current_best_solution(self):
@@ -65,11 +58,6 @@ class SolutionMethod(GenericClass, metaclass=ABCMeta):
     def solve(self, solution, parameters):
         pass
 
-
-    @abstractmethod
-    def update_route_values(self, route, position, request):
-        pass
-    
 
     @abstractmethod
     def get_attr_relation_reader_heuristic(self):

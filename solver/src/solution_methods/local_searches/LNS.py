@@ -157,10 +157,6 @@ class LNS(LocalSearch):
         return self.best_solution
 
 
-    def update_route_values(self, route, position, request):
-        super().update_route_values(route, position, request)
-
-
     def reinsert_requests(self, requests, k, solution):
         parameters = {}
         parameters["k"] = k

@@ -68,7 +68,13 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
 
     
     @abstractmethod
-    def make_constraints(self, model, solution, routes_with_request, parameters):
+    def make_constraints(
+        self, 
+        model, 
+        solution, 
+        routes_with_request, 
+        parameters
+    ):
         pass
     
 
@@ -182,10 +188,6 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
         file_log.add_warning_log(message)
         execution_log.warning_log(message)
         return solution
-
-
-    def update_route_values(self, route, position, request):
-        super().update_route_values(route, position, request)
 
 
     def get_attr_relation_reader_heuristic(self):

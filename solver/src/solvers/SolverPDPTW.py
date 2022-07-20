@@ -118,16 +118,6 @@ class SolverPDPTW(SolverClass):
         return self.best_solution
 
 
-    def update_heuristics_data(self):
-        self.construction = HeuristicsObjects().get_by_name(
-            self.construction_name
-        )
-
-        self.metaheuristic = HeuristicsObjects().get_by_name(
-            self.metaheuristic_name
-        )
-
-
     def get_attr_relation_reader_solver(self):
         read_solv_attr_rela = {
             "input_name" : "output_name",

@@ -75,5 +75,3 @@ class WorstRemoval(SolutionMethod):
     def get_attr_relation_reader_heuristic(self):
         return {}
 
-    def update_route_values(self, route, position, request):
-        return super().update_route_values(route, position, request)

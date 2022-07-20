@@ -98,8 +98,8 @@ if __name__=="__main__":
 
     time_limit = 30
 
-    time_slice = 60
-    number_of_slices = 10
+    time_slice = 200
+    number_of_slices = 3
 
     for i in range(n_runs):
         for file_name in files_names:

@@ -196,7 +196,14 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     def update_heuristics_data(self):
-        pass
+        self.construction = HeuristicsObjects().get_by_name(
+            self.construction_name
+        )
+
+        self.metaheuristic = HeuristicsObjects().get_by_name(
+            self.metaheuristic_name
+        )
+
 
 
     @abstractmethod

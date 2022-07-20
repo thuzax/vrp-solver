@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import random
 
 
 def get_links():
@@ -22,7 +23,8 @@ def make_json_input_dict(file_path, time_limit=None):
     if (time_limit is None):
         time_limit = 30
     # seed for the solver
-    seed = 0
+    seed = random.randint(0, 10000000)
+    # seed = 0
     # if True returns all solutions found with the solver
     all_solutions = False
 

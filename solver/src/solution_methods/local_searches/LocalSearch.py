@@ -29,3 +29,10 @@ class LocalSearch(SolutionMethod, metaclass=ABCMeta):
         self.local_operators = {}
         for key, value in op_dict.items():
             self.local_operators[key] = value
+
+    def accept(self, new_solution, parameters=None):
+        return self.acceptance_algorithm.accept(
+            new_solution, 
+            self.obj_func, 
+            parameters
+        )

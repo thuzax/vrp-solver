@@ -421,9 +421,5 @@ class SBMath(LocalSearch):
         return False
 
 
-    def update_route_values(self, route, position, request):
-        super().update_route_values(route, position, request)
-    
-
     def get_attr_relation_reader_heuristic(self):
         return {}

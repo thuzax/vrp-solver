@@ -1,0 +1,26 @@
+Instance name : DPDPTWUR-R_one_clustering_DPDPTW-R_mitrovic-minic_Rnd6_10h_100_002_slice_2
+Authors : 
+Date : 
+Reference 
+Solution
+Route 1 : 55 4 33 1 42 52 127 76 117 108 12 87 54 62 137 63 79 60 130 138 11 86 64 129 37 112 139 135 
+Route 2 : 39 68 18 114 56 48 123 143 93 131 50 71 146 16 91 125 
+Route 3 : 32 10 85 31 6 107 81 106 27 28 102 103 22 97 14 89 29 104 
+Route 4 : 70 13 88 145 40 115 46 121 15 23 98 26 61 136 101 90 25 100 
+Route 5 : 41 116 35 110 67 7 142 34 109 82 
+Route 6 : 19 59 9 84 94 134 69 24 5 74 99 149 80 44 119 144 36 111 
+Route 7 : 2 73 53 128 77 148 
+Route 8 : 72 147 
+Route 9 : 
+Route 10 : 
+Route 11 : 
+Route 12 : 
+Route 13 : 
+Route 14 : 47 66 122 141 
+Route 15 : 17 58 133 92 
+Route 16 : 21 57 43 96 132 118 
+Route 17 : 45 75 150 120 
+Route 18 : 
+Route 19 : 
+Route 20 : 
+Route 21 : 

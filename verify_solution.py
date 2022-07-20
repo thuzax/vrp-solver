@@ -201,6 +201,7 @@ def fleet_size_respected(solution, input_data, problem):
         )
 
         counted_dict = dict(collections.Counter(list(matching)))
+        no_matched = 0
         if (-1 in counted_dict):
             no_matched = counted_dict[-1]
         

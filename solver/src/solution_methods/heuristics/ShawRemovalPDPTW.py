@@ -67,9 +67,6 @@ class ShawRemovalPDPTW(ShawRemoval):
         }
         return rela_reader_heur
 
-    def update_route_values(self, route, position, request):
-        return super().update_route_values(route, position, request)
-
 
     def get_exception_requests(self, solution):
         return super().get_exception_requests(solution)

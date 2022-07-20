@@ -370,10 +370,6 @@ class AGES(LocalSearch):
         
 
 
-    def update_route_values(self, route, position, request):
-        super().update_route_values(route, position, request)
-
-
     def get_attr_relation_reader_heuristic(self):
         rela_reader_heur = super().get_attr_relation_reader_heuristic()
         return rela_reader_heur

@@ -26,10 +26,6 @@ class ShawRemovalDPDPTW(ShawRemovalPDPTW):
         return rela_reader_heur
 
 
-    def update_route_values(self, route, position, request):
-        return super().update_route_values(route, position, request)
-
-
     def choose_one_random_request_to_remove(self, requests, solution):
         possible_requests = (
             set(requests) - set(self.get_exception_requests(solution))

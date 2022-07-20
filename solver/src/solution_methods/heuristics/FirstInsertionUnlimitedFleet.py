@@ -72,10 +72,6 @@ class FirstInsertionUnlimitedFleet(SolutionMethod):
 
         # print(requests - inserted_requests)
         return new_solution
-
-    def update_route_values(self, route, position, request):
-        return super().update_route_values()
-    
     
     def get_attr_relation_reader_heuristic(self):
         return super().get_attr_relation_reader_heuristic()
