@@ -148,11 +148,11 @@ if __name__ == "__main__":
     # print(tests_dir)
     print(files_names)
     # files_names = [files_names[2]]
-    files_names = files_names[:1]
+    # files_names = files_names[:1]
 
-    n_runs = 1
+    n_runs = 5
 
-    time_limit = 120
+    time_limit = 600
 
     for i in range(n_runs):
         for file_name in files_names:
