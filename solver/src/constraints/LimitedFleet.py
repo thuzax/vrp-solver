@@ -23,7 +23,7 @@ class LimitedFleet(Constraint):
 
 
     @staticmethod
-    def get_attr_relation_solver_constr():
+    def get_attr_relation_reader_constr():
         attr_relation = {
             "fleet_size" : "fleet_size"
         }

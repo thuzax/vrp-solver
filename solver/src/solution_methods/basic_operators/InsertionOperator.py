@@ -40,8 +40,6 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
             
         return True
 
-
-    @abstractmethod
     def try_to_insert(self, route, position, request, obj_func, constraints):
         copy_route = route.copy()
         

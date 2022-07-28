@@ -93,6 +93,10 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
+    def construct(self):
+        pass
+
+    @abstractmethod
     def solve(self):
         pass
 

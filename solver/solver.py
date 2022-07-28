@@ -56,7 +56,7 @@ def set_read_objects_attributes(reader):
         
     constraints_objects = ConstraintsObjects().get_list()
     for constraint in constraints_objects:
-        read_cons_attr_rela = constraint.get_attr_relation_solver_constr()
+        read_cons_attr_rela = constraint.get_attr_relation_reader_constr()
         set_object_attributes(reader, constraint, read_cons_attr_rela)
 
     reader_route_attr_relation = Route.get_reader_route_attr_relation()

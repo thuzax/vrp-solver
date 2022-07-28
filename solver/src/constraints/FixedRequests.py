@@ -68,7 +68,7 @@ class FixedRequests(Constraint):
 
 
     @staticmethod
-    def get_attr_relation_solver_constr():
+    def get_attr_relation_reader_constr():
         attr_relation = {
             "fixed_routes_dict" : "fixed_routes_dicts",
             "parcial_requests" : "parcial_requests",

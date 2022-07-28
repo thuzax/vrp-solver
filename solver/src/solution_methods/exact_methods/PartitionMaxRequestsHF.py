@@ -52,8 +52,6 @@ class PartitionMaxRequestsHF(PartitionMaxRequests):
     #             if (route.is_equal(route_sol)):
     #                 z[i][route_fleet_type] = 1
     #                 break
-        
-
                 
 
     def initialize_model(self, model, solution, parameters):

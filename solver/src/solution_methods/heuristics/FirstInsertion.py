@@ -4,8 +4,7 @@ from src import file_log
 
 
 class FirstInsertion(SolutionMethod):
-    children_instances = {}
-
+    
     def __init__(self):
         super().__init__("First Insertion")
 

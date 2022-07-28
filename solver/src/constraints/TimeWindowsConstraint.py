@@ -62,7 +62,7 @@ class TimeWindowsConstraint(Constraint):
 
 
     @staticmethod
-    def get_attr_relation_solver_constr():
+    def get_attr_relation_reader_constr():
         attr_relation = {
             "planning_horizon" : "planning_limit",
             "time_matrix" : "time_matrix",

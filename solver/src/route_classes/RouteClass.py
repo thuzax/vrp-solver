@@ -148,7 +148,6 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
         return request
 
 
-    @abstractmethod
     def cost(self):
         return self.route_cost
 

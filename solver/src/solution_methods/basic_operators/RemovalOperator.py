@@ -32,7 +32,6 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
         return True
 
 
-    @abstractmethod
     def try_to_remove(self, route, request, obj_func, constraints):
         copy_route = route.copy()
         position = copy_route.index(request)
@@ -64,6 +63,11 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
         obj_func
     ):
         pass
+
+    @abstractmethod
+    def update_route_values(self, route, position, request):
+        pass
+
 
     @abstractmethod
     def get_attr_relation_reader_remov_op(self):

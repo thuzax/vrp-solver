@@ -93,6 +93,10 @@ class Reader(GenericClass, metaclass=ABCMeta):
         pass
 
     @abstractmethod
+    def create_request_vertex(self, request_position):
+        pass
+
+    @abstractmethod
     def create_specific_vertices(self):
         pass
 
