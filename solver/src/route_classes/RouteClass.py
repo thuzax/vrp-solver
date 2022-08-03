@@ -167,6 +167,8 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
         
         self.copy_route_to(route_copy)
 
+        self.calculate_route_id_value()
+
         return route_copy
 
     @staticmethod

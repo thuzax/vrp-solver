@@ -98,19 +98,23 @@ if __name__=="__main__":
 
     time_limit = 600
 
-    time_slice = 200
-    number_of_slices = 3
+    time_slice = 60
+    number_of_slices = 10
+
 
     for i in range(n_runs):
-        if (i == 0):
-            continue
+
         for file_name in files_names:
+            
             print("=" * 80)
+            print(file_name)
             run_name = file_name.split(".")[0] + "_run_" + str(i+1)
             output_run_dir = os.path.join(
                 output_dir, 
                 run_name
             )
+
+
 
             if (not os.path.exists(output_run_dir)):
                 os.makedirs(output_run_dir)
@@ -132,7 +136,8 @@ if __name__=="__main__":
 
             print(command)
             print("-" * 80)
-            
+
+
             start_time = time.time()
             
             server_requests_dir = os.path.join(".", "server_requests")

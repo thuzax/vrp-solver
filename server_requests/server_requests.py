@@ -6,6 +6,7 @@ import flask
 import json
 import os
 import signal
+import traceback
 
 import server_arguments_handler
 from src.CurrentSolution import CurrentSolution
@@ -176,7 +177,8 @@ if __name__ == '__main__':
     try:
         run(run_server)
     except Exception as ex:
-        server_requests_util.write_on_log(str(ex))
+        print(traceback.format_exc())
+        server_requests_util.write_on_log(str(traceback.format_exc()))
         raise ex
     
     

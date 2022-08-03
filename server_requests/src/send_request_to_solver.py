@@ -83,5 +83,5 @@ def send_request(
         return result
     except Exception as ex:
         # print("Could not load solution json")
-        raise ex
+        raise type(ex)(str(ex) + "\n\n RETURNED FROM SERVER:\n\n" + str(r.text))
         
