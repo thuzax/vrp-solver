@@ -106,7 +106,8 @@ def dpdptwhf_r():
     solution_data = server_solver_util.solve_problem(func_code, data)
     if (solution_data is None):
         return "No solution found. Probably an error ocurred."
-    
+    print(solution_data)
+    print(json.dumps(solution_data))
     return json.dumps(solution_data)
 
 @app.route("/par/pdptw-v", methods=["POST"])
