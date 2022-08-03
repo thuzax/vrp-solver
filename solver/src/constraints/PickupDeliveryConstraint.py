@@ -58,7 +58,7 @@ class PickupDeliveryConstraint(Constraint):
     
 
     @staticmethod
-    def get_attr_relation_reader_constr():
+    def get_attr_relation_reader():
         attr_relation = {
             "pickups" : "pickups",
             "deliveries" : "deliveries",

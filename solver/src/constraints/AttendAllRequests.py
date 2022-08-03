@@ -24,7 +24,7 @@ class AttendAllRequests(Constraint):
 
 
     @staticmethod
-    def get_attr_relation_reader_constr():
+    def get_attr_relation_reader():
         attr_relation = {
             "requests" : "all_requests"
         }

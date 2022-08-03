@@ -170,7 +170,7 @@ class RouteClass(GenericClass, metaclass=ABCMeta):
 
     @staticmethod
     @abstractmethod
-    def get_attr_relation_reader_route():
+    def get_attr_relation_reader():
         pass
 
     

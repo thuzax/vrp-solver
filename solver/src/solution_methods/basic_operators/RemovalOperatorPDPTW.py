@@ -169,7 +169,7 @@ class RemovalOperatorPDPTW(RemovalOperator):
         return arrival_time
 
 
-    def get_attr_relation_reader_remov_op(self):
+    def get_attr_relation_reader(self):
         rela_reader_heur = {
             "vertices" : "vertices",
             "time_matrix" : "time_matrix",

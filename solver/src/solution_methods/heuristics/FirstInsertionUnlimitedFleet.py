@@ -73,8 +73,8 @@ class FirstInsertionUnlimitedFleet(SolutionMethod):
         # print(requests - inserted_requests)
         return new_solution
     
-    def get_attr_relation_reader_heuristic(self):
-        return super().get_attr_relation_reader_heuristic()
+    def get_attr_relation_reader(self):
+        return super().get_attr_relation_reader()
 
             
     def get_current_best_solution(self):

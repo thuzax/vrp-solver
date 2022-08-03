@@ -16,7 +16,7 @@ class ShawRemovalDPDPTW(ShawRemovalPDPTW):
         self.fixed_routes_dict = None
 
 
-    def get_attr_relation_reader_heuristic(self):
+    def get_attr_relation_reader(self):
         rela_reader_heur = {
             "distance_matrix" : "distance_matrix",
             "demands" : "demands",

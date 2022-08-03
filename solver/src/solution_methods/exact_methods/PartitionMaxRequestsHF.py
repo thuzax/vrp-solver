@@ -199,7 +199,7 @@ class PartitionMaxRequestsHF(PartitionMaxRequests):
             
         # exit(0)
 
-    def get_attr_relation_reader_heuristic(self):
+    def get_attr_relation_reader(self):
         return {
             "vertices" : "vertices",
             "fleet" : "fleet",

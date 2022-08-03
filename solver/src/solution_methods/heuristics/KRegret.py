@@ -202,5 +202,5 @@ class KRegret(SolutionMethod):
     def get_current_best_solution(self):
         return super().get_current_best_solution()
 
-    def get_attr_relation_reader_heuristic(self):
-        return super().get_attr_relation_reader_heuristic()
+    def get_attr_relation_reader(self):
+        return super().get_attr_relation_reader()

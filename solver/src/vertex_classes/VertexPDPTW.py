@@ -18,7 +18,7 @@ class VertexPDPTW(VertexClass):
         self.pair_id = None
 
     @staticmethod
-    def get_attr_relation_reader_vertex():
+    def get_attr_relation_reader():
         reader_route_attr_rela = {
             "points" : "coords",
             "services_times" : "service_time",

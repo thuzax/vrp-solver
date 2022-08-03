@@ -267,7 +267,7 @@ class InsertionOperatorPDPTW(InsertionOperator):
         return arrival_time
 
 
-    def get_attr_relation_reader_insert_op(self):
+    def get_attr_relation_reader(self):
         rela_reader_heur = {
             "vertices" : "vertices",
             "number_of_requests" : "number_of_requests",

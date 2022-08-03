@@ -40,5 +40,5 @@ class LAHC(AcceptanceHeuristic):
             return True
         return False
 
-    def get_attr_relation_reader_accept_heuri(self):
-        return super().get_attr_relation_reader_accept_heuri()
+    def get_attr_relation_reader(self):
+        return super().get_attr_relation_reader()

@@ -31,32 +31,32 @@ def set_object_attributes(obj_origin, obj_destiny, attr_relation):
 def set_read_objects_attributes(reader):
     solver_obj = SolverClass()
 
-    read_sol_attr_relation = solver_obj.get_attr_relation_reader_solver()
+    read_sol_attr_relation = solver_obj.get_attr_relation_reader()
     set_object_attributes(reader, solver_obj, read_sol_attr_relation)
 
     obj_funcs_objects = ObjFunctionsObjects().get_list()
 
     for obj_func in obj_funcs_objects:
-        read_obj_f_attr_rela = obj_func.get_attr_relation_reader_func()
+        read_obj_f_attr_rela = obj_func.get_attr_relation_reader()
         set_object_attributes(reader, obj_func, read_obj_f_attr_rela)
 
     i_op = InsertionOperator()
-    read_insert_op_rela = i_op.get_attr_relation_reader_insert_op()
+    read_insert_op_rela = i_op.get_attr_relation_reader()
     set_object_attributes(reader, i_op, read_insert_op_rela)
 
     r_op = RemovalOperator()
-    read_remov_op_rela = r_op.get_attr_relation_reader_remov_op()
+    read_remov_op_rela = r_op.get_attr_relation_reader()
     set_object_attributes(reader, r_op, read_remov_op_rela)
 
 
     heuristics_objects = HeuristicsObjects().get_list()
     for heuristic in heuristics_objects:
-        read_heur_attr_rela = heuristic.get_attr_relation_reader_heuristic()
+        read_heur_attr_rela = heuristic.get_attr_relation_reader()
         set_object_attributes(reader, heuristic, read_heur_attr_rela)
         
     constraints_objects = ConstraintsObjects().get_list()
     for constraint in constraints_objects:
-        read_cons_attr_rela = constraint.get_attr_relation_reader_constr()
+        read_cons_attr_rela = constraint.get_attr_relation_reader()
         set_object_attributes(reader, constraint, read_cons_attr_rela)
 
     reader_route_attr_relation = Route.get_reader_route_attr_relation()

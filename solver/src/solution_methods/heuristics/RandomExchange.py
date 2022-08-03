@@ -201,5 +201,5 @@ class RandomExchange(SolutionMethod):
 
 
 
-    def get_attr_relation_reader_heuristic(self):
+    def get_attr_relation_reader(self):
         return {}

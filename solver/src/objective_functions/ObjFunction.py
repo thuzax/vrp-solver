@@ -130,3 +130,9 @@ class ObjFunction(GenericClass, metaclass=ABCMeta):
     @staticmethod
     def clear():
         ObjFunction.children_instances.clear()
+
+
+    @staticmethod
+    @abstractmethod
+    def get_attr_relation_reader():
+        pass

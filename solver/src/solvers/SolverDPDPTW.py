@@ -207,7 +207,7 @@ class SolverDPDPTW(SolverPDPTW):
             self.metaheuristic_name
         )
 
-    def get_attr_relation_reader_solver(self):
+    def get_attr_relation_reader(self):
         read_solv_attr_rela = {
             "input_name": "output_name",
             "vertices": "vertices",

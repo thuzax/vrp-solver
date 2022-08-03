@@ -28,7 +28,7 @@ class Vertex(GenericClass):
     def set_class(vertex_cls):
         Vertex.vertex_cls = vertex_cls
         Vertex.reader_vertex_attr = (
-            Vertex.vertex_cls.get_attr_relation_reader_vertex()
+            Vertex.vertex_cls.get_attr_relation_reader()
         )
 
     def initialize_class_attributes(self):

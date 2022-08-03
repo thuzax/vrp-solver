@@ -48,7 +48,7 @@ class HeterogeneousFleet(Constraint):
         return True
 
     @staticmethod
-    def get_attr_relation_reader_constr():
+    def get_attr_relation_reader():
         attr_relation = {
             "vertices": "vertices",
             "fleet" : "fleet"

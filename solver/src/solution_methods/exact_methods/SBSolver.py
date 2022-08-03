@@ -199,6 +199,6 @@ class SBSolver(SolutionMethod, metaclass=ABCMeta):
         return solution
 
 
-    def get_attr_relation_reader_heuristic(self):
-        rela_reader_heur = super().get_attr_relation_reader_heuristic()
+    def get_attr_relation_reader(self):
+        rela_reader_heur = super().get_attr_relation_reader()
         return rela_reader_heur

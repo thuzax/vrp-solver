@@ -28,5 +28,5 @@ class AcceptBetterOrWithProbability(AcceptanceHeuristic):
         return False
 
 
-    def get_attr_relation_reader_accept_heuri(self):
+    def get_attr_relation_reader(self):
         return {}

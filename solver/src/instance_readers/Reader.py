@@ -55,7 +55,7 @@ class Reader(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def create_depots(self, request_position):
+    def create_depots(self):
         pass
 
 

@@ -254,7 +254,7 @@ class PartitionMaxRequests(SBSolver):
 
 
 
-    def get_attr_relation_reader_heuristic(self):
+    def get_attr_relation_reader(self):
         return {
             "fleet_size" : "fleet",
             "fixed_routes_dict" : "fixed_routes_dict"

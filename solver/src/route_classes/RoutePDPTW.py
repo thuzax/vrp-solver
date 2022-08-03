@@ -86,7 +86,7 @@ class RoutePDPTW(RouteClass):
         return text
 
     @staticmethod
-    def get_attr_relation_reader_route():
+    def get_attr_relation_reader():
         reader_route_attr_rela = {
         }
 

@@ -64,7 +64,7 @@ class LNS(LocalSearch):
         
         self.best_solution = copy_solution
 
-        extra_requests = copy.deepcopy(parameters["remaining_requests"])
+        extra_requests = copy.deepcopy(parameters["requests_set"])
         all_requests = extra_requests.union(copy_solution.requests())
 
 
@@ -232,8 +232,8 @@ class LNS(LocalSearch):
         return False
 
 
-    def get_attr_relation_reader_heuristic(self):
-        rela_reader_heur = super().get_attr_relation_reader_heuristic()
+    def get_attr_relation_reader(self):
+        rela_reader_heur = super().get_attr_relation_reader()
         return rela_reader_heur
 
 

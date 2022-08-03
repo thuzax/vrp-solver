@@ -93,7 +93,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def construct(self):
+    def construct(self, parameters=None):
         pass
 
     @abstractmethod
@@ -160,6 +160,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     def get_best_solution(self):
+        self.update_and_get_best_after_timeout()
         return self.best_solution
 
 
@@ -211,7 +212,7 @@ class SolverClass(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def get_attr_relation_reader_solver(self):
+    def get_attr_relation_reader(self):
         return {
             "input_name" : "output_name"
         }

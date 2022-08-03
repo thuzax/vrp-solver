@@ -37,7 +37,7 @@ class Route(GenericClass):
     def set_class(route_cls):
         Route.route_cls = route_cls
         Route.reader_route_attr = (
-            Route.route_cls.get_attr_relation_reader_route()
+            Route.route_cls.get_attr_relation_reader()
         )
 
     def initialize_class_attributes(self):

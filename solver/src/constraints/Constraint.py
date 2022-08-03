@@ -39,7 +39,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
 
     @staticmethod
     @abstractmethod
-    def get_attr_relation_reader_constr():
+    def get_attr_relation_reader():
         pass
 
 

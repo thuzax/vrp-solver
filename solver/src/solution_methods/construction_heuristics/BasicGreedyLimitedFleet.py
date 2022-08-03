@@ -63,8 +63,8 @@ class BasicGreedyLimitedFleet(BasicGreedy):
 
     
 
-    def get_attr_relation_reader_heuristic(self):
-        needed_data = super().get_attr_relation_reader_heuristic()
+    def get_attr_relation_reader(self):
+        needed_data = super().get_attr_relation_reader()
         needed_data["fleet_size"] = "fleet_size"
         return needed_data
 

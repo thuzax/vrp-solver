@@ -70,7 +70,7 @@ class RemovalOperator(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def get_attr_relation_reader_remov_op(self):
+    def get_attr_relation_reader(self):
         return {}
 
 

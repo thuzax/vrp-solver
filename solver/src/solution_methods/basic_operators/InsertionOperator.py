@@ -247,7 +247,7 @@ class InsertionOperator(GenericClass, metaclass=ABCMeta):
 
 
     @abstractmethod
-    def get_attr_relation_reader_insert_op(self):
+    def get_attr_relation_reader(self):
         pass
 
 

@@ -17,7 +17,7 @@ class ObjDistancePDPTW(ObjFunctionPDPTW):
 
 
     @staticmethod
-    def get_attr_relation_reader_func():
+    def get_attr_relation_reader():
         solver_func_attr_rela = {
             "distance_matrix" : "distance_matrix",
             "depot" : "depot"

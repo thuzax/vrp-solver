@@ -161,14 +161,14 @@ class SBMath(LocalSearch):
 
             it_start = time.time()
             remaining_req = all_requests - solution.requests()
-            parameters = {
-                "remaining_requests" : remaining_req
+            parameters_fop = {
+                "requests_set" : remaining_req
             }
             start_op = time.time()
             new_solution = self.execute_operator(
                 solution, 
                 "FirstOperator", 
-                parameters
+                parameters_fop
             )
             
             end_op = time.time()
@@ -180,14 +180,14 @@ class SBMath(LocalSearch):
             # )
             # print("AGES Solution")
             # print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
-            parameters = {
-                "remaining_requests" : remaining_req
+            parameters_sop = {
+                "requests_set" : remaining_req
             }
             start_op = time.time()
             new_solution = self.execute_operator(
                 new_solution, 
                 "SecondOperator", 
-                parameters
+                parameters_sop
             )
             # print("LNS Solution")
             # print(get_solution_check_complete_data(new_solution, self.constraints, self.obj_func))
@@ -200,7 +200,7 @@ class SBMath(LocalSearch):
             # )
 
             self.add_routes_to_pool(new_solution.routes())
-            parameters = {
+            parameters_eop = {
                 "requests_set" : all_requests,
                 "routes_pool" : self.routes_pool
             }
@@ -208,7 +208,7 @@ class SBMath(LocalSearch):
             sp_solution = self.execute_operator(
                 new_solution, 
                 "ExactSolver", 
-                parameters
+                parameters_eop
             )
             # print("MODELO Solution")
             # print(get_solution_check_complete_data(sp_solution, self.constraints, self.obj_func))
@@ -230,14 +230,14 @@ class SBMath(LocalSearch):
             else:
                 solution = new_solution
 
-            parameters = {
+            parameters_perturb = {
                 "n_perturb" : self.number_of_perturb_moves
             }
             start_op = time.time()
             solution = self.execute_operator(
                 new_solution, 
                 "Perturbation", 
-                parameters
+                parameters_perturb
             )
             message = self.local_operators["Perturbation"].name
             message += "\n"
@@ -421,5 +421,5 @@ class SBMath(LocalSearch):
         return False
 
 
-    def get_attr_relation_reader_heuristic(self):
+    def get_attr_relation_reader(self):
         return {}
