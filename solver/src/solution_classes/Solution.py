@@ -147,6 +147,20 @@ class Solution(GenericClass):
     def number_of_routes(self):
         return len(self.routes_list)
 
+    def number_of_empty_routes(self):
+        empty_m = 0
+        for route in self.routes_list:
+            if (route.empty()):
+                empty_m += 1
+        
+        return empty_m
+
+    def number_of_non_empty_routes(self):
+        return (
+            self.number_of_routes() 
+            - self.number_of_empty_routes()
+        )
+
 
     def number_of_requests(self):
         return len(self.requests_set)
