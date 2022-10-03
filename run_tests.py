@@ -102,7 +102,7 @@ if __name__=="__main__":
     
     n_runs = 2
 
-    time_limit = 120
+    time_limit = 600
 
     time_slice = 60
     number_of_slices = 10

@@ -219,8 +219,6 @@ class Solution(GenericClass):
         
         return False
             
-            
-
 
     @staticmethod
     def clear():
