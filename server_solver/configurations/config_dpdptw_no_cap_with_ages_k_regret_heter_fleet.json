@@ -195,7 +195,7 @@
                 "LimitedFleet",
                 "HeterogeneousFleet"
             ],
-            "solver_code": "GRB",
+            "solver_code": "CBC",
             "opt_time_limit": 120,
             "cost_reduction_factor" : 0.00001,
             "max_routes_cost_increment" : 0

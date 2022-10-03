@@ -70,11 +70,12 @@ def write_on_log(text):
     with open(get_log_file_path(), "a") as log_file:
         break_line = 80 * "-"
         log_file.write(break_line + "\n")
-        log_file.write(text + "\n")
+        log_file.write(str(text) + "\n")
 
 
 def create_time_slices(time_slice_size, horizon):
     number_of_time_slices = int(horizon / time_slice_size)
+    number_of_time_slices = 3
 
     time_slices = []
     for i in range(number_of_time_slices):
@@ -523,7 +524,7 @@ def send_request(input_file_path, time_limit, output_path, problem):
         problem = "dpdptwhf-r"
     if (problem.upper() == "DPDPTWNOC-D"):
         problem = "dpdptwlf-d"
-    
+    write_on_log("AAAAAAAAAAAAAAAAAAAAAAAA")
     result = send_request_to_solver.send_request(
         problem, 
         input_file_path, 
@@ -531,6 +532,10 @@ def send_request(input_file_path, time_limit, output_path, problem):
         shutdown_link,
         output_path
     )
+    write_on_log(result)
+    if (type(result) != dict):
+        raise(Exception("NoSolutionFound"))
+    write_on_log("AAAAAAAAAAAAAAAAAAAAAAAA")
 
     return result
 
@@ -704,7 +709,11 @@ def solve_from_instance(
 
     position_in_sorted = 0
 
+    solution_not_found = False
+
     for i in range(len(time_slices)):
+        if (solution_not_found):
+            continue
         current_time_slice = i+1
         write_on_log(
             "TIME SLICE " 
@@ -778,17 +787,25 @@ def solve_from_instance(
             + str(time.time() - start_time)
             + ")"
         )
-        solve_time_slice(
-            time_slice_size, 
-            time_limit, 
-            current_time_slice, 
-            data,
-            output_path, 
-            problem
-        )
+
+        try:
+            solve_time_slice(
+                time_slice_size, 
+                time_limit, 
+                current_time_slice, 
+                data,
+                output_path, 
+                problem
+            )
+        except Exception as ex:
+            if (str(ex) != "NoSolutionFound"):
+                raise ex
+
+            solution_not_found = True   
+
 
         write_on_log(
-            "FINISHED SLICE"
+            "FINISHED SLICE "
             + str(current_time_slice)
             + " "
             + "(time: " 

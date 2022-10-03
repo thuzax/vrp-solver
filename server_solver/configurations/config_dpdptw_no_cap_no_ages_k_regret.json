@@ -188,7 +188,7 @@
                 "AttendAllRequests",
                 "LimitedFleet"
             ],
-            "solver_code": "GRB",
+            "solver_code": "CBC",
             "opt_time_limit": 120
         },
         "OriginalPerturbation": {

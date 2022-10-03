@@ -69,7 +69,8 @@ if __name__=="__main__":
     args = sys.argv[1:]
 
     if (len(args) < 2):
-        print("Needs input and output dirs with test instances and problem")
+        text = "Needs input dir with test instances,"
+        text += " an output dir and the problem to be solved"
         exit(0)
 
     host_data = {
@@ -86,7 +87,12 @@ if __name__=="__main__":
         
 
     files_names = os.listdir(tests_dir)
-    files_names = [item for item in files_names if item[-5:] == ".json"]
+    print(files_names)
+    files_names = [
+        item 
+        for item in files_names 
+        if item[-5:] ==  ".json"
+    ]
 
     # print(tests_dir)
     print(files_names)
@@ -101,6 +107,13 @@ if __name__=="__main__":
     time_slice = 60
     number_of_slices = 10
 
+    list_of_not_solved = os.path.join(
+        output_dir, 
+        "not_solved.txt"
+    )
+    with open(list_of_not_solved, "w"):
+        pass
+            
 
     for i in range(n_runs):
 
@@ -118,7 +131,7 @@ if __name__=="__main__":
 
             if (not os.path.exists(output_run_dir)):
                 os.makedirs(output_run_dir)
-            
+
             input_file = os.path.join("..", tests_dir, file_name)
 
             command = ""
@@ -153,13 +166,18 @@ if __name__=="__main__":
             exit_code = sp.returncode
 
             print("EXEC TIME: " + str(time.time() - start_time))
-
-            verify_all_solutions(
-                file_name, 
-                os.path.join(tests_dir, file_name),
-                output_run_dir, 
-                number_of_slices,
-                problem
-            )
+            
+            try:
+                verify_all_solutions(
+                    file_name, 
+                    os.path.join(tests_dir, file_name),
+                    output_run_dir, 
+                    number_of_slices,
+                    problem
+                )
+            except FileNotFoundError as ex:
+                with open(list_of_not_solved, "a") as f:
+                    f.write(str(run_name))
+                    f.write("\n")
 
             print("=" * 80)
