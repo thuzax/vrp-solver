@@ -55,7 +55,8 @@ class PickupDeliveryConstraint(Constraint):
         return False
 
 
-    
+    def solution_is_feasible(self, solution):
+        return super().solution_is_feasible(solution)
 
     @staticmethod
     def get_attr_relation_reader():

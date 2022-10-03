@@ -25,7 +25,7 @@ class Constraint(GenericClass, metaclass=ABCMeta):
     def route_is_feasible(self, route, start_pos=0, end_pos=-1):
         pass
     
-
+    @abstractmethod
     def solution_is_feasible(self, solution):
         if (solution is None):
             return False
