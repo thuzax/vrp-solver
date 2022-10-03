@@ -47,6 +47,8 @@ class AGES(LocalSearch):
         while (not self.stop_criteria_fulfilled() and can_improve):
             new_solution = self.best_solution.copy()
             
+            last_size = new_solution.number_of_non_empty_routes()
+            
             route_pos = random.randint(0, len(new_solution.routes())-1)
             removed_route = new_solution.pop_route(route_pos)
             
@@ -70,18 +72,29 @@ class AGES(LocalSearch):
 
             self.stop_parameters["it"] += 1
             self.stop_parameters["time_last_it"] = time.time()
+            improved = self.obj_func.solution_is_better(
+                new_solution, 
+                self.best_solution
+            )
             if (
                 len(requests_stack) == 0 
                 and self.solution_is_feasible(new_solution)
                 and self.accept(new_solution)
+                and improved
             ):
-                improved = True
+                new_solution.set_objective_value(
+                    self.obj_func.get_solution_cost(new_solution)
+                )
+                
                 self.stop_parameters["time_last_improv"] = time.time()
                 self.stop_parameters["number_perturb"] = 0
                 self.best_solution = new_solution
-                self.best_solution.set_objective_value(
-                    self.obj_func.get_solution_cost(self.best_solution)
-                )
+            if (not improved):
+                new_solution = self.perturb(new_solution)
+                self.stop_parameters["number_perturb"] += 1
+
+            if (new_solution.number_of_non_empty_routes() <= 1):
+                return self.best_solution
         
         message = "AGES" + "\n"
         message += "IT: " + str(self.stop_parameters["it"]) + "\n"
@@ -141,7 +154,7 @@ class AGES(LocalSearch):
                     requests_stack, 
                     penalities
                 )
-                solution = self.perturb(new_solution)
+                new_solution = self.perturb(new_solution)
                 self.stop_parameters["number_perturb"] += 1
         
         return new_solution
@@ -353,6 +366,7 @@ class AGES(LocalSearch):
             solution,
             {"n_perturb" : self.number_of_perturb_moves}
         )
+        return solution
 
 
     def stop_criteria_fulfilled(self):
