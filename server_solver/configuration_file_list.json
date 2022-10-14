@@ -2,6 +2,6 @@
     "SPDPTW_V" : "../solver/configuration-static.json",
     "DPDPTW_V" : "../solver/configuration-dynamic-obj-vehicle.json",
     "DPDPTW_R" : "../solver/configuration-dynamic-obj-request.json",
-    "DPDPTWHF_R" : "./configurations/config_dpdptw_no_cap_with_ages_k_regret_heter_fleet.json",
+    "DPDPTWHF_R" : "./configurations/config_dpdptw_no_cap_with_ages_heter_fleet.json",
     "DPDPTWNoC_D" : "./configurations/config_dpdptw_no_cap_with_ages_k_regret.json"
 }
