@@ -18,5 +18,9 @@ if __name__ == "__main__":
         os.makedirs(output_folder)
 
     for file_name in files_names:
-        args = (os.path.join(input_folder, file_name), output_folder)
+        f_path = os.path.join(input_folder, file_name)
+        print(f_path)
+        if (not os.path.isfile(f_path)):
+            continue
+        args = (f_path, output_folder)
         mitrovic_minic_to_json_input_conversor.convert_file(args)

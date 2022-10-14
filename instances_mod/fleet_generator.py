@@ -12,16 +12,20 @@ def divide_fleet(fleet_size, urban_rural_aptitude):
     number_urban_clients = repetitions[0]
     number_rural_clients = repetitions[1]
 
-    urban_fleet_size = math.ceil(
-                        (number_urban_clients / 
-                        len(urban_rural_aptitude))
-                        * fleet_size
-                    )
+    rural_ratio = (
+        number_rural_clients / 
+        len(urban_rural_aptitude)
+    )
+
 
     rural_fleet_size = math.ceil(
-                        (number_rural_clients / 
-                        len(urban_rural_aptitude))
-                        * fleet_size
+                        rural_ratio
+                        * (fleet_size * correction_value)
+                    )
+    urban_fleet_size = math.ceil(
+                        fleet_size -
+                        rural_ratio
+                        * (fleet_size * correction_value)
                     )
 
     return {
@@ -33,7 +37,6 @@ def divide_fleet(fleet_size, urban_rural_aptitude):
 def generate_fleet_size(n_vehicles_solution):
     fleet_size = math.ceil(
         n_vehicles_solution
-        * correction_value
     )
     return fleet_size
 

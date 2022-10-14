@@ -68,9 +68,10 @@ def verify_all_solutions(
 if __name__=="__main__":
     args = sys.argv[1:]
 
-    if (len(args) < 2):
+    if (len(args) < 3):
         text = "Needs input dir with test instances,"
         text += " an output dir and the problem to be solved"
+        print(text)
         exit(0)
 
     host_data = {
@@ -100,7 +101,7 @@ if __name__=="__main__":
     # files_names = [files_names[2]]
     # files_names = files_names[:5]
     
-    n_runs = 2
+    n_runs = 5
 
     time_limit = 600
 

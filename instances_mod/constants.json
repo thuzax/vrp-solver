@@ -5,6 +5,6 @@
     "save_figure" : true,
     "show_figure" : false,
     "density_clustering_per_distance" : 0.00045,
-    "correction_value": 1.0
+    "correction_value": 3
 
 }

@@ -41,6 +41,14 @@ if __name__ == "__main__":
 
     files_names = os.listdir(input_folder)
 
+    new_files_names = []
+
+    for file_name in files_names:
+        if os.path.isfile(os.path.join(input_folder, file_name)):
+            new_files_names.append(file_name)
+    files_names = new_files_names
+
+
     print(files_names)
 
     if (not os.path.exists(output_folder)):
