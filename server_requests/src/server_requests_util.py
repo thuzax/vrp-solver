@@ -75,7 +75,6 @@ def write_on_log(text):
 
 def create_time_slices(time_slice_size, horizon):
     number_of_time_slices = int(horizon / time_slice_size)
-    
     time_slices = []
     for i in range(number_of_time_slices):
         time_slice = (i*time_slice_size, (i+1)*time_slice_size)
