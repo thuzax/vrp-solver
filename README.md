@@ -9,8 +9,15 @@ The algorithm implemented for solving the problem was inspired by Sartori & Buri
 Download the code via git:
 
 ```
-git clone https://github.com/thuzax/vrp-solver/edit/dev
+git clone https://github.com/thuzax/vrp-solver/
 ```
+
+Change to the most updated branch:
+
+```
+git checkout dev
+```
+
 
 Install python packages:
 
