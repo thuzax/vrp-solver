@@ -37,7 +37,7 @@ For each problem this file sets a configuration file. Our experiments were condu
 
 For DPDPTW considering an unlimited non-capacitaded fleet we conducted experiments with two insertion algorithms in the constructive phase. The fist considers a [configuration file with first feasible insertion](https://github.com/thuzax/vrp-solver/blob/dev/server_solver/configurations/config_dpdptw_no_cap_with_ages.json) and the second uses a [configuration file with k-regret](https://github.com/thuzax/vrp-solver/blob/dev/server_solver/configurations/config_dpdptw_no_cap_with_ages_k_regret.json). The DPDPTW/UR was also solved with [first feasible insertion](https://github.com/thuzax/vrp-solver/blob/dev/server_solver/configurations/config_dpdptw_no_cap_with_ages_heter_fleet.json) and [k-regret](https://github.com/thuzax/vrp-solver/blob/dev/server_solver/configurations/config_dpdptw_no_cap_with_ages_k_regret_heter_fleet.json).
 
-**Important**: Our experiments were conducted with Gurobi solver. If your experiments will be conducted with CBC the "sovler_code" for "SetPartitionModel" entry must be edited to "CBC".
+**Important**: Our experiments were conducted with Gurobi solver. If your experiments will use the CBC the results can be different. Additionally, the "sovler_code" key of "SetPartitionModel" entry must be changed to "CBC" in the related configuration file.
 
 With the configuration files defined, the test server can be initialized. In [server_solver](https://github.com/thuzax/vrp-solver/tree/dev/server_solver) directory execute the following command:
 
