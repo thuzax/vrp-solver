@@ -63,6 +63,4 @@ SARTORI, Carlo S.; BURIOL, Luciana S. A study on the pickup and delivery problem
 
 [Mayron César de Oliveira Moreira](https://github.com/mayronmoreira)
 
-[Miguel Rodrigues](https://github.com/ElMigu17)
-
 [Franklina Maria Bragion de Toledo](https://sites.icmc.usp.br/fran/wiki/pmwiki.php)
